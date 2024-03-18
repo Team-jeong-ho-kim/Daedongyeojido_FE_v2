@@ -13,6 +13,9 @@ function MainRouter() {
         <Route path="/" element={<MainPage />} />
         <Route path="/My" element={<MyPage />} />
       </Routes>
+      <Routes>
+        <Route path="/My" element={<MyPage />} />
+      </Routes>
     </BrowserRouter>
   );
 }
