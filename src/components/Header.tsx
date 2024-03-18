@@ -147,7 +147,7 @@ const Oxb = styled.div`
   width: 520px;
   height: 100%;
   gap: 74px;
-  margin-left: 125px;
+  margin-right: 125px;
 `;
 
 const And = styled.div`
