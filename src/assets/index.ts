@@ -5,3 +5,4 @@ export { default as DAEDAE } from "./img/daedaedae.png";
 export { default as ProfileNone } from "./img/Profile.png";
 export { default as Edit } from "./img/Edit.png";
 export { default as DownArrow } from "./img/DownArrow.png";
+export { default as Close } from "./img/Close.png";

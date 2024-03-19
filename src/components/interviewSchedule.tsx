@@ -2,11 +2,16 @@ import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import { LeftArrowBold } from "../assets";
 import { RightArrowBold } from "../assets";
+import { Close } from "../assets";
 
 interface Day {
   date: number;
   month: number;
   year: number;
+}
+
+interface Props {
+  handleIvsdSelectToggle: () => void;
 }
 
 const daysInMonth = (month: number, year: number): number => {
@@ -32,7 +37,7 @@ const monthNames: string[] = [
   "December",
 ];
 
-const interviewSchedule: React.FC = () => {
+const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -44,6 +49,10 @@ const interviewSchedule: React.FC = () => {
   const [currentYear, setCurrentYear] = useState<number>(
     new Date().getFullYear()
   );
+
+  const handleClose = () => {
+    handleIvsdSelectToggle();
+  };
 
   const handleDateClick = (
     date: number,
@@ -214,6 +223,7 @@ const interviewSchedule: React.FC = () => {
           </InterviewT>
         </Interview>
         <Sumbit>신청하기</Sumbit>
+        <X src={Close} onClick={handleClose} />
       </Database>
     </Container>
   );
@@ -241,6 +251,16 @@ const Container = styled.div`
   background-color: #fff;
   user-select: none;
   animation: ${fadeIn} 0.5s;
+  z-index: 1000;
+`;
+
+const X = styled.img`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
 `;
 
 const Calender = styled.div`
@@ -372,6 +392,7 @@ const Database = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
+  position: relative;
 `;
 
 const Interview = styled.div`
