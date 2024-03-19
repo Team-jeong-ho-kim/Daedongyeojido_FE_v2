@@ -13,7 +13,7 @@ const Header = () => {
         <Oxb>
           <Xob>
             <Mypage href="/My">마이페이지</Mypage>
-            <Aplpage>지원내역</Aplpage>
+            <Noticepage>공고</Noticepage>
             <Clubpage>동아리</Clubpage>
           </Xob>
           <And>
@@ -102,11 +102,11 @@ const Mypage = styled.a`
   }
 `;
 
-const Aplpage = styled.a`
+const Noticepage = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
+  width: 66px;
   height: 40px;
   flex-shrink: 0;
   border-radius: 8px;
@@ -130,7 +130,7 @@ const Clubpage = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 66px;
+  width: 82px;
   height: 40px;
   flex-shrink: 0;
   border-radius: 8px;
@@ -157,7 +157,7 @@ const Oxb = styled.div`
   width: 520px;
   height: 100%;
   gap: 74px;
-  margin-right: 125px;
+  margin-right: 105px;
   @media screen and (max-width: 1024px) {
     display: none;
   }

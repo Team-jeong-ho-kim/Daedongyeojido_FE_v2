@@ -7,10 +7,9 @@ import { Edit } from "../assets";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
-  const [myProfile, setMyProfile] = useState<File | null>(null);
-  const [getApply, setGetApply] = useState<Number>(1);
+  const [getApply, setGetApply] = useState<Boolean>(true);
   const [getAlarm, setGetAlarm] = useState<Boolean>(true);
-  const [getAnnounce, setGetAnnounce] = useState<Number>(1);
+  const [getAnnounce, setGetAnnounce] = useState<Boolean>(true);
   const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
   const [image, setImage] = useState<string | null>(null);
 
@@ -23,8 +22,9 @@ const MyPage = () => {
 
   const handleFileInputChange = (event: any) => {
     const selectedImage = event.target.files[0];
+    const imageURL = URL.createObjectURL(selectedImage);
     if (selectedImage) {
-      setImage(URL.createObjectURL(selectedImage));
+      setImage(imageURL);
     }
   };
 
@@ -121,7 +121,7 @@ const MyPage = () => {
             {page == "ApplyDetail" ? (
               <>
                 <MyName>지원내역</MyName>
-                {getApply == 0 ? (
+                {getApply == false ? (
                   <NoApply>
                     <NoAppl>지원내역이 없습니다.</NoAppl>
                     <Opply>
@@ -256,7 +256,7 @@ const MyPage = () => {
             {page == "Announce" ? (
               <>
                 <MyName>공지사항</MyName>
-                {getAnnounce == 0 ? (
+                {getAnnounce == false ? (
                   <NoAnno>
                     <NoAppl>공지사항이 없습니다.</NoAppl>
                     <Opply>공지사항이 생기면 이곳에서 확인 가능해요.</Opply>
