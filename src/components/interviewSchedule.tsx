@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import { LeftArrowBold } from "../assets";
 import { RightArrowBold } from "../assets";
@@ -219,16 +219,28 @@ const interviewSchedule: React.FC = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-32px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   width: 839px;
   height: 480px;
   border: 3px solid #e1e1e1;
   border-radius: 10px;
-  margin: 150px;
   padding: 32px;
   gap: 32px;
+  background-color: #fff;
   user-select: none;
+  animation: ${fadeIn} 0.5s;
 `;
 
 const Calender = styled.div`
@@ -251,7 +263,7 @@ const Header = styled.div`
 const CurMonth = styled.div`
   width: auto;
   padding: 0;
-  font-family: "DXHimchanMedium";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 24px;
   font-weight: bold;
   line-height: 24px;
@@ -270,7 +282,7 @@ const Weekdays = styled.div`
 
 const Weekday = styled.div`
   display: flex;
-  font-family: "DXHimchanMedium";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
   font-weight: Medium;
   line-height: 16px;
@@ -284,7 +296,7 @@ const Weekday = styled.div`
 
 const Sunday = styled.div`
   display: flex;
-  font-family: "DXHimchanLight";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
   font-weight: Medium;
   line-height: 16px;
@@ -298,7 +310,7 @@ const Sunday = styled.div`
 
 const Saturday = styled.div`
   display: flex;
-  font-family: "DXHimchanLight";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
   font-weight: Medium;
   line-height: 16px;
@@ -325,21 +337,25 @@ const Day = styled.div<{
   isNextMonth?: boolean;
 }>`
   display: flex;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
   width: 40px;
-  height: 36px;
-  margin-bottom: -1px;
+  height: 40px;
+  margin-bottom: -4px;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: ${({ isSelected }) => (isSelected ? "#000" : "#fff")};
+  background-color: ${({ isSelected }) => (isSelected ? "#fe4650" : "#fff")};
   border: none;
   border-radius: 20px;
   cursor: pointer;
   color: ${({ isSelected, isSunday, isSaturday, isntCurrent }) => {
     if (isntCurrent) return "#e1e1e1";
     if (isSelected) return "#fff";
-    if (isSunday) return "#ff0000";
-    if (isSaturday) return "#0000ff";
+    if (isSunday) return "#ee4747";
+    if (isSaturday) return "#6161ce";
     return "#000";
   }};
 `;
@@ -376,20 +392,21 @@ const InterviewD = styled.div`
 
 const Title = styled.p`
   width: 100%;
-  font-family: "DXHimchanBold";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   color: #000;
   line-height: 20px;
 `;
 
 const Content = styled.p`
   width: auto;
-  font-family: "DXHimchanMedium";
+  font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
-  font-weight: Medium;
+  font-weight: 700;
   color: #000;
   line-height: 16px;
+  height: 20px;
 `;
 
 const InterviewT = styled.div`
@@ -400,15 +417,16 @@ const InterviewT = styled.div`
 `;
 
 const Sumbit = styled.button`
-  font-family: "DXHimchanMedium";
-  font-size: 24px;
-  line-height: 24px;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
   color: #fff;
-  width: 166px;
-  height: 48px;
-  background-color: #000;
+  width: 119px;
+  height: 29px;
+  background-color: #fe4650;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   &:hover {
     cursor: pointer;
   }
@@ -424,17 +442,17 @@ const Times = styled.div`
 
 const Time = styled.div`
   display: flex;
-  width: 160px;
+  width: 159.5px;
   height: 32px;
   margin-bottom: -2px;
-  font-family: "DXHimchanMedium";
-  font-size: 16px;
-  font-weight: Medium;
-  line-height: 16px;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
   text-align: center;
   justify-content: center;
   align-items: center;
-  border: 1px solid #6e6e87;
+  border: 1px solid #eceef1;
   border-radius: 5px;
 `;
 

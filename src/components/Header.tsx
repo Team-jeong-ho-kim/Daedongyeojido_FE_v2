@@ -6,13 +6,13 @@ const Header = () => {
   return (
     <Container>
       <Box>
-        <Home>
+        <Home href="/">
           <Logo src={DAELogo} />
           <DAE src={DAEDAE} />
         </Home>
         <Oxb>
           <Xob>
-            <Mypage>마이페이지</Mypage>
+            <Mypage href="/My">마이페이지</Mypage>
             <Aplpage>지원내역</Aplpage>
             <Clubpage>동아리</Clubpage>
           </Xob>
@@ -36,6 +36,7 @@ const Container = styled.div`
   z-index: 100;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 
 const Box = styled.div`
@@ -46,7 +47,7 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const Home = styled.div`
+const Home = styled.a`
   display: flex;
   justify-content: center;
   width: 156px;
@@ -77,7 +78,10 @@ const Xob = styled.div`
   gap: 18px;
 `;
 
-const Mypage = styled.button`
+const Mypage = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 98px;
   height: 40px;
   flex-shrink: 0;
@@ -98,7 +102,10 @@ const Mypage = styled.button`
   }
 `;
 
-const Aplpage = styled.button`
+const Aplpage = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 82px;
   height: 40px;
   flex-shrink: 0;
@@ -119,7 +126,10 @@ const Aplpage = styled.button`
   }
 `;
 
-const Clubpage = styled.button`
+const Clubpage = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 66px;
   height: 40px;
   flex-shrink: 0;
@@ -148,6 +158,9 @@ const Oxb = styled.div`
   height: 100%;
   gap: 74px;
   margin-right: 125px;
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const And = styled.div`
@@ -163,7 +176,10 @@ const And = styled.div`
   line-height: normal;
 `;
 
-const Login = styled.button`
+const Login = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 79px;
   height: 45px;
   flex-shrink: 0;
@@ -183,7 +199,10 @@ const Login = styled.button`
   }
 `;
 
-const Report = styled.button`
+const Report = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 95px;
   height: 45px;
   flex-shrink: 0;
