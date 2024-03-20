@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import { DAELogo } from "../assets";
-import { DAEDAE } from "../assets";
+import { DAELogo } from "../../assets";
+import { DAEDAE } from "../../assets";
 
-const Header = () => {
+interface HeaderProps {
+  onLoginToggle: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
   return (
     <Container>
       <Box>
@@ -17,7 +21,8 @@ const Header = () => {
             <Clubpage>동아리</Clubpage>
           </Xob>
           <And>
-            <Login>로그인</Login>|<Report>문의하기</Report>
+            <Login onClick={onLoginToggle}>로그인</Login>|
+            <Report>문의하기</Report>
           </And>
         </Oxb>
       </Box>
@@ -27,7 +32,7 @@ const Header = () => {
 
 const Container = styled.div`
   display: flex;
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100vw;
   height: 60px;
