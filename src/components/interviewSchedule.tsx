@@ -222,7 +222,7 @@ const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
             </Times>
           </InterviewT>
         </Interview>
-        <Sumbit>신청하기</Sumbit>
+        <Submit>신청하기</Submit>
         <X src={Close} onClick={handleClose} />
       </Database>
     </Container>
@@ -437,7 +437,7 @@ const InterviewT = styled.div`
   flex-direction: column;
 `;
 
-const Sumbit = styled.button`
+const Submit = styled.button`
   font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
   font-weight: 700;
