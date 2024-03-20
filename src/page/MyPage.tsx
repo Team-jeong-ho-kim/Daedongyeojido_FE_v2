@@ -5,7 +5,11 @@ import INT from "../components/MyPage/interviewSchedule";
 import { DownArrow, ProfileNone } from "../assets";
 import { Edit } from "../assets";
 import { Link } from "../assets";
+<<<<<<< HEAD
 import Login from "../components/Header/Login";
+=======
+import Login from "../components/Login";
+>>>>>>> 1cdb060d6f5e4c8ce5200c81d049945626472228
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
