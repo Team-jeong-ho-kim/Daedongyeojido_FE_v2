@@ -4,6 +4,8 @@ import Header from "../components/Header";
 import INT from "../components/interviewSchedule";
 import { DownArrow, ProfileNone } from "../assets";
 import { Edit } from "../assets";
+import { Link } from "../assets";
+import Login from "../components/Login";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
@@ -12,6 +14,18 @@ const MyPage = () => {
   const [getAnnounce, setGetAnnounce] = useState<Boolean>(true);
   const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
   const [image, setImage] = useState<string | null>(null);
+  const [ghLink, setGhLink] = useState<URL>(
+    "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
+  );
+  const [ghLink2, setGhLink2] = useState<string>(
+    "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
+  );
+  const [profileEdit, setProfileEdit] = useState<Boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+
+  const handleLoginToggle = () => {
+    setIsLoginVisible(!isLoginVisible);
+  };
 
   const handlePfEdit = () => {
     const fileInput: HTMLElement | null = document.getElementById("fileInput");
@@ -38,44 +52,61 @@ const MyPage = () => {
     if (lastPage != page) setPage(lastPage);
   };
 
+  const handleLink = () => {
+    window.open(ghLink, "_blank");
+  };
+
+  const handleProfileEdit = () => {
+    setProfileEdit(!profileEdit);
+  };
+
   return (
     <>
       <Container>
-        <Header />
+        <Header onLoginToggle={handleLoginToggle} />
         <CenterBox>
           <LeftBox>
             <MyInfo>
-              <MyInfo_basic>
-                <MyMainInfo>
-                  <MyName>이일영</MyName>
-                  <MyClass>
-                    <MyClub>
-                      동아리<MyCClub>대동여지도</MyCClub>
-                    </MyClub>
-                    <MyClub>
-                      학번<MyCClub>2100</MyCClub>
-                    </MyClub>
-                  </MyClass>
-                </MyMainInfo>
-                <ProfileEdit>
-                  <Edits onClick={handlePfEdit}>
-                    <EditButton src={Edit} />
-                  </Edits>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    id="fileInput"
-                    onChange={handleFileInputChange}
-                    required
-                  />
-                  {image ? (
-                    <Profile src={image} />
-                  ) : (
-                    <Profile src={ProfileNone} />
-                  )}
-                </ProfileEdit>
-              </MyInfo_basic>
+              <MyInfoplus>
+                <MyInfo_basic>
+                  <MyMainInfo>
+                    <MyName>이일영</MyName>
+                    <MyClass>
+                      <MyClub>
+                        동아리<MyCClub>대동여지도</MyCClub>
+                      </MyClub>
+                      <MyClub>
+                        학번<MyCClub>2100</MyCClub>
+                      </MyClub>
+                    </MyClass>
+                  </MyMainInfo>
+                  <ProfileEdit>
+                    <Edits onClick={handlePfEdit}>
+                      <EditButton src={Edit} />
+                    </Edits>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      id="fileInput"
+                      onChange={handleFileInputChange}
+                      required
+                    />
+                    {image ? (
+                      <Profile src={image} />
+                    ) : (
+                      <Profile src={ProfileNone} />
+                    )}
+                  </ProfileEdit>
+                </MyInfo_basic>
+                <MyN>"밀과 벼와 감자와 고구마와 옥수수"</MyN>
+                <LinkerBox>
+                  <Linker src={Link} onClick={handleLink} />
+                  <MyLink href={ghLink2} target="_blank">
+                    {ghLink2}
+                  </MyLink>
+                </LinkerBox>
+              </MyInfoplus>
               <B></B>
               <MyInfo_Menu>
                 <ApplyDetail>
@@ -118,7 +149,7 @@ const MyPage = () => {
             </MyInfo>
           </LeftBox>
           <RightBox>
-            {page == "ApplyDetail" ? (
+            {page == "ApplyDetail" && (
               <>
                 <MyName>지원내역</MyName>
                 {getApply == false ? (
@@ -191,10 +222,8 @@ const MyPage = () => {
                   </Applys>
                 )}
               </>
-            ) : (
-              false
             )}
-            {page == "Alarm" ? (
+            {page == "Alarm" && (
               <>
                 <MyName>알림</MyName>
                 {getAlarm == false ? (
@@ -250,10 +279,8 @@ const MyPage = () => {
                   </AlarmCenter>
                 )}
               </>
-            ) : (
-              false
             )}
-            {page == "Announce" ? (
+            {page == "Announce" && (
               <>
                 <MyName>공지사항</MyName>
                 {getAnnounce == false ? (
@@ -330,8 +357,6 @@ const MyPage = () => {
                   </AnnounceCenter>
                 )}
               </>
-            ) : (
-              false
             )}
           </RightBox>
         </CenterBox>
@@ -341,6 +366,8 @@ const MyPage = () => {
           <INT handleIvsdSelectToggle={handleIvsdSelectToggle} />
         </Container2>
       ) : null}
+      {profileEdit ? true : false}
+      {isLoginVisible ? <Login onLoginToggle={handleLoginToggle} /> : null}
     </>
   );
 };
@@ -367,6 +394,7 @@ const spin = keyframes`
 
 const Container = styled.div`
   width: 100vw;
+  padding-top: 60px;
   position: relative;
 `;
 
@@ -377,7 +405,7 @@ const Container2 = styled.div`
   justify-content: flex-end;
   padding: 200px;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 110;
@@ -712,7 +740,6 @@ const AnnounceContent = styled.p`
 const MyInfo = styled.div`
   display: flex;
   width: 299px;
-  height: 328px;
   gap: 16px;
   flex-direction: column;
 `;
@@ -723,6 +750,47 @@ const MyInfo_basic = styled.div`
   align-items: center;
   width: 100%;
   height: 80px;
+`;
+
+const MyInfoplus = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1px;
+`;
+
+const MyN = styled.p`
+  color: #4e555b;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  font-family: "Spoqa Han Sans Neo";
+  width: 100%;
+  margin: 4px 0 2px;
+`;
+
+const LinkerBox = styled.div`
+  display: flex;
+`;
+
+const Linker = styled.img`
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  cursor: pointer;
+`;
+
+const MyLink = styled.a`
+  color: #89939c;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 10px;
+  height: 13px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const MyMainInfo = styled.div`

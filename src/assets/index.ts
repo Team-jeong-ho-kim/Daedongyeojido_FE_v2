@@ -6,3 +6,4 @@ export { default as ProfileNone } from "./img/Profile.png";
 export { default as Edit } from "./img/Edit.png";
 export { default as DownArrow } from "./img/DownArrow.png";
 export { default as Close } from "./img/Close.png";
+export { default as Link } from "./img/Link.png";
