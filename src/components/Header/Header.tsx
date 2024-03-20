@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { DAELogo } from "../assets";
-import { DAEDAE } from "../assets";
+import { DAELogo } from "../../assets";
+import { DAEDAE } from "../../assets";
 
 interface HeaderProps {
   onLoginToggle: () => void;

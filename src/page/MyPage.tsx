@@ -1,11 +1,11 @@
 import styled, { keyframes } from "styled-components";
 import { useState } from "react";
-import Header from "../components/Header";
-import INT from "../components/interviewSchedule";
+import Header from "../components/Header/Header";
+import INT from "../components/MyPage/interviewSchedule";
 import { DownArrow, ProfileNone } from "../assets";
 import { Edit } from "../assets";
 import { Link } from "../assets";
-import Login from "../components/Login";
+import Login from "../components/Header/Login";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");

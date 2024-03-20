@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { useState } from "react";
-import { LeftArrowBold } from "../assets";
-import { RightArrowBold } from "../assets";
-import { Close } from "../assets";
+import { LeftArrowBold } from "../../assets";
+import { RightArrowBold } from "../../assets";
+import { Close } from "../../assets";
 
 interface Day {
   date: number;

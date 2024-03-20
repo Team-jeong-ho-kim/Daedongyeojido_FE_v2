@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useState } from "react";
-import Header from "../components/Header";
-import Login from "../components/Login";
+import Header from "../components/Header/Header";
+import Login from "../components/Header/Login";
 
 const Mainpage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
@@ -16,7 +16,7 @@ const Mainpage = () => {
       <CenterBox>
         <Bo>어쨌거나 메인임</Bo>
       </CenterBox>
-      {isLoginVisible ? <Login onLoginToggle={handleLoginToggle} /> : null}
+      {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
     </Container>
   );
 };
