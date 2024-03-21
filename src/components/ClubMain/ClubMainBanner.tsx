@@ -13,11 +13,13 @@ export const ClubMainBanner = () => {
             <And>/</And>
             <TotalNumber>13</TotalNumber>
           </NumberWrapper>
-          <ArrowImg src={leftarrowimg} alt="왼쪽 화살표" />
-          <ArrowImg src={rightarrowimg} alt="오른쪽 화살표" />
+          <ArrowWrapper>
+            <ArrowImg src={leftarrowimg} alt="왼쪽 화살표" />
+            <ArrowImg src={rightarrowimg} alt="오른쪽 화살표" />
+          </ArrowWrapper>
         </MoveBanner>
         <ExplainWrapper>
-          <BannerExplain>쿠쿠루삥뽕</BannerExplain>
+          <BannerExplain>ㅏㅇ</BannerExplain>
         </ExplainWrapper>
       </BannerBar>
     </Container>
@@ -38,7 +40,7 @@ const BannerBar = styled.div`
   gap: 20px;
   width: 100%;
   height: 64px;
-  padding-left: 15%;
+  padding-left: 10.5%;
   border-bottom: 1px solid #e9ecef;
 `;
 
@@ -75,6 +77,11 @@ const TotalNumber = styled.p`
   font-weight: 500;
 `;
 
+const ArrowWrapper = styled.div`
+  display: flex;
+  gap: 22px;
+`;
+
 const ArrowImg = styled.img`
   width: 5px;
   height: 8px;
@@ -90,10 +97,11 @@ const BannerExplain = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90px;
+  width: auto;
   height: 38px;
   border: 1px solid #ced4da;
   border-radius: 30px;
   color: #333b3d;
   font-size: 18px;
+  padding: 9px 20px;
 `;

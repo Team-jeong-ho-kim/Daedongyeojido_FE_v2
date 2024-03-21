@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { DAEDAB } from "../../assets";
-import { DAELogo } from "../../assets";
+import Logo from "../../assets/img/PNG/MainLogo.png";
+import NameLogo from "../../assets/img/PNG/NameWhite.png";
 
 const Footer = () => {
   return (
     <Container>
       <Box>
         <DaeBox href="/">
-          <Daedae src={DAELogo} />
-          <Dae src={DAEDAB} />
+          <Daedae src={Logo} />
+          <Dae src={NameLogo} />
         </DaeBox>
         | <D>대동여지도</D> | <D>DaeDongYeoJiDo</D>
       </Box>

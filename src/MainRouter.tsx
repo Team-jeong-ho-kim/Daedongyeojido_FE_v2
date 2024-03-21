@@ -1,8 +1,8 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { GlobalStyle } from "./GlobalStyle.style";
-import { CheckClubPage } from "./page/club/CheckClubPage";
-import MainPage from "./page/MainPage";
+import Mainpage from "./page/MainPage";
 import MyPage from "./page/MyPage";
+import { CheckClubPage } from "./page/club/CheckClubPage";
 
 function MainRouter() {
   return (
@@ -10,10 +10,7 @@ function MainRouter() {
       <GlobalStyle />
       <Routes>
         <Route path="/CheckClub" element={<CheckClubPage />} />
-        <Route path="/" element={<MainPage />} />
-        <Route path="/My" element={<MyPage />} />
-      </Routes>
-      <Routes>
+        <Route path="/" element={<Mainpage />} />
         <Route path="/My" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
