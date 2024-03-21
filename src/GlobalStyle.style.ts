@@ -21,7 +21,7 @@ time, mark, audio, video, input, button, select, option, textarea {
   font: inherit;
   vertical-align: baseline;
   cursor: default;
-  font-family: 'DXhimchanMedium';
+  font-family: 'Spoqa Han Sans Neo';
 }
 
 article, aside, details, figcaption, figure,
@@ -34,6 +34,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  overflow-x: hidden;
 }
 menu, ol, ul {
   list-style: none;
@@ -55,7 +56,7 @@ table {
    outline: none;
 }
 body {
-  font-family: 'DXhimchanMedium';
+  font-family: 'Spoqa Han Sans Neo';
   color:black;
   line-height: 1.2;
 
