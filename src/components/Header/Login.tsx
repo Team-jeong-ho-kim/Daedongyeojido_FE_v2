@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import LoginInput from "../LoginInput";
+import LoginInput from "./LoginInput";
 import { useState } from "react";
 
 const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
