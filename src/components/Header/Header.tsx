@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { DAELogo } from "../../assets";
-import { DAEDAE } from "../../assets";
+import NameLogo from "../../assets/img/PNG/NameBlack.png";
+import MainLogo from "../../assets/img/PNG/MainLogo.png";
 
 interface HeaderProps {
   onLoginToggle: () => void;
@@ -11,8 +11,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
     <Container>
       <Box>
         <Home href="/">
-          <Logo src={DAELogo} />
-          <DAE src={DAEDAE} />
+          <Logo src={MainLogo} />
+          <DAE src={NameLogo} />
         </Home>
         <Oxb>
           <Xob>

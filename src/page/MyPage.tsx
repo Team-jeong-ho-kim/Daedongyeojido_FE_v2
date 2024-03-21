@@ -2,9 +2,10 @@ import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../components/Header/Header";
 import INT from "../components/MyPage/interviewSchedule";
-import { DownArrow, ProfileNone } from "../assets";
-import { Edit } from "../assets";
-import { Link } from "../assets";
+import DownArrow from "../assets/img/PNG/DownArrow.png";
+import ProfileNone from "../assets/img/PNG/Profile.png";
+import Edit from "../assets/img/PNG/Edit.png";
+import Link from "../assets/img/PNG/Link.png";
 import Login from "../components/Header/Login";
 
 const MyPage = () => {

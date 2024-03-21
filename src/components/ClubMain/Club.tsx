@@ -130,6 +130,7 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fill, 223px 223px 223px 223px 223px 223px);
   column-gap: 30px;
   row-gap: 30px;
+  padding: 0px 20%;
   justify-content: space-around;
 `;
 

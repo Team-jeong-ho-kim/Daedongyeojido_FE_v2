@@ -16,7 +16,12 @@ export const SmallHeader = () => {
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
   gap: 7px;
+  border: none;
+  padding-left: 10.5%;
 `;
 
 const SmallLogoImg = styled.img`
