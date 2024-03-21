@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../components/Header/Header";
+import Footer from "../components/MainPage/Footer";
 import Login from "../components/Header/Login";
 
 const Mainpage = () => {
@@ -17,6 +18,7 @@ const Mainpage = () => {
         <Bo>어쨌거나 메인임</Bo>
       </CenterBox>
       {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
+      <Footer />
     </Container>
   );
 };
