@@ -51,5 +51,5 @@ export type AlarmPostType = {
 // announcement
 export type AnnouncementType = {
   title: string;
-  content: string;
+  contents: string;
 };
