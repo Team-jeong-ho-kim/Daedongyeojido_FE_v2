@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import LoginInput from "./LoginInput";
 import { useState } from "react";
 import { login } from "../../apis/auth";
+import { Cookie } from "../../utils/cookie";
 
 const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
   const [ID, setID] = useState("");
@@ -13,11 +14,13 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
 
   const handleLogin = () => {
     login({
-      xquareId: ID,
+      account_id: ID,
       password: password,
     })
       .then((res) => {
-        console.log(res.data);
+        Cookie.set("accessToken", res.data.accessToken);
+        Cookie.set("refreshToken", res.data.refreshToken);
+        handleClose();
       })
       .catch((err) => {
         console.log(err);
