@@ -8,5 +8,5 @@ export const login = async (data: LoginType) => {
 };
 
 export const reissue = async (refreshToken: string) => {
-  return await instance.patch("/auth/reissue", { token: refreshToken });
+  return await instance.patch("/auth/token", { token: refreshToken });
 };
