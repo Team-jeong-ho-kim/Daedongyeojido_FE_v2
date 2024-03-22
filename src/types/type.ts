@@ -21,7 +21,7 @@ type PartType =
 
 // auth
 export interface LoginType {
-  xquareId: string;
+  account_id: string;
   password: string;
 }
 
