@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import LoginInput from "./LoginInput";
 import { useState } from "react";
+import { login } from "../../apis/auth";
 
 const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
   const [ID, setID] = useState("");
@@ -10,27 +11,40 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
     onLoginToggle();
   };
 
+  const handleLogin = () => {
+    login({
+      xquareId: ID,
+      password: password,
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Container onClick={handleClose}></Container>
       <LoginBox>
         <Daedae>대동여지도</Daedae>
         <LoginInput
-          placeholder="아이디"
+          placeholder='아이디'
           value={ID}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setID(e.target.value)
           }
         />
         <LoginInput
-          type="password"
-          placeholder="비밀번호"
+          type='password'
+          placeholder='비밀번호'
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
         />
-        <LoginButton>로그인</LoginButton>
+        <LoginButton onClick={handleLogin}>로그인</LoginButton>
       </LoginBox>
     </>
   );
