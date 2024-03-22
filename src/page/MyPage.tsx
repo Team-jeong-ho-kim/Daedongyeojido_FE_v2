@@ -1,18 +1,20 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import INT from "../components/MyPage/interviewSchedule";
-import DownArrow from "../assets/img/PNG/DownArrow.png";
 import ProfileNone from "../assets/img/PNG/Profile.png";
 import Edit from "../assets/img/PNG/Edit.png";
 import Link from "../assets/img/PNG/Link.png";
 import Login from "../components/Header/Login";
+import { getAnnouncement } from "../apis/announcement";
+import { AnnouncementType } from "../types/type";
+import { AnnounceBox } from "../components/MyPage/Announce";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
   const [getApply, setGetApply] = useState<Boolean>(true);
   const [getAlarm, setGetAlarm] = useState<Boolean>(true);
-  const [getAnnounce, setGetAnnounce] = useState<Boolean>(true);
+  const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
   const [image, setImage] = useState<string | null>(null);
   const [ghLink, setGhLink] = useState<URL>(
@@ -60,6 +62,18 @@ const MyPage = () => {
   const handleProfileEdit = () => {
     setProfileEdit(!profileEdit);
   };
+
+  useEffect(() => {
+    getAnnouncement()
+      .then((res) => {
+        console.log(res.data);
+
+        setGetAnnounce(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -112,13 +126,13 @@ const MyPage = () => {
               <MyInfo_Menu>
                 <ApplyDetail>
                   <Ball1
-                    isApplyDetail={page == "ApplyDetail" ? true : false}
-                  ></Ball1>
+                    isApplyDetail={
+                      page == "ApplyDetail" ? true : false
+                    }></Ball1>
                   <Text1
                     isApplyDetail={page == "ApplyDetail" ? true : false}
                     id="ApplyDetail"
-                    onClick={handlePage}
-                  >
+                    onClick={handlePage}>
                     지원내역
                   </Text1>
                 </ApplyDetail>
@@ -127,8 +141,7 @@ const MyPage = () => {
                   <Text2
                     isAlarm={page == "Alarm" ? true : false}
                     id="Alarm"
-                    onClick={handlePage}
-                  >
+                    onClick={handlePage}>
                     알림
                   </Text2>
                 </Alarm>
@@ -137,8 +150,7 @@ const MyPage = () => {
                   <Text3
                     isAnnounce={page == "Announce" ? true : false}
                     id="Announce"
-                    onClick={handlePage}
-                  >
+                    onClick={handlePage}>
                     공지사항
                   </Text3>
                 </Announce>
@@ -240,8 +252,7 @@ const MyPage = () => {
                         <AlarmPC>노네임드</AlarmPC>
                         <AlarmPassed>서류합격</AlarmPassed>
                         <InterviewScheduleSelect
-                          onClick={() => setIvsdSelect(!ivsdSelect)}
-                        >
+                          onClick={() => setIvsdSelect(!ivsdSelect)}>
                           면접 시간 선택
                         </InterviewScheduleSelect>
                       </AlarmName>
@@ -267,8 +278,7 @@ const MyPage = () => {
                         <AlarmPC>대동여지도</AlarmPC>
                         <AlarmPassed>서류합격</AlarmPassed>
                         <InterviewScheduleSelect
-                          onClick={() => setIvsdSelect(!ivsdSelect)}
-                        >
+                          onClick={() => setIvsdSelect(!ivsdSelect)}>
                           면접 시간 선택
                         </InterviewScheduleSelect>
                       </AlarmName>
@@ -284,77 +294,21 @@ const MyPage = () => {
             {page == "Announce" && (
               <>
                 <MyName>공지사항</MyName>
-                {getAnnounce == false ? (
+                {getAnnounce && getAnnounce.length <= 0 ? (
                   <NoAnno>
                     <NoAppl>공지사항이 없습니다.</NoAppl>
                     <Opply>공지사항이 생기면 이곳에서 확인 가능해요.</Opply>
                   </NoAnno>
                 ) : (
                   <AnnounceCenter>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2024 대동여지도 신입 부원 모집 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2024 대동여지도 디자이너 구인 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2023학년도 집가고싶다 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox opened={true}>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>역대급 대충 만든 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} opened={true} />
-                      </AnnounceBox2>
-                      <AnnounceContent>
-                        상처를 치료해줄 사람 어디 없나 가만히 놔뒀다가 끊임없이
-                        덧나
-                        <br />
-                        사랑도 사람도 너무나도 겁나 혼자인게 무서워 난 잊혀질까
-                        두려워
-                        <br />
-                        언제나 외톨이 맘의 문을 닫고 슬픔을 등에 지고 살아가는
-                        바보 두 눈을 감고 두 귀를 막고 캄캄한 어둠 속에 내
-                        자신을 가둬
-                        <br />
-                        아무도 모르게 다가온 이별에 대면했을때 또다시 혼자가
-                        되는게 두려워 외면했었네 꿈에도 그리던 지나간 시간이
-                        다시금 내게로 되돌아오기를 바라며 간절한 맘으로 밤마다
-                        기도했었네
-                        <br />
-                        시위를 당기고 내 손을 떠나간 추억의 화살이 머나먼 과녁을
-                        향해서 한없이 빠르게 날아가 내게로 돌아와 달라고 내 손을
-                        붙잡아 달라고 부르고 불러도 한없이 소리쳐 대봐도 아무런
-                        대답이 없는 널
-                        <br />내 기억 속에서 너라는 사람의 존재를 완전히 지우려
-                        끝없이 몸부림쳐 봐도 매일밤 꿈에서 그대가 나타나 흐르는
-                        눈물을 닦아주는걸 나 어떡하라고 다 끄떡없다고 거짓말
-                        하라고 더는 못 참겠다고 나도 아플 땐 아프다고 슬플땐
-                        슬프다고 얼어 붙은 심장이 자꾸만 내게로 고자질해 정말로
-                        끝이라고 정말로 괜찮다고 꾹 참고 참았던 눈물이 자꾸만
-                        내게로 쏟아지네
-                      </AnnounceContent>
-                    </AnnounceBox>
+                    {getAnnounce?.map((announce) => {
+                      return (
+                        <AnnounceBox
+                          title={announce.title}
+                          contents={announce.contents}
+                        />
+                      );
+                    })}
                   </AnnounceCenter>
                 )}
               </>
@@ -675,67 +629,6 @@ const AnnounceCenter = styled.div`
   gap: 10px;
   margin-top: 86px;
   animation: ${fadeIn} 1s;
-`;
-
-const AnnounceBox = styled.div<{
-  opened?: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  width: 100%;
-  height: ${({ opened }) => (opened ? "auto" : "45px")};
-  border-bottom: 1px solid #eaecef;
-  border-radius: 5px 5px 0 0;
-  transition: box-shadow 0.2s ease, scale 0.1s;
-  &:hover {
-    scale: ${({ opened }) => (opened ? "1" : "1.01")};
-    box-shadow: 0 0.5px 0 1px #d4d6de;
-  }
-`;
-
-const AnnounceBox2 = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 45px;
-`;
-
-const Expand = styled.img<{
-  opened?: boolean;
-}>`
-  width: 32px;
-  height: 23px;
-  cursor: pointer;
-  rotate: ${({ opened }) => (opened ? "180deg" : "0deg")};
-  &:hover {
-    animation: ${spin} 0.5s;
-  }
-`;
-
-const O = styled.div`
-  background-color: #000;
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-`;
-
-const AnnounceOne = styled.div`
-  display: flex;
-  gap: 20px;
-  height: 25px;
-  align-items: center;
-`;
-
-const AnnounceContent = styled.p`
-  display: flex;
-  padding-left: 20px;
-  color: #4e5558;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
-  margin-bottom: 12px;
 `;
 
 const MyInfo = styled.div`
