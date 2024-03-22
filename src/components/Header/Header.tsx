@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import NameLogo from "../../assets/img/PNG/NameBlack.png";
-import MainLogo from "../../assets/img/PNG/MainLogo.png";
+import { NameLogo } from "../../assets";
+import { MainLogo } from "../../assets";
 
 interface HeaderProps {
   onLoginToggle: () => void;
@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
         <Oxb>
           <Xob>
             <Mypage href="/My">마이페이지</Mypage>
-            <Noticepage>공고</Noticepage>
+            <Noticepage href="/Applys">공고</Noticepage>
             <Clubpage>동아리</Clubpage>
           </Xob>
           <And>
