@@ -1,4 +1,4 @@
-type PassingResultType = "PASS" | "FAIL" | "WAIT";
+export type PassingResultType = "PASS" | "FAIL" | "WAIT";
 type AlarmKindType = "REPORT_PASS_RESULT" | "INTERVIEW_PASS_RESULT";
 type MajorType =
   | "FRONT"
@@ -26,6 +26,26 @@ export interface LoginType {
 }
 
 // user
+type MyReportType = {
+  id: number;
+  clubName: string;
+  hopeMajor: MajorType;
+  deadline: string;
+  reportPassingResult: PassingResultType;
+  interviewPassingResult: PassingResultType;
+  interviewStartTime: string;
+  interviewEndTime: string;
+};
+
+export type MyInfoType = {
+  classNumber: string;
+  name: string;
+  part: PartType;
+  myClub: string;
+  profileImageUrl: string | null;
+  major: MajorType | null;
+  myReport: MyReportType[];
+};
 
 // interview
 export type InterviewTimeType = {
