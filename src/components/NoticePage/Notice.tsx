@@ -1,17 +1,25 @@
 import styled from "styled-components";
 import { DAEBanner } from "../../assets";
+import { NoticeGetType } from "../../types/type";
 
-const Notice = () => {
+const Notice = ({
+  clubName,
+  clubImageUrl,
+  recruitDay,
+  noticeTitle,
+}: NoticeGetType) => {
   return (
     <Container>
       <Block>
-        <Banner src={DAEBanner} />
+        <Banner src={clubImageUrl ?? DAEBanner} />
         <Detail>
           <TextBox>
-            <ClubName>대동여지도</ClubName>
-            <NoticeTitle>2024 대동여지도 신입생 인원 모집</NoticeTitle>
+            <ClubName>{clubName}</ClubName>
+            <NoticeTitle>{noticeTitle}</NoticeTitle>
           </TextBox>
-          <NoticeDL>2024.04.11 ~ 2024.04.23</NoticeDL>
+          <NoticeDL>
+            {recruitDay.startDay} ~ {recruitDay.endDay}
+          </NoticeDL>
         </Detail>
       </Block>
     </Container>

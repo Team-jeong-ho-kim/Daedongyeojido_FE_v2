@@ -1,22 +1,24 @@
 import styled from "styled-components";
 import Notice from "./Notice";
+import { NoticePropsType } from "../../types/type";
 
-const NoticeBody2 = () => {
+const NoticeBody2 = ({ notices }: NoticePropsType) => {
   return (
     <>
       <NoticeBox>
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
-        <Notice />
+        {notices &&
+          notices.map((notice) => {
+            return (
+              <Notice
+                key={notice.id}
+                clubImageUrl={notice.clubImageUrl}
+                clubName={notice.clubName}
+                recruitDay={notice.recruitDay}
+                noticeTitle={notice.noticeTitle}
+                id={notice.id}
+              />
+            );
+          })}
       </NoticeBox>
     </>
   );

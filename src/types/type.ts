@@ -111,3 +111,21 @@ export type InquiryPostType = {
   inquiryType: InquiryType;
   inquiryContent: string;
 };
+
+// notice
+type RecruitDay = {
+  startDay: string;
+  endDay: string;
+};
+
+export type NoticeGetType = {
+  id: number;
+  clubName: string;
+  noticeTitle: string;
+  recruitDay: RecruitDay;
+  clubImageUrl: string;
+};
+
+export type NoticePropsType = {
+  notices: NoticeGetType[];
+};
