@@ -9,17 +9,18 @@ import Login from "../components/Header/Login";
 import { getAnnouncement } from "../apis/announcement";
 import { AnnouncementType } from "../types/type";
 import { AnnounceBox } from "../components/MyPage/Announce";
-import { getMyInfo } from "../apis/user";
+import { getMyInfo, updataProfile } from "../apis/user";
 import { MyInfoType } from "../types/type";
 import { PassingResultType } from "../types/type";
+import { handleImageChange } from "../utils/handleImageChange";
+import { createImage } from "../apis/image";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
-  const [getApply, setGetApply] = useState<Boolean>(true);
   const [getAlarm, setGetAlarm] = useState<Boolean>(true);
   const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<Blob | null>(null);
   const [ghLink, setGhLink] = useState<URL>(
     "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
   );
@@ -42,12 +43,17 @@ const MyPage = () => {
   };
 
   const handleFileInputChange = (event: any) => {
-    const selectedImage = event.target.files[0];
-    const imageURL = URL.createObjectURL(selectedImage);
-    if (selectedImage) {
-      setImage(imageURL);
-    }
+    handleImageChange(event, setImage);
   };
+
+  useEffect(() => {
+    if (!image) return;
+    createImage(image).then((res) => {
+      updataProfile(res.data.imageUrl).then(() => {
+        window.location.reload();
+      });
+    });
+  }, [image]);
 
   const handleIvsdSelectToggle = () => {
     setIvsdSelect(!ivsdSelect);
@@ -348,15 +354,6 @@ const fadeIn = keyframes`
   100% {
 	transform: translateY(0);
 	opacity: 1;
-  }
-`;
-
-const spin = keyframes`
-  0% {
-	transform: rotate(0deg);
-  }
-  100% {
-	transform: rotate(-360deg);
   }
 `;
 
