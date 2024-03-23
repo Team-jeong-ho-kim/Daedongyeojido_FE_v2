@@ -33,6 +33,7 @@ instance.interceptors.response.use(
         .then((res: any) => {
           Cookie.set("accessToken", res.data.accessToken);
           Cookie.set("refreshToken", res.data.refreshToken);
+          window.location.reload();
         })
         .catch(() => {
           Cookie.remove("accessToken");
