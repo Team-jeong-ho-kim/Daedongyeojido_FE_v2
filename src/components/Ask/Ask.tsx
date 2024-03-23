@@ -53,6 +53,7 @@ export const Ask = () => {
             placeholder="이름을 입력해주세요"
             name="name"
             onChange={onChange}
+            value={data.name}
           />
         </InputWrapper>
         <InputWrapper>
@@ -61,6 +62,7 @@ export const Ask = () => {
             placeholder="전화번호를 입력해주세요"
             name="phoneNumber"
             onChange={onChange}
+            value={data.phoneNumber}
           />
         </InputWrapper>
         <InputWrapper>
@@ -83,6 +85,7 @@ export const Ask = () => {
           placeholder="내용을 입력해주세요"
           name="inquiryContent"
           onChange={onAreaChange}
+          value={data.inquiryContent}
         />
       </InputWrapper>
       <Button onClick={onClick}>문의하기</Button>
