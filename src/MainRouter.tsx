@@ -6,6 +6,7 @@ import { CheckClubPage } from "./page/club/CheckClubPage";
 import { ApplicationWritePage } from "./page/Apply/ApplicationWritePage";
 import { ApplicationQueryPage } from "./page/Apply/ApplicatioinqueryPage";
 import { CustomPage } from "./page/Apply/CustomPage";
+import { AskPage } from "./page/Ask/AskPage";
 
 function MainRouter() {
   return (
@@ -17,7 +18,8 @@ function MainRouter() {
         <Route path="/My" element={<MyPage />} />
         <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
         <Route path="/ApplicationQuery" element={<ApplicationQueryPage />} />
-        <Route path="/CustomPage" element={<CustomPage />} />
+        <Route path="/Custom" element={<CustomPage />} />
+        <Route path="/Ask" element={<AskPage />} />
       </Routes>
     </BrowserRouter>
   );
