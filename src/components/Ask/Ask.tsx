@@ -1,34 +1,91 @@
+import React, { useState } from "react";
 import styled from "styled-components";
+import { createInquiry } from "../../apis/inquiry";
+import { InquiryPostType } from "../../types/type";
 
 export const Ask = () => {
+  const [data, setData] = useState<InquiryPostType>({
+    name: "",
+    phoneNumber: "",
+    inquiryType: "SERVER", // 초기값을 'server'로 설정
+    inquiryContent: "",
+  });
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const onAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const onClick = () => {
+    createInquiry(data)
+      .then(() => {
+        alert("성공적으로 문의 되었습니다");
+        window.location.replace("/");
+      })
+      .catch(() => {
+        alert("나중에 다시 시도해주세요");
+        // window.location.replace("/");
+      });
+  };
+
   return (
     <Container>
       <Title>문의하기</Title>
       <TopWrapper>
         <InputWrapper>
           <Text>이름</Text>
-          <Input placeholder="이름을 입력해주세요"></Input>
+          <Input
+            placeholder="이름을 입력해주세요"
+            name="name"
+            onChange={onChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Text>전화번호</Text>
-          <Input placeholder="전화번호를 입력해주세요"></Input>
+          <Input
+            placeholder="전화번호를 입력해주세요"
+            name="phoneNumber"
+            onChange={onChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Text>문의 종류</Text>
-          <Select>
-            <option disabled hidden selected>
+          <Select
+            name="inquiryType"
+            value={data.inquiryType}
+            onChange={onChange}>
+            <option disabled hidden>
               문의 종류를 선택해주세요
             </option>
-            <option>서버오류</option>
-            <option>클라오류</option>
+            <option value="SERVER">서버오류</option>
+            <option value="CLIENT">클라오류</option>
           </Select>
         </InputWrapper>
       </TopWrapper>
       <InputWrapper>
         <Text>문의 내용</Text>
-        <Textarea placeholder="내용을 입력해주세요"></Textarea>
+        <Textarea
+          placeholder="내용을 입력해주세요"
+          name="inquiryContent"
+          onChange={onAreaChange}
+        />
       </InputWrapper>
-      <Button>문의하기</Button>
+      <Button onClick={onClick}>문의하기</Button>
     </Container>
   );
 };

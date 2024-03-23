@@ -101,3 +101,13 @@ export type ApplicantType = {
 export type QueryProps = {
   querys: ApplicantType[];
 };
+
+//inquiry
+type InquiryType = "SERVER" | "CLIENT";
+
+export type InquiryPostType = {
+  name: string;
+  phoneNumber: string;
+  inquiryType: InquiryType;
+  inquiryContent: string;
+};
