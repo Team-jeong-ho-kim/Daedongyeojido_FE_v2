@@ -3,13 +3,24 @@ import Header from "../../components/Header/Header";
 import { Back } from "../../components/Apply/Back";
 import { Query } from "../../components/Query/Query";
 import Footer from "../../components/MainPage/Footer";
-import { useState } from "react";
+import { ApplicantType } from "../../types/type";
+import { useEffect, useState } from "react";
+import { getApplicant } from "../../apis/report";
 
 export const ApplicantQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const [query, setQuery] = useState<ApplicantType[]>();
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
+
+  useEffect(() => {
+    getApplicant("대동여지도").then((res) => {
+      setQuery(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -22,12 +33,7 @@ export const ApplicantQueryPage = () => {
               지원자들의 정보, 지원서, 면접 메모, 합격여부를 확인하세요.
             </Content>
           </div>
-          <Box>
-            <Query />
-            <Query />
-            <Query />
-            <Query />
-          </Box>
+          <Box>{query && <Query querys={query} />}</Box>
         </ApplicantWrapper>
       </Wrapper>
       <Footer />

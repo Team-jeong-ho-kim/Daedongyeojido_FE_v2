@@ -1,24 +1,55 @@
 import styled from "styled-components";
+import { ApplicantType, QueryProps, PassingResultType } from "../../types/type";
 
-export const Query = () => {
+export const Query = ({ querys }: QueryProps) => {
+  const reportPassingResult = (report: PassingResultType) => {
+    switch (report) {
+      case "PASS":
+        return "합격";
+      case "FAIL":
+        return "탈락";
+      default:
+        return "대기";
+    }
+  };
+
+  const interviewPassingResult = (interview: PassingResultType) => {
+    switch (interview) {
+      case "PASS":
+        return "합격";
+      case "FAIL":
+        return "탈락";
+      default:
+        return "대기";
+    }
+  };
+
   return (
     <Container>
       <CheckWrapper>
         <Check>&middot; 서류 보기</Check>
         <Check>&middot; 메모 보기</Check>
       </CheckWrapper>
-      <Box>
-        <Text>
-          <Number>2210</Number>
-          <Name>원은지</Name>
-          <Major>Front-end</Major>
-          <Date>면접 일시 : 3월 28일 6시 00분 ~ 6시 20분</Date>
-        </Text>
-        <ResultWrapper>
-          <Result>서류 : 합격</Result>
-          <Result>면접 : 합격</Result>
-        </ResultWrapper>
-      </Box>
+      {querys.map((query: ApplicantType, index: number) => (
+        <Box key={index}>
+          <Text>
+            <Number>{query.classNumber}</Number>
+            <Name>{query.name}</Name>
+            <Major>{query.hopeMajor}</Major>
+            <Date>
+              면접 일시 : {query.interviewStartTime} ~{query.interviewEndTime}
+            </Date>
+          </Text>
+          <ResultWrapper>
+            <Result>
+              서류 : {reportPassingResult(query.reportPassingResult)}
+            </Result>
+            <Result>
+              면접 : {interviewPassingResult(query.interviewPassingResult)}
+            </Result>
+          </ResultWrapper>
+        </Box>
+      ))}
     </Container>
   );
 };

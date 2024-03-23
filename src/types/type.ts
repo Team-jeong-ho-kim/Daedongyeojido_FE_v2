@@ -26,7 +26,7 @@ export interface LoginType {
 }
 
 // user
-type MyReportType = {
+export type MyReportType = {
   id: number;
   clubName: string;
   hopeMajor: MajorType;
@@ -84,4 +84,20 @@ export type ClubType = {
 
 export type ClubsProps = {
   clubs: ClubType[];
+};
+
+//report
+export type ApplicantType = {
+  reportId: string;
+  classNumber: string;
+  name: string;
+  hopeMajor: MajorType;
+  interviewStartTime: string;
+  interviewEndTime: string;
+  reportPassingResult: PassingResultType;
+  interviewPassingResult: PassingResultType;
+};
+
+export type QueryProps = {
+  querys: ApplicantType[];
 };
