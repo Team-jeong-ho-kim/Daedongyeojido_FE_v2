@@ -1,6 +1,35 @@
+import React, { useState } from "react";
 import styled from "styled-components";
+import { AnnouncementType } from "../../types/type";
+import { createAnnouncement } from "../../apis/announcement";
 
 export const Leverie = () => {
+  const [data, setData] = useState<AnnouncementType>({
+    title: "",
+    contents: "",
+  });
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const onClick = () => {
+    createAnnouncement(data)
+      .then(() => {
+        alert("공지가 완료되었습니다");
+      })
+      .catch(() => {
+        alert("공지에 실패했습니다, 나중에 다시 시도해주세요");
+      });
+  };
+
   return (
     <Container>
       <div>
@@ -9,13 +38,23 @@ export const Leverie = () => {
       </div>
       <InputWrapper>
         <Text>제목</Text>
-        <Input placeholder="제목을 입력해주세요"></Input>
+        <Input
+          placeholder="제목을 입력해주세요"
+          name="title"
+          onChange={onChange}
+          value={data.title}
+        />
       </InputWrapper>
       <InputWrapper>
         <Text>공지 내용</Text>
-        <Textarea placeholder="내용을 입력해주세요"></Textarea>
+        <Textarea
+          placeholder="내용을 입력해주세요"
+          name="contents"
+          onChange={onChange}
+          value={data.contents}
+        />
       </InputWrapper>
-      <Button>공지하기</Button>
+      <Button onClick={onClick}>공지하기</Button>
     </Container>
   );
 };
