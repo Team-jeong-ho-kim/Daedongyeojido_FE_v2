@@ -1,123 +1,19 @@
 import styled from "styled-components";
+import { ClubType, ClubsProps } from "../../types/type";
 
-export const Club = () => {
-  const clubs = [
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-    {
-      clubImageUrl: "",
-      clubName: "대동여지도",
-      title: "대마고 동아리 여기서 지원하고 도움받자",
-      tag1: "믱",
-      tag2: "ㅓㅇ나ㅣ리ㅏㄷ",
-      tag3: "헤헤ㅔㅎ헤헤ㅔㅎ",
-    },
-  ];
+export const Club = ({ clubs }: ClubsProps) => {
   return (
     <Container>
-      {clubs.map((club, index) => (
+      {clubs.map((club: ClubType, index: number) => (
         <ClubWrapper key={index}>
-          <ClubLogo src={club.clubImageUrl} alt="동아리 이미지" />
+          <ClubLogo src={club.clubImageUrl} />
           <ClubName>{club.clubName}</ClubName>
           <ClubInfo>{club.title}</ClubInfo>
           <TagWrapper>
-            <ClubTag>#{club.tag1}</ClubTag>
-            <ClubTag>#{club.tag2}</ClubTag>
-            <ClubTag>#{club.tag3}</ClubTag>
+            {club &&
+              club.tags.map((tag, index) => {
+                return <ClubTag key={index}>#{tag}</ClubTag>;
+              })}
           </TagWrapper>
         </ClubWrapper>
       ))}

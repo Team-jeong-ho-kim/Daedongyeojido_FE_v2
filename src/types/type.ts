@@ -73,3 +73,15 @@ export type AnnouncementType = {
   title: string;
   contents: string;
 };
+
+// club
+export type ClubType = {
+  clubName: string;
+  title: string;
+  clubImageUrl: string;
+  tags: string[];
+};
+
+export type ClubsProps = {
+  clubs: ClubType[];
+};
