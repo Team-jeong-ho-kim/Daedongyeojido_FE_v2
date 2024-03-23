@@ -8,6 +8,7 @@ import { ApplicationQueryPage } from "./page/Apply/ApplicatioinqueryPage";
 import { CustomPage } from "./page/Apply/CustomPage";
 import { AskPage } from "./page/Ask/AskPage";
 import { LeveriePage } from "./page/Leverie/LeveriePage";
+import { ApplicantQueryPage } from "./page/Query/ApplicantQueryPage";
 
 function MainRouter() {
   return (
@@ -22,6 +23,7 @@ function MainRouter() {
         <Route path="/Custom" element={<CustomPage />} />
         <Route path="/Ask" element={<AskPage />} />
         <Route path="/Leverie" element={<LeveriePage />} />
+        <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
       </Routes>
     </BrowserRouter>
   );
