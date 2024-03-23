@@ -1,18 +1,23 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import INT from "../components/MyPage/interviewSchedule";
-import DownArrow from "../assets/img/PNG/DownArrow.png";
 import ProfileNone from "../assets/img/PNG/Profile.png";
 import Edit from "../assets/img/PNG/Edit.png";
 import Link from "../assets/img/PNG/Link.png";
 import Login from "../components/Header/Login";
+import { getAnnouncement } from "../apis/announcement";
+import { AnnouncementType } from "../types/type";
+import { AnnounceBox } from "../components/MyPage/Announce";
+import { getMyInfo } from "../apis/user";
+import { MyInfoType } from "../types/type";
+import { PassingResultType } from "../types/type";
 
 const MyPage = () => {
   const [page, setPage] = useState<String>("ApplyDetail");
   const [getApply, setGetApply] = useState<Boolean>(true);
   const [getAlarm, setGetAlarm] = useState<Boolean>(true);
-  const [getAnnounce, setGetAnnounce] = useState<Boolean>(true);
+  const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
   const [image, setImage] = useState<string | null>(null);
   const [ghLink, setGhLink] = useState<URL>(
@@ -23,6 +28,7 @@ const MyPage = () => {
   );
   const [profileEdit, setProfileEdit] = useState<Boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [data, setData] = useState<MyInfoType>();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -61,306 +67,267 @@ const MyPage = () => {
     setProfileEdit(!profileEdit);
   };
 
+  const reportPassingResult = (report: PassingResultType) => {
+    switch (report) {
+      case "PASS":
+        return "합격";
+      case "FAIL":
+        return "탈락";
+      default:
+        return "대기";
+    }
+  };
+
+  const interviewPassingResult = (interview: PassingResultType) => {
+    switch (interview) {
+      case "PASS":
+        return "합격";
+      case "FAIL":
+        return "탈락";
+      default:
+        return "대기";
+    }
+  };
+
+  useEffect(() => {
+    getMyInfo()
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+
+        getAnnouncement()
+          .then((res) => {
+            console.log(res.data);
+
+            setGetAnnounce(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Container>
         <Header onLoginToggle={handleLoginToggle} />
-        <CenterBox>
-          <LeftBox>
-            <MyInfo>
-              <MyInfoplus>
-                <MyInfo_basic>
-                  <MyMainInfo>
-                    <MyName>이일영</MyName>
-                    <MyClass>
-                      <MyClub>
-                        동아리<MyCClub>대동여지도</MyCClub>
-                      </MyClub>
-                      <MyClub>
-                        학번<MyCClub>2100</MyCClub>
-                      </MyClub>
-                    </MyClass>
-                  </MyMainInfo>
-                  <ProfileEdit>
-                    <Edits onClick={handlePfEdit}>
-                      <EditButton src={Edit} />
-                    </Edits>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      id="fileInput"
-                      onChange={handleFileInputChange}
-                      required
-                    />
-                    {image ? (
-                      <Profile src={image} />
-                    ) : (
-                      <Profile src={ProfileNone} />
-                    )}
-                  </ProfileEdit>
-                </MyInfo_basic>
-                <MyN>"밀과 벼와 감자와 고구마와 옥수수"</MyN>
-                <LinkerBox>
-                  <Linker src={Link} onClick={handleLink} />
-                  <MyLink href={ghLink2} target="_blank">
-                    {ghLink2}
-                  </MyLink>
-                </LinkerBox>
-              </MyInfoplus>
-              <B></B>
-              <MyInfo_Menu>
-                <ApplyDetail>
-                  <Ball1
-                    isApplyDetail={page == "ApplyDetail" ? true : false}
-                  ></Ball1>
-                  <Text1
-                    isApplyDetail={page == "ApplyDetail" ? true : false}
-                    id="ApplyDetail"
-                    onClick={handlePage}
-                  >
-                    지원내역
-                  </Text1>
-                </ApplyDetail>
-                <Alarm>
-                  <Ball2 isAlarm={page == "Alarm" ? true : false}></Ball2>
-                  <Text2
-                    isAlarm={page == "Alarm" ? true : false}
-                    id="Alarm"
-                    onClick={handlePage}
-                  >
-                    알림
-                  </Text2>
-                </Alarm>
-                <Announce>
-                  <Ball3 isAnnounce={page == "Announce" ? true : false}></Ball3>
-                  <Text3
-                    isAnnounce={page == "Announce" ? true : false}
-                    id="Announce"
-                    onClick={handlePage}
-                  >
-                    공지사항
-                  </Text3>
-                </Announce>
-              </MyInfo_Menu>
-              <B></B>
-              <Logout>
-                <LogoutB>로그아웃</LogoutB>
-              </Logout>
-            </MyInfo>
-          </LeftBox>
-          <RightBox>
-            {page == "ApplyDetail" && (
-              <>
-                <MyName>지원내역</MyName>
-                {getApply == false ? (
-                  <NoApply>
-                    <NoAppl>지원내역이 없습니다.</NoAppl>
-                    <Opply>
-                      자신이 지원한 전공동아리의 지원 내역은 이곳에서 확인
-                      가능해요.
-                    </Opply>
-                  </NoApply>
-                ) : (
-                  <Applys>
-                    <Apply>
-                      <ApplyDetails>
-                        <ApplyName>대동여지도</ApplyName>
-                        <ApplyData>
-                          <ApplyMajor>프론트엔드</ApplyMajor>
-                          <ApplyD>
-                            <ApplyLD>지원 마감일 : 2024-02-10</ApplyLD>
-                            <ApplyIvD>
-                              면접 일시 : 2024-02-10 12:30 ~ 12:50
-                            </ApplyIvD>
-                          </ApplyD>
-                        </ApplyData>
-                      </ApplyDetails>
-                      <ApplyStatus>
-                        서류 : 합격
-                        <br />
-                        면접 : 불합격
-                      </ApplyStatus>
-                    </Apply>
-                    <Apply>
-                      <ApplyDetails>
-                        <ApplyName>노네임드</ApplyName>
-                        <ApplyData>
-                          <ApplyMajor>백엔드</ApplyMajor>
-                          <ApplyD>
-                            <ApplyLD>지원 마감일 : 2024-02-10</ApplyLD>
-                            <ApplyIvD>
-                              면접 일시 : 2024-02-10 12:30 ~ 12:50
-                            </ApplyIvD>
-                          </ApplyD>
-                        </ApplyData>
-                      </ApplyDetails>
-                      <ApplyStatus>
-                        서류 : 합격
-                        <br />
-                        면접 : 합격
-                      </ApplyStatus>
-                    </Apply>
-                    <Apply>
-                      <ApplyDetails>
-                        <ApplyName>인포</ApplyName>
-                        <ApplyData>
-                          <ApplyMajor>시스템해킹</ApplyMajor>
-                          <ApplyD>
-                            <ApplyLD>지원 마감일 : 2024-02-10</ApplyLD>
-                            <ApplyIvD>
-                              면접 일시 : 2024-02-10 12:30 ~ 12:50
-                            </ApplyIvD>
-                          </ApplyD>
-                        </ApplyData>
-                      </ApplyDetails>
-                      <ApplyStatus>
-                        서류 : 합격
-                        <br />
-                        면접 : 합격
-                      </ApplyStatus>
-                    </Apply>
-                  </Applys>
-                )}
-              </>
-            )}
-            {page == "Alarm" && (
-              <>
-                <MyName>알림</MyName>
-                {getAlarm == false ? (
-                  <NoAlarm>
-                    <NoAppl>알림이 없습니다.</NoAppl>
-                    <Opply>알림이 생기면 이곳에서 확인 가능해요.</Opply>
-                  </NoAlarm>
-                ) : (
-                  <AlarmCenter>
-                    <AlarmPass>
-                      <AlarmLT>1시간 전</AlarmLT>
-                      <AlarmName>
-                        <AlarmPC>노네임드</AlarmPC>
-                        <AlarmPassed>서류합격</AlarmPassed>
-                        <InterviewScheduleSelect
-                          onClick={() => setIvsdSelect(!ivsdSelect)}
-                        >
-                          면접 시간 선택
-                        </InterviewScheduleSelect>
-                      </AlarmName>
-                      <AlarmText>
-                        이일영님, 노네임드 백엔드 분야 서류합격을 축하드려요!
-                        면접 시간을 선택해주세요.
-                      </AlarmText>
-                    </AlarmPass>
-                    <AlarmPass>
-                      <AlarmLT>2시간 전</AlarmLT>
-                      <AlarmName>
-                        <AlarmPC>대동여지도</AlarmPC>
-                        <AlarmPassed>최종합격</AlarmPassed>
-                      </AlarmName>
-                      <AlarmText>
-                        이일영님, 대동여지도 프론트엔드 분야 최종합격을
-                        축하드려요! 🎉
-                      </AlarmText>
-                    </AlarmPass>
-                    <AlarmPass>
-                      <AlarmLT>1일 전</AlarmLT>
-                      <AlarmName>
-                        <AlarmPC>대동여지도</AlarmPC>
-                        <AlarmPassed>서류합격</AlarmPassed>
-                        <InterviewScheduleSelect
-                          onClick={() => setIvsdSelect(!ivsdSelect)}
-                        >
-                          면접 시간 선택
-                        </InterviewScheduleSelect>
-                      </AlarmName>
-                      <AlarmText>
-                        이일영님, 대동여지도 프론트엔드 분야 서류합격을
-                        축하드려요! 면접 시간을 선택해주세요.
-                      </AlarmText>
-                    </AlarmPass>
-                  </AlarmCenter>
-                )}
-              </>
-            )}
-            {page == "Announce" && (
-              <>
-                <MyName>공지사항</MyName>
-                {getAnnounce == false ? (
-                  <NoAnno>
-                    <NoAppl>공지사항이 없습니다.</NoAppl>
-                    <Opply>공지사항이 생기면 이곳에서 확인 가능해요.</Opply>
-                  </NoAnno>
-                ) : (
-                  <AnnounceCenter>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2024 대동여지도 신입 부원 모집 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2024 대동여지도 디자이너 구인 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>2023학년도 집가고싶다 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} />
-                      </AnnounceBox2>
-                    </AnnounceBox>
-                    <AnnounceBox opened={true}>
-                      <AnnounceBox2>
-                        <AnnounceOne>
-                          <O></O>
-                          <AlarmPC>역대급 대충 만든 공지</AlarmPC>
-                        </AnnounceOne>
-                        <Expand src={DownArrow} opened={true} />
-                      </AnnounceBox2>
-                      <AnnounceContent>
-                        상처를 치료해줄 사람 어디 없나 가만히 놔뒀다가 끊임없이
-                        덧나
-                        <br />
-                        사랑도 사람도 너무나도 겁나 혼자인게 무서워 난 잊혀질까
-                        두려워
-                        <br />
-                        언제나 외톨이 맘의 문을 닫고 슬픔을 등에 지고 살아가는
-                        바보 두 눈을 감고 두 귀를 막고 캄캄한 어둠 속에 내
-                        자신을 가둬
-                        <br />
-                        아무도 모르게 다가온 이별에 대면했을때 또다시 혼자가
-                        되는게 두려워 외면했었네 꿈에도 그리던 지나간 시간이
-                        다시금 내게로 되돌아오기를 바라며 간절한 맘으로 밤마다
-                        기도했었네
-                        <br />
-                        시위를 당기고 내 손을 떠나간 추억의 화살이 머나먼 과녁을
-                        향해서 한없이 빠르게 날아가 내게로 돌아와 달라고 내 손을
-                        붙잡아 달라고 부르고 불러도 한없이 소리쳐 대봐도 아무런
-                        대답이 없는 널
-                        <br />내 기억 속에서 너라는 사람의 존재를 완전히 지우려
-                        끝없이 몸부림쳐 봐도 매일밤 꿈에서 그대가 나타나 흐르는
-                        눈물을 닦아주는걸 나 어떡하라고 다 끄떡없다고 거짓말
-                        하라고 더는 못 참겠다고 나도 아플 땐 아프다고 슬플땐
-                        슬프다고 얼어 붙은 심장이 자꾸만 내게로 고자질해 정말로
-                        끝이라고 정말로 괜찮다고 꾹 참고 참았던 눈물이 자꾸만
-                        내게로 쏟아지네
-                      </AnnounceContent>
-                    </AnnounceBox>
-                  </AnnounceCenter>
-                )}
-              </>
-            )}
-          </RightBox>
-        </CenterBox>
+        {data && (
+          <CenterBox>
+            <LeftBox>
+              <MyInfo>
+                <MyInfoplus>
+                  <MyInfo_basic>
+                    <MyMainInfo>
+                      <MyName>{data.name}</MyName>
+                      <MyClass>
+                        <MyClub>
+                          동아리
+                          <MyCClub>
+                            {data.myClub === "null" ? "없음" : data.myClub}
+                          </MyCClub>
+                        </MyClub>
+                        <MyClub>
+                          학번<MyCClub>{data.classNumber}</MyCClub>
+                        </MyClub>
+                      </MyClass>
+                    </MyMainInfo>
+                    <ProfileEdit>
+                      <Edits onClick={handlePfEdit}>
+                        <EditButton src={Edit} />
+                      </Edits>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        id="fileInput"
+                        onChange={handleFileInputChange}
+                        required
+                      />
+                      {data.profileImageUrl ? (
+                        <Profile src={data.profileImageUrl} />
+                      ) : (
+                        <Profile src={ProfileNone} />
+                      )}
+                    </ProfileEdit>
+                  </MyInfo_basic>
+                  <MyN>"밀과 벼와 감자와 고구마와 옥수수"</MyN>
+                  <LinkerBox>
+                    <Linker src={Link} onClick={handleLink} />
+                    <MyLink href={ghLink2} target="_blank">
+                      {ghLink2}
+                    </MyLink>
+                  </LinkerBox>
+                </MyInfoplus>
+                <B></B>
+                <MyInfo_Menu>
+                  <ApplyDetail>
+                    <Ball1
+                      isApplyDetail={
+                        page == "ApplyDetail" ? true : false
+                      }></Ball1>
+                    <Text1
+                      isApplyDetail={page == "ApplyDetail" ? true : false}
+                      id="ApplyDetail"
+                      onClick={handlePage}>
+                      지원내역
+                    </Text1>
+                  </ApplyDetail>
+                  <Alarm>
+                    <Ball2 isAlarm={page == "Alarm" ? true : false}></Ball2>
+                    <Text2
+                      isAlarm={page == "Alarm" ? true : false}
+                      id="Alarm"
+                      onClick={handlePage}>
+                      알림
+                    </Text2>
+                  </Alarm>
+                  <Announce>
+                    <Ball3
+                      isAnnounce={page == "Announce" ? true : false}></Ball3>
+                    <Text3
+                      isAnnounce={page == "Announce" ? true : false}
+                      id="Announce"
+                      onClick={handlePage}>
+                      공지사항
+                    </Text3>
+                  </Announce>
+                </MyInfo_Menu>
+                <B></B>
+                <Logout>
+                  <LogoutB>로그아웃</LogoutB>
+                </Logout>
+              </MyInfo>
+            </LeftBox>
+            <RightBox>
+              {page == "ApplyDetail" && (
+                <>
+                  <MyName>지원내역</MyName>
+                  {data.myReport.length <= 0 ? (
+                    <NoApply>
+                      <NoAppl>지원내역이 없습니다.</NoAppl>
+                      <Opply>
+                        자신이 지원한 전공동아리의 지원 내역은 이곳에서 확인
+                        가능해요.
+                      </Opply>
+                    </NoApply>
+                  ) : (
+                    <Applys>
+                      {data.myReport.map((report) => {
+                        return (
+                          <Apply key={report.id}>
+                            <ApplyDetails>
+                              <ApplyName>{report.clubName}</ApplyName>
+                              <ApplyData>
+                                <ApplyMajor>{report.hopeMajor}</ApplyMajor>
+                                <ApplyD>
+                                  <ApplyLD>
+                                    지원 마감일 : {report.deadline}
+                                  </ApplyLD>
+                                  <ApplyIvD>
+                                    면접 일시 : 2024-02-10 12:30 ~ 12:50
+                                  </ApplyIvD>
+                                </ApplyD>
+                              </ApplyData>
+                            </ApplyDetails>
+                            <ApplyStatus>
+                              서류 :{" "}
+                              {reportPassingResult(report.reportPassingResult)}
+                              <br />
+                              면접 :{" "}
+                              {interviewPassingResult(
+                                report.interviewPassingResult
+                              )}
+                            </ApplyStatus>
+                          </Apply>
+                        );
+                      })}
+                    </Applys>
+                  )}
+                </>
+              )}
+              {page == "Alarm" && (
+                <>
+                  <MyName>알림</MyName>
+                  {getAlarm == false ? (
+                    <NoAlarm>
+                      <NoAppl>알림이 없습니다.</NoAppl>
+                      <Opply>알림이 생기면 이곳에서 확인 가능해요.</Opply>
+                    </NoAlarm>
+                  ) : (
+                    <AlarmCenter>
+                      <AlarmPass>
+                        <AlarmLT>1시간 전</AlarmLT>
+                        <AlarmName>
+                          <AlarmPC>노네임드</AlarmPC>
+                          <AlarmPassed>서류합격</AlarmPassed>
+                          <InterviewScheduleSelect
+                            onClick={() => setIvsdSelect(!ivsdSelect)}>
+                            면접 시간 선택
+                          </InterviewScheduleSelect>
+                        </AlarmName>
+                        <AlarmText>
+                          이일영님, 노네임드 백엔드 분야 서류합격을 축하드려요!
+                          면접 시간을 선택해주세요.
+                        </AlarmText>
+                      </AlarmPass>
+                      <AlarmPass>
+                        <AlarmLT>2시간 전</AlarmLT>
+                        <AlarmName>
+                          <AlarmPC>대동여지도</AlarmPC>
+                          <AlarmPassed>최종합격</AlarmPassed>
+                        </AlarmName>
+                        <AlarmText>
+                          이일영님, 대동여지도 프론트엔드 분야 최종합격을
+                          축하드려요! 🎉
+                        </AlarmText>
+                      </AlarmPass>
+                      <AlarmPass>
+                        <AlarmLT>1일 전</AlarmLT>
+                        <AlarmName>
+                          <AlarmPC>대동여지도</AlarmPC>
+                          <AlarmPassed>서류합격</AlarmPassed>
+                          <InterviewScheduleSelect
+                            onClick={() => setIvsdSelect(!ivsdSelect)}>
+                            면접 시간 선택
+                          </InterviewScheduleSelect>
+                        </AlarmName>
+                        <AlarmText>
+                          이일영님, 대동여지도 프론트엔드 분야 서류합격을
+                          축하드려요! 면접 시간을 선택해주세요.
+                        </AlarmText>
+                      </AlarmPass>
+                    </AlarmCenter>
+                  )}
+                </>
+              )}
+              {page == "Announce" && (
+                <>
+                  <MyName>공지사항</MyName>
+                  {getAnnounce && getAnnounce.length <= 0 ? (
+                    <NoAnno>
+                      <NoAppl>공지사항이 없습니다.</NoAppl>
+                      <Opply>공지사항이 생기면 이곳에서 확인 가능해요.</Opply>
+                    </NoAnno>
+                  ) : (
+                    <AnnounceCenter>
+                      {getAnnounce?.map((announce) => {
+                        return (
+                          <AnnounceBox
+                            title={announce.title}
+                            contents={announce.contents}
+                          />
+                        );
+                      })}
+                    </AnnounceCenter>
+                  )}{" "}
+                </>
+              )}
+            </RightBox>
+          </CenterBox>
+        )}
       </Container>
       {ivsdSelect ? (
         <Container2>
@@ -675,67 +642,6 @@ const AnnounceCenter = styled.div`
   gap: 10px;
   margin-top: 86px;
   animation: ${fadeIn} 1s;
-`;
-
-const AnnounceBox = styled.div<{
-  opened?: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  width: 100%;
-  height: ${({ opened }) => (opened ? "auto" : "45px")};
-  border-bottom: 1px solid #eaecef;
-  border-radius: 5px 5px 0 0;
-  transition: box-shadow 0.2s ease, scale 0.1s;
-  &:hover {
-    scale: ${({ opened }) => (opened ? "1" : "1.01")};
-    box-shadow: 0 0.5px 0 1px #d4d6de;
-  }
-`;
-
-const AnnounceBox2 = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 45px;
-`;
-
-const Expand = styled.img<{
-  opened?: boolean;
-}>`
-  width: 32px;
-  height: 23px;
-  cursor: pointer;
-  rotate: ${({ opened }) => (opened ? "180deg" : "0deg")};
-  &:hover {
-    animation: ${spin} 0.5s;
-  }
-`;
-
-const O = styled.div`
-  background-color: #000;
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-`;
-
-const AnnounceOne = styled.div`
-  display: flex;
-  gap: 20px;
-  height: 25px;
-  align-items: center;
-`;
-
-const AnnounceContent = styled.p`
-  display: flex;
-  padding-left: 20px;
-  color: #4e5558;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
-  margin-bottom: 12px;
 `;
 
 const MyInfo = styled.div`

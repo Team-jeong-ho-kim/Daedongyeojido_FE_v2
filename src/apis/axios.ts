@@ -31,8 +31,8 @@ instance.interceptors.response.use(
       const token = Cookie.get("refreshToken");
       reissue(token)
         .then((res: any) => {
-          Cookie.set("accessToken", res.data.access_token);
-          Cookie.set("refreshToken", res.data.refresh_token);
+          Cookie.set("accessToken", res.data.accessToken);
+          Cookie.set("refreshToken", res.data.refreshToken);
           window.location.reload();
         })
         .catch(() => {
