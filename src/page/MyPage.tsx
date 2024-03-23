@@ -94,18 +94,16 @@ const MyPage = () => {
       .then((res) => {
         setData(res.data);
         console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
-  useEffect(() => {
-    getAnnouncement()
-      .then((res) => {
-        console.log(res.data);
+        getAnnouncement()
+          .then((res) => {
+            console.log(res.data);
 
-        setGetAnnounce(res.data);
+            setGetAnnounce(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
