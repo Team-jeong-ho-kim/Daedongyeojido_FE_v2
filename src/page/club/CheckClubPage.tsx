@@ -4,16 +4,16 @@ import { Club } from "../../components/ClubMain/Club";
 import { SmallHeader } from "../../components/ClubMain/SmallBanner";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
+import { useState } from "react";
 
-interface HeaderProps {
-  onLoginToggle: () => void;
-}
-
-export const CheckClubPage: React.FC<HeaderProps> = () => {
-  const login = () => {};
+export const CheckClubPage = () => {
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const handleLoginToggle = () => {
+    setIsLoginVisible(!isLoginVisible);
+  };
   return (
     <Container>
-      <Header onLoginToggle={login} />
+      <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
         <SmallHeader />
         <ClubMainBanner />
