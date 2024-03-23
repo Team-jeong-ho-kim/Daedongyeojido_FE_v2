@@ -7,6 +7,10 @@ import NoticeAllQueryPage from "./page/NoticeAllQuery";
 import { ApplicationWritePage } from "./page/Apply/ApplicationWritePage";
 import { ApplicationQueryPage } from "./page/Apply/ApplicatioinqueryPage";
 import { CustomPage } from "./page/Apply/CustomPage";
+import { AskPage } from "./page/Ask/AskPage";
+import { LeveriePage } from "./page/Leverie/LeveriePage";
+import { ApplicantQueryPage } from "./page/Query/ApplicantQueryPage";
+import { MemoPage } from "./page/Memo/MemoPage";
 
 function MainRouter() {
   return (
@@ -19,7 +23,11 @@ function MainRouter() {
         <Route path="/Notices" element={<NoticeAllQueryPage />} />
         <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
         <Route path="/ApplicationQuery" element={<ApplicationQueryPage />} />
-        <Route path="/CustomPage" element={<CustomPage />} />
+        <Route path="/Custom" element={<CustomPage />} />
+        <Route path="/Ask" element={<AskPage />} />
+        <Route path="/Leverie" element={<LeveriePage />} />
+        <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
+        <Route path="/Memo" element={<MemoPage />} />
       </Routes>
     </BrowserRouter>
   );
