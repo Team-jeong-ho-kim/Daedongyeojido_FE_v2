@@ -9,7 +9,7 @@ import { getApplicant } from "../../apis/report";
 
 export const ApplicantQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
-  const [query, setQuery] = useState<ApplicantType[]>();
+  const [query, setQuery] = useState<ApplicantType[]>([]);
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };

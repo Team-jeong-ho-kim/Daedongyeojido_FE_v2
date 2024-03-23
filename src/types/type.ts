@@ -102,6 +102,23 @@ export type QueryProps = {
   querys: ApplicantType[];
 };
 
+export type noticeQueststype = {
+  question: string;
+  answer: string;
+};
+
+export type ApplicationType = {
+  classNumber: string;
+  name: string;
+  introduce: string;
+  reportPassingResult: PassingResultType;
+  noticeQuests: noticeQueststype[];
+};
+
+export type InfoProps = {
+  info: ApplicationType;
+};
+
 //inquiry
 type InquiryType = "SERVER" | "CLIENT";
 

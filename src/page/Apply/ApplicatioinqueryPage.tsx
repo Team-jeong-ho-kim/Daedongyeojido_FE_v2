@@ -2,14 +2,24 @@ import styled from "styled-components";
 import Header from "../../components/Header/Header";
 import { Query } from "../../components/Apply/Query";
 import Footer from "../../components/MainPage/Footer";
-import { useState } from "react";
 import { Back } from "../../components/Apply/Back";
+import { useEffect, useState } from "react";
+import { ApplicationType } from "../../types/type";
+import { getApplicaion } from "../../apis/report";
 
 export const ApplicationQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const [data, setData] = useState<ApplicationType>();
+
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
+  useEffect(() => {
+    getApplicaion(1).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
+  }, []);
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -25,7 +35,7 @@ export const ApplicationQueryPage = () => {
             </Content>
           </div>
         </Top>
-        <Query />
+        {data && <Query info={data} />}
         <Footer />
       </Wrapper>
     </Container>
@@ -48,11 +58,11 @@ const Top = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
 `;
 
 const Content = styled.p`
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
 `;
