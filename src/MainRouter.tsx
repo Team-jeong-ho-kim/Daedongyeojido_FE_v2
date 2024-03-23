@@ -7,6 +7,7 @@ import { ApplicationWritePage } from "./page/Apply/ApplicationWritePage";
 import { ApplicationQueryPage } from "./page/Apply/ApplicatioinqueryPage";
 import { CustomPage } from "./page/Apply/CustomPage";
 import { AskPage } from "./page/Ask/AskPage";
+import { LeveriePage } from "./page/Leverie/LeveriePage";
 
 function MainRouter() {
   return (
@@ -20,6 +21,7 @@ function MainRouter() {
         <Route path="/ApplicationQuery" element={<ApplicationQueryPage />} />
         <Route path="/Custom" element={<CustomPage />} />
         <Route path="/Ask" element={<AskPage />} />
+        <Route path="/Leverie" element={<LeveriePage />} />
       </Routes>
     </BrowserRouter>
   );
