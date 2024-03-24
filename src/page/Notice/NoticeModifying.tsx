@@ -624,6 +624,7 @@ const III = styled.p`
   color: #000;
   font-weight: 500;
   line-height: 18px;
+  text-align: center;
   cursor: pointer;
 `;
 
