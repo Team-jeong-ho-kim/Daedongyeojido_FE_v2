@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import LeftArrowBold from "../../assets/img/PNG/LeftArrowBold.png";
 import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
@@ -500,6 +500,17 @@ const RecruitmentDate: React.FC<Props> = ({
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-60px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   position: fixed;
   display: flex;
@@ -513,6 +524,7 @@ const Container = styled.div`
   background-color: #fff;
   user-select: none;
   z-index: 1200;
+  animation: ${fadeIn} 0.5s;
 `;
 
 const Calender = styled.div`
