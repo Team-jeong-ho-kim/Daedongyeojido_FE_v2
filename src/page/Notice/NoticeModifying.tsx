@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
@@ -49,6 +49,7 @@ const init: NoticeState = {
 
 const NoticeModifying: React.FC = () => {
   const [state, setState] = useState<NoticeState>(init);
+  const [tip, setTip] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [explain, setExplain] = useState<string>("");
@@ -161,6 +162,10 @@ const NoticeModifying: React.FC = () => {
     setIsInterv(true);
   };
 
+  const handleTip = () => {
+    setTip(!tip);
+  };
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -201,6 +206,36 @@ const NoticeModifying: React.FC = () => {
               placeholder="동아리 소개"
             />
           </ClubExplain>
+          <I>
+            <II onClick={handleTip}>TIP : </II>
+            {tip ? (
+              <J onClick={handleTip}>
+                <III>
+                  @@대동여지도@@
+                  <br />
+                  ##대동여지도##
+                  <br />
+                  $$대동여지도$$
+                  <br />
+                  %%대동여지도%%
+                </III>
+                <III>
+                  →<br />→<br />→<br />→
+                </III>
+                <III>
+                  <Ired>대동여지도</Ired>
+                  <br />
+                  <Iyellow>대동여지도</Iyellow>
+                  <br />
+                  <Igreen>대동여지도</Igreen>
+                  <br />
+                  <Iblue>대동여지도</Iblue>
+                </III>
+              </J>
+            ) : (
+              <JJ onClick={handleTip}>특수 기호로 단어를 강조할 수 있어요!</JJ>
+            )}
+          </I>
         </ClubExplainBox>
         <Inbox>
           <RecruitmentBox>
@@ -407,6 +442,17 @@ const NoticeModifying: React.FC = () => {
   );
 };
 
+const fade = keyframes`
+  0% {
+	transform: translateX(50px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateX(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   width: 100vw;
 `;
@@ -521,17 +567,90 @@ const SaveButton = styled.button<{
 `;
 
 const ClubExplainBox = styled.div`
-  height: 388px;
+  height: 488px;
   display: flex;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
   background-color: #fbf9fa;
+  gap: 30px;
+`;
+
+const I = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 100px;
+  user-select: none;
+`;
+
+const J = styled.div`
+  display: flex;
+  animation: ${fade} 0.5s ease-out;
+  gap: 15.7px;
+  cursor: pointer;
+  &:hover {
+    text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const JJ = styled.p`
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 15px;
+  color: #212121;
+  font-weight: 500;
+  animation: ${fade} 0.5s ease-out;
+  cursor: pointer;
+  &:hover {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const II = styled.p`
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 16px;
+  color: #2a2a2a;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const III = styled.p`
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  line-height: 18px;
+  cursor: pointer;
+`;
+
+const Ired = styled.span`
+  color: #ff6065;
+  font-weight: 700;
+`;
+
+const Iyellow = styled.span`
+  color: #ffc705;
+  font-weight: 700;
+`;
+
+const Igreen = styled.span`
+  color: #08dd85;
+  font-weight: 700;
+`;
+
+const Iblue = styled.span`
+  color: #3006e5;
+  font-weight: 700;
 `;
 
 const ClubExplain = styled.div<{
   isFocus: boolean;
 }>`
+  margin-top: 60px;
   height: 222px;
   padding: ${({ isFocus }) => (isFocus ? "0 47px" : "0 50px")};
   display: flex;
