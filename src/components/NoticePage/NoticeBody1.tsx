@@ -50,7 +50,7 @@ const Banner = styled.div`
 
 const AddNoticeCt = styled.div`
   display: flex;
-  width: 81.35%;
+  width: 84.48%;
   height: 49px;
   gap: 11px;
   justify-content: flex-end;
@@ -86,7 +86,7 @@ const ClubBanner = styled.div`
   display: flex;
   margin-bottom: 58px;
   height: 166.1px;
-  width: 81.35%;
+  width: 84.48%;
   gap: 37px;
   justify-content: center;
   align-items: center;
@@ -97,7 +97,7 @@ const ClubBanner_Banner = styled.div`
   padding: 0px 67.1px;
   align-items: center;
   justify-content: space-between;
-  width: 954px;
+  width: 1020px;
   height: 100%;
   border-radius: 10px;
   border: 2px solid #eaecef;

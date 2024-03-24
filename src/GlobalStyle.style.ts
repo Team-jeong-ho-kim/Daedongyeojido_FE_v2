@@ -24,6 +24,10 @@ time, mark, audio, video, input, button, select, option, textarea {
   font-family: 'Spoqa Han Sans Neo';
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, main, menu, nav, section {
   display: block;
