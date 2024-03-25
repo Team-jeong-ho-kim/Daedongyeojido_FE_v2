@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
-import { Check } from "../../assets";
+import Check from "../../assets/img/SVG/Check.svg";
 import { IVProcess } from "../../assets";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";

@@ -2,9 +2,10 @@ import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
-import { Check } from "../../assets";
+import Check from "../../assets/img/SVG/Check.svg";
 import { IVProcess } from "../../assets";
 import Recruitments from "../../components/NoticePage/Recruitments";
+import ScrollUpper from "../../components/MainPage/ScrollUpper";
 
 interface Props {
   text: string;
@@ -224,6 +225,7 @@ const NoticeDetails = () => {
           </DeleteModal>
         </>
       )}
+      <ScrollUpper />
     </Container>
   );
 };
@@ -517,12 +519,12 @@ const WWAAContent = styled.p`
 const CCLLUUBB = styled.p`
   display: flex;
   width: 100%;
-  margin: 30px 0 60px;
+  margin: 30px 0 75px;
   justify-content: center;
   text-align: center;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 80px;
+  font-size: 90px;
   font-weight: 700;
   line-height: 50px;
   text-shadow: 0 10px 5px rgba(0, 0, 0, 0.3);
