@@ -7,19 +7,19 @@ export const Write = ({ write }: writeProps) => {
   const [introduceText, setIntroduceText] = useState<string>("");
   const [answerText, setAnswerText] = useState<string>("");
 
-  const handleWrite = () => {
-    const reportQuests = .map((element) => {
-      return {
-        noticeQuestId: element.noticeQuestId,
-        answer: element.answer,
-      };
-    });
-    WriteAPI({
-      noticeId: 1,
-      introduce: introduceText,
-      reportQuests: reportQuests,
-    }).then(() => {});
-  };
+  // const handleWrite = () => {
+  //   const reportQuests = .map((element) => {
+  //     return {
+  //       noticeQuestId: element.noticeQuestId,
+  //       answer: element.answer,
+  //     };
+  //   });
+  //   WriteAPI({
+  //     noticeId: 1,
+  //     introduce: introduceText,
+  //     reportQuests: reportQuests,
+  //   }).then(() => {});
+  // };
 
   console.log(WriteAPI);
 
@@ -33,7 +33,7 @@ export const Write = ({ write }: writeProps) => {
             아래 문항들에 답변하여 자기가 어떤 사람인지 알려주세요.
           </Content>
         </div>
-        <Button onClick={handleWrite}>지원하기</Button>
+        <Button>지원하기</Button>
       </Top>
       <Wrapper>
         <IntroduceWrapper>
