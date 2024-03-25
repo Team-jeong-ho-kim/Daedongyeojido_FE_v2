@@ -88,7 +88,7 @@ export type ClubsProps = {
 
 //report
 export type ApplicantType = {
-  reportId: string;
+  reportId: number;
   classNumber: string;
   name: string;
   hopeMajor: MajorType;
@@ -119,6 +119,21 @@ export type InfoProps = {
   info: ApplicationType;
 };
 
+export type reportQests = {
+  noticeQuestId: number;
+  answer: string;
+};
+
+export interface WriteType {
+  noticeId: number;
+  introduce: string;
+  reportQuests: reportQests[];
+}
+
+export type AnswerProps = {
+  answers: reportQests[];
+};
+
 //inquiry
 type InquiryType = "SERVER" | "CLIENT";
 
@@ -145,4 +160,19 @@ export type NoticeGetType = {
 
 export type NoticePropsType = {
   notices: NoticeGetType[];
+};
+
+export type QuestionsType = {
+  id: number;
+  question: string;
+};
+
+export type ApplicationNoticeType = {
+  name: string;
+  classNumber: string;
+  questions: QuestionsType[];
+};
+
+export type writeProps = {
+  write: ApplicationNoticeType;
 };

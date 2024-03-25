@@ -1,40 +1,73 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { writeProps } from "../../types/type";
+import { WriteAPI } from "../../apis/report";
 
-export const Write = () => {
+export const Write = ({ write }: writeProps) => {
   const [introduceText, setIntroduceText] = useState<string>("");
+  const [answerText, setAnswerText] = useState<string>("");
 
-  const handleIntroduceChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const text = event.target.value;
-    const newText = text.replace(/\n/g, "<br/>");
-    setIntroduceText(newText);
+  const handleWrite = () => {
+    const reportQuests = .map((element) => {
+      return {
+        noticeQuestId: element.noticeQuestId,
+        answer: element.answer,
+      };
+    });
+    WriteAPI({
+      noticeId: 1,
+      introduce: introduceText,
+      reportQuests: reportQuests,
+    }).then(() => {});
   };
+
+  console.log(WriteAPI);
+
   return (
     <Container>
+      <Top>
+        <div>
+          <Title>지원서 작성</Title>
+          <Content>
+            동아리에서 당신에 대해 궁금한 것이 많습니다. <br />
+            아래 문항들에 답변하여 자기가 어떤 사람인지 알려주세요.
+          </Content>
+        </div>
+        <Button onClick={handleWrite}>지원하기</Button>
+      </Top>
       <Wrapper>
         <IntroduceWrapper>
           <InfoWrapper>
-            <Name>워는지</Name>
-            <Number>2210</Number>
+            <Name>{write.name}</Name>
+            <Number>{write.classNumber}</Number>
           </InfoWrapper>
           <Introduce
             placeholder="자기소개를 작성해주세요"
             value={introduceText}
-            onChange={handleIntroduceChange}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setIntroduceText(e.target.value)
+            }
           ></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>
           <Line></Line>
-          <Q_A>
-            <Text>
-              <O></O>
-              <Question>아 빨리 집가고 싶다</Question>
-            </Text>
-            <Input></Input>
-          </Q_A>
+          {write.questions.map((question) => {
+            return (
+              <Q_A key={question.id}>
+                <Text>
+                  <O></O>
+                  <Question>{question.question}</Question>
+                </Text>
+                <Input
+                  value={answerText}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setAnswerText(e.target.value)
+                  }
+                />
+              </Q_A>
+            );
+          })}
         </QuestionWrapper>
       </Wrapper>
     </Container>
@@ -45,6 +78,31 @@ const Container = styled.div`
   width: 100%;
   height: 1832px;
   margin-left: 10%;
+`;
+
+const Top = styled.div`
+  height: 208px;
+  display: flex;
+  align-items: end;
+  padding-bottom: 34px;
+  gap: 44%;
+`;
+
+const Content = styled.p`
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+const Button = styled.div`
+  width: 134px;
+  height: 49px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 4px;
+  background: #52565d;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -105,7 +163,7 @@ const QuestionWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
 `;
 

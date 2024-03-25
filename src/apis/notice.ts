@@ -15,3 +15,7 @@ export const getDetailNotice = async (noticeId: string) => {
 export const deleteNotice = async (noticeId: string) => {
   return await instance.delete(`/notice/delete/${noticeId}`);
 };
+
+export const getApplication = async (noticeId: number) => {
+  return await instance.get(`/notice/apply/${noticeId}`);
+};
