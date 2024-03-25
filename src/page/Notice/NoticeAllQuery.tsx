@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Header from "../components/Header/Header";
-import Footer from "../components/MainPage/Footer";
-import NoticeBody1 from "../components/NoticePage/NoticeBody1";
-import NoticeBody2 from "../components/NoticePage/NoticeBody2";
-import { NoticeGetType } from "../types/type";
-import { getAllNotice } from "../apis/notice";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/MainPage/Footer";
+import NoticeBody1 from "../../components/NoticePage/NoticeBody1";
+import NoticeBody2 from "../../components/NoticePage/NoticeBody2";
+import { NoticeGetType } from "../../types/type";
+import { getAllNotice } from "../../apis/notice";
 
 const NoticeAllQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);

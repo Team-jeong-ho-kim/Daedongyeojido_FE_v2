@@ -12,3 +12,4 @@ export { default as NoticeBanner } from "./img/PNG/NoticeBanner.png";
 export { default as LeftArrow } from "./img/PNG/LeftArrow.png";
 export { default as RightArrow } from "./img/PNG/RightArrow.png";
 export { default as DAEBanner } from "./img/PNG/Daedongyeojido.png";
+export { default as IVProcess } from "./img/PNG/IVProcess.png";

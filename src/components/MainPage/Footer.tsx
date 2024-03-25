@@ -50,6 +50,7 @@ const Box = styled.p`
   line-height: 14px;
   letter-spacing: -0.7px;
   height: 18px;
+  align-items: center;
 `;
 
 const D = styled.p`
