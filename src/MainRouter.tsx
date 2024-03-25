@@ -13,6 +13,7 @@ import { ApplicantQueryPage } from "./page/Query/ApplicantQueryPage";
 import { MemoPage } from "./page/Memo/MemoPage";
 import NoticeDetailsPage from "./page/Notice/NoticeDetails";
 import NoticeModifyPage from "./page/Notice/NoticeModifying";
+import { ClubDetailPage } from "./page/ClubDetailPage";
 
 function MainRouter() {
   return (
@@ -32,6 +33,7 @@ function MainRouter() {
         <Route path="/Leverie" element={<LeveriePage />} />
         <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
         <Route path="/Memo" element={<MemoPage />} />
+        <Route path="/ClubDetail" element={<ClubDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
