@@ -14,7 +14,7 @@ import { MemoPage } from "./page/Memo/MemoPage";
 import NoticeDetailsPage from "./page/Notice/NoticeDetails";
 import NoticeModifyPage from "./page/Notice/NoticeModifying";
 import ClubInfoModPage from "./page/club/ClubInfoMod";
-import { ClubDetailPage } from "./page/ClubDetailPage";
+import { ClubDetailPage } from "./page/club/ClubDetailPage";
 
 function MainRouter() {
   return (

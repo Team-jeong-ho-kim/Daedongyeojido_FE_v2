@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import Header from "../components/Header/Header";
-import { SmallHeader } from "../components/ClubMain/SmallBanner";
-import { SelectBar } from "../components/ClubDetail/SelectBar";
-import Footer from "../components/MainPage/Footer";
-import { Clubintroduce } from "../components/ClubDetail/Clubintroduce";
+import Header from "../../components/Header/Header";
+import { SmallHeader } from "../../components/ClubMain/SmallBanner";
+import { SelectBar } from "../../components/ClubDetail/SelectBar";
+import Footer from "../../components/MainPage/Footer";
+import { Clubintroduce } from "../../components/ClubDetail/Clubintroduce";
 import { useState } from "react";
-import ClubBanner from "../assets/img/PNG/ClubBanner.png";
-import { ClubMember } from "../components/ClubDetail/ClubMember";
-import { QnA } from "../components/ClubDetail/QnA";
+import ClubBanner from "../../assets/img/PNG/ClubBanner.png";
+import { ClubMember } from "../../components/ClubDetail/ClubMember";
+import { QnA } from "../../components/ClubDetail/QnA";
 
 export const ClubDetailPage = () => {
   const [activeTab, setActiveTab] = useState<string>("동아리 소개");
