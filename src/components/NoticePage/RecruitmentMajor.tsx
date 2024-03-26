@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { NoticeFieldType } from "../../types/type";
 
-const RecruitmentMajor = () => {
+const RecruitmentMajor = ({ major, todo }: NoticeFieldType) => {
   return (
     <Container>
-      <Major>프론트엔드</Major>
-      <Ideal>대동여지도 클라이언트를 맡아 유지보수할 친구</Ideal>
+      <Major>{major}</Major>
+      <Ideal>{todo}</Ideal>
     </Container>
   );
 };

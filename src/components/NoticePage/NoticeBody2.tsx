@@ -1,22 +1,30 @@
 import styled from "styled-components";
 import Notice from "./Notice";
 import { NoticePropsType } from "../../types/type";
+import { useNavigate } from "react-router-dom";
 
 const NoticeBody2 = ({ notices }: NoticePropsType) => {
+  const link = useNavigate();
+
   return (
     <>
       <NoticeBox>
         {notices &&
           notices.map((notice) => {
             return (
-              <Notice
-                key={notice.id}
-                clubImageUrl={notice.clubImageUrl}
-                clubName={notice.clubName}
-                recruitDay={notice.recruitDay}
-                noticeTitle={notice.noticeTitle}
-                id={notice.id}
-              />
+              <div
+                onClick={() => {
+                  link(`/NoticeDetails/${notice.id}`);
+                }}>
+                <Notice
+                  key={notice.id}
+                  clubImageUrl={notice.clubImageUrl}
+                  clubName={notice.clubName}
+                  recruitDay={notice.recruitDay}
+                  noticeTitle={notice.noticeTitle}
+                  id={notice.id}
+                />
+              </div>
             );
           })}
       </NoticeBox>

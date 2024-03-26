@@ -8,7 +8,7 @@ export const getAllNotice = async () => {
   return await instance.get("/notice/all");
 };
 
-export const getDetailNotice = async (noticeId: string) => {
+export const getDetailNotice = async (noticeId: number) => {
   return await instance.get(`/notice/info/${noticeId}`);
 };
 

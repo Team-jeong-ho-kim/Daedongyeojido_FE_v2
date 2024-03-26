@@ -176,3 +176,28 @@ export type ApplicationNoticeType = {
 export type writeProps = {
   write: ApplicationNoticeType;
 };
+
+export type NoticeFieldType = {
+  major: MajorType;
+  todo: string;
+};
+
+export type NoticeDetailType = {
+  clubName: string;
+  noticeTitle: string;
+  noticeExplain: string;
+  clubExplain: string;
+  fields: NoticeFieldType[];
+  recruitDay: {
+    startDay: string;
+    endDay: string;
+  };
+  applyMethod: string;
+  interviewDay: {
+    startDay: string;
+    endDay: string;
+  };
+  inquiry: string;
+  weWant: string;
+  assignment: string;
+};
