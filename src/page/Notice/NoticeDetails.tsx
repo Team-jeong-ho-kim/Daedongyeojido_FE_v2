@@ -7,7 +7,7 @@ import { IVProcess } from "../../assets";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useParams } from "react-router-dom";
-import { getDetailNotice } from "../../apis/notice";
+import { deleteNotice, getDetailNotice } from "../../apis/notice";
 import { NoticeDetailType } from "../../types/type";
 
 interface Props {
@@ -95,7 +95,16 @@ const NoticeDetails = () => {
   };
 
   const handleDelete = () => {
-    window.location.href = "/";
+    if (!id) return;
+
+    deleteNotice(id)
+      .then(() => {
+        alert("삭제에 성공하셨습니다");
+        window.location.href = "/";
+      })
+      .catch(() => {
+        alert("나중에 다시 시도해주세요");
+      });
   };
 
   const handleDeleting = () => {
