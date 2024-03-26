@@ -2,10 +2,16 @@ import styled from "styled-components";
 import { useState } from "react";
 import Trashcan from "../../assets/img/SVG/Trashcan.svg";
 import Photo from "../../assets/img/SVG/Photo.svg";
+import { ClubDetailsType } from "../../types/type";
 
-const ClubImgEditor = () => {
-  const [bannerImg, setBannerImg] = useState<string | null>(null);
-  const [introImg, setIntroImg] = useState<string | null>(null);
+interface Update {
+  club: ClubDetailsType;
+  imgLoad: (data: string[]) => void;
+}
+
+const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
+  const [bannerImg, setBannerImg] = useState<string>(club.clubBannerUrl);
+  const [introImg, setIntroImg] = useState<string>(club.clubImageUrl);
 
   const handleBannerUpload = () => {
     const bannerInput = document.getElementById("banner");
@@ -15,13 +21,14 @@ const ClubImgEditor = () => {
   const handleBannerDelete = () => {
     const bannerInput = document.getElementById("banner");
     bannerInput.value = "";
-    setBannerImg(null);
+    setBannerImg("");
   };
 
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
       setBannerImg(URL.createObjectURL(selectedImage));
+      imgLoad([bannerImg, introImg]);
     }
   };
 
@@ -33,13 +40,14 @@ const ClubImgEditor = () => {
   const handleIntroDelete = () => {
     const introInput = document.getElementById("introd");
     introInput.value = "";
-    setIntroImg(null);
+    setIntroImg("");
   };
 
   const handleIntrodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
       setIntroImg(URL.createObjectURL(selectedImage));
+      imgLoad([bannerImg, introImg]);
     }
   };
 
@@ -52,6 +60,7 @@ const ClubImgEditor = () => {
             <>
               <PhotoPlus src={Photo} />
               <Sensor>동아리 배너에 들어갈 사진을 선택해 주세요.</Sensor>
+              <Visual>이미지 크기: 1920px×350px</Visual>
             </>
           )}
           {bannerImg && <BannerImage src={bannerImg} alt="" />}
@@ -71,6 +80,7 @@ const ClubImgEditor = () => {
             <>
               <PhotoPlus src={Photo} />
               <Sensor>동아리 설명에 들어갈 사진을 선택해 주세요.</Sensor>
+              <Visual>이미지 크기: 1920px×1170px</Visual>
             </>
           )}
           {introImg && <IntroImage src={introImg} alt="" />}
@@ -161,15 +171,25 @@ const Sensor = styled.p`
 `;
 
 const BannerImage = styled.img`
-  width: 683px;
-  height: 383px;
+  width: 748px;
+  height: 136.7px;
   margin-top: -21px;
 `;
 
 const IntroImage = styled.img`
-  width: 654px;
-  height: 368px;
+  width: 628px;
+  height: 382px;
   margin-top: -21px;
+`;
+
+const Visual = styled.p`
+  color: #000;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 10px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.02px;
+  margin-top: -25px;
 `;
 
 export default ClubImgEditor;

@@ -14,12 +14,14 @@ import { MyInfoType } from "../types/type";
 import { PassingResultType } from "../types/type";
 import { handleImageChange } from "../utils/handleImageChange";
 import { createImage } from "../apis/image";
+import { getMyAlarm } from "../apis/alarm";
+import { AlarmKindType, MyAlarmType } from "../types/type";
 
 const MyPage = () => {
-  const [page, setPage] = useState<String>("ApplyDetail");
-  const [getAlarm, setGetAlarm] = useState<Boolean>(true);
+  const [page, setPage] = useState<string>("ApplyDetail");
+  const [getAlarm, setGetAlarm] = useState<MyAlarmType[]>();
   const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
-  const [ivsdSelect, setIvsdSelect] = useState<Boolean>(false);
+  const [ivsdSelect, setIvsdSelect] = useState<boolean>(false);
   const [image, setImage] = useState<Blob | null>(null);
   const [ghLink, setGhLink] = useState<URL>(
     "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
@@ -27,8 +29,8 @@ const MyPage = () => {
   const [ghLink2, setGhLink2] = useState<string>(
     "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
   );
-  const [profileEdit, setProfileEdit] = useState<Boolean>(false);
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [profileEdit, setProfileEdit] = useState<boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
 
   const handleLoginToggle = () => {
@@ -95,11 +97,36 @@ const MyPage = () => {
     }
   };
 
+  const alarmType = (alarm: MyAlarmType) => {
+    switch (alarm.alarmType) {
+      case "REPORT_PASS_RESULT":
+        return reportPassingResult(alarm.passingResult) == "합격"
+          ? "서류합격"
+          : "서류탈락";
+      case "INTERVIEW_PASS_RESULT":
+        return interviewPassingResult(alarm.passingResult) == "합격"
+          ? "면접합격"
+          : "면접탈락";
+      default:
+        return "대기";
+    }
+  };
+
   useEffect(() => {
     getMyInfo()
       .then((res) => {
         setData(res.data);
         console.log(res.data);
+
+        getMyAlarm()
+          .then((res) => {
+            console.log(res.data);
+
+            setGetAlarm(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
         getAnnouncement()
           .then((res) => {
@@ -171,13 +198,13 @@ const MyPage = () => {
                 <MyInfo_Menu>
                   <ApplyDetail>
                     <Ball1
-                      isApplyDetail={
-                        page == "ApplyDetail" ? true : false
-                      }></Ball1>
+                      isApplyDetail={page == "ApplyDetail" ? true : false}
+                    ></Ball1>
                     <Text1
                       isApplyDetail={page == "ApplyDetail" ? true : false}
                       id="ApplyDetail"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       지원내역
                     </Text1>
                   </ApplyDetail>
@@ -186,17 +213,20 @@ const MyPage = () => {
                     <Text2
                       isAlarm={page == "Alarm" ? true : false}
                       id="Alarm"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       알림
                     </Text2>
                   </Alarm>
                   <Announce>
                     <Ball3
-                      isAnnounce={page == "Announce" ? true : false}></Ball3>
+                      isAnnounce={page == "Announce" ? true : false}
+                    ></Ball3>
                     <Text3
                       isAnnounce={page == "Announce" ? true : false}
                       id="Announce"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       공지사항
                     </Text3>
                   </Announce>
@@ -257,54 +287,78 @@ const MyPage = () => {
               {page == "Alarm" && (
                 <>
                   <MyName>알림</MyName>
-                  {getAlarm == false ? (
+                  {getAlarm && getAlarm.length <= 0 ? (
                     <NoAlarm>
                       <NoAppl>알림이 없습니다.</NoAppl>
                       <Opply>알림이 생기면 이곳에서 확인 가능해요.</Opply>
                     </NoAlarm>
                   ) : (
                     <AlarmCenter>
-                      <AlarmPass>
-                        <AlarmLT>1시간 전</AlarmLT>
-                        <AlarmName>
-                          <AlarmPC>노네임드</AlarmPC>
-                          <AlarmPassed>서류합격</AlarmPassed>
-                          <InterviewScheduleSelect
-                            onClick={() => setIvsdSelect(!ivsdSelect)}>
-                            면접 시간 선택
-                          </InterviewScheduleSelect>
-                        </AlarmName>
-                        <AlarmText>
-                          이일영님, 노네임드 백엔드 분야 서류합격을 축하드려요!
-                          면접 시간을 선택해주세요.
-                        </AlarmText>
-                      </AlarmPass>
-                      <AlarmPass>
-                        <AlarmLT>2시간 전</AlarmLT>
-                        <AlarmName>
-                          <AlarmPC>대동여지도</AlarmPC>
-                          <AlarmPassed>최종합격</AlarmPassed>
-                        </AlarmName>
-                        <AlarmText>
-                          이일영님, 대동여지도 프론트엔드 분야 최종합격을
-                          축하드려요! 🎉
-                        </AlarmText>
-                      </AlarmPass>
-                      <AlarmPass>
-                        <AlarmLT>1일 전</AlarmLT>
-                        <AlarmName>
-                          <AlarmPC>대동여지도</AlarmPC>
-                          <AlarmPassed>서류합격</AlarmPassed>
-                          <InterviewScheduleSelect
-                            onClick={() => setIvsdSelect(!ivsdSelect)}>
-                            면접 시간 선택
-                          </InterviewScheduleSelect>
-                        </AlarmName>
-                        <AlarmText>
-                          이일영님, 대동여지도 프론트엔드 분야 서류합격을
-                          축하드려요! 면접 시간을 선택해주세요.
-                        </AlarmText>
-                      </AlarmPass>
+                      {getAlarm?.map((alarm) => {
+                        if (alarmType(alarm) === "서류합격") {
+                          return (
+                            <AlarmPass>
+                              <AlarmLT>1시간 전</AlarmLT>
+                              <AlarmName>
+                                <AlarmPC>{alarm.clubName}</AlarmPC>
+                                <AlarmPassed>서류합격</AlarmPassed>
+                                <InterviewScheduleSelect
+                                  onClick={() => setIvsdSelect(!ivsdSelect)}
+                                >
+                                  면접 시간 선택
+                                </InterviewScheduleSelect>
+                              </AlarmName>
+                              <AlarmText>
+                                {alarm.userName}님, {alarm.clubName}{" "}
+                                {alarm.major} 분야 서류합격을 축하드려요! 면접
+                                시간을 선택해주세요.
+                              </AlarmText>
+                            </AlarmPass>
+                          );
+                        } else if (alarmType(alarm) === "면접합격") {
+                          return (
+                            <AlarmPass>
+                              <AlarmLT>2시간 전</AlarmLT>
+                              <AlarmName>
+                                <AlarmPC>{alarm.clubName}</AlarmPC>
+                                <AlarmPassed>최종합격</AlarmPassed>
+                              </AlarmName>
+                              <AlarmText>
+                                {alarm.userName}님, {alarm.clubName}{" "}
+                                {alarm.major} 분야 최종합격을 축하드려요! 🎉
+                              </AlarmText>
+                            </AlarmPass>
+                          );
+                        } else if (alarmType(alarm) === "서류탈락") {
+                          return (
+                            <AlarmPass>
+                              <AlarmLT>3시간 전</AlarmLT>
+                              <AlarmName>
+                                <AlarmPC>{alarm.clubName}</AlarmPC>
+                                <AlarmPassed>서류탈락</AlarmPassed>
+                              </AlarmName>
+                              <AlarmText>
+                                {alarm.userName}님, 안타깝게도 {alarm.clubName}{" "}
+                                {alarm.major} 분야 서류 면접에서 떨어졌어요.
+                              </AlarmText>
+                            </AlarmPass>
+                          );
+                        } else if (alarmType(alarm) === "면접탈락") {
+                          return (
+                            <AlarmPass>
+                              <AlarmLT>4시간 전</AlarmLT>
+                              <AlarmName>
+                                <AlarmPC>{alarm.clubName}</AlarmPC>
+                                <AlarmPassed>면접탈락</AlarmPassed>
+                              </AlarmName>
+                              <AlarmText>
+                                {alarm.userName}님, 아쉽게도 {alarm.clubName}{" "}
+                                {alarm.major} 분야 심층 면접에서 떨어졌어요. 💧
+                              </AlarmText>
+                            </AlarmPass>
+                          );
+                        }
+                      })}
                     </AlarmCenter>
                   )}
                 </>

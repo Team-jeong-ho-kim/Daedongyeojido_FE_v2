@@ -3,16 +3,37 @@ import { useState } from "react";
 import Trashcan from "../../assets/img/SVG/Trashcan.svg";
 import Plus from "../../assets/img/SVG/Plus.svg";
 import DelTag from "../../assets/img/SVG/DelTag.svg";
+import { ClubDetailsType } from "../../types/type";
 
-const ClubTagLoader = () => {
-  const [currentTags, setCurrentTags] = useState<number>(1);
+interface Tags {
+  tag1: string;
+  tag2: string;
+  tag3: string;
+  tag4: string;
+  tag5: string;
+}
+
+interface Update {
+  club: ClubDetailsType;
+  tagLoad: (data: Tags) => void;
+}
+
+const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
+  const [currentTags, setCurrentTags] = useState<number>(club.tags.length);
   const [deleteMod, setDeleteMod] = useState<boolean>(false);
   const [noneTag, setNoneTag] = useState<boolean>(false);
-  const [tag1, setTag1] = useState<string>("");
-  const [tag2, setTag2] = useState<string>("");
-  const [tag3, setTag3] = useState<string>("");
-  const [tag4, setTag4] = useState<string>("");
-  const [tag5, setTag5] = useState<string>("");
+  const [tag1, setTag1] = useState<string>(club.tags[0]);
+  const [tag2, setTag2] = useState<string>(club.tags[1]);
+  const [tag3, setTag3] = useState<string>(club.tags[2]);
+  const [tag4, setTag4] = useState<string>(club.tags[3]);
+  const [tag5, setTag5] = useState<string>(club.tags[4]);
+  const [tagz, setTagz] = useState<Tags>({
+    tag1: tag1,
+    tag2: tag2,
+    tag3: tag3,
+    tag4: tag4,
+    tag5: tag5,
+  });
 
   const handleAddTag = () => {
     if (currentTags < 5) setCurrentTags(currentTags + 1);
@@ -23,6 +44,11 @@ const ClubTagLoader = () => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
       setTag1(inputValue);
+      setTagz({
+        ...tagz,
+        tag1: tag1,
+      });
+      tagLoad(tagz);
     }
   };
 
@@ -31,6 +57,11 @@ const ClubTagLoader = () => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
       setTag2(inputValue);
+      setTagz({
+        ...tagz,
+        tag2: tag2,
+      });
+      tagLoad(tagz);
     }
   };
 
@@ -39,6 +70,11 @@ const ClubTagLoader = () => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
       setTag3(inputValue);
+      setTagz({
+        ...tagz,
+        tag3: tag3,
+      });
+      tagLoad(tagz);
     }
   };
 
@@ -47,6 +83,11 @@ const ClubTagLoader = () => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
       setTag4(inputValue);
+      setTagz({
+        ...tagz,
+        tag4: tag4,
+      });
+      tagLoad(tagz);
     }
   };
 
@@ -55,6 +96,11 @@ const ClubTagLoader = () => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
       setTag5(inputValue);
+      setTagz({
+        ...tagz,
+        tag5: tag5,
+      });
+      tagLoad(tagz);
     }
   };
 

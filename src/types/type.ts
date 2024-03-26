@@ -1,6 +1,7 @@
 export type PassingResultType = "PASS" | "FAIL" | "WAIT";
-type AlarmKindType = "REPORT_PASS_RESULT" | "INTERVIEW_PASS_RESULT";
+export type AlarmKindType = "REPORT_PASS_RESULT" | "INTERVIEW_PASS_RESULT";
 export type MajorType =
+  | "UNDEFINED"
   | "FRONT"
   | "BACK"
   | "IOS"
@@ -68,6 +69,17 @@ export type AlarmPostType = {
   alarmType: AlarmKindType;
 };
 
+export type MyAlarmType = {
+  alarmId: number;
+  title: string;
+  contents: string;
+  clubName: string;
+  userName: string;
+  passingResult: PassingResultType;
+  major: MajorType;
+  alarmType: AlarmKindType;
+};
+
 // announcement
 export type AnnouncementType = {
   title: string;
@@ -105,6 +117,36 @@ export type ClubDetailType = {
 
 export type ClubsProps = {
   clubs: ClubType[];
+};
+
+export type clubMemberType = {
+  name: string;
+};
+
+export type questResponsesType = {
+  questionId: number;
+  question: string;
+  answer: string;
+};
+
+export type ClubDetailsType = {
+  clubName: string;
+  title: string;
+  introduction: string;
+  clubImageUrl: string;
+  clubBannerUrl: string;
+  tags: string[];
+  clubMember: clubMemberType[];
+  questResponses: questResponsesType[];
+};
+
+export type ClubInfoModType = {
+  clubName: string;
+  title: string;
+  introduction: string;
+  clubImageUrl: string;
+  clubBannerUrl: string;
+  tags: string[];
 };
 
 //report

@@ -1,15 +1,61 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import ClubImgEditor from "../../components/ClubMain/ClubImgEditor";
 import ClubTagLoader from "../../components/ClubMain/ClubTagLoader";
 import { LeftArrow } from "../../assets";
+import { getDetailClub, patchClub } from "../../apis/club";
+import { ClubDetailsType } from "../../types/type";
+import { ClubInfoModType } from "../../types/type";
 
-const ClubInfoMod = () => {
+interface Tags {
+  tag1: string;
+  tag2: string;
+  tag3: string;
+  tag4: string;
+  tag5: string;
+}
+
+const ClubInfoMod = (clubNm: string) => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [explain, setExplain] = useState<string>("");
   const [longExp, setLongExp] = useState<string>("");
+  const [data, setData] = useState<ClubDetailsType>();
+  const [tagz, setTagz] = useState<Tags>({
+    tag1: "",
+    tag2: "",
+    tag3: "",
+    tag4: "",
+    tag5: "",
+  });
+  const [modData, setModData] = useState<ClubInfoModType>();
+  const [clubBanner, setClubBanner] = useState<string>("");
+  const [clubImage, setClubImage] = useState<string>("");
+
+  useEffect(() => {
+    getDetailClub(clubNm).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
+    setExplain(data?.title);
+    setLongExp(data?.introduction);
+  });
+
+  const handleTagChange = (tag: Tags) => {
+    setTagz({
+      tag1: tag.tag1,
+      tag2: tag.tag2,
+      tag3: tag.tag3,
+      tag4: tag.tag4,
+      tag5: tag.tag5,
+    });
+  };
+
+  const handleImageChange = (url: string[]) => {
+    setClubBanner(url[0]);
+    setClubImage(url[1]);
+  };
 
   const handleIntroChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
@@ -31,6 +77,18 @@ const ClubInfoMod = () => {
     setIsLoginVisible(!isLoginVisible);
   };
 
+  const handleSave = () => {
+    setModData({
+      clubName: clubNm,
+      title: explain,
+      introduction: longExp,
+      clubBannerUrl: clubBanner,
+      clubImageUrl: clubImage,
+      tags: [tagz.tag1, tagz.tag2, tagz.tag3, tagz.tag4, tagz.tag5],
+    });
+    patchClub(modData);
+  };
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -43,7 +101,7 @@ const ClubInfoMod = () => {
       <Box>
         <Body1>
           <ClubM>
-            <SaveButton>저장하기</SaveButton>
+            <SaveButton onClick={handleSave}>저장하기</SaveButton>
           </ClubM>
           <ClubN>
             <NameO>동아리 정보 수정</NameO>
@@ -57,7 +115,7 @@ const ClubInfoMod = () => {
           onChange={handleIntroChange}
           placeholder="자신이 속한 동아리에 대해 짧게 설명해 주세요."
         />
-        <ClubTagLoader />
+        <ClubTagLoader club={data} tagLoad={handleTagChange} />
         <DetailsInfo
           value={longExp}
           maxLength={500}
@@ -65,7 +123,7 @@ const ClubInfoMod = () => {
           onChange={handleLongIntroChange}
           placeholder="자신이 속한 동아리에 대해 알려보세요! 동아리에 대한 상세 설명을 작성해 주세요."
         />
-        <ClubImgEditor />
+        <ClubImgEditor club={data} imgLoad={handleImageChange} />
       </Box>
       <Footer />
     </Container>
