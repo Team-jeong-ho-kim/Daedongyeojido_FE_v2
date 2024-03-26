@@ -94,7 +94,7 @@ const Mypage = styled.a`
   background-color: #f3f4f5;
   color: #4e5968;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
@@ -118,7 +118,7 @@ const Noticepage = styled.a`
   background-color: #fff;
   color: #4e5968;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
@@ -142,7 +142,7 @@ const Clubpage = styled.a`
   background-color: #fff;
   color: #4e5968;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
@@ -192,7 +192,7 @@ const Login = styled.a`
   background-color: #fff;
   color: #474747;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 17px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 17px;
@@ -215,7 +215,7 @@ const Report = styled.a`
   background-color: #fff;
   color: #474747;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 17px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 17px;
