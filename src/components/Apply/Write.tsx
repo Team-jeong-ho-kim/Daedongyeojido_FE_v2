@@ -46,8 +46,7 @@ export const Write = ({ write }: writeProps) => {
             value={introduceText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setIntroduceText(e.target.value)
-            }
-          ></Introduce>
+            }></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>
