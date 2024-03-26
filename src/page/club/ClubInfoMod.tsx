@@ -105,6 +105,7 @@ const GoBack = styled.p`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.7px;
+  cursor: pointer;
 `;
 
 const Box = styled.div`
