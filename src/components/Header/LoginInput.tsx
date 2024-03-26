@@ -38,6 +38,7 @@ const Input = styled.input`
   border-radius: 10px;
   border: 2px solid #eaecef;
   padding-left: 24px;
+  cursor: text;
 `;
 
 export default LoginInput;
