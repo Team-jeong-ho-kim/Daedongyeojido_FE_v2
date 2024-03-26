@@ -33,15 +33,15 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
       <LoginBox>
         <Daedae>대동여지도</Daedae>
         <LoginInput
-          placeholder='아이디'
+          placeholder="아이디"
           value={ID}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setID(e.target.value)
           }
         />
         <LoginInput
-          type='password'
-          placeholder='비밀번호'
+          type="password"
+          placeholder="비밀번호"
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
