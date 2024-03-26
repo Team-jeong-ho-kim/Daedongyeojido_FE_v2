@@ -70,10 +70,8 @@ const NoticeDetails = () => {
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
   const [isSelected, setIsSelected] = useState<String>("RCMinfo");
-  const [clubName, setClubName] = useState<String>("대동여지도");
   const [delCheck, setDelCheck] = useState<boolean>(false);
   const [data, setData] = useState<NoticeDetailType>();
-  const clubExplain = `동아리 ##${clubName}##는 동아리원 모집과 지원에서 일어나는 번거로운 일들을 줄이고<br/>쉽고 빠르게 동아리원 %%모집%%, $$지원$$을 할 수 있는 서비스 @@${clubName}@@를 만드는 동아리입니다`;
 
   /* 퍼블리싱 임시 글 */
   const handleLoginToggle = () => {
@@ -555,7 +553,7 @@ const DeleteModal = styled.div`
   width: 646px;
   height: 375px;
   border-radius: 20px;
-  borderr: 2px solid #bebebe;
+  border: 2px solid #bebebe;
   background-color: #fff;
   z-index: 1112;
   user-select: none;
