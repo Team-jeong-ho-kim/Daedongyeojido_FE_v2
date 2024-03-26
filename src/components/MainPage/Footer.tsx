@@ -51,6 +51,7 @@ const Box = styled.p`
   letter-spacing: -0.7px;
   height: 18px;
   align-items: center;
+  user-select: none;
 `;
 
 const D = styled.p`
