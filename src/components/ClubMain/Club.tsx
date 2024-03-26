@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import { ClubType, ClubsProps } from "../../types/type";
+import { useNavigate } from "react-router-dom";
 
 export const Club = ({ clubs }: ClubsProps) => {
+  const link = useNavigate();
+
   return (
     <Container>
       {clubs.map((club: ClubType, index: number) => (
-        <ClubWrapper key={index}>
+        <ClubWrapper
+          key={index}
+          onClick={() => {
+            link(`/ClubDetail/${club.clubName}`);
+          }}>
           <ClubLogo src={club.clubImageUrl} />
           <ClubName>{club.clubName}</ClubName>
           <ClubInfo>{club.title}</ClubInfo>

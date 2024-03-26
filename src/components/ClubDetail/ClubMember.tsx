@@ -1,26 +1,25 @@
 import styled from "styled-components";
 import { Member } from "./Member";
+import { ClubDetailType } from "../../types/type";
 
-export const ClubMember = () => {
+type PropType = Pick<ClubDetailType, "clubMembers" | "clubName">;
+
+export const ClubMember = ({ clubMembers, clubName }: PropType) => {
   return (
     <Container>
-      <Title>2024년 대동여지도의 동아라원들을 소개합니다!</Title>
+      <Title>2024년 {clubName}의 동아리원들을 소개합니다!</Title>
       <GradeWrapper>
-        <Grade>1학년</Grade>
         <MemberWrapper>
-          <Member />
-        </MemberWrapper>
-      </GradeWrapper>
-      <GradeWrapper>
-        <Grade>2학년</Grade>
-        <MemberWrapper>
-          <Member />
-        </MemberWrapper>
-      </GradeWrapper>
-      <GradeWrapper>
-        <Grade>3학년</Grade>
-        <MemberWrapper>
-          <Member />
+          {clubMembers.map((member) => {
+            return (
+              <Member
+                name={member.name}
+                major={member.major}
+                oneLiner={member.oneLiner}
+                profileImageUrl={member.profileImageUrl}
+              />
+            );
+          })}
         </MemberWrapper>
       </GradeWrapper>
     </Container>

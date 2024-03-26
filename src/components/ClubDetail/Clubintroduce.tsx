@@ -1,34 +1,32 @@
 import styled from "styled-components";
 import ClubLogo from "../../assets/img/PNG/Daedongyeojido.png";
+import { ClubDetailType } from "../../types/type";
 
-export const Clubintroduce = () => {
+type PropType = Pick<
+  ClubDetailType,
+  "tags" | "clubImageUrl" | "introduction" | "clubName" | "title"
+>;
+
+export const Clubintroduce = ({
+  tags,
+  clubImageUrl,
+  introduction,
+  clubName,
+  title,
+}: PropType) => {
   return (
     <Container>
       <Text>
-        <Title>대동여지도</Title>
-        <OneLine>대마고 동아리 여기서 지원하고 도움받자</OneLine>
+        <Title>{clubName}</Title>
+        <OneLine>{title}</OneLine>
         <TagWrapper>
-          <Tag>#행복한</Tag>
-          <Tag>#행복한</Tag>
-          <Tag>#행복한</Tag>
-          <Tag>#행복한</Tag>
-          <Tag>#행복한</Tag>
-          <Tag>#행복한</Tag>
+          {tags.map((tag, index) => {
+            return <Tag key={index}>#{tag}</Tag>;
+          })}
         </TagWrapper>
-        <Content>
-          저희 동아리는 오래된 신생 동아리로써 응애응애...저희 동아리는 오래된
-          신생 동아리로써 응애응애... 저희 동아리는 오래된 신생 동아리로써
-          응애응애...저희 동아리는 오래된 저희 동아리는 오래된 신생 동아리로써
-          응애응애...저희 동아리는 오래된 신생 동아리로써 응애응애...저희
-          동아리는 오래된 신생 동아리로써 응애응애...저희 동아리는 오래된 저희
-          동아리는 오래된 신생 동아리로써 응애응애...저희 동아리는 오래된 신생
-          동아리로써 응애응애...저희 동아리는 오래된 신생 동아리로써
-          응애응애...저희 동아리는 오래된 저희 동아리는 오래된 신생 동아리로써
-          응애응애...저희 동아리는 오래된 신생 동아리로써 응애응애...저희
-          동아리는 오래된 신생 동아리로써 응애응애...저희 동아리는 오래된
-        </Content>
+        <Content>{introduction}</Content>
       </Text>
-      <LogoImg src={ClubLogo} />
+      <LogoImg src={clubImageUrl ?? undefined} />
     </Container>
   );
 };

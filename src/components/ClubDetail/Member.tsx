@@ -1,13 +1,26 @@
 import styled from "styled-components";
+import { MajorType } from "../../types/type";
 
-export const Member = () => {
+type PropType = {
+  name: string;
+  major: MajorType;
+  oneLiner: string;
+  profileImageUrl: string | null;
+};
+
+export const Member = ({
+  name,
+  major,
+  oneLiner,
+  profileImageUrl,
+}: PropType) => {
   return (
     <Container>
-      <Image />
+      <Image src={profileImageUrl ?? undefined} />
       <TextWrapper>
-        <Name>원은지</Name>
-        <Major>Front-end</Major>
-        <OneLine>은진쌤 보고싶다 우이이ㅣ이ㅠㅠㅠㅜㅠ</OneLine>
+        <Name>{name}</Name>
+        <Major>{major}</Major>
+        <OneLine>{oneLiner}</OneLine>
       </TextWrapper>
     </Container>
   );

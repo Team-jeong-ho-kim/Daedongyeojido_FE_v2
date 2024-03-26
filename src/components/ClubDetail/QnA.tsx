@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import { QnABox } from "./QnABox";
 import QnAPlus from "../../assets/img/PNG/QnAPlus.png";
+import { ClubDetailType } from "../../types/type";
 
-export const QnA = () => {
+type PropType = Pick<ClubDetailType, "questResponses">;
+
+export const QnA = ({ questResponses }: PropType) => {
   return (
     <Container>
-      <QnABox />
-      <QnABox />
-      <QnABox />
-      <QnABox />
-      <QnABox />
+      {questResponses &&
+        questResponses.map((quest, index) => {
+          return (
+            <QnABox key={index} quest={quest.question} answer={quest.answer} />
+          );
+        })}
       <PlusImg src={QnAPlus} />
     </Container>
   );

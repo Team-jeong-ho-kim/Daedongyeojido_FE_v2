@@ -1,6 +1,6 @@
 export type PassingResultType = "PASS" | "FAIL" | "WAIT";
 type AlarmKindType = "REPORT_PASS_RESULT" | "INTERVIEW_PASS_RESULT";
-type MajorType =
+export type MajorType =
   | "FRONT"
   | "BACK"
   | "IOS"
@@ -80,6 +80,27 @@ export type ClubType = {
   title: string;
   clubImageUrl: string;
   tags: string[];
+};
+
+export type ClubDetailType = {
+  clubName: string;
+  title: string | null;
+  introduction: string | null;
+  clubImageUrl: string | null;
+  clubBannerUrl: string | null;
+  tags: string[];
+  teacherName: string;
+  clubMembers: {
+    name: string;
+    major: MajorType;
+    oneLiner: string;
+    profileImageUrl: string | null;
+  }[];
+  questResponses: {
+    questionId: number;
+    question: string;
+    answer: string;
+  }[];
 };
 
 export type ClubsProps = {

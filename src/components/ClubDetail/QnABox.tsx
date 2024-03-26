@@ -2,20 +2,25 @@ import { useState } from "react";
 import DownArrow from "../../assets/img/PNG/DownArrow.png";
 import { styled, keyframes } from "styled-components";
 
-export const QnABox = () => {
+type PropType = {
+  quest: string;
+  answer: string;
+};
+
+export const QnABox = ({ quest, answer }: PropType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <QnAWrapper opened={true}>
       <QnATop>
-        <Title>대충 Q&A 질문</Title>
+        <Title>{quest}</Title>
         <ArrowImg
           src={DownArrow}
           opened={isOpen}
           onClick={() => setIsOpen(!isOpen)}
         />
       </QnATop>
-      {isOpen && <Content>대충 Q&A 답변</Content>}
+      {isOpen && <Content>{answer}</Content>}
     </QnAWrapper>
   );
 };
