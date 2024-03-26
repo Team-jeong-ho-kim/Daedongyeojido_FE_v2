@@ -15,6 +15,7 @@ import NoticeDetailsPage from "./page/Notice/NoticeDetails";
 import NoticeModifyPage from "./page/Notice/NoticeModifying";
 import ClubInfoModPage from "./page/club/ClubInfoMod";
 import { ClubDetailPage } from "./page/club/ClubDetailPage";
+import { ClubAdminPage } from "./page/ClubAdminPage";
 
 function MainRouter() {
   return (
@@ -36,6 +37,7 @@ function MainRouter() {
         <Route path="/Memo" element={<MemoPage />} />
         <Route path="/ClubInfoModify" element={<ClubInfoModPage />} />
         <Route path="/ClubDetail/:clubName" element={<ClubDetailPage />} />
+        <Route path="/ClubAdmin" element={<ClubAdminPage />} />
       </Routes>
     </BrowserRouter>
   );

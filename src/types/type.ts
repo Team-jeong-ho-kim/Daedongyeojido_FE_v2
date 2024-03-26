@@ -12,7 +12,7 @@ export type MajorType =
   | "DEVOPS"
   | "DESIGN"
   | "GAME";
-type PartType =
+export type PartType =
   | "INDEPENDENT"
   | "CLUB_MEMBER"
   | "CLUB_LEADER"
@@ -196,6 +196,23 @@ export type ApplicationNoticeType = {
 
 export type writeProps = {
   write: ApplicationNoticeType;
+};
+
+//admin-club
+export type adminPageType = {
+  clubName: string;
+  teacherName: string;
+  memberResponses: memberType[];
+};
+
+export type memberType = {
+  userName: string;
+  classNumber: string;
+  part: PartType;
+};
+
+export type memberProps = {
+  clubs: adminPageType[];
 };
 
 export type NoticeFieldType = {
