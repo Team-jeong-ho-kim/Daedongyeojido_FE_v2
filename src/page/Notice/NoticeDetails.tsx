@@ -1,11 +1,14 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
 import { IVProcess } from "../../assets";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
+import { useParams } from "react-router-dom";
+import { getDetailNotice } from "../../apis/notice";
+import { NoticeDetailType } from "../../types/type";
 
 interface Props {
   text: string;
@@ -64,11 +67,12 @@ const ReplacedText = styled.p`
 `;
 
 const NoticeDetails = () => {
+  const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
   const [isSelected, setIsSelected] = useState<String>("RCMinfo");
-  const [clubName, setClubName] = useState<String>("대동여지도");
   const [delCheck, setDelCheck] = useState<boolean>(false);
-  const clubExplain = `동아리 ##${clubName}##는 동아리원 모집과 지원에서 일어나는 번거로운 일들을 줄이고<br/>쉽고 빠르게 동아리원 %%모집%%, $$지원$$을 할 수 있는 서비스 @@${clubName}@@를 만드는 동아리입니다`;
+  const [data, setData] = useState<NoticeDetailType>();
+
   /* 퍼블리싱 임시 글 */
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -98,134 +102,129 @@ const NoticeDetails = () => {
     setDelCheck(!delCheck);
   };
 
+  useEffect(() => {
+    if (id) {
+      getDetailNotice(+id).then((res) => {
+        setData(res.data);
+      });
+    }
+  }, []);
+
   return (
     <Container>
-      <Header onLoginToggle={handleLoginToggle} />
-      <HeaderFrame>
-        <RCMinfo
-          href="#Recruitment"
-          selected={isSelected}
-          onClick={handleSelectRCMinfo}
-        >
-          모집정보
-        </RCMinfo>
-        <IDTalent
-          href="#WeWant"
-          selected={isSelected}
-          onClick={handleSelectIDTalent}
-        >
-          인재상
-        </IDTalent>
-        <Assign
-          href="#Assignment"
-          selected={isSelected}
-          onClick={handleSelectAssignment}
-        >
-          동아리 과제
-        </Assign>
-      </HeaderFrame>
-      <Body>
-        <NoticeTop>
-          <NoticeTitleBox>
-            <NoticeTitle>대동여지도 동아리원을 모집합니다!!!!!</NoticeTitle>
-            <IsButton>
-              <ApplyButton usable={"else"}>지원하기</ApplyButton>
-              <ModifyButton usable={"clubLeader"} onClick={handleModify}>
-                수정하기
-              </ModifyButton>
-              <DeleteButton usable={"clubLeader"} onClick={handleDeleting}>
-                삭제하기
-              </DeleteButton>
-            </IsButton>
-          </NoticeTitleBox>
-          <NoticeSubtitle>대동여지도's 모집정보</NoticeSubtitle>
-        </NoticeTop>
-        <ClubExplainBox>
-          <Swiper text={clubExplain} />
-        </ClubExplainBox>
-        <Inbox>
-          <RecruitmentBox id="Recruitment">
-            <Alltitle>모집 분야</Alltitle>
-            <Recruitments />
-          </RecruitmentBox>
-          <InterviewProcess>
-            <Alltitle>면접 절차</Alltitle>
-            <IVPBox>
-              <IVPImg src={IVProcess} />
-            </IVPBox>
-          </InterviewProcess>
-          <ApplyManual>
-            <Alltitle>모집기간 및 지원방법</Alltitle>
-            <ApplyManualContent>
-              <ApplyManuals>
-                <Checkbox src={Check} />
-                <Contents>모집기간 : 2024-04-24 ~ 2024-05-03</Contents>
-              </ApplyManuals>
-              <ApplyManuals>
-                <Checkbox src={Check} />
-                <Contents>
-                  지원방법 : 대동여지도 공고접속 후, 지원서 작성 및 과제 제출
-                </Contents>
-              </ApplyManuals>
-              <ApplyManuals>
-                <Checkbox src={Check} />
-                <Contents>면접기간 : 2024-04-27 ~ 2024-05-04</Contents>
-              </ApplyManuals>
-            </ApplyManualContent>
-          </ApplyManual>
-          <WeWantAndAssignment id="WeWant">
-            <Alltitle>{clubName}'s 인재상</Alltitle>
-            <WWAAContent>
-              보노보노를 좋아하는 사람
-              <br />
-              대동여지도에 대한 이해가 완벽한 사람
-              <br />
-              과제를 완벽히 수행한 사람
-            </WWAAContent>
-          </WeWantAndAssignment>
-          <WeWantAndAssignment id="Assignment">
-            <Alltitle>{clubName}'s 과제</Alltitle>
-            <WWAAContent>
-              백준 알고리즘 20개 푼 후 코드 해석해오기
-              <br />
-              깃 사용법에 대한 발표 준비
-              <br />
-              세계 최고의 검색 엔진 만들어 오기
-            </WWAAContent>
-          </WeWantAndAssignment>
-          <Report>
-            <Alltitle>문의사항</Alltitle>
-            <Contents>
-              instagram : @ty._.210, @rlo_zio, @wjhxxk
-              <br />
-              전화번호 : 010-6340-7353
-              <br />
-              2학년 2반 10번 원은지
-            </Contents>
-          </Report>
-          <CCLLUUBB>{clubName}</CCLLUUBB>
-        </Inbox>
-      </Body>
-      <Footer />
-      {delCheck && (
+      {data && (
         <>
-          <BlurBack onClick={handleDeleting}></BlurBack>
-          <DeleteModal>
-            <ModalTop>
-              <CheckText>
-                삭제하시면 다시 복구할 수 없습니다.
-                <br />
-                진짜로 공고를 삭제하시길 원하시나요?
-              </CheckText>
-            </ModalTop>
-            <ModalBottom>
-              <DeleteCancel onClick={handleDeleting}>취소</DeleteCancel>
-              <DeleteConfirm onClick={handleDelete}>삭제</DeleteConfirm>
-            </ModalBottom>
-          </DeleteModal>
+          <Header onLoginToggle={handleLoginToggle} />
+          <HeaderFrame>
+            <RCMinfo
+              href="#Recruitment"
+              selected={isSelected}
+              onClick={handleSelectRCMinfo}>
+              모집정보
+            </RCMinfo>
+            <IDTalent
+              href="#WeWant"
+              selected={isSelected}
+              onClick={handleSelectIDTalent}>
+              인재상
+            </IDTalent>
+            <Assign
+              href="#Assignment"
+              selected={isSelected}
+              onClick={handleSelectAssignment}>
+              동아리 과제
+            </Assign>
+          </HeaderFrame>
+          <Body>
+            <NoticeTop>
+              <NoticeTitleBox>
+                <NoticeTitle>{data.noticeTitle}</NoticeTitle>
+                <IsButton>
+                  <ApplyButton usable={"else"}>지원하기</ApplyButton>
+                  <ModifyButton usable={"clubLeader"} onClick={handleModify}>
+                    수정하기
+                  </ModifyButton>
+                  <DeleteButton usable={"clubLeader"} onClick={handleDeleting}>
+                    삭제하기
+                  </DeleteButton>
+                </IsButton>
+              </NoticeTitleBox>
+              <NoticeSubtitle>{data.noticeExplain}</NoticeSubtitle>
+            </NoticeTop>
+            <ClubExplainBox>
+              <Swiper text={data.clubExplain} />
+            </ClubExplainBox>
+            <Inbox>
+              <RecruitmentBox id="Recruitment">
+                <Alltitle>모집 분야</Alltitle>
+                <Recruitments fields={data.fields} />
+              </RecruitmentBox>
+              <InterviewProcess>
+                <Alltitle>면접 절차</Alltitle>
+                <IVPBox>
+                  <IVPImg src={IVProcess} />
+                </IVPBox>
+              </InterviewProcess>
+              <ApplyManual>
+                <Alltitle>모집기간 및 지원방법</Alltitle>
+                <ApplyManualContent>
+                  <ApplyManuals>
+                    <Checkbox src={Check} />
+                    <Contents>
+                      모집기간 : {data.recruitDay.startDay} ~{" "}
+                      {data.recruitDay.endDay}
+                    </Contents>
+                  </ApplyManuals>
+                  <ApplyManuals>
+                    <Checkbox src={Check} />
+                    <Contents>지원방법 : {data.applyMethod}</Contents>
+                  </ApplyManuals>
+                  <ApplyManuals>
+                    <Checkbox src={Check} />
+                    <Contents>
+                      면접기간 : {data.interviewDay.startDay} ~{" "}
+                      {data.interviewDay.endDay}
+                    </Contents>
+                  </ApplyManuals>
+                </ApplyManualContent>
+              </ApplyManual>
+              <WeWantAndAssignment id="WeWant">
+                <Alltitle>{data.clubName}'s 인재상</Alltitle>
+                <WWAAContent>{data.weWant}</WWAAContent>
+              </WeWantAndAssignment>
+              <WeWantAndAssignment id="Assignment">
+                <Alltitle>{data.clubName}'s 과제</Alltitle>
+                <WWAAContent>{data.assignment}</WWAAContent>
+              </WeWantAndAssignment>
+              <Report>
+                <Alltitle>문의사항</Alltitle>
+                <Contents>{data.inquiry}</Contents>
+              </Report>
+              <CCLLUUBB>{data.clubName}</CCLLUUBB>
+            </Inbox>
+          </Body>
+          <Footer />
+          {delCheck && (
+            <>
+              <BlurBack onClick={handleDeleting}></BlurBack>
+              <DeleteModal>
+                <ModalTop>
+                  <CheckText>
+                    삭제하시면 다시 복구할 수 없습니다.
+                    <br />
+                    진짜로 공고를 삭제하시길 원하시나요?
+                  </CheckText>
+                </ModalTop>
+                <ModalBottom>
+                  <DeleteCancel onClick={handleDeleting}>취소</DeleteCancel>
+                  <DeleteConfirm onClick={handleDelete}>삭제</DeleteConfirm>
+                </ModalBottom>
+              </DeleteModal>
+            </>
+          )}
+          <ScrollUpper />
         </>
       )}
-      <ScrollUpper />
     </Container>
   );
 };
@@ -554,7 +553,7 @@ const DeleteModal = styled.div`
   width: 646px;
   height: 375px;
   border-radius: 20px;
-  borderr: 2px solid #bebebe;
+  border: 2px solid #bebebe;
   background-color: #fff;
   z-index: 1112;
   user-select: none;

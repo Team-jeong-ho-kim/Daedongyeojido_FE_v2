@@ -1,13 +1,24 @@
 import styled from "styled-components";
 import RecruitmentMajor from "./RecruitmentMajor";
+import { NoticeFieldType } from "../../types/type";
 
-const Recruitments = () => {
+type PropType = {
+  fields: NoticeFieldType[];
+};
+
+const Recruitments = ({ fields }: PropType) => {
   return (
     <Container>
-      <RecruitmentMajor />
-      <RecruitmentMajor />
-      <RecruitmentMajor />
-      <RecruitmentMajor />
+      {fields &&
+        fields.map((field: NoticeFieldType, index: number) => {
+          return (
+            <RecruitmentMajor
+              major={field.major}
+              todo={field.todo}
+              key={index}
+            />
+          );
+        })}
     </Container>
   );
 };

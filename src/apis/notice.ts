@@ -8,10 +8,14 @@ export const getAllNotice = async () => {
   return await instance.get("/notice/all");
 };
 
-export const getDetailNotice = async (noticeId: string) => {
+export const getDetailNotice = async (noticeId: number) => {
   return await instance.get(`/notice/info/${noticeId}`);
 };
 
 export const deleteNotice = async (noticeId: string) => {
   return await instance.delete(`/notice/delete/${noticeId}`);
+};
+
+export const getApplication = async (noticeId: number) => {
+  return await instance.get(`/notice/apply/${noticeId}`);
 };
