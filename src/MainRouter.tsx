@@ -35,7 +35,7 @@ function MainRouter() {
         <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
         <Route path="/Memo" element={<MemoPage />} />
         <Route path="/ClubInfoModify" element={<ClubInfoModPage />} />
-        <Route path="/ClubDetail/:id" element={<ClubDetailPage />} />
+        <Route path="/ClubDetail/:clubName" element={<ClubDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
