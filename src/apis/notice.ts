@@ -4,6 +4,10 @@ export const createNotice = async () => {
   return await instance.post("/notice/create");
 };
 
+export const addQuestion = async (data: { id: number; question: string }) => {
+  return await instance.post("/notice/add-quest", data);
+};
+
 export const getAllNotice = async () => {
   return await instance.get("/notice/all");
 };

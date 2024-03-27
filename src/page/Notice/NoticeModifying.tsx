@@ -30,25 +30,23 @@ interface Day {
   year: number;
 }
 
-const init: NoticeState = {
-  title: "",
-  subtitle: "",
-  major1: "",
-  exp1: "",
-  major2: "",
-  exp2: "",
-  major3: "",
-  exp3: "",
-  major4: "",
-  exp4: "",
-  idealTalent: "",
-  assignment: "",
-  report: "",
-  applyMethod: "",
-};
-
 const NoticeModifying: React.FC = () => {
-  const [state, setState] = useState<NoticeState>(init);
+  const [state, setState] = useState<NoticeState>({
+    title: "",
+    subtitle: "",
+    major1: "",
+    exp1: "",
+    major2: "",
+    exp2: "",
+    major3: "",
+    exp3: "",
+    major4: "",
+    exp4: "",
+    idealTalent: "",
+    assignment: "",
+    report: "",
+    applyMethod: "",
+  });
   const [tip, setTip] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
