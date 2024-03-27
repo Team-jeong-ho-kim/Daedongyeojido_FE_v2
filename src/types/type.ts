@@ -281,3 +281,10 @@ export type NoticeDetailType = {
   weWant: string;
   assignment: string;
 };
+
+// question
+export type ClubQuestionsGetType = {
+  questionId: number;
+  question: string;
+  answer: string | null;
+};
