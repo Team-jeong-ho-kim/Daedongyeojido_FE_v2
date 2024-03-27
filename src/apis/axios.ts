@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     const {
       response: { status },
     } = err;
-    if (status === 403) {
+    if (status === 403 || status === 401) {
       const token = Cookie.get("refreshToken");
       reissue(token)
         .then((res: any) => {
