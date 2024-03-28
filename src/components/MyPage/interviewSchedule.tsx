@@ -1,8 +1,11 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LeftArrowBold from "../../assets/img/PNG/LeftArrowBold.png";
 import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
 import Close from "../../assets/img/PNG//Close.png";
+import { getITVquery } from "../../apis/interview";
+import { postITVtime } from "../../apis/interview";
+import { InterviewTimeType } from "../../types/type";
 
 interface Day {
   date: number;
@@ -11,7 +14,8 @@ interface Day {
 }
 
 interface Props {
-  handleIvsdSelectToggle: () => void;
+  handleItvToggle: () => void;
+  reportID: number;
 }
 
 const daysInMonth = (month: number, year: number): number => {
@@ -37,7 +41,7 @@ const monthNames: string[] = [
   "December",
 ];
 
-const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
+const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -49,9 +53,16 @@ const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
   const [currentYear, setCurrentYear] = useState<number>(
     new Date().getFullYear()
   );
+  const [itvTime, setItvTime] = useState<InterviewTimeType[]>();
+  const [selectedTimeId, setSelectedTimeId] = useState<number>(-1);
+  const [sDate, setSDate] = useState<string>("1970-01-01");
+  const [sTime, setSTime] = useState<string>("00:00:00");
 
   const handleClose = () => {
-    handleIvsdSelectToggle();
+    setSelectedTimeId(-1);
+    setSDate("1970-01-01");
+    setSTime("00:00:00");
+    handleItvToggle();
   };
 
   const handleDateClick = (
@@ -71,6 +82,9 @@ const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
       );
     } else {
       setSelectedDate({ date, month: currentMonth, year: currentYear });
+      setSDate(
+        `${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.date}`
+      );
     }
   };
 
@@ -179,6 +193,31 @@ const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
     }));
   };
 
+  const handleSubmit = () => {
+    if (
+      confirm(
+        `선택한 시간을 면접 날짜 및 시간으로 확정하시겠습니까?\n${
+          sDate.split("-")[0]
+        }년 ${sDate.split("-")[1]}월 ${sDate.split("-")[2]}일 ${sTime}`
+      )
+    ) {
+      postITVtime({
+        reportId: selectedTimeId,
+        interviewTimeId: selectedTimeId,
+      });
+      handleClose();
+    } else return;
+  };
+
+  useEffect(() => {
+    getITVquery(reportID)
+      .then((res) => {
+        setItvTime(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+  });
+
   return (
     <Container>
       <Calender>
@@ -213,16 +252,49 @@ const interviewSchedule: React.FC<Props> = ({ handleIvsdSelectToggle }) => {
           <InterviewT>
             <Title>면접 시간</Title>
             <Times>
-              <Time>12:30 ~ 12:50</Time>
-              <Time>13:10 ~ 13:30</Time>
-              <Time>13:50 ~ 14:10</Time>
-              <Time>14:30 ~ 14:50</Time>
-              <Time>15:10 ~ 15:30</Time>
-              <Time>15:50 ~ 16:10</Time>
+              {itvTime &&
+                itvTime.map((time) => {
+                  return (
+                    <>
+                      {time.interviewStartTime.split("T")[0] == sDate && (
+                        <Time
+                          isSelected={time.interviewTimeId == selectedTimeId}
+                          onClick={() => {
+                            setSelectedTimeId(time.interviewTimeId);
+                            setSTime(
+                              `${
+                                time.interviewStartTime
+                                  .split("T")[1]
+                                  .split(":")[0]
+                              }:${
+                                time.interviewStartTime
+                                  .split("T")[1]
+                                  .split(":")[1]
+                              }~${
+                                time.interviewEndTime
+                                  .split("T")[1]
+                                  .split(":")[0]
+                              }:${
+                                time.interviewEndTime
+                                  .split("T")[1]
+                                  .split(":")[1]
+                              }`
+                            );
+                          }}
+                        >
+                          {time.interviewStartTime.split("T")[1].split(":")[0]}:
+                          {time.interviewStartTime.split("T")[1].split(":")[1]}{" "}
+                          ~ {time.interviewEndTime.split("T")[1].split(":")[0]}:
+                          {time.interviewEndTime.split("T")[1].split(":")[1]}
+                        </Time>
+                      )}
+                    </>
+                  );
+                })}
             </Times>
           </InterviewT>
         </Interview>
-        <Submit>신청하기</Submit>
+        <Submit onClick={handleSubmit}>신청하기</Submit>
         <X src={Close} onClick={handleClose} />
       </Database>
     </Container>
@@ -241,6 +313,9 @@ const fadeIn = keyframes`
 `;
 
 const Container = styled.div`
+  position: absolute;
+  top: 30%;
+  left: 45%;
   display: flex;
   width: 839px;
   height: 480px;
@@ -461,11 +536,13 @@ const Times = styled.div`
   gap: 12px;
 `;
 
-const Time = styled.div`
+const Time = styled.div<{
+  isSelected: boolean;
+}>`
   display: flex;
   width: 159.5px;
   height: 32px;
-  margin-bottom: -2px;
+  margin-bottom: -4px;
   font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
   font-weight: 500;
@@ -475,6 +552,14 @@ const Time = styled.div`
   align-items: center;
   border: 1px solid #eceef1;
   border-radius: 5px;
+  color: ${({ isSelected }) => (isSelected ? "#fff" : "#000")};
+  background-color: ${({ isSelected }) => (isSelected ? "#fe4650" : "#fff")};
+  transition: box-shadow 0.2s, transform 0.2s ease, color 0.2s,
+    background-color 0.2s ease;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 export default interviewSchedule;

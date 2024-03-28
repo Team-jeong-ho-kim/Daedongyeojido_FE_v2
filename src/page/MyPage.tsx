@@ -15,7 +15,7 @@ import { PassingResultType } from "../types/type";
 import { handleImageChange } from "../utils/handleImageChange";
 import { createImage } from "../apis/image";
 import { getMyAlarm } from "../apis/alarm";
-import { AlarmKindType, MyAlarmType } from "../types/type";
+import { MyAlarmType } from "../types/type";
 
 const MyPage = () => {
   const [page, setPage] = useState<string>("ApplyDetail");
@@ -32,6 +32,10 @@ const MyPage = () => {
   const [profileEdit, setProfileEdit] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
+  const [itvScdl, setItvScdl] = useState<number>({
+    id: 0,
+    clubName: "",
+  });
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -57,8 +61,13 @@ const MyPage = () => {
     });
   }, [image]);
 
-  const handleIvsdSelectToggle = () => {
+  const handleItvToggle = () => {
     setIvsdSelect(!ivsdSelect);
+  };
+
+  const handleIvsdSelectToggle = (id: number) => {
+    setItvScdl(id);
+    handleItvToggle();
   };
 
   const handlePage = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -186,7 +195,9 @@ const MyPage = () => {
                       )}
                     </ProfileEdit>
                   </MyInfo_basic>
-                  <MyN>"밀과 벼와 감자와 고구마와 옥수수"</MyN>
+                  <MyN>
+                    "{data.major} 개발자 {data.name}입니다."
+                  </MyN>
                   <LinkerBox>
                     <Linker src={Link} onClick={handleLink} />
                     <MyLink href={ghLink2} target="_blank">
@@ -263,7 +274,31 @@ const MyPage = () => {
                                     지원 마감일 : {report.deadline}
                                   </ApplyLD>
                                   <ApplyIvD>
-                                    면접 일시 : 2024-02-10 12:30 ~ 12:50
+                                    면접 일시 :{" "}
+                                    {report.interviewStartTime.split("T")[0]}{" "}
+                                    {
+                                      report.interviewStartTime
+                                        .split("T")[1]
+                                        .split(":")[0]
+                                    }
+                                    :
+                                    {
+                                      report.interviewStartTime
+                                        .split("T")[1]
+                                        .split(":")[1]
+                                    }{" "}
+                                    ~{" "}
+                                    {
+                                      report.interviewEndTime
+                                        .split("T")[1]
+                                        .split(":")[0]
+                                    }
+                                    :
+                                    {
+                                      report.interviewEndTime
+                                        .split("T")[1]
+                                        .split(":")[1]
+                                    }
                                   </ApplyIvD>
                                 </ApplyD>
                               </ApplyData>
@@ -303,7 +338,9 @@ const MyPage = () => {
                                 <AlarmPC>{alarm.clubName}</AlarmPC>
                                 <AlarmPassed>서류합격</AlarmPassed>
                                 <InterviewScheduleSelect
-                                  onClick={() => setIvsdSelect(!ivsdSelect)}
+                                  onClick={() =>
+                                    handleIvsdSelectToggle(alarm.alarmId)
+                                  }
                                 >
                                   면접 시간 선택
                                 </InterviewScheduleSelect>
@@ -390,9 +427,10 @@ const MyPage = () => {
         )}
       </Container>
       {ivsdSelect ? (
-        <Container2>
-          <INT handleIvsdSelectToggle={handleIvsdSelectToggle} />
-        </Container2>
+        <>
+          <Container2></Container2>
+          <INT handleItvToggle={handleItvToggle} reportID={itvScdl} />
+        </>
       ) : null}
       {profileEdit ? true : false}
       {isLoginVisible ? <Login onLoginToggle={handleLoginToggle} /> : null}
@@ -421,8 +459,7 @@ const Container2 = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: flex-end;
-  padding: 200px;
+  justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
