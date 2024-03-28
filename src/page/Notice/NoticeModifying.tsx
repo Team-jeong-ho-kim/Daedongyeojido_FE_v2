@@ -6,6 +6,7 @@ import Check from "../../assets/img/SVG/Check.svg";
 import { IVProcess } from "../../assets";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";
+import { useParams } from "react-router-dom";
 
 interface NoticeState {
   title: string;
@@ -31,6 +32,7 @@ interface Day {
 }
 
 const NoticeModifying: React.FC = () => {
+  const { clubName } = useParams();
   const [state, setState] = useState<NoticeState>({
     title: "",
     subtitle: "",
@@ -60,7 +62,7 @@ const NoticeModifying: React.FC = () => {
   const [isInterv, setIsInterv] = useState<boolean>(false);
   const [IntervStart, setIntervStart] = useState<string | null>(null);
   const [IntervEnd, setIntervEnd] = useState<string | null>(null);
-  const [clubName, setClubName] = useState<String>("대동여지도");
+  //const [clubName, setClubName] = useState<String>("대동여지도");
   const [RSM, setRSM] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),

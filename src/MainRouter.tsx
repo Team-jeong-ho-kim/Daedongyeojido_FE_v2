@@ -27,7 +27,8 @@ function MainRouter() {
         <Route path="/My" element={<MyPage />} />
         <Route path="/Notices" element={<NoticeAllQueryPage />} />
         <Route path="/NoticeDetails/:id" element={<NoticeDetailsPage />} />
-        <Route path="/NoticeModify/:clubName" element={<NoticeModifyPage />} />
+        <Route path="/Notice/Create/:clubName" element={<NoticeModifyPage />} />
+        <Route path="/Notice/Modify/:clubName" element={<NoticeModifyPage />} />
         <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
         <Route path="/ApplicationQuery" element={<ApplicationQueryPage />} />
         <Route path="/Custom" element={<CustomPage />} />
