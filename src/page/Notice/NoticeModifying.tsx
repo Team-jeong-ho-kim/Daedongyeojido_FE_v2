@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
@@ -7,6 +6,11 @@ import { IVProcess } from "../../assets";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";
 import { useParams } from "react-router-dom";
+import { NoticeDetailType, NoticeFieldType } from "../../types/type";
+import { useState, useEffect } from "react";
+import { MajorType } from "../../types/type";
+import React from "react";
+import { createNotice } from "../../apis/notice";
 
 interface NoticeState {
   title: string;
@@ -33,27 +37,9 @@ interface Day {
 
 const NoticeModifying: React.FC = () => {
   const { clubName } = useParams();
-  const [state, setState] = useState<NoticeState>({
-    title: "",
-    subtitle: "",
-    major1: "",
-    exp1: "",
-    major2: "",
-    exp2: "",
-    major3: "",
-    exp3: "",
-    major4: "",
-    exp4: "",
-    idealTalent: "",
-    assignment: "",
-    report: "",
-    applyMethod: "",
-  });
+  const kind = window.location.pathname.split("/")[2];
   const [tip, setTip] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [explain, setExplain] = useState<string>("");
-  const [line, setLine] = useState<number>(1);
   const [recru, setRecru] = useState<boolean>(false);
   const [isRecru, setIsRecru] = useState<boolean>(false);
   const [RecruStart, setRecruStart] = useState<string | null>(null);
@@ -62,7 +48,47 @@ const NoticeModifying: React.FC = () => {
   const [isInterv, setIsInterv] = useState<boolean>(false);
   const [IntervStart, setIntervStart] = useState<string | null>(null);
   const [IntervEnd, setIntervEnd] = useState<string | null>(null);
-  //const [clubName, setClubName] = useState<String>("대동여지도");
+  const [fields, setFields] = useState<NoticeFieldType[]>([]);
+  const [data, setData] = useState<NoticeDetailType>({
+    clubName: clubName ?? "",
+    noticeTitle: "",
+    noticeExplain: "",
+    clubExplain: "",
+    fields: [],
+    recruitDay: {
+      startDay: "",
+      endDay: "",
+    },
+    applyMethod: "",
+    interviewDay: {
+      startDay: "",
+      endDay: "",
+    },
+    inquiry: "",
+    weWant: "",
+    assignment: "",
+  });
+
+  useEffect(() => {
+    if (RecruStart && RecruEnd && IntervStart && IntervEnd) {
+      setData({
+        ...data,
+        recruitDay: {
+          startDay: RecruStart + "T10:00:00",
+          endDay: RecruEnd + "T10:00:00",
+        },
+        interviewDay: {
+          startDay: IntervStart + "T10:00:00",
+          endDay: IntervEnd + "T10:00:00",
+        },
+      });
+    }
+  }, [RecruStart, RecruEnd, IntervStart, IntervEnd]);
+
+  useEffect(() => {
+    setData({ ...data, fields: fields });
+  }, [fields]);
+
   const [RSM, setRSM] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -86,34 +112,6 @@ const NoticeModifying: React.FC = () => {
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
-  };
-
-  const handleModifyConfirm = () => {
-    window.location.replace("/NoticeModify");
-  };
-
-  const handleExplainChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const inputValue = e.target.value;
-    const lineCount = inputValue.split("\n").length;
-    if (inputValue.length <= 100 && lineCount <= 3) {
-      setLine(lineCount);
-      setExplain(inputValue);
-    }
-  };
-
-  const handleFocus = () => {
-    setIsFocus(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocus(false);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleRecruView = () => {
@@ -166,6 +164,51 @@ const NoticeModifying: React.FC = () => {
     setTip(!tip);
   };
 
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const onChangeField = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    type: "major" | "todo"
+  ) => {
+    const newArr = [...fields];
+    if (type === "major") {
+      newArr[index].major = e.target.value as MajorType;
+    } else {
+      newArr[index].toDo = e.target.value;
+    }
+    setFields(newArr);
+  };
+
+  const onPlusField = () => {
+    const newArr: NoticeFieldType[] = [
+      ...fields,
+      { major: "UNDEFINED", toDo: "" },
+    ];
+
+    setFields(newArr);
+  };
+
+  const onDeleteField = (index: number) => {
+    const newArr = fields.filter((_, num) => num !== index);
+    setFields(newArr);
+  };
+
+  const onSubmit = () => {
+    createNotice(data).then(() => {
+      console.log("성공적으로 추가되었습니다");
+    });
+  };
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -174,35 +217,38 @@ const NoticeModifying: React.FC = () => {
           <NoticeTitleBox>
             <NoticeTitleInput
               type="text"
-              name="title"
-              value={state.title}
+              name="noticeTitle"
+              value={data.noticeTitle}
               maxLength={30}
-              onChange={handleChange}
+              onChange={onChange}
               placeholder="공고 제목"
             />
-            <SaveButton usable={"clubLeader"} onClick={handleModifyConfirm}>
+            <SaveButton
+              usable={"clubLeader"}
+              onClick={() => {
+                onSubmit();
+              }}>
               저장하기
             </SaveButton>
           </NoticeTitleBox>
           <NoticeSubtitleInput
             type="text"
-            name="subtitle"
-            value={state.subtitle}
+            name="noticeExplain"
+            value={data.noticeExplain}
             maxLength={45}
-            onChange={handleChange}
+            onChange={onChange}
             placeholder="공고 부제목"
           />
         </NoticeTop>
         <ClubExplainBox>
-          <ClubExplain isFocus={isFocus}>
+          <ClubExplain>
             <ClubExplainInput
-              value={explain}
-              maxLength={100}
+              name="clubExplain"
+              value={data.clubExplain}
+              maxLength={300}
               cols={100}
-              rows={line}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              onChange={handleExplainChange}
+              rows={3}
+              onChange={onChange}
               placeholder="동아리 소개"
             />
           </ClubExplain>
@@ -241,95 +287,38 @@ const NoticeModifying: React.FC = () => {
           <RecruitmentBox>
             <Alltitle>모집 분야</Alltitle>
             <Recruits>
-              <RowLine>
-                <LeftInputBox>
-                  <LeftInput
-                    type="text"
-                    name="major1"
-                    value={state.major1}
-                    maxLength={10}
-                    onChange={handleChange}
-                    placeholder="모집 전공"
-                  />
-                </LeftInputBox>
-                <RightInputBox>
-                  <RightInput
-                    type="text"
-                    name="exp1"
-                    value={state.exp1}
-                    maxLength={50}
-                    onChange={handleChange}
-                    placeholder="모집 이유"
-                  />
-                </RightInputBox>
-              </RowLine>
-              <RowLine>
-                <LeftInputBox>
-                  <LeftInput
-                    type="text"
-                    name="major2"
-                    value={state.major2}
-                    maxLength={10}
-                    onChange={handleChange}
-                    placeholder="모집 전공"
-                  />
-                </LeftInputBox>
-                <RightInputBox>
-                  <RightInput
-                    type="text"
-                    name="exp2"
-                    value={state.exp2}
-                    maxLength={50}
-                    onChange={handleChange}
-                    placeholder="모집 이유"
-                  />
-                </RightInputBox>
-              </RowLine>
-              <RowLine>
-                <LeftInputBox>
-                  <LeftInput
-                    type="text"
-                    name="major3"
-                    value={state.major3}
-                    maxLength={10}
-                    onChange={handleChange}
-                    placeholder="모집 전공"
-                  />
-                </LeftInputBox>
-                <RightInputBox>
-                  <RightInput
-                    type="text"
-                    name="exp3"
-                    value={state.exp3}
-                    maxLength={50}
-                    onChange={handleChange}
-                    placeholder="모집 이유"
-                  />
-                </RightInputBox>
-              </RowLine>
-              <RowLine>
-                <LeftInputBox>
-                  <LeftInput
-                    type="text"
-                    name="major4"
-                    value={state.major4}
-                    maxLength={10}
-                    onChange={handleChange}
-                    placeholder="모집 전공"
-                  />
-                </LeftInputBox>
-                <RightInputBox>
-                  <RightInput
-                    type="text"
-                    name="exp4"
-                    value={state.exp4}
-                    maxLength={50}
-                    onChange={handleChange}
-                    placeholder="모집 이유"
-                  />
-                </RightInputBox>
-              </RowLine>
+              {fields &&
+                fields.map((_field, index) => (
+                  <div key={index}>
+                    <LeftInput
+                      type="text"
+                      value={fields[index].major}
+                      onChange={(e) => onChangeField(e, index, "major")}
+                      maxLength={10}
+                      placeholder="모집 전공"
+                    />
+                    <RightInput
+                      type="text"
+                      value={fields[index].toDo}
+                      onChange={(e) => onChangeField(e, index, "todo")}
+                      maxLength={50}
+                      placeholder="모집 이유"
+                    />
+                    <Delete
+                      onClick={() => {
+                        onDeleteField(index);
+                      }}>
+                      삭제
+                    </Delete>
+                  </div>
+                ))}
             </Recruits>
+            <span
+              style={{ cursor: "pointer", color: "gray" }}
+              onClick={onPlusField}>
+              {" "}
+              추가
+            </span>
           </RecruitmentBox>
           <InterviewProcess>
             <Alltitle>면접 절차</Alltitle>
@@ -357,8 +346,9 @@ const NoticeModifying: React.FC = () => {
                 <ApplyManualsInput
                   type="text"
                   name="applyMethod"
+                  value={data.applyMethod}
                   maxLength={50}
-                  onChange={handleChange}
+                  onChange={onChange}
                   placeholder="지원방법 작성"
                 />
               </ApplyManuals>
@@ -376,31 +366,31 @@ const NoticeModifying: React.FC = () => {
           <WeWantAndAssignment>
             <Alltitle>{clubName}'s 인재상</Alltitle>
             <WWAATextarea
-              name="idealTalent"
-              value={state.idealTalent}
+              name="weWant"
+              value={data.weWant}
               placeholder="인재상 작성"
               maxLength={300}
-              onChange={handleChange}
+              onChange={onChange}
             />
           </WeWantAndAssignment>
           <WeWantAndAssignment>
             <Alltitle>{clubName}'s 과제</Alltitle>
             <WWAATextarea
               name="assignment"
-              value={state.assignment}
+              value={data.assignment}
               placeholder="과제 작성"
               maxLength={300}
-              onChange={handleChange}
+              onChange={onChange}
             />
           </WeWantAndAssignment>
           <Report>
             <Alltitle>문의사항</Alltitle>
             <WWAATextarea
-              name="report"
-              value={state.report}
+              name="inquiry"
+              value={data.inquiry}
               placeholder="문의사항 작성"
               maxLength={300}
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Report>
         </Inbox>
@@ -441,6 +431,19 @@ const NoticeModifying: React.FC = () => {
     </Container>
   );
 };
+
+const Delete = styled.div`
+  width: 48px;
+  height: 48px;
+  color: white;
+  background-color: red;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+`;
 
 const fade = keyframes`
   0% {
@@ -648,21 +651,22 @@ const Iblue = styled.span`
   font-weight: 700;
 `;
 
-const ClubExplain = styled.div<{
-  isFocus: boolean;
-}>`
+const ClubExplain = styled.div`
   margin-top: 60px;
   height: 222px;
-  padding: ${({ isFocus }) => (isFocus ? "0 47px" : "0 50px")};
+  padding: 0 47px;
   display: flex;
   align-items: center;
   width: 1194px;
   background-color: #f5f5f5;
   border-radius: 10px;
-  border: ${({ isFocus }) => (isFocus ? "3px solid #cdcdcd" : "none")};
+  border: none;
   transition: border 0.1s;
   &:hover {
     padding: 0 47px;
+    border: 3px solid #cdcdcd;
+  }
+  &:focus {
     border: 3px solid #cdcdcd;
   }
 `;
@@ -702,44 +706,26 @@ const Alltitle = styled.p`
 const RecruitmentBox = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
   width: 100%;
 `;
 
 const Recruits = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  width: 1088px;
   border-radius: 10px;
   border: 2px solid #ececec;
-`;
-
-const RowLine = styled.div`
   display: flex;
-  width: 100%;
-  height: 67px;
-  border-bottom: 1px solid #ececec;
-`;
-
-const LeftInputBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20.4%;
-  height: 100%;
-  border-right: 2px solid #ececec;
-`;
-
-const RightInputBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 79.6%;
-  height: 100%;
+  flex-direction: column;
+  gap: 20px;
+  > div {
+    display: flex;
+    gap: 20px;
+  }
 `;
 
 const LeftInput = styled.input`
-  width: 277px;
+  width: 200px;
   height: 48px;
   border-radius: 10px;
   background-color: #f5f5f5;
@@ -756,7 +742,7 @@ const LeftInput = styled.input`
 `;
 
 const RightInput = styled.input`
-  width: 1185px;
+  width: 800px;
   height: 48px;
   border-radius: 10px;
   background-color: #f5f5f5;

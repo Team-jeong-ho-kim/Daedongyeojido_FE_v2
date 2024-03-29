@@ -1,7 +1,8 @@
+import { NoticeDetailType } from "../types/type";
 import { instance } from "./axios";
 
-export const createNotice = async () => {
-  return await instance.post("/notice/create");
+export const createNotice = async (data: NoticeDetailType) => {
+  return await instance.post("/notice/create", data);
 };
 
 export const addQuestion = async (data: { id: number; question: string }) => {
