@@ -263,6 +263,7 @@ export type NoticeFieldType = {
 };
 
 export type NoticeDetailType = {
+  noticeId?: number;
   clubName: string;
   noticeTitle: string;
   noticeExplain: string;

@@ -5,29 +5,12 @@ import Check from "../../assets/img/SVG/Check.svg";
 import { IVProcess } from "../../assets";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NoticeDetailType, NoticeFieldType } from "../../types/type";
 import { useState, useEffect } from "react";
 import { MajorType } from "../../types/type";
 import React from "react";
-import { createNotice } from "../../apis/notice";
-
-interface NoticeState {
-  title: string;
-  subtitle: string;
-  major1: string;
-  exp1: string;
-  major2: string;
-  exp2: string;
-  major3: string;
-  exp3: string;
-  major4: string;
-  exp4: string;
-  idealTalent: string;
-  assignment: string;
-  report: string;
-  applyMethod: string;
-}
+import { createNotice, getDetailNotice, modifyNotice } from "../../apis/notice";
 
 interface Day {
   date: number;
@@ -36,8 +19,8 @@ interface Day {
 }
 
 const NoticeModifying: React.FC = () => {
-  const { clubName } = useParams();
-  const kind = window.location.pathname.split("/")[2];
+  const { clubName, id } = useParams();
+  const link = useNavigate();
   const [tip, setTip] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
   const [recru, setRecru] = useState<boolean>(false);
@@ -70,16 +53,32 @@ const NoticeModifying: React.FC = () => {
   });
 
   useEffect(() => {
+    if (id) {
+      getDetailNotice(parseInt(id)).then((res) => {
+        const newArr: NoticeFieldType[] = [];
+        res.data.fields.map((field: any) => {
+          newArr.push({
+            major: field.major,
+            toDo: field.todo,
+          });
+        });
+        setFields(newArr);
+        setData(res.data);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (RecruStart && RecruEnd && IntervStart && IntervEnd) {
       setData({
         ...data,
         recruitDay: {
-          startDay: RecruStart + "T10:00:00",
-          endDay: RecruEnd + "T10:00:00",
+          startDay: RecruStart,
+          endDay: RecruEnd,
         },
         interviewDay: {
-          startDay: IntervStart + "T10:00:00",
-          endDay: IntervEnd + "T10:00:00",
+          startDay: IntervStart,
+          endDay: IntervEnd,
         },
       });
     }
@@ -204,9 +203,40 @@ const NoticeModifying: React.FC = () => {
   };
 
   const onSubmit = () => {
-    createNotice(data).then(() => {
-      console.log("성공적으로 추가되었습니다");
-    });
+    if (id) {
+      const postData = {
+        ...data,
+        noticeId: parseInt(id),
+        recruitDay: {
+          startDay: data.recruitDay.startDay + "T10:00:00",
+          endDay: data.recruitDay.endDay + "T10:00:00",
+        },
+        interviewDay: {
+          startDay: data.interviewDay.startDay + "T10:00:00",
+          endDay: data.interviewDay.endDay + "T10:00:00",
+        },
+      };
+      modifyNotice(postData).then(() => {
+        alert("성공적으로 수정되었습니다");
+        link("/");
+      });
+    } else {
+      const postData = {
+        ...data,
+        recruitDay: {
+          startDay: data.recruitDay.startDay + "T10:00:00",
+          endDay: data.recruitDay.endDay + "T10:00:00",
+        },
+        interviewDay: {
+          startDay: data.interviewDay.startDay + "T10:00:00",
+          endDay: data.interviewDay.endDay + "T10:00:00",
+        },
+      };
+      createNotice(postData).then(() => {
+        alert("성공적으로 추가되었습니다");
+        link("/");
+      });
+    }
   };
 
   return (

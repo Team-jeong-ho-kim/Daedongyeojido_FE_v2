@@ -5,6 +5,10 @@ export const createNotice = async (data: NoticeDetailType) => {
   return await instance.post("/notice/create", data);
 };
 
+export const modifyNotice = async (data: NoticeDetailType) => {
+  return await instance.patch("/notice/update", data);
+};
+
 export const addQuestion = async (data: { id: number; question: string }) => {
   return await instance.post("/notice/add-quest", data);
 };
