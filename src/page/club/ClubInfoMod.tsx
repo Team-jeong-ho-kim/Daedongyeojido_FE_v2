@@ -8,6 +8,7 @@ import { LeftArrow } from "../../assets";
 import { getDetailClub, patchClub } from "../../apis/club";
 import { ClubDetailsType } from "../../types/type";
 import { ClubInfoModType } from "../../types/type";
+import { useParams } from "react-router-dom";
 
 interface Tags {
   tag1: string;
@@ -17,7 +18,8 @@ interface Tags {
   tag5: string;
 }
 
-const ClubInfoMod = (clubNm: string) => {
+const ClubInfoMod = () => {
+  const { clubName } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [explain, setExplain] = useState<string>("");
   const [longExp, setLongExp] = useState<string>("");
@@ -29,18 +31,24 @@ const ClubInfoMod = (clubNm: string) => {
     tag4: "",
     tag5: "",
   });
-  const [modData, setModData] = useState<ClubInfoModType>();
   const [clubBanner, setClubBanner] = useState<string>("");
   const [clubImage, setClubImage] = useState<string>("");
 
   useEffect(() => {
-    getDetailClub(clubNm).then((res) => {
-      setData(res.data);
-      console.log(res.data);
-    });
-    setExplain(data?.title);
-    setLongExp(data?.introduction);
-  });
+    if (clubName) {
+      getDetailClub(clubName).then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setExplain(data?.title);
+      setLongExp(data?.introduction);
+    }
+  }, [data]);
 
   const handleTagChange = (tag: Tags) => {
     setTagz({
@@ -78,15 +86,16 @@ const ClubInfoMod = (clubNm: string) => {
   };
 
   const handleSave = () => {
-    setModData({
-      clubName: clubNm,
+    if (!clubName) return;
+
+    patchClub({
+      clubName: clubName,
       title: explain,
       introduction: longExp,
       clubBannerUrl: clubBanner,
       clubImageUrl: clubImage,
       tags: [tagz.tag1, tagz.tag2, tagz.tag3, tagz.tag4, tagz.tag5],
     });
-    patchClub(modData);
   };
 
   return (
@@ -108,6 +117,7 @@ const ClubInfoMod = (clubNm: string) => {
             <NameP>동아리 정보를 수정해 보세요.</NameP>
           </ClubN>
         </Body1>
+        {data && <ClubTagLoader club={data} tagLoad={handleTagChange} />}
         <OneLineIntro
           value={explain}
           maxLength={150}
@@ -115,7 +125,6 @@ const ClubInfoMod = (clubNm: string) => {
           onChange={handleIntroChange}
           placeholder="자신이 속한 동아리에 대해 짧게 설명해 주세요."
         />
-        <ClubTagLoader club={data} tagLoad={handleTagChange} />
         <DetailsInfo
           value={longExp}
           maxLength={500}
@@ -123,7 +132,7 @@ const ClubInfoMod = (clubNm: string) => {
           onChange={handleLongIntroChange}
           placeholder="자신이 속한 동아리에 대해 알려보세요! 동아리에 대한 상세 설명을 작성해 주세요."
         />
-        <ClubImgEditor club={data} imgLoad={handleImageChange} />
+        {data && <ClubImgEditor club={data} imgLoad={handleImageChange} />}
       </Box>
       <Footer />
     </Container>

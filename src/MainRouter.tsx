@@ -39,7 +39,7 @@ function MainRouter() {
         <Route path="/Leverie" element={<LeveriePage />} />
         <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
         <Route path="/Memo" element={<MemoPage />} />
-        <Route path="/ClubInfoModify" element={<ClubInfoModPage />} />
+        <Route path="/ClubInfoModify/:clubName" element={<ClubInfoModPage />} />
         <Route path="/ClubDetail/:clubName" element={<ClubDetailPage />} />
         <Route path="/ClubAdmin" element={<ClubAdminPage />} />
       </Routes>
