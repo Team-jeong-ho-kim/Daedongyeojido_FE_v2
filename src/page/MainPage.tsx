@@ -15,7 +15,7 @@ const Mainpage = () => {
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <CenterBox>
-        <Bo>배포 확인용</Bo>
+        <Bo>배포 확인용2</Bo>
       </CenterBox>
       {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
       <Footer />
