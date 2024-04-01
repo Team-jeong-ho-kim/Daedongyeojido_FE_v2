@@ -4,7 +4,7 @@ import Header from "../components/Header/Header";
 import INT from "../components/MyPage/interviewSchedule";
 import ProfileNone from "../assets/img/PNG/Profile.png";
 import Edit from "../assets/img/PNG/Edit.png";
-import Link from "../assets/img/PNG/Link.png";
+// import Link from "../assets/img/PNG/Link.png";
 import Login from "../components/Header/Login";
 import { getAnnouncement } from "../apis/announcement";
 import { AnnouncementType } from "../types/type";
@@ -23,19 +23,10 @@ const MyPage = () => {
   const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<boolean>(false);
   const [image, setImage] = useState<Blob | null>(null);
-  const [ghLink, setGhLink] = useState<URL>(
-    "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
-  );
-  const [ghLink2, setGhLink2] = useState<string>(
-    "https://github.com/Team-jeong-ho-kim/Daedongyeojido_FE_v2/"
-  );
-  const [profileEdit, setProfileEdit] = useState<boolean>(false);
+  //   const [profileEdit, setProfileEdit] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
-  const [itvScdl, setItvScdl] = useState<number>({
-    id: 0,
-    clubName: "",
-  });
+  const [itvScdl, setItvScdl] = useState<number>(0);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -76,13 +67,13 @@ const MyPage = () => {
     if (lastPage != page) setPage(lastPage);
   };
 
-  const handleLink = () => {
-    window.open(ghLink, "_blank");
-  };
+  //   const handleLink = () => {
+  //     window.open(ghLink, "_blank");
+  //   };
 
-  const handleProfileEdit = () => {
-    setProfileEdit(!profileEdit);
-  };
+  //   const handleProfileEdit = () => {
+  //     setProfileEdit(!profileEdit);
+  //   };
 
   const reportPassingResult = (report: PassingResultType) => {
     switch (report) {
@@ -199,10 +190,10 @@ const MyPage = () => {
                     "{data.major} 개발자 {data.name}입니다."
                   </MyN>
                   <LinkerBox>
-                    <Linker src={Link} onClick={handleLink} />
+                    {/* <Linker src={Link} onClick={handleLink} />
                     <MyLink href={ghLink2} target="_blank">
                       {ghLink2}
-                    </MyLink>
+                    </MyLink> */}
                   </LinkerBox>
                 </MyInfoplus>
                 <B></B>
@@ -432,7 +423,7 @@ const MyPage = () => {
           <INT handleItvToggle={handleItvToggle} reportID={itvScdl} />
         </>
       ) : null}
-      {profileEdit ? true : false}
+      {/* {profileEdit ? true : false} */}
       {isLoginVisible ? <Login onLoginToggle={handleLoginToggle} /> : null}
     </>
   );
@@ -768,25 +759,25 @@ const LinkerBox = styled.div`
   display: flex;
 `;
 
-const Linker = styled.img`
-  width: 10px;
-  height: 10px;
-  margin: 1px;
-  cursor: pointer;
-`;
+// const Linker = styled.img`
+//   width: 10px;
+//   height: 10px;
+//   margin: 1px;
+//   cursor: pointer;
+// `;
 
-const MyLink = styled.a`
-  color: #89939c;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 9.5px;
-  font-weight: 500;
-  line-height: 10px;
-  height: 13px;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+// const MyLink = styled.a`
+//   color: #89939c;
+//   font-family: "Spoqa Han Sans Neo";
+//   font-size: 9.5px;
+//   font-weight: 500;
+//   line-height: 10px;
+//   height: 13px;
+//   cursor: pointer;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// `;
 
 const MyMainInfo = styled.div`
   display: flex;

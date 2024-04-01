@@ -1,16 +1,29 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { MemoGetType } from "../../types/type";
+import { getMemoData } from "../../apis/report";
 
-export const Memo = () => {
+export const Memo = (reportId: number) => {
+  const [memo, setMemo] = useState<MemoGetType>();
+
+  useEffect(() => {
+    getMemoData(reportId).then((res) => {
+      setMemo(res.data);
+      console.log(res.data);
+    });
+  });
   return (
     <Container>
       <TopWrapper>
-        <Title>2108 변정현 디자이너 면접 기록</Title>
+        <Title>
+          {memo?.classNumber} {memo?.name} {memo?.major} 면접 기록
+        </Title>
         <BtnWrapper>
           <Button>합격</Button>
           <Button>불합격</Button>
         </BtnWrapper>
       </TopWrapper>
-      <Record placeholder="면접 내용을 기록해보세요."></Record>
+      <Record placeholder="면접 내용을 기록해보세요." />
     </Container>
   );
 };

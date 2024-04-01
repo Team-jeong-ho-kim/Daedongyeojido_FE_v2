@@ -9,7 +9,10 @@ export const getApplicaion = async (reportId: number) => {
   return await instance.get(`/report/report-info/${reportId}`);
 };
 
+export const getMemoData = async (reportId: number) => {
+  return await instance.get(`/report/query-memo/${reportId}`);
+};
+
 export const WriteAPI = async (data: WriteType) => {
   return await instance.post("/report/apply", data);
 };
-

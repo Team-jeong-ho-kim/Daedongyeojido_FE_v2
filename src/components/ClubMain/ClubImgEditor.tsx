@@ -14,18 +14,18 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
   const [introImg, setIntroImg] = useState<string>(club.clubImageUrl);
 
   const handleBannerUpload = () => {
-    const bannerInput = document.getElementById("banner");
-    bannerInput.click();
+    const bannerInput: HTMLElement | null = document.getElementById("banner");
+    if (bannerInput) bannerInput.click();
   };
 
   const handleBannerDelete = () => {
-    const bannerInput = document.getElementById("banner");
-    bannerInput.value = "";
+    const bannerInput: HTMLElement | null | any = document.getElementById("banner");
+    if(bannerInput) bannerInput.value = "";
     setBannerImg("");
   };
 
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files[0];
+    const selectedImage: = e.target.files[0];
     if (selectedImage) {
       setBannerImg(URL.createObjectURL(selectedImage));
       imgLoad([bannerImg, introImg]);
@@ -33,13 +33,13 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
   };
 
   const handleIntroUpload = () => {
-    const introInput = document.getElementById("introd");
-    introInput.click();
+    const introInput: HTMLElement | null = document.getElementById("introd");
+    if (introInput) introInput.click();
   };
 
   const handleIntroDelete = () => {
-    const introInput = document.getElementById("introd");
-    introInput.value = "";
+    const introInput: HTMLElement | null | any = document.getElementById("introd");
+    if (introInput) introInput.value = "";
     setIntroImg("");
   };
 

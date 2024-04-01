@@ -33,12 +33,18 @@ function MainRouter() {
           element={<NoticeModifyPage />}
         />
         <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
-        <Route path="/ApplicationQuery" element={<ApplicationQueryPage />} />
+        <Route
+          path="/ApplicationQuery/:id"
+          element={<ApplicationQueryPage />}
+        />
         <Route path="/Custom" element={<CustomPage />} />
         <Route path="/Ask" element={<AskPage />} />
         <Route path="/Leverie" element={<LeveriePage />} />
-        <Route path="/ApplicantQuery" element={<ApplicantQueryPage />} />
-        <Route path="/Memo" element={<MemoPage />} />
+        <Route
+          path="/ApplicantQuery/:clubName"
+          element={<ApplicantQueryPage />}
+        />
+        <Route path="/Memo/:id" element={<MemoPage />} />
         <Route path="/ClubInfoModify/:clubName" element={<ClubInfoModPage />} />
         <Route path="/ClubDetail/:clubName" element={<ClubDetailPage />} />
         <Route path="/ClubAdmin" element={<ClubAdminPage />} />

@@ -23,32 +23,45 @@ export const Query = ({ querys }: QueryProps) => {
         return "대기";
     }
   };
+  const handleReportView = (reportId: number) => {
+    console.log(reportId);
+  };
+
+  const handleMemoView = (reportId: number) => {
+    console.log(reportId);
+  };
 
   return (
     <Container>
-      <CheckWrapper>
-        <Check>&middot; 서류 보기</Check>
-        <Check>&middot; 메모 보기</Check>
-      </CheckWrapper>
       {querys.map((query: ApplicantType, index: number) => (
-        <Box key={index}>
-          <Text>
-            <Number>{query.classNumber}</Number>
-            <Name>{query.name}</Name>
-            <Major>{query.hopeMajor}</Major>
-            <Date>
-              면접 일시 : {query.interviewStartTime} ~{query.interviewEndTime}
-            </Date>
-          </Text>
-          <ResultWrapper>
-            <Result>
-              서류 : {reportPassingResult(query.reportPassingResult)}
-            </Result>
-            <Result>
-              면접 : {interviewPassingResult(query.interviewPassingResult)}
-            </Result>
-          </ResultWrapper>
-        </Box>
+        <>
+          <CheckWrapper>
+            <Check onClick={() => handleReportView(query.reportId)}>
+              &middot; 서류 보기
+            </Check>
+            <Check onClick={() => handleMemoView(query.reportId)}>
+              &middot; 메모 보기
+            </Check>
+          </CheckWrapper>
+          <Box key={index}>
+            <Text>
+              <Number>{query.classNumber}</Number>
+              <Name>{query.name}</Name>
+              <Major>{query.hopeMajor}</Major>
+              <Date>
+                면접 일시 : {query.interviewStartTime} ~{query.interviewEndTime}
+              </Date>
+            </Text>
+            <ResultWrapper>
+              <Result>
+                서류 : {reportPassingResult(query.reportPassingResult)}
+              </Result>
+              <Result>
+                면접 : {interviewPassingResult(query.interviewPassingResult)}
+              </Result>
+            </ResultWrapper>
+          </Box>
+        </>
       ))}
     </Container>
   );
@@ -71,6 +84,7 @@ const Check = styled.p`
   color: #626262;
   font-size: 12px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const Box = styled.div`

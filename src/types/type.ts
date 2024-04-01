@@ -62,6 +62,11 @@ export type InterviewTimePostType = {
 
 export type InterviewTimePatchType = Omit<InterviewTimeType, "interviewTimeId">;
 
+export type InterviewScheduleType = {
+  id: number;
+  clubName: string;
+};
+
 //alarm
 export type AlarmPostType = {
   reportId: number;
@@ -281,6 +286,15 @@ export type NoticeDetailType = {
   inquiry: string;
   weWant: string;
   assignment: string;
+};
+
+// memo
+export type MemoGetType = {
+  classNumber: string;
+  name: string;
+  major: MajorType;
+  interviewPassingResult: PassingResultType;
+  memo: string;
 };
 
 // question

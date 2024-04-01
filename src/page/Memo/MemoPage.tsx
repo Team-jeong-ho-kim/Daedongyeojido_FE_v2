@@ -3,8 +3,10 @@ import Header from "../../components/Header/Header";
 import { Memo } from "../../components/Memo/Memo";
 import Footer from "../../components/MainPage/Footer";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export const MemoPage = () => {
+  const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);

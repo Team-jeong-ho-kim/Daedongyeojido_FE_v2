@@ -6,8 +6,10 @@ import Footer from "../../components/MainPage/Footer";
 import { ApplicantType } from "../../types/type";
 import { useEffect, useState } from "react";
 import { getApplicant } from "../../apis/report";
+import { useParams } from "react-router-dom";
 
 export const ApplicantQueryPage = () => {
+  const { clubName } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [query, setQuery] = useState<ApplicantType[]>([]);
   const handleLoginToggle = () => {
@@ -15,10 +17,12 @@ export const ApplicantQueryPage = () => {
   };
 
   useEffect(() => {
-    getApplicant("대동여지도").then((res) => {
-      setQuery(res.data);
-      console.log(res.data);
-    });
+    if (clubName) {
+      getApplicant(clubName).then((res) => {
+        setQuery(res.data);
+        console.log(res.data);
+      });
+    }
   }, []);
 
   return (
