@@ -7,7 +7,6 @@ import ClubTagLoader from "../../components/ClubMain/ClubTagLoader";
 import { LeftArrow } from "../../assets";
 import { getDetailClub, patchClub } from "../../apis/club";
 import { ClubDetailsType } from "../../types/type";
-import { ClubInfoModType } from "../../types/type";
 import { useParams } from "react-router-dom";
 
 interface Tags {
