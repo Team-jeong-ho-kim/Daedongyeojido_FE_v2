@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { MemoGetType } from "../../types/type";
 import { getMemoData } from "../../apis/report";
 
-export const Memo = (reportId: number) => {
+export const Memo = ({ reportId }: { reportId: number }) => {
   const [memo, setMemo] = useState<MemoGetType>();
 
   useEffect(() => {

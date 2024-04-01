@@ -15,7 +15,7 @@ export const MemoPage = () => {
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
-        <Memo />
+        {id && <Memo reportId={parseInt(id)} />}
         <Footer />
       </Wrapper>
     </Container>

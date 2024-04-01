@@ -19,16 +19,19 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
   };
 
   const handleBannerDelete = () => {
-    const bannerInput: HTMLElement | null | any = document.getElementById("banner");
-    if(bannerInput) bannerInput.value = "";
+    const bannerInput: HTMLElement | null | any =
+      document.getElementById("banner");
+    if (bannerInput) bannerInput.value = "";
     setBannerImg("");
   };
 
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage: = e.target.files[0];
-    if (selectedImage) {
-      setBannerImg(URL.createObjectURL(selectedImage));
-      imgLoad([bannerImg, introImg]);
+    if (e.target.files) {
+      const selectedImage = e.target.files[0];
+      if (selectedImage) {
+        setBannerImg(URL.createObjectURL(selectedImage));
+        imgLoad([bannerImg, introImg]);
+      }
     }
   };
 
@@ -38,16 +41,19 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
   };
 
   const handleIntroDelete = () => {
-    const introInput: HTMLElement | null | any = document.getElementById("introd");
+    const introInput: HTMLElement | null | any =
+      document.getElementById("introd");
     if (introInput) introInput.value = "";
     setIntroImg("");
   };
 
   const handleIntrodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files[0];
-    if (selectedImage) {
-      setIntroImg(URL.createObjectURL(selectedImage));
-      imgLoad([bannerImg, introImg]);
+    if (e.target.files) {
+      const selectedImage = e.target.files[0];
+      if (selectedImage) {
+        setIntroImg(URL.createObjectURL(selectedImage));
+        imgLoad([bannerImg, introImg]);
+      }
     }
   };
 
@@ -137,10 +143,10 @@ const Delete2 = styled.img`
   right: 34px;
   cursor: pointer;
   border-radius: 40%;
-  transition: filter 0.2s, background-color: 0.2s ease;
+  transition: filter 0.2s, background-color 0.2s ease;
   &:hover {
-	background-color: #000;
-	filter: invert(100%);
+    background-color: #000;
+    filter: invert(100%);
   }
 `;
 
