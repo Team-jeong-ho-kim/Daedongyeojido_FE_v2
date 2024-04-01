@@ -3,5 +3,5 @@ config:
   service_type: fe
   port: 3000
   domain:
-    prod: Daedongyeojido_FE.xquare.app
-    stag: Daedongyeojido_FE-stag.xquare.app
+    prod: daedongyeojido-fe.xquare.app
+    stag: daedongyeojido-fe-stag.xquare.app
