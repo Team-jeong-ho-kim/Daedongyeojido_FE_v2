@@ -1,5 +1,8 @@
 FROM node:18.19-alpine AS builder
 
+ARG VITE_SERVER_BASE_URL
+ENV VITE_SERVER_BASE_URL=$VITE_SERVER_BASE_URL
+
 WORKDIR /app
 
 RUN apk add --no-cache libc6-compat
@@ -11,9 +14,6 @@ RUN yarn build
 
 # 실행 단계
 FROM nginx:alpine AS runner
-
-ARG VITE_SERVER_BASE_URL
-ENV VITE_SERVER_BASE_URL ${VITE_SERVER_BASE_URL}
 
 RUN echo "\
 server {\
