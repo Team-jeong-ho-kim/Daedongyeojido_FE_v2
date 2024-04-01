@@ -1,5 +1,6 @@
 import { instance } from "./axios";
 import { WriteType } from "../types/type";
+import { MemoPatchType } from "../types/type";
 
 export const getApplicant = async (clubName: string) => {
   return await instance.get(`/report/applicant/${clubName}`);
@@ -11,6 +12,10 @@ export const getApplicaion = async (reportId: number) => {
 
 export const getMemoData = async (reportId: number) => {
   return await instance.get(`/report/query-memo/${reportId}`);
+};
+
+export const patchModifyMemo = async (data: MemoPatchType) => {
+  return await instance.patch("/report/modify-memo", data);
 };
 
 export const WriteAPI = async (data: WriteType) => {

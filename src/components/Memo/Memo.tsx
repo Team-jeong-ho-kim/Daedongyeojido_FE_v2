@@ -1,16 +1,65 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { MemoGetType } from "../../types/type";
-import { getMemoData } from "../../apis/report";
+import { getMemoData, patchModifyMemo } from "../../apis/report";
+import { postITVresult } from "../../apis/alarm";
 
 export const Memo = ({ reportId }: { reportId: number }) => {
-  const [memo, setMemo] = useState<MemoGetType>();
+  const [memo, setMemo] = useState<MemoGetType>({
+    classNumber: "",
+    name: "",
+    major: "UNDEFINED",
+    interviewPassingResult: "WAIT",
+    memoContent: "",
+  });
+
+  const handleSave = () => {
+    if (memo?.memoContent)
+      patchModifyMemo({
+        reportId: reportId,
+        memo: memo?.memoContent,
+      });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setMemo({
+      ...memo,
+      memoContent: value,
+    });
+  };
+
+  const handleULTPass = () => {
+    if (confirm(`정말 ${memo?.name} 학생을 최종합격시키겠습니까?`)) {
+      if (reportId) {
+        postITVresult({
+          reportId: reportId,
+          passingResult: "PASS",
+          alarmType: "INTERVIEW_PASS_RESULT",
+        });
+      }
+    }
+  };
+
+  const handleULTFail = () => {
+    if (confirm(`정말 ${memo?.name} 학생을 최종탈락시키겠습니까?`)) {
+      if (reportId) {
+        postITVresult({
+          reportId: reportId,
+          passingResult: "FAIL",
+          alarmType: "INTERVIEW_PASS_RESULT",
+        });
+      }
+    }
+  };
 
   useEffect(() => {
-    getMemoData(reportId).then((res) => {
-      setMemo(res.data);
-      console.log(res.data);
-    });
+    if (reportId) {
+      getMemoData(reportId).then((res) => {
+        setMemo(res.data);
+        console.log(res.data);
+      });
+    }
   });
   return (
     <Container>
@@ -19,11 +68,18 @@ export const Memo = ({ reportId }: { reportId: number }) => {
           {memo?.classNumber} {memo?.name} {memo?.major} 면접 기록
         </Title>
         <BtnWrapper>
-          <Button>합격</Button>
-          <Button>불합격</Button>
+          <ButtonPass onClick={handleULTPass}>합격</ButtonPass>
+          <ButtonFail onClick={handleULTFail}>불합격</ButtonFail>
         </BtnWrapper>
       </TopWrapper>
-      <Record placeholder="면접 내용을 기록해보세요." />
+      <Record
+        placeholder="면접 내용을 기록해보세요."
+        onChange={handleChange}
+        value={memo?.memoContent}
+      />
+      <Foot>
+        <ButtonSave onClick={handleSave}>저장하기</ButtonSave>
+      </Foot>
     </Container>
   );
 };
@@ -53,21 +109,23 @@ const Title = styled.p`
   font-weight: 700;
 `;
 
-const Button = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
+const ButtonPass = styled.button`
+  width: 130px;
   height: 40px;
-  color: black;
+  color: #000;
   border-radius: 10px;
   border: 1px solid #333b3d;
-  background: #f3f4f5;
+  background-color: #f3f4f5;
   cursor: pointer;
-  &:hover {
-    color: white;
-    background: #333b3d;
-  }
+`;
+
+const ButtonFail = styled.button`
+  width: 145px;
+  height: 40px;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #333b3d;
+  cursor: pointer;
 `;
 
 const Record = styled.textarea`
@@ -87,4 +145,19 @@ const Record = styled.textarea`
   &:focus {
     border: 2px solid #2f3239;
   }
+`;
+
+const Foot = styled.button`
+  width: 1591px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ButtonSave = styled.button`
+  width: 159px;
+  height: 40px;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #333b3d;
+  cursor: pointer;
 `;

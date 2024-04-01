@@ -294,6 +294,11 @@ export type MemoGetType = {
   name: string;
   major: MajorType;
   interviewPassingResult: PassingResultType;
+  memoContent: string;
+};
+
+export type MemoPatchType = {
+  reportId: number;
   memo: string;
 };
 
