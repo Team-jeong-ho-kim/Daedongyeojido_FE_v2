@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ClubLogo from "../../assets/img/PNG/Daedongyeojido.png";
 import { ClubDetailType } from "../../types/type";
 
 type PropType = Pick<

@@ -48,7 +48,7 @@ const CenterBox = styled.div`
 `;
 
 const Bo = styled.p`
-  color: #foo;
+  color: black;
   font-size: 50px;
   font-weight: bold;
   animation: ${fadeIn} 1s;

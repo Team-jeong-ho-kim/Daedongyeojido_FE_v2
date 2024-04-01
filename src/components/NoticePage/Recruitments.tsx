@@ -14,7 +14,7 @@ const Recruitments = ({ fields }: PropType) => {
           return (
             <RecruitmentMajor
               major={field.major}
-              todo={field.todo}
+              toDo={field.toDo}
               key={index}
             />
           );

@@ -44,11 +44,6 @@ const GradeWrapper = styled.div`
   gap: 13px;
 `;
 
-const Grade = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-`;
-
 const MemberWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 478px 478px 478px);
