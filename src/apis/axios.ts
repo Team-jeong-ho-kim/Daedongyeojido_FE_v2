@@ -3,7 +3,7 @@ import { Cookie } from "../utils/cookie";
 import { reissue } from "./auth";
 
 export const instance = axios.create({
-  baseURL: process.env.VITE_SERVER_BASE_URL,
+  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
   timeout: 3000,
 });
 
