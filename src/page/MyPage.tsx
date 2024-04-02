@@ -4,7 +4,6 @@ import Header from "../components/Header/Header";
 import INT from "../components/MyPage/interviewSchedule";
 import ProfileNone from "../assets/img/PNG/Profile.png";
 import Edit from "../assets/img/PNG/Edit.png";
-// import Link from "../assets/img/PNG/Link.png";
 import Login from "../components/Header/Login";
 import { getAnnouncement } from "../apis/announcement";
 import { AnnouncementType } from "../types/type";
@@ -16,6 +15,7 @@ import { handleImageChange } from "../utils/handleImageChange";
 import { createImage } from "../apis/image";
 import { getMyAlarm } from "../apis/alarm";
 import { MyAlarmType } from "../types/type";
+import { Cookie } from "../utils/cookie";
 
 const MyPage = () => {
   const [page, setPage] = useState<string>("ApplyDetail");
@@ -23,7 +23,6 @@ const MyPage = () => {
   const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<boolean>(false);
   const [image, setImage] = useState<Blob | null>(null);
-  //   const [profileEdit, setProfileEdit] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
   const [itvScdl, setItvScdl] = useState<number>(0);
@@ -67,13 +66,11 @@ const MyPage = () => {
     if (lastPage != page) setPage(lastPage);
   };
 
-  //   const handleLink = () => {
-  //     window.open(ghLink, "_blank");
-  //   };
-
-  //   const handleProfileEdit = () => {
-  //     setProfileEdit(!profileEdit);
-  //   };
+  const handleLogout = () => {
+    Cookie.remove("accessToken");
+    Cookie.remove("refreshToken");
+    window.location.href = "/";
+  };
 
   const reportPassingResult = (report: PassingResultType) => {
     switch (report) {
@@ -200,13 +197,13 @@ const MyPage = () => {
                 <MyInfo_Menu>
                   <ApplyDetail>
                     <Ball1
-                      isApplyDetail={
-                        page == "ApplyDetail" ? true : false
-                      }></Ball1>
+                      isApplyDetail={page == "ApplyDetail" ? true : false}
+                    ></Ball1>
                     <Text1
                       isApplyDetail={page == "ApplyDetail" ? true : false}
                       id="ApplyDetail"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       지원내역
                     </Text1>
                   </ApplyDetail>
@@ -215,24 +212,27 @@ const MyPage = () => {
                     <Text2
                       isAlarm={page == "Alarm" ? true : false}
                       id="Alarm"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       알림
                     </Text2>
                   </Alarm>
                   <Announce>
                     <Ball3
-                      isAnnounce={page == "Announce" ? true : false}></Ball3>
+                      isAnnounce={page == "Announce" ? true : false}
+                    ></Ball3>
                     <Text3
                       isAnnounce={page == "Announce" ? true : false}
                       id="Announce"
-                      onClick={handlePage}>
+                      onClick={handlePage}
+                    >
                       공지사항
                     </Text3>
                   </Announce>
                 </MyInfo_Menu>
                 <B></B>
                 <Logout>
-                  <LogoutB>로그아웃</LogoutB>
+                  <LogoutB onClick={handleLogout}>로그아웃</LogoutB>
                 </Logout>
               </MyInfo>
             </LeftBox>
@@ -328,7 +328,8 @@ const MyPage = () => {
                                 <InterviewScheduleSelect
                                   onClick={() =>
                                     handleIvsdSelectToggle(alarm.alarmId)
-                                  }>
+                                  }
+                                >
                                   면접 시간 선택
                                 </InterviewScheduleSelect>
                               </AlarmName>
@@ -754,26 +755,6 @@ const MyN = styled.p`
 const LinkerBox = styled.div`
   display: flex;
 `;
-
-// const Linker = styled.img`
-//   width: 10px;
-//   height: 10px;
-//   margin: 1px;
-//   cursor: pointer;
-// `;
-
-// const MyLink = styled.a`
-//   color: #89939c;
-//   font-family: "Spoqa Han Sans Neo";
-//   font-size: 9.5px;
-//   font-weight: 500;
-//   line-height: 10px;
-//   height: 13px;
-//   cursor: pointer;
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// `;
 
 const MyMainInfo = styled.div`
   display: flex;
