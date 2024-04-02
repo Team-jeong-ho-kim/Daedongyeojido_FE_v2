@@ -16,6 +16,7 @@ import { createImage } from "../apis/image";
 import { getMyAlarm } from "../apis/alarm";
 import { MyAlarmType } from "../types/type";
 import { Cookie } from "../utils/cookie";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   const [page, setPage] = useState<string>("ApplyDetail");
@@ -27,6 +28,7 @@ const MyPage = () => {
   const [data, setData] = useState<MyInfoType>();
   const [itvScdl, setItvScdl] = useState<number>(0);
   const [myMajor, setMyMajor] = useState<string>("");
+  const link = useNavigate();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -329,7 +331,7 @@ const MyPage = () => {
                           <Apply
                             key={report.id}
                             onClick={() =>
-                              (window.location.href = `/ApplicationQuery/${report.id}`)
+                              link(`/ApplicationQuery/${report.id}`)
                             }
                           >
                             <ApplyDetails>

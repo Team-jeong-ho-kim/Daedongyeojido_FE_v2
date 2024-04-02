@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ApplicationType } from "../../types/type";
 import { getApplication } from "../../apis/report";
 import { postITVresult } from "../../apis/alarm";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { deleteApply } from "../../apis/report";
 
 export const ApplicationQueryPage = () => {
@@ -15,6 +15,7 @@ export const ApplicationQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ApplicationType>();
   const [cla, setCla] = useState<string>("");
+  const link = useNavigate();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -24,7 +25,7 @@ export const ApplicationQueryPage = () => {
     if (id) {
       if (confirm("정말 지원을 취소하시겠습니까?")) {
         deleteApply(parseInt(id));
-        window.location.href = "/My";
+        link("/My");
       }
     }
   };
