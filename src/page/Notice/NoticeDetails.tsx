@@ -77,6 +77,7 @@ const NoticeDetails = () => {
   const [data, setData] = useState<NoticeDetailType>();
   const [user, setUser] = useState<MyInfoType>();
   const [updatedMemo] = useState<MemoEditType>();
+  const [aReportId, setAReportId] = useState<boolean>(false);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -123,6 +124,11 @@ const NoticeDetails = () => {
     }
     getMyInfo().then((res) => {
       setUser(res.data);
+      if (user && data) {
+        if (user.myReport.find((report) => report.clubName == data.clubName)) {
+          setAReportId(true);
+        } else setAReportId(false);
+      }
     });
   }, []);
 
@@ -160,11 +166,13 @@ const NoticeDetails = () => {
                 <NoticeTitle>{data.noticeTitle}</NoticeTitle>
                 <IsButton>
                   <ApplyButton
-                    usable={user?.part == "INDEPENDENT" ? "else" : ""}
+                    usable={
+                      user?.part == "INDEPENDENT" && !aReportId ? "else" : ""
+                    }
                   >
                     지원하기
                   </ApplyButton>
-                  <Done usable={data.isApply ? "applyer" : "else"}>
+                  <Done usable={aReportId ? "applyer" : "else"}>
                     서류제출완료
                   </Done>
                   <ModifyButton
@@ -402,11 +410,6 @@ const Done = styled.div<{
   line-height: 20px;
   cursor: pointer;
   user-select: none;
-  transition: scale 0.15s, box-shadow 0.2s;
-  &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const ModifyButton = styled.button<{

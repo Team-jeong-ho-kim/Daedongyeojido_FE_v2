@@ -300,7 +300,6 @@ export type NoticeFieldType = {
 
 export type NoticeDetailType = {
   noticeId?: number;
-  isApply: boolean;
   clubName: string;
   noticeTitle: string;
   noticeExplain: string;
