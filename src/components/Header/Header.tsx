@@ -139,11 +139,11 @@ const Clubpage = styled.a`
 
 const Oxb = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
   width: 520px;
   height: 100%;
-  gap: 74px;
+  gap: 50px;
   margin-right: 105px;
   @media screen and (max-width: 1024px) {
     display: none;
