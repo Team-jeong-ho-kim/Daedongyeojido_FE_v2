@@ -19,7 +19,7 @@ export const ClubDetailPage = () => {
   const [activeTab, setActiveTab] = useState<string>("동아리 소개");
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ClubDetailType>();
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [question, setQuestion] = useState<ClubQuestionsGetType[]>();
 
@@ -82,14 +82,16 @@ export const ClubDetailPage = () => {
                 onClick={() => {
                   if (isIn) return;
                   setIsOpen(false);
-                }}>
+                }}
+              >
                 <Modal
                   onMouseEnter={() => {
                     setIsIn(true);
                   }}
                   onMouseLeave={() => {
                     setIsIn(false);
-                  }}>
+                  }}
+                >
                   {question?.map((quest, index) => {
                     return (
                       <QuestBox
