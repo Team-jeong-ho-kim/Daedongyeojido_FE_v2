@@ -184,7 +184,11 @@ const MyPage = () => {
                     </ProfileEdit>
                   </MyInfo_basic>
                   <MyN>
-                    "{data.major} 개발자 {data.name}입니다."
+                    "{data.major == "UNDEFINED" ? "" : data.major}{" "}
+                    {data.major == "UNDEFINED"
+                      ? `${data.classNumber.slice(0, 1)}학년`
+                      : "개발자"}{" "}
+                    {data.name}입니다."
                   </MyN>
                   <LinkerBox>
                     {/* <Linker src={Link} onClick={handleLink} />
