@@ -8,6 +8,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
   const accessToken = Cookie.get("accessToken");
+  const hrs = window.location.href.split("/")[3];
+
   return (
     <Container>
       <Box>
@@ -17,8 +19,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
         </Home>
         <Oxb>
           <Xob>
-            <Noticepage href="/Notices">공고</Noticepage>
-            <Clubpage href="/CheckClub">동아리</Clubpage>
+            <Noticepage href="/Notices" thisH={hrs}>
+              공고
+            </Noticepage>
+            <Clubpage href="/CheckClub" thisH={hrs}>
+              동아리
+            </Clubpage>
           </Xob>
           <And>
             {accessToken ? (
@@ -90,7 +96,9 @@ const Xob = styled.div`
   gap: 18px;
 `;
 
-const Noticepage = styled.a`
+const Noticepage = styled.a<{
+  thisH: string;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +106,7 @@ const Noticepage = styled.a`
   height: auto;
   flex-shrink: 0;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: ${({ thisH }) => (thisH == "Notices" ? "#f3f4f5" : "#fff")};
   color: #4e5968;
   font-size: 14px;
   font-weight: 400;
@@ -112,7 +120,9 @@ const Noticepage = styled.a`
   }
 `;
 
-const Clubpage = styled.a`
+const Clubpage = styled.a<{
+  thisH: string;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +130,8 @@ const Clubpage = styled.a`
   height: auto;
   flex-shrink: 0;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: ${({ thisH }) =>
+    thisH == "CheckClub" ? "#f3f4f5" : "#fff"};
   color: #4e5968;
   font-size: 14px;
   font-weight: 400;
