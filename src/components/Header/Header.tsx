@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import NameLogo from "../../assets/img/PNG/NameBlack.png";
 import MainLogo from "../../assets/img/PNG/MainLogo.png";
 import { Cookie } from "../../utils/cookie";
 
