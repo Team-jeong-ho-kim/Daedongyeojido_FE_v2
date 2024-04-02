@@ -179,4 +179,10 @@ const Button = styled.div`
   font-size: 20px;
   font-weight: 400;
   margin-left: 46%;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  }
 `;

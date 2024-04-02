@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
                 <p>마이페이지</p>
               </Login>
             ) : (
-              <Login onClick={onLoginToggle}>
+              <Login onClick={onLoginToggle} thisH={"Login"}>
                 <p>로그인</p>
               </Login>
             )}
