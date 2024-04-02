@@ -7,11 +7,8 @@ import WhitePlus from "../assets/img/SVG/WhitePlus.svg";
 import Footer from "../components/MainPage/Footer";
 import { adminPageType } from "../types/type";
 import { getAdmin, createClub } from "../apis/admin-club";
-import { PlusMember } from "../components/ClubAdmin/PlusMember";
-import { patchClub } from "../apis/admin-club";
 
 export const ClubAdminPage = () => {
-  const [selectedClub] = useState<adminPageType | null>(null);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [clubName, setClubName] = useState<string>("");
   const [clubs, setClubs] = useState<adminPageType[]>([]);
@@ -58,7 +55,6 @@ export const ClubAdminPage = () => {
         </TitleWrapper>
         <Footer />
       </Wrapper>
-      {selectedClub && <PlusMember selectedClub={selectedClub} />}
     </Container>
   );
 };

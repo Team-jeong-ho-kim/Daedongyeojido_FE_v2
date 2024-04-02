@@ -60,7 +60,7 @@ export const Club = ({ clubs }: memberProps) => {
       {selectedClub && (
         <PlusMember
           selectedClub={selectedClub}
-          handleEditClick={handleEditClick}
+          handleEditClick={() => handleEditClick(selectedClub)}
         />
       )}
     </Container>

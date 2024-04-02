@@ -1,5 +1,5 @@
 import { instance } from "./axios";
-import { WriteType, MemoEditType } from "../types/type";
+import { WriteType, MemoEditType, MemoPatchType } from "../types/type";
 
 export const getApplicant = async (clubName: string) => {
   return await instance.get(`/report/applicant/${clubName}`);

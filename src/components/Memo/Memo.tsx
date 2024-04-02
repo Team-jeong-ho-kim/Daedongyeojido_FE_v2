@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { MemoGetType } from "../../types/type";
 import { getMemoData, patchModifyMemo } from "../../apis/report";
 import { postITVresult } from "../../apis/alarm";

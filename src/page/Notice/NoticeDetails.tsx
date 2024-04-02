@@ -7,7 +7,7 @@ import { IVProcess } from "../../assets";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useParams } from "react-router-dom";
-import { getDetailNotice } from "../../apis/notice";
+import { deleteNotice, getDetailNotice } from "../../apis/notice";
 import { MemoEditType, NoticeDetailType } from "../../types/type";
 import { Memo } from "../../components/Memo/Memo";
 
@@ -69,11 +69,11 @@ const ReplacedText = styled.p`
 
 const NoticeDetails = () => {
   const { id } = useParams();
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
-  const [isSelected, setIsSelected] = useState<String>("RCMinfo");
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<string>("RCMinfo");
   const [delCheck, setDelCheck] = useState<boolean>(false);
   const [data, setData] = useState<NoticeDetailType>();
-  const [updatedMemo, setUpdatedMemo] = useState<MemoEditType>();
+  const [updatedMemo] = useState<MemoEditType>();
 
   /* 퍼블리싱 임시 글 */
   const handleLoginToggle = () => {
@@ -263,7 +263,7 @@ const HeaderFrame = styled.div`
 `;
 
 const RCMinfo = styled.a<{
-  selected: String;
+  selected: string;
 }>`
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
@@ -276,7 +276,7 @@ const RCMinfo = styled.a<{
 `;
 
 const IDTalent = styled.a<{
-  selected: String;
+  selected: string;
 }>`
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
@@ -289,7 +289,7 @@ const IDTalent = styled.a<{
 `;
 
 const Assign = styled.a<{
-  selected: String;
+  selected: string;
 }>`
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
