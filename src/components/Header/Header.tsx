@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import NameLogo from "../../assets/img/PNG/NameBlack.png";
 import MainLogo from "../../assets/img/PNG/Daedongyeojido.png";
+import { Cookie } from "../../utils/cookie";
 
 interface HeaderProps {
   onLoginToggle: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
+  const accessToken = Cookie.get("accessToken");
   return (
     <Container>
       <Box>
@@ -16,12 +18,19 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
         </Home>
         <Oxb>
           <Xob>
-            <Mypage href="/My">마이페이지</Mypage>
             <Noticepage href="/Notices">공고</Noticepage>
             <Clubpage href="/CheckClub">동아리</Clubpage>
           </Xob>
           <And>
-            <Login onClick={onLoginToggle}>로그인</Login>|
+            {accessToken ? (
+              <Login href="/My">
+                <p>마이페이지</p>
+              </Login>
+            ) : (
+              <Login onClick={onLoginToggle}>
+                <p>로그인</p>
+              </Login>
+            )}
             <Report href="/Ask">문의하기</Report>
           </And>
         </Oxb>
@@ -81,30 +90,6 @@ const Xob = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 18px;
-`;
-
-const Mypage = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 98px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background-color: #f3f4f5;
-  color: #4e5968;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: -0.9px;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.35s ease;
-  &:hover {
-    background-color: #a3a4a5;
-    box-shadow: 0 0 0 2px 2px #222;
-  }
 `;
 
 const Noticepage = styled.a`
