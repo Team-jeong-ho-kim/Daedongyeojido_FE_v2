@@ -6,17 +6,20 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import { useEffect, useState } from "react";
 import { getAllClub } from "../../apis/club";
-import { ClubType } from "../../types/type";
+import { ClubType, ClubBannerType } from "../../types/type";
 
 export const CheckClubPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [clubs, setClubs] = useState<ClubType[]>();
+  const [banners, setBanners] = useState<ClubBannerType[]>([]);
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
 
   useEffect(() => {
     getAllClub().then((res) => {
+      console.log(res.data);
+      setBanners(res.data.banners);
       setClubs(res.data.allClubResponses);
     });
   }, []);
@@ -26,7 +29,7 @@ export const CheckClubPage = () => {
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
         <SmallHeader />
-        <ClubMainBanner />
+        {clubs && <ClubMainBanner banners={banners} />}
         <Welcome>대동여지도에서 전공동아리 활동을 도와드려요</Welcome>
         {clubs && <Club clubs={clubs} />}
       </Wrapper>

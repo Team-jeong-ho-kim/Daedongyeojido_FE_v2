@@ -100,6 +100,12 @@ export type ClubType = {
   tags: string[];
 };
 
+export type ClubBannerType = {
+  id: string;
+  bannerImgUrl: string;
+  bannerTitle: string;
+};
+
 export type ClubDetailType = {
   clubName: string;
   title: string | null;
@@ -123,6 +129,10 @@ export type ClubDetailType = {
 
 export type ClubsProps = {
   clubs: ClubType[];
+};
+
+export type ClubsBannerProps = {
+  banners: ClubBannerType[];
 };
 
 export type clubMemberType = {

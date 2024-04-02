@@ -1,25 +1,63 @@
 import styled from "styled-components";
 import leftarrowimg from "../../assets/img/SVG/LeftArrow.svg";
 import rightarrowimg from "../../assets/img/SVG/RightArrow.svg";
+import { ClubBannerType, ClubsBannerProps } from "../../types/type";
+import { useEffect, useState } from "react";
 
-export const ClubMainBanner = () => {
+export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
+  const [img, setImg] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setImg((prevIndex) =>
+        prevIndex === banners.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [banners]);
+
+  const imgChangeLeft = () => {
+    setImg((prevIndex) =>
+      prevIndex === 0 ? banners.length - 1 : prevIndex - 1
+    );
+  };
+
+  const imgChangeRight = () => {
+    setImg((prevIndex) =>
+      prevIndex === banners.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
   return (
     <Container>
-      <BannerImg />
+      <BannerImg src={banners[img]?.bannerImgUrl} alt={`Banner ${img}`} />
       <BannerBar>
         <MoveBanner>
           <NumberWrapper>
-            <CurrentNumber>12</CurrentNumber>
+            <CurrentNumber>{img + 1}</CurrentNumber>
             <And>/</And>
-            <TotalNumber>13</TotalNumber>
+            <TotalNumber>{banners.length}</TotalNumber>
           </NumberWrapper>
           <ArrowWrapper>
-            <ArrowImg src={leftarrowimg} alt="왼쪽 화살표" />
-            <ArrowImg src={rightarrowimg} alt="오른쪽 화살표" />
+            <ArrowImg
+              src={leftarrowimg}
+              alt="왼쪽 화살표"
+              onClick={imgChangeLeft}
+            />
+            <ArrowImg
+              src={rightarrowimg}
+              alt="오른쪽 화살표"
+              onClick={imgChangeRight}
+            />
           </ArrowWrapper>
         </MoveBanner>
         <ExplainWrapper>
-          <BannerExplain>ㅏㅇ</BannerExplain>
+          {banners.map((banner: ClubBannerType, index: number) => (
+            <BannerExplain key={index} $isActive={index === img}>
+              {banner.bannerTitle}
+            </BannerExplain>
+          ))}
         </ExplainWrapper>
       </BannerBar>
     </Container>
@@ -93,15 +131,16 @@ const ExplainWrapper = styled.div`
   gap: 10px;
 `;
 
-const BannerExplain = styled.div`
+const BannerExplain = styled.div<{ $isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: auto;
-  height: 38px;
-  border: 1px solid #ced4da;
+  height: auto;
+  border: ${(props) =>
+    props.$isActive ? "1.5px solid #FF2D6A" : "1px solid #CED4D1"};
   border-radius: 30px;
-  color: #333b3d;
-  font-size: 18px;
+  color: ${(props) => (props.$isActive ? "#FF2D6A" : "#495057")};
+  font-size: 12px;
   padding: 9px 20px;
 `;
