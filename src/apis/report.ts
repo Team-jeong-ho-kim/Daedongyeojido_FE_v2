@@ -5,7 +5,7 @@ export const getApplicant = async (clubName: string) => {
   return await instance.get(`/report/applicant/${clubName}`);
 };
 
-export const getApplicaion = async (reportId: number) => {
+export const getApplication = async (reportId: number) => {
   return await instance.get(`/report/report-info/${reportId}`);
 };
 
@@ -33,5 +33,5 @@ export const patchMemo = async (memo: MemoEditType) => {
 };
 
 export const deleteApply = async (reportId: number) => {
-  return await instance.delete(`/report/cancle/${reportId}`);
+  return await instance.delete(`/report/cancel/${reportId}`);
 };

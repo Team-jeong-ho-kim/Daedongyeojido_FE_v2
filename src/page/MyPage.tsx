@@ -326,7 +326,12 @@ const MyPage = () => {
                     <Applys>
                       {data.myReport.map((report) => {
                         return (
-                          <Apply key={report.id}>
+                          <Apply
+                            key={report.id}
+                            onClick={() =>
+                              (window.location.href = `/ApplicationQuery/${report.id}`)
+                            }
+                          >
                             <ApplyDetails>
                               <ApplyName>{report.clubName}</ApplyName>
                               <ApplyData>

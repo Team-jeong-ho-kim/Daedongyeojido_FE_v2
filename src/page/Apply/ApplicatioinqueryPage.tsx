@@ -5,17 +5,28 @@ import Footer from "../../components/MainPage/Footer";
 import { Back } from "../../components/Apply/Back";
 import { useEffect, useState } from "react";
 import { ApplicationType } from "../../types/type";
-import { getApplicaion } from "../../apis/report";
+import { getApplication } from "../../apis/report";
 import { postITVresult } from "../../apis/alarm";
 import { useParams } from "react-router-dom";
+import { deleteApply } from "../../apis/report";
 
 export const ApplicationQueryPage = () => {
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ApplicationType>();
+  const [cla, setCla] = useState<string>("");
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
+  };
+
+  const handleApplyCancel = () => {
+    if (id) {
+      if (confirm("정말 지원을 취소하시겠습니까?")) {
+        deleteApply(parseInt(id));
+        window.location.href = "/My";
+      }
+    }
   };
 
   const handlePassW = () => {
@@ -46,12 +57,16 @@ export const ApplicationQueryPage = () => {
 
   useEffect(() => {
     if (id) {
-      getApplicaion(parseInt(id)).then((res) => {
+      getApplication(parseInt(id)).then((res) => {
         setData(res.data);
         console.log(res.data);
+        if (data) {
+          setCla(data.isApply ? "APPLYER" : "INDEPENDENT");
+        }
       });
     }
   }, []);
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
@@ -67,9 +82,23 @@ export const ApplicationQueryPage = () => {
                 아래 답변을 보고 동아리에 맞는 인재상을 찾아보세요.
               </Content>
             </div>
-            <Cover usable={"clubLeader"}>
-              <Pass onClick={handlePassW}>합격</Pass>
-              <Fail onClick={handleFailL}>불합격</Fail>
+            <Cover>
+              <Cancel
+                onClick={handleApplyCancel}
+                usable={cla == "APPLYER" ? "applyer" : "none"}
+              ></Cancel>
+              <Pass
+                onClick={handlePassW}
+                usable={cla == "CLUB_LEADER" ? "clubLeader" : "none"}
+              >
+                합격
+              </Pass>
+              <Fail
+                onClick={handleFailL}
+                usable={cla == "CLUB_LEADER" ? "clubLeader" : "none"}
+              >
+                불합격
+              </Fail>
             </Cover>
           </Headi>
         </Top>
@@ -92,14 +121,38 @@ const Headi = styled.div`
   align-items: flex-end;
 `;
 
-const Cover = styled.div<{
-  usable: string;
-}>`
-  display: ${({ usable }) => (usable == "clubLeader" ? "flex" : "none")};
+const Cover = styled.div`
+  display: flex;
   gap: 9px;
 `;
 
-const Pass = styled.button`
+const Cancel = styled.button<{
+  usable: string;
+}>`
+  display: ${({ usable }) => (usable == "applyer" ? "inline-block" : "none")};
+  width: 102px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #52565d;
+  color: #fff;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.014px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const Pass = styled.button<{
+  usable: string;
+}>`
+  display: ${({ usable }) =>
+    usable == "clubLeader" ? "inline-block" : "none"};
   width: 130px;
   height: 40px;
   border-radius: 10px;
@@ -113,12 +166,16 @@ const Pass = styled.button`
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s;
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-3px);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
 `;
 
-const Fail = styled.button`
+const Fail = styled.button<{
+  usable: string;
+}>`
+  display: ${({ usable }) =>
+    usable == "clubLeader" ? "inline-block" : "none"};
   width: 145px;
   height: 40px;
   border-radius: 10px;
@@ -131,7 +188,7 @@ const Fail = styled.button`
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s;
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-3px);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
 `;
