@@ -179,6 +179,7 @@ export type ApplicationType = {
   classNumber: string;
   name: string;
   introduce: string;
+  isApply: boolean;
   reportPassingResult: PassingResultType;
   noticeQuests: noticeQueststype[];
 };
@@ -288,6 +289,7 @@ export type NoticeFieldType = {
 
 export type NoticeDetailType = {
   noticeId?: number;
+  isApply: boolean;
   clubName: string;
   noticeTitle: string;
   noticeExplain: string;

@@ -70,7 +70,8 @@ export const Ask = () => {
           <Select
             name="inquiryType"
             value={data.inquiryType}
-            onChange={onChange}>
+            onChange={onChange}
+          >
             <option disabled hidden>
               문의 종류를 선택해주세요
             </option>
@@ -128,6 +129,7 @@ const Input = styled.input`
   width: 200px;
   height: 24px;
   border-bottom: 1px solid #eaecef;
+  cursor: text;
 `;
 
 const Select = styled.select`
@@ -135,6 +137,7 @@ const Select = styled.select`
   height: 28px;
   border-radius: 5px;
   border: 1px solid #eaecef;
+  cursor: pointer;
 `;
 
 const Textarea = styled.textarea`
@@ -147,6 +150,7 @@ const Textarea = styled.textarea`
   color: #52585c;
   font-size: 25px;
   font-weight: 500;
+  cursor: text;
   & ::placeholder {
     color: #818181;
     font-size: 14px;

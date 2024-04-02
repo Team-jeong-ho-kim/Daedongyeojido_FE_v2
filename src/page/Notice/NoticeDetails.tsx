@@ -8,6 +8,8 @@ import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useParams } from "react-router-dom";
 import { deleteNotice, getDetailNotice } from "../../apis/notice";
+import { MyInfoType } from "../../types/type";
+import { getMyInfo } from "../../apis/user";
 import { MemoEditType, NoticeDetailType } from "../../types/type";
 import { Memo } from "../../components/Memo/Memo";
 
@@ -73,9 +75,9 @@ const NoticeDetails = () => {
   const [isSelected, setIsSelected] = useState<string>("RCMinfo");
   const [delCheck, setDelCheck] = useState<boolean>(false);
   const [data, setData] = useState<NoticeDetailType>();
+  const [user, setUser] = useState<MyInfoType>();
   const [updatedMemo] = useState<MemoEditType>();
 
-  /* 퍼블리싱 임시 글 */
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
@@ -101,13 +103,15 @@ const NoticeDetails = () => {
 
     deleteNotice(id)
       .then(() => {
-        alert("삭제에 성공하셨습니다");
+        alert("공고가 삭제되었습니다");
         window.location.href = "/";
       })
       .catch(() => {
         alert("나중에 다시 시도해주세요");
       });
   };
+
+  const handleApplyCancel = () => {};
 
   const handleDeleting = () => {
     setDelCheck(!delCheck);
@@ -119,6 +123,9 @@ const NoticeDetails = () => {
         setData(res.data);
       });
     }
+    getMyInfo().then((res) => {
+      setUser(res.data);
+    });
   }, []);
 
   return (
@@ -151,11 +158,27 @@ const NoticeDetails = () => {
               <NoticeTitleBox>
                 <NoticeTitle>{data.noticeTitle}</NoticeTitle>
                 <IsButton>
-                  <ApplyButton usable={"else"}>지원하기</ApplyButton>
-                  <ModifyButton usable={"clubLeader"} onClick={handleModify}>
+                  <ApplyButton
+                    usable={user?.part == "INDEPENDENT" ? "else" : ""}
+                  >
+                    지원하기
+                  </ApplyButton>
+                  <CancelButton
+                    usable={data.isApply ? "applyer" : "else"}
+                    onClick={handleApplyCancel}
+                  >
+                    지원취소하기
+                  </CancelButton>
+                  <ModifyButton
+                    usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
+                    onClick={handleModify}
+                  >
                     수정하기
                   </ModifyButton>
-                  <DeleteButton usable={"clubLeader"} onClick={handleDeleting}>
+                  <DeleteButton
+                    usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
+                    onClick={handleDeleting}
+                  >
                     삭제하기
                   </DeleteButton>
                 </IsButton>
@@ -349,6 +372,28 @@ const ApplyButton = styled.button<{
 }>`
   display: ${({ usable }) => (usable == "else" ? "block" : "none")};
   width: 134px;
+  height: 49px;
+  border-radius: 4px;
+  background-color: #52565d;
+  color: #fff;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: scale 0.15s, box-shadow 0.2s;
+  &:hover {
+    scale: 1.05;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const CancelButton = styled.button<{
+  usable: string;
+}>`
+  display: ${({ usable }) => (usable == "applyer" ? "block" : "none")};
+  width: 180px;
   height: 49px;
   border-radius: 4px;
   background-color: #52565d;

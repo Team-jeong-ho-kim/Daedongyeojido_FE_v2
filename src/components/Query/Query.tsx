@@ -25,10 +25,12 @@ export const Query = ({ querys }: QueryProps) => {
   };
   const handleReportView = (reportId: number) => {
     console.log(reportId);
+    window.location.href = `/ApplicationQuery/${reportId}`;
   };
 
   const handleMemoView = (reportId: number) => {
     console.log(reportId);
+    window.location.href = `/Memo/${reportId}`;
   };
 
   return (

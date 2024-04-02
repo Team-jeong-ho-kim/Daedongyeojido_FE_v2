@@ -16,6 +16,7 @@ import NoticeModifyPage from "./page/Notice/NoticeModifying";
 import ClubInfoModPage from "./page/club/ClubInfoMod";
 import { ClubDetailPage } from "./page/club/ClubDetailPage";
 import { ClubAdminPage } from "./page/ClubAdminPage";
+import InterviewTimeMod from "./page/club/InterviewTimeMod";
 
 function MainRouter() {
   return (
@@ -32,6 +33,7 @@ function MainRouter() {
           path="/NoticeModify/:clubName/:id"
           element={<NoticeModifyPage />}
         />
+        <Route path="/InterviewTimeMod" element={<InterviewTimeMod />} />
         <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
         <Route
           path="/ApplicationQuery/:id"
