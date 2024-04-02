@@ -26,6 +26,7 @@ const MyPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
   const [itvScdl, setItvScdl] = useState<number>(0);
+  const [myMajor, setMyMajor] = useState<string>("");
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -140,6 +141,81 @@ const MyPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    let majorP = data?.major;
+    if (majorP) {
+      switch (majorP) {
+        case "UNDEFINED":
+          if (data) {
+            setMyMajor(
+              `${data?.classNumber.slice(0, 1)}학년 ${data.name}입니다.`
+            );
+          }
+          break;
+        case "FRONT":
+          if (data) {
+            setMyMajor(`프론트엔드 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "BACK":
+          if (data) {
+            setMyMajor(`백엔드 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "IOS":
+          if (data) {
+            setMyMajor(`IOS 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "AND":
+          if (data) {
+            setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "FLUTTER":
+          if (data) {
+            setMyMajor(`플러터 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "EMBEDDED":
+          if (data) {
+            setMyMajor(`임베디드 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "AI":
+          if (data) {
+            setMyMajor(`AI 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "SECURITY":
+          if (data) {
+            setMyMajor(`보안 개발자 ${data.name}입니다.`);
+          }
+          break;
+        case "DEVOPS":
+          if (data) {
+            setMyMajor(`DevOps ${data.name}입니다.`);
+          }
+          break;
+        case "DESIGN":
+          if (data) {
+            setMyMajor(`디자이너 ${data.name}입니다.`);
+          }
+          break;
+        case "GAME":
+          if (data) {
+            setMyMajor(`게임 개발자 ${data.name}입니다.`);
+          }
+          break;
+        default:
+          if (data) {
+            setMyMajor(`${data.name}입니다.`);
+          }
+          break;
+      }
+    }
+  }, [getMyInfo]);
+
   return (
     <>
       <Container>
@@ -183,13 +259,7 @@ const MyPage = () => {
                       )}
                     </ProfileEdit>
                   </MyInfo_basic>
-                  <MyN>
-                    "{data.major == "UNDEFINED" ? "" : data.major}{" "}
-                    {data.major == "UNDEFINED"
-                      ? `${data.classNumber.slice(0, 1)}학년`
-                      : "개발자"}{" "}
-                    {data.name}입니다."
-                  </MyN>
+                  <MyN>{myMajor}</MyN>
                   <LinkerBox>
                     {/* <Linker src={Link} onClick={handleLink} />
                     <MyLink href={ghLink2} target="_blank">
