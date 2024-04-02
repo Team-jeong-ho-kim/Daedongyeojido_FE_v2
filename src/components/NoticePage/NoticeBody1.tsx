@@ -2,14 +2,20 @@ import styled from "styled-components";
 import QueryBanner from "../../assets/img/PNG/QueryBanner.png";
 import LeftArrow from "../../assets/img/PNG/LeftArrow.png";
 import RightArrow from "../../assets/img/PNG/RightArrow.png";
+import { Cookie } from "../../utils/cookie";
 
 const NoticeBody1 = () => {
+  const part = Cookie.get("part");
   return (
     <Banner>
       <AddNoticeCt>
-        <LinkBtn>면접 시간 설정</LinkBtn>
-        <LinkBtn href="/Custom">지원서 커스텀</LinkBtn>
-        <LinkBtn href="/NoticeModify/:clubName/:id">공고 만들기</LinkBtn>
+        {(part === "ADMIN" || part === "CLUB_LEADER") && (
+          <>
+            <LinkBtn>면접 시간 설정</LinkBtn>
+            <LinkBtn href="/Custom">지원서 커스텀</LinkBtn>
+            <LinkBtn href="/NoticeModify/:clubName/:id">공고 만들기</LinkBtn>
+          </>
+        )}
       </AddNoticeCt>
       <ClubBanner>
         <IMGBanner src={QueryBanner} />
