@@ -11,7 +11,9 @@ const Notice = ({
   return (
     <Container>
       <Block>
-        <Banner src={clubImageUrl ?? DAEBanner} />
+        <Banner>
+          <img src={clubImageUrl ?? DAEBanner} />
+        </Banner>
         <Detail>
           <TextBox>
             <ClubName>{clubName}</ClubName>
@@ -28,8 +30,8 @@ const Notice = ({
 
 const Container = styled.div`
   display: flex;
-  width: 370px;
-  height: 338px;
+  width: 300px;
+  height: 236px;
   border-radius: 10px;
   background-color: #ff5a70;
   align-items: flex-end;
@@ -47,7 +49,7 @@ const Block = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 332px;
+  height: 236px;
   border-radius: 10px;
   border: 1px solid #d3d3d3;
   background-color: #fff;
@@ -55,39 +57,41 @@ const Block = styled.div`
   cursor: pointer;
 `;
 
-const Banner = styled.img`
+const Banner = styled.div`
   width: 100%;
-  height: 217px;
+  height: 130px;
   border-radius: 10px 10px 0 0;
-  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > img {
+    width: 100%;
+  }
 `;
 
 const Detail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 158px;
+  height: 102px;
   border-radius: 0 0 10px 10px;
-  padding: 0 33px;
-  justify-content: center;
-  gap: 21px;
+  padding: 30px 16px 0 16px;
   cursor: pointer;
 `;
 
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
   cursor: pointer;
+  margin-bottom: 12px;
 `;
 
 const ClubName = styled.p`
-  height: 23px;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 500;
-  line-height: 18px;
   letter-spacing: 0.018px;
   &:hover {
     cursor: pointer;
@@ -95,12 +99,10 @@ const ClubName = styled.p`
 `;
 
 const NoticeTitle = styled.p`
-  height: 25px;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 20px;
   letter-spacing: -0.75px;
   &:hover {
     cursor: pointer;
@@ -108,12 +110,10 @@ const NoticeTitle = styled.p`
 `;
 
 const NoticeDL = styled.p`
-  height: 15px;
   color: #898989;
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
   font-weight: 400;
-  line-height: 12px;
   letter-spacing: 0.012px;
   &:hover {
     cursor: pointer;

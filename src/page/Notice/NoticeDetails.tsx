@@ -130,22 +130,19 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}
-            >
+              onClick={handleSelectRCMinfo}>
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}
-            >
+              onClick={handleSelectIDTalent}>
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}
-            >
+              onClick={handleSelectAssignment}>
               동아리 과제
             </Assign>
           </HeaderFrame>
