@@ -20,6 +20,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
       .then((res) => {
         Cookie.set("accessToken", res.data.accessToken);
         Cookie.set("refreshToken", res.data.refreshToken);
+        Cookie.set("part", res.data.part);
         handleClose();
       })
       .catch((err) => {

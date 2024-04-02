@@ -33,11 +33,13 @@ instance.interceptors.response.use(
         .then((res: any) => {
           Cookie.set("accessToken", res.data.accessToken);
           Cookie.set("refreshToken", res.data.refreshToken);
+          Cookie.set("part", res.data.part);
           alert("새로고침 하세요");
         })
         .catch(() => {
           Cookie.remove("accessToken");
           Cookie.remove("refreshToken");
+          Cookie.remove("part");
           window.location.href = "/";
         });
     } else {
