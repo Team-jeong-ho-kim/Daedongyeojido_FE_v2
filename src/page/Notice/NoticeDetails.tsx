@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
-import { IVProcess } from "../../assets";
+import IVProcess from "../../assets/img/PNG/IVProcess.png";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useParams } from "react-router-dom";

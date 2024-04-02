@@ -8,7 +8,7 @@ import { NoticeGetType } from "../../types/type";
 import { getAllNotice } from "../../apis/notice";
 
 const NoticeAllQueryPage = () => {
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<NoticeGetType[]>();
 
   const handleLoginToggle = () => {

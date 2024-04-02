@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DAEBanner } from "../../assets";
+import DAEBanner from "../../assets/img/PNG/Daedongyeojido.png";
 import { NoticeGetType } from "../../types/type";
 
 const Notice = ({

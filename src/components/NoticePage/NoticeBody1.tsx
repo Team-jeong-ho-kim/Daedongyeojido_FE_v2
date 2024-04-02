@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import QueryBanner from "../../assets/img/PNG/QueryBanner.png";
-import { LeftArrow, RightArrow } from "../../assets";
+import LeftArrow from "../../assets/img/PNG/LeftArrow.png";
+import RightArrow from "../../assets/img/PNG/RightArrow.png";
 
 const NoticeBody1 = () => {
   return (

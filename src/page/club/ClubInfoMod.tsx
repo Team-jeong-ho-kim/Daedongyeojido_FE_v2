@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import ClubImgEditor from "../../components/ClubMain/ClubImgEditor";
 import ClubTagLoader from "../../components/ClubMain/ClubTagLoader";
-import { LeftArrow } from "../../assets";
+import LeftArrow from "../../assets/img/PNG/LeftArrow.png";
 import { getDetailClub, patchClub } from "../../apis/club";
 import { ClubDetailsType } from "../../types/type";
 import { useParams } from "react-router-dom";

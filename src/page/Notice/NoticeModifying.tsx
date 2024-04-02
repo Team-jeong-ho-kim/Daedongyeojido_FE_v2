@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
-import { IVProcess } from "../../assets";
+import IVProcess from "../../assets/img/PNG/IVProcess.png";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ const NoticeModifying: React.FC = () => {
   const { clubName, id } = useParams();
   const link = useNavigate();
   const [tip, setTip] = useState<boolean>(false);
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [recru, setRecru] = useState<boolean>(false);
   const [isRecru, setIsRecru] = useState<boolean>(false);
   const [RecruStart, setRecruStart] = useState<string | null>(null);
@@ -257,7 +257,8 @@ const NoticeModifying: React.FC = () => {
               usable={"clubLeader"}
               onClick={() => {
                 onSubmit();
-              }}>
+              }}
+            >
               저장하기
             </SaveButton>
           </NoticeTitleBox>
@@ -337,7 +338,8 @@ const NoticeModifying: React.FC = () => {
                     <Delete
                       onClick={() => {
                         onDeleteField(index);
-                      }}>
+                      }}
+                    >
                       삭제
                     </Delete>
                   </div>
@@ -345,7 +347,8 @@ const NoticeModifying: React.FC = () => {
             </Recruits>
             <span
               style={{ cursor: "pointer", color: "gray" }}
-              onClick={onPlusField}>
+              onClick={onPlusField}
+            >
               {" "}
               추가
             </span>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { MainLogo } from "../../assets";
-import { NameLogo2 } from "../../assets";
+import MainLogo from "../../assets/img/PNG/Daedongyeojido.png";
+import NameLogo2 from "../../assets/img/PNG/NameWhite.png";
 
 const Footer = () => {
   return (

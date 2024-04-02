@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { NameLogo } from "../../assets";
-import { MainLogo } from "../../assets";
+import NameLogo from "../../assets/img/PNG/NameBlack.png";
+import MainLogo from "../../assets/img/PNG/Daedongyeojido.png";
 
 interface HeaderProps {
   onLoginToggle: () => void;
