@@ -145,78 +145,52 @@ const MyPage = () => {
 
   useEffect(() => {
     let majorP = data?.major;
-    if (majorP) {
+    if (data) {
       switch (majorP) {
         case "UNDEFINED":
-          if (data) {
-            setMyMajor(
-              `${data?.classNumber.slice(0, 1)}학년 ${data.name}입니다.`
-            );
-          }
+          setMyMajor(
+            `${data?.classNumber.slice(0, 1)}학년 ${data.name}입니다.`
+          );
           break;
         case "FRONT":
-          if (data) {
-            setMyMajor(`프론트엔드 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`프론트엔드 개발자 ${data.name}입니다.`);
           break;
         case "BACK":
-          if (data) {
-            setMyMajor(`백엔드 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`백엔드 개발자 ${data.name}입니다.`);
           break;
         case "IOS":
-          if (data) {
-            setMyMajor(`IOS 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`IOS 개발자 ${data.name}입니다.`);
           break;
         case "AND":
-          if (data) {
-            setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
           break;
         case "FLUTTER":
-          if (data) {
-            setMyMajor(`플러터 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`플러터 개발자 ${data.name}입니다.`);
           break;
         case "EMBEDDED":
-          if (data) {
-            setMyMajor(`임베디드 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`임베디드 개발자 ${data.name}입니다.`);
           break;
         case "AI":
-          if (data) {
-            setMyMajor(`AI 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`AI 개발자 ${data.name}입니다.`);
           break;
         case "SECURITY":
-          if (data) {
-            setMyMajor(`보안 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`보안 개발자 ${data.name}입니다.`);
           break;
         case "DEVOPS":
-          if (data) {
-            setMyMajor(`DevOps ${data.name}입니다.`);
-          }
+          setMyMajor(`DevOps ${data.name}입니다.`);
           break;
         case "DESIGN":
-          if (data) {
-            setMyMajor(`디자이너 ${data.name}입니다.`);
-          }
+          setMyMajor(`디자이너 ${data.name}입니다.`);
           break;
         case "GAME":
-          if (data) {
-            setMyMajor(`게임 개발자 ${data.name}입니다.`);
-          }
+          setMyMajor(`게임 개발자 ${data.name}입니다.`);
           break;
         default:
-          if (data) {
-            setMyMajor(`${data.name}입니다.`);
-          }
+          setMyMajor(`${data.name}입니다.`);
           break;
       }
     }
-  }, [getMyInfo]);
+  }, [data, myMajor]);
 
   return (
     <>

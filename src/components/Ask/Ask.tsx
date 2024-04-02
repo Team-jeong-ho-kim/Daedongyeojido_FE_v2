@@ -32,15 +32,26 @@ export const Ask = () => {
   };
 
   const onClick = () => {
-    createInquiry(data)
-      .then(() => {
-        alert("성공적으로 문의 되었습니다");
-        window.location.replace("/");
-      })
-      .catch(() => {
-        alert("나중에 다시 시도해주세요");
-        // window.location.replace("/");
-      });
+    if (
+      data.name &&
+      data.phoneNumber &&
+      data.inquiryType &&
+      data.inquiryContent
+    ) {
+      createInquiry(data)
+        .then(() => {
+          alert("성공적으로 문의 되었습니다");
+          window.location.replace("/");
+        })
+        .catch(() => {
+          alert("나중에 다시 시도해주세요");
+          // window.location.replace("/");
+        });
+    } else if (data.name == "") alert("작성자 본인의 이름을 입력해주세요.");
+    else if (data.phoneNumber == "")
+      alert("작성자 본인의 휴대폰 번호를 입력해주세요.");
+    else if (data.inquiryContent == "")
+      alert("문의 내용을 상세히 입력해주세요.");
   };
 
   return (
