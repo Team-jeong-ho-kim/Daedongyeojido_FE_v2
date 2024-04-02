@@ -111,8 +111,6 @@ const NoticeDetails = () => {
       });
   };
 
-  const handleApplyCancel = () => {};
-
   const handleDeleting = () => {
     setDelCheck(!delCheck);
   };
@@ -137,19 +135,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -163,12 +164,9 @@ const NoticeDetails = () => {
                   >
                     지원하기
                   </ApplyButton>
-                  <CancelButton
-                    usable={data.isApply ? "applyer" : "else"}
-                    onClick={handleApplyCancel}
-                  >
-                    지원취소하기
-                  </CancelButton>
+                  <Done usable={data.isApply ? "applyer" : "else"}>
+                    서류제출완료
+                  </Done>
                   <ModifyButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
                     onClick={handleModify}
@@ -389,7 +387,7 @@ const ApplyButton = styled.button<{
   }
 `;
 
-const CancelButton = styled.button<{
+const Done = styled.div<{
   usable: string;
 }>`
   display: ${({ usable }) => (usable == "applyer" ? "block" : "none")};
