@@ -40,11 +40,16 @@ instance.interceptors.response.use(
           Cookie.remove("accessToken");
           Cookie.remove("refreshToken");
           Cookie.remove("part");
-          window.location.href = "/";
+          if (
+            window.location.href.split("/")[
+              window.location.href.split("/").length - 1
+            ] !== ""
+          ) {
+            window.location.href = "/";
+          }
         });
     } else {
-      alert("오류가 발생했습니다");
-      return Promise.reject(err);
+      window.location.href = "/";
     }
   }
 );
