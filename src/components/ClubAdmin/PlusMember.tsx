@@ -3,23 +3,42 @@ import styled from "styled-components";
 import Close from "../../assets/img/PNG/Close.png";
 import Remove from "../../assets/img/SVG/Remove.svg";
 import MemberPlus from "../../assets/img/PNG/MemberPlus.png";
-import { adminPageType, memberType, PartType } from "../../types/type";
+import {
+  adminPageType,
+  memberType,
+  PartType,
+  MajorType,
+} from "../../types/type";
 import { patchClub } from "../../apis/admin-club";
 
-export const PlusMember = () => {
-  const [, setPlusMemberVisible] = useState(false);
+interface ContainerProps {
+  isPlusMemberVisible: boolean;
+}
+
+interface Props {
+  selectedClub: adminPageType;
+  handleEditClick: () => void;
+}
+
+export const PlusMember: React.FC<Props> = ({
+  selectedClub,
+  handleEditClick,
+}) => {
+  const [isPlusMemberVisible] = useState<boolean>(false);
   const [info, setInfo] = useState<adminPageType>({
-    clubName: "",
-    teacherName: "",
-    memberResponses: [],
+    clubName: selectedClub.clubName,
+    teacherName: selectedClub.teacherName,
+    memberResponses: selectedClub.memberResponses,
   });
+
   const [plus, setPlus] = useState<memberType>({
     userName: "",
     classNumber: "",
-    part: "CLUB_MEMBER",
+    part: "CLUB_LEADER",
+    major: "UNDEFINED",
   });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setPlus({
@@ -28,7 +47,17 @@ export const PlusMember = () => {
     });
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSave = () => {
+    patchClub(info)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("동아리 정보 수정 중 오류가 발생했습니다.", error);
+      });
+  };
+
+  const handlePartChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue: string = e.target.value;
 
     const part: PartType = selectedValue as PartType;
@@ -36,8 +65,12 @@ export const PlusMember = () => {
     setPlus({ ...plus, part });
   };
 
-  const handleClose = () => {
-    setPlusMemberVisible(false);
+  const handleMajorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue: string = e.target.value;
+
+    const major: MajorType = selectedValue as MajorType;
+
+    setPlus({ ...plus, major });
   };
 
   const onAdd = () => {
@@ -53,6 +86,7 @@ export const PlusMember = () => {
       userName: "",
       classNumber: "",
       part: "CLUB_MEMBER",
+      major: "UNDEFINED",
     });
   };
 
@@ -65,27 +99,39 @@ export const PlusMember = () => {
     });
   };
 
-  const onSave = () => {
-    patchClub(info)
-      .then(() => window.location.reload())
-      .catch((err) => console.log(err));
+  const handleCloseIconClick = () => {
+    handleEditClick();
   };
 
   return (
-    <Container>
+    <Container isPlusMemberVisible={isPlusMemberVisible}>
       <Text>
-        <ClubName>{info.clubName}</ClubName>
-        <CloseIcon src={Close} onClick={handleClose} />
+        <div>
+          <ClubName
+            value={info.clubName}
+            onChange={handleChange}
+            name="clubName"
+            placeholder="동아리 이름"
+          />
+          <TeacherName
+            value={info.teacherName}
+            onChange={handleChange}
+            name="teacherName"
+            placeholder="담당 선생님"
+          />
+        </div>
+        <CloseIcon src={Close} onClick={handleCloseIconClick} />
       </Text>
       <Line></Line>
       <MemberWrapper>
         {info.memberResponses?.map((element, index) => (
-          <Member>
+          <Member key={index}>
             <NameNumber>{element.userName}</NameNumber>
             <NameNumber>{element.classNumber}</NameNumber>
             <NameNumber>
               {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
             </NameNumber>
+            <NameNumber>{element.major}</NameNumber>
             <Icon
               src={Remove}
               onClick={() => {
@@ -99,32 +145,48 @@ export const PlusMember = () => {
         <_Container>
           <_NameNumber
             placeholder="이름"
-            onChange={onChange}
+            onChange={handleChange}
             name="userName"
             value={plus.userName.toString()}
           />
           <_NameNumber
             placeholder="학번"
-            onChange={onChange}
+            onChange={handleChange}
             name="classNumber"
             value={plus.classNumber.toString()}
           />
-          <_Select onChange={handleSelectChange}>
+          <_Select onChange={handlePartChange}>
             <option value={plus.part} disabled selected>
               미정
             </option>
             <option value="CLUB_LEADER">동아리장</option>
             <option value="CLUB_MEMBER">동아리원</option>
           </_Select>
+          <_Select onChange={handleMajorChange}>
+            <option value={plus.major} disabled selected>
+              미정
+            </option>
+            <option value="FRONT">FrontEnd</option>
+            <option value="BACK">BackEnd</option>
+            <option value="IOS">ios</option>
+            <option value="AND">Android</option>
+            <option value="FLUTTER">Flutter</option>
+            <option value="EMBEDDED">Embedded</option>
+            <option value="AI">AI</option>
+            <option value="SECURITY">Security</option>
+            <option value="DEVOPS">DevOps</option>
+            <option value="DESIGN">Design</option>
+            <option value="GAME">Game</option>
+          </_Select>
           <_PlusIcon src={MemberPlus} onClick={onAdd} />
         </_Container>
-        <SaveBtn onClick={onSave}>저장하기</SaveBtn>
+        <SaveBtn onClick={handleSave}>저장하기</SaveBtn>
       </Bottom>
     </Container>
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<ContainerProps>`
   position: absolute;
   top: 200px;
   left: 640px;
@@ -151,10 +213,19 @@ const Text = styled.div`
   justify-content: space-between;
 `;
 
-const ClubName = styled.div`
-  width: 140px;
-  font-size: 32px;
-  font-family: "DXhimchanBold";
+const ClubName = styled.input`
+  font-size: 24px;
+  font-family: 700;
+  width: 130px;
+`;
+
+const TeacherName = styled.input`
+  font-size: 12px;
+  font-weight: 400;
+  width: 100px;
+  &::placeholder {
+    color: #6e6e87;
+  }
 `;
 
 const Line = styled.div`
@@ -173,7 +244,7 @@ const NameNumber = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 160px;
+  width: 100px;
   height: 27px;
   border-radius: 5px;
   border: 1px solid #cccccc;
@@ -182,7 +253,7 @@ const NameNumber = styled.div`
 const MemberWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 5px;
 `;
 
 const SaveBtn = styled.div`
@@ -218,7 +289,7 @@ const _Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   width: 528px;
   height: 47px;
   border-radius: 4px;
@@ -226,7 +297,7 @@ const _Container = styled.div`
 `;
 
 const _NameNumber = styled.input`
-  width: 150px;
+  width: 100px;
   height: 23px;
   font-size: 16px;
   padding: 12px;
@@ -239,7 +310,7 @@ const _NameNumber = styled.input`
 `;
 
 const _Select = styled.select`
-  width: 150px;
+  width: 130px;
   height: 23px;
   border-radius: 5px;
   border: 1px solid rgba(110, 110, 135, 0.5);

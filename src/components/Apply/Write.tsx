@@ -1,27 +1,45 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { writeProps } from "../../types/type";
+import { writeProps, reportQests, MajorType } from "../../types/type";
 import { WriteAPI } from "../../apis/report";
+import { useNavigate } from "react-router-dom";
 
 export const Write = ({ write }: writeProps) => {
+  const navigate = useNavigate();
   const [introduceText, setIntroduceText] = useState<string>("");
-  const [answerText, setAnswerText] = useState<string>("");
+  const [answers, setAnswers] = useState<reportQests[]>([]);
+  const [selectedMajor, setSelectedMajor] = useState<MajorType>("BACK");
 
-  // const handleWrite = () => {
-  //   const reportQuests = .map((element) => {
-  //     return {
-  //       noticeQuestId: element.noticeQuestId,
-  //       answer: element.answer,
-  //     };
-  //   });
-  //   WriteAPI({
-  //     noticeId: 1,
-  //     introduce: introduceText,
-  //     reportQuests: reportQuests,
-  //   }).then(() => {});
-  // };
+  const handleWrite = () => {
+    const reportQuests = answers.map((answer: reportQests) => {
+      return {
+        noticeQuestId: answer.noticeQuestId,
+        answer: answer.answer,
+      };
+    });
 
-  console.log(WriteAPI);
+    WriteAPI({
+      noticeId: 1,
+      introduce: introduceText,
+      major: selectedMajor,
+      reportQuests: reportQuests,
+    }).then(() => {
+      navigate(`/NoticeDetails/1`);
+    });
+  };
+
+  const handleAnswerChange = (index: number, value: string) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[index] = {
+      ...updatedAnswers[index],
+      answer: value,
+    };
+    setAnswers(updatedAnswers);
+  };
+
+  const handleMajorClick = (major: MajorType) => {
+    setSelectedMajor(major);
+  };
 
   return (
     <Container>
@@ -33,25 +51,55 @@ export const Write = ({ write }: writeProps) => {
             아래 문항들에 답변하여 자기가 어떤 사람인지 알려주세요.
           </Content>
         </div>
-        <Button>지원하기</Button>
+        <Button onClick={handleWrite}>지원하기</Button>
       </Top>
       <Wrapper>
         <IntroduceWrapper>
           <InfoWrapper>
             <Name>{write.name}</Name>
             <Number>{write.classNumber}</Number>
+            <div>
+              <Message>전공을 선택해주세요.</Message>
+              <MajorWrapper>
+                <Major
+                  onClick={() => handleMajorClick("BACK")}
+                  selected={selectedMajor === "BACK"}
+                >
+                  BackEnd
+                </Major>
+                <Major
+                  onClick={() => handleMajorClick("FRONT")}
+                  selected={selectedMajor === "FRONT"}
+                >
+                  FrontEnd
+                </Major>
+                <Major
+                  onClick={() => handleMajorClick("DESIGN")}
+                  selected={selectedMajor === "DESIGN"}
+                >
+                  Designer
+                </Major>
+                <Major
+                  onClick={() => handleMajorClick("AND")}
+                  selected={selectedMajor === "AND"}
+                >
+                  Andriod
+                </Major>
+              </MajorWrapper>
+            </div>
           </InfoWrapper>
           <Introduce
             placeholder="자기소개를 작성해주세요"
             value={introduceText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setIntroduceText(e.target.value)
-            }></Introduce>
+            }
+          ></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>
           <Line></Line>
-          {write.questions.map((question) => {
+          {write.questions.map((question, index) => {
             return (
               <Q_A key={question.id}>
                 <Text>
@@ -59,9 +107,9 @@ export const Write = ({ write }: writeProps) => {
                   <Question>{question.question}</Question>
                 </Text>
                 <Input
-                  value={answerText}
+                  value={answers[index]?.answer || ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setAnswerText(e.target.value)
+                    handleAnswerChange(index, e.target.value)
                   }
                 />
               </Q_A>
@@ -136,6 +184,24 @@ const Number = styled.p`
   color: #64686f;
   font-size: 30px;
   font-weight: 700;
+`;
+
+const Message = styled.p`
+  color: #64686f;
+  font-size: 10px;
+  font-weight: 500;
+`;
+
+const MajorWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+`;
+
+const Major = styled.p<{ selected?: boolean }>`
+  color: ${({ selected }) => (selected ? "#000" : "#acacac")};
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 const Introduce = styled.textarea`

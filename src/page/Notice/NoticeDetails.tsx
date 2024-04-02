@@ -7,8 +7,9 @@ import { IVProcess } from "../../assets";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useParams } from "react-router-dom";
-import { deleteNotice, getDetailNotice } from "../../apis/notice";
-import { NoticeDetailType } from "../../types/type";
+import { getDetailNotice } from "../../apis/notice";
+import { MemoEditType, NoticeDetailType } from "../../types/type";
+import { Memo } from "../../components/Memo/Memo";
 
 interface Props {
   text: string;
@@ -72,6 +73,7 @@ const NoticeDetails = () => {
   const [isSelected, setIsSelected] = useState<String>("RCMinfo");
   const [delCheck, setDelCheck] = useState<boolean>(false);
   const [data, setData] = useState<NoticeDetailType>();
+  const [updatedMemo, setUpdatedMemo] = useState<MemoEditType>();
 
   /* 퍼블리싱 임시 글 */
   const handleLoginToggle = () => {
@@ -128,19 +130,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -234,6 +239,7 @@ const NoticeDetails = () => {
           <ScrollUpper />
         </>
       )}
+      {updatedMemo && <Memo reportId={updatedMemo?.reportId} />}
     </Container>
   );
 };

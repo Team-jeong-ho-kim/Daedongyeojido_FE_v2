@@ -11,6 +11,7 @@ export const MemoPage = () => {
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
+
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />

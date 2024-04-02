@@ -8,8 +8,10 @@ import Footer from "../components/MainPage/Footer";
 import { adminPageType } from "../types/type";
 import { getAdmin, createClub } from "../apis/admin-club";
 import { PlusMember } from "../components/ClubAdmin/PlusMember";
+import { patchClub } from "../apis/admin-club";
 
 export const ClubAdminPage = () => {
+  const [selectedClub] = useState<adminPageType | null>(null);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [clubName, setClubName] = useState<string>("");
   const [clubs, setClubs] = useState<adminPageType[]>([]);
@@ -44,7 +46,7 @@ export const ClubAdminPage = () => {
           <ClubsBox>
             {clubs && clubs.length > 0 && <Club clubs={clubs} />}
             <PlusClubBtn>
-              <input
+              <Input
                 type="text"
                 placeholder="동아리명을 입력해주세요"
                 value={clubName}
@@ -56,7 +58,7 @@ export const ClubAdminPage = () => {
         </TitleWrapper>
         <Footer />
       </Wrapper>
-      <PlusMember />
+      {selectedClub && <PlusMember selectedClub={selectedClub} />}
     </Container>
   );
 };
@@ -102,16 +104,20 @@ const PlusClubBtn = styled.div`
   border-radius: 6px;
   background-color: #52565d;
   padding: 5px;
-  input {
-    background-color: #52565d;
+`;
+
+const Input = styled.input`
+  flex: 1;
+  background-color: #52565d;
+  color: #ffffff;
+  font-size: 14px;
+  border: none;
+  outline: none;
+
+  &::placeholder {
     color: #ffffff;
     font-size: 14px;
-
-    &::placeholder {
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
-    }
+    font-weight: 700;
   }
 `;
 

@@ -195,11 +195,29 @@ export type reportQests = {
 export interface WriteType {
   noticeId: number;
   introduce: string;
+  major: MajorType;
   reportQuests: reportQests[];
 }
 
 export type AnswerProps = {
   answers: reportQests[];
+};
+
+export type MemoType = {
+  classNumber: string;
+  name: string;
+  major: MajorType;
+  interviewPassingResult: PassingResultType;
+  memo: string;
+};
+
+export type MemoProps = {
+  memos: MemoType[];
+};
+
+export type MemoEditType = {
+  reportId: number;
+  memo: string;
 };
 
 //inquiry
@@ -256,6 +274,7 @@ export type memberType = {
   userName: string;
   classNumber: string;
   part: PartType;
+  major: MajorType;
 };
 
 export type memberProps = {

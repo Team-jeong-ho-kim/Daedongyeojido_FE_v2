@@ -3,8 +3,13 @@ import Edit from "../../assets/img/SVG/Edit.svg";
 import Remove from "../../assets/img/SVG/Remove.svg";
 import { adminPageType, memberProps } from "../../types/type";
 import { deleteNotice } from "../../apis/admin-club";
+import { useState } from "react";
+import { PlusMember } from "./PlusMember";
 
 export const Club = ({ clubs }: memberProps) => {
+  const [selectedClub, setSelectedClub] = useState<adminPageType | null>(null);
+  const [, setIsPlusMemberVisible] = useState<boolean>(false);
+
   const onDelete = (name: string) => {
     if (!window.confirm(`정말 "${name}"동아리를 삭제 하시겠습니까?`)) return;
 
@@ -13,11 +18,16 @@ export const Club = ({ clubs }: memberProps) => {
       .catch((err) => console.log(err));
   };
 
+  const handleEditClick = (club: adminPageType) => {
+    setSelectedClub(club);
+    setIsPlusMemberVisible(true);
+  };
+
   return (
     <Container>
       {clubs.map((club: adminPageType, index: number) => (
-        <div>
-          <TeacherWrapper key={index}>
+        <div key={index}>
+          <TeacherWrapper>
             <O></O>
             <Teacher>{club.teacherName} 선생님</Teacher>
           </TeacherWrapper>
@@ -28,12 +38,15 @@ export const Club = ({ clubs }: memberProps) => {
                 <TextWrapper key={index}>
                   <Info>{element.userName}</Info>
                   <Info>{element.classNumber}</Info>
-                  <Info>{element.part}</Info>
+                  <Info>
+                    {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
+                  </Info>
+                  <Info>{element.major}</Info>
                 </TextWrapper>
               );
             })}
             <IconWrapper>
-              <Icon src={Edit} />
+              <Icon src={Edit} onClick={() => handleEditClick(club)} />
               <Icon
                 src={Remove}
                 onClick={() => {
@@ -44,6 +57,12 @@ export const Club = ({ clubs }: memberProps) => {
           </ClubBox>
         </div>
       ))}
+      {selectedClub && (
+        <PlusMember
+          selectedClub={selectedClub}
+          handleEditClick={handleEditClick}
+        />
+      )}
     </Container>
   );
 };

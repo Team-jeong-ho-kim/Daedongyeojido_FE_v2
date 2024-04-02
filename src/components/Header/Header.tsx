@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
           </Xob>
           <And>
             <Login onClick={onLoginToggle}>로그인</Login>|
-            <Report>문의하기</Report>
+            <Report href="/Ask">문의하기</Report>
           </And>
         </Oxb>
       </Box>
