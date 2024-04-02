@@ -31,6 +31,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
                 <p>로그인</p>
               </Login>
             )}
+            <Line></Line>
             <Report href="/Ask">문의하기</Report>
           </And>
         </Oxb>
@@ -96,18 +97,16 @@ const Noticepage = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 66px;
-  height: 40px;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
   border-radius: 8px;
   background-color: #fff;
   color: #4e5968;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 18px;
   letter-spacing: -0.9px;
+  padding: 9px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
@@ -120,18 +119,16 @@ const Clubpage = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
-  height: 40px;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
   border-radius: 8px;
   background-color: #fff;
   color: #4e5968;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 18px;
   letter-spacing: -0.9px;
+  padding: 9px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
@@ -156,6 +153,7 @@ const Oxb = styled.div`
 const And = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 5px;
   align-items: center;
   text-align: center;
   color: #d2d7dc;
@@ -170,17 +168,15 @@ const Login = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 79px;
-  height: 45px;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
   border-radius: 5px;
   background-color: #fff;
   color: #474747;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 17px;
+  padding: 9px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
@@ -189,21 +185,25 @@ const Login = styled.a`
   }
 `;
 
+const Line = styled.div`
+  width: 1px;
+  height: 18px;
+  background-color: #d2d7dc;
+`;
+
 const Report = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 95px;
-  height: 45px;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
   border-radius: 5px;
   background-color: #fff;
   color: #474747;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 17px;
+  padding: 9px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
