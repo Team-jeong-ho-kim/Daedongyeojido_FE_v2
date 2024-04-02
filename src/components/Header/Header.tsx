@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import NameLogo from "../../assets/img/PNG/NameBlack.png";
-import MainLogo from "../../assets/img/PNG/Daedongyeojido.png";
+import MainLogo from "../../assets/img/PNG/MainLogo.png";
 import { Cookie } from "../../utils/cookie";
 
 interface HeaderProps {
@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
       <Box>
         <Home href="/">
           <Logo src={MainLogo} />
-          <DAE src={NameLogo} />
+          <Name>대동여지도</Name>
         </Home>
         <Oxb>
           <Xob>
@@ -80,11 +80,9 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const DAE = styled.img`
-  width: 76px;
-  height: 12px;
-  --webkit-user-select: none;
-  cursor: pointer;
+const Name = styled.p`
+  font-size: 16px;
+  font-weight: 700;
 `;
 
 const Xob = styled.div`
