@@ -7,46 +7,55 @@ import { Cookie } from "../../utils/cookie";
 const NoticeBody1 = () => {
   const part = Cookie.get("part");
   return (
-    <Banner>
-      <AddNoticeCt>
+    <Wrapper>
+      <Banner>
         {(part === "ADMIN" || part === "CLUB_LEADER") && (
-          <>
+          <AddNoticeCt>
             <LinkBtn>면접 시간 설정</LinkBtn>
             <LinkBtn href="/Custom">지원서 커스텀</LinkBtn>
             <LinkBtn href="/NoticeModify/:clubName/:id">공고 만들기</LinkBtn>
-          </>
+          </AddNoticeCt>
         )}
-      </AddNoticeCt>
-      <ClubBanner>
-        <IMGBanner src={QueryBanner} />
-        <MajorBanner>
-          <MajorBanner_Banner>
-            <Arrow src={LeftArrow} />
-            <MajorBanner_TextBox>
-              <MajorBanner_1>전공 선택</MajorBanner_1>
-              <MajorBanner_2>
-                <MajorBanner_3>배우고 싶은 </MajorBanner_3>전공은
-                <br />
-                무엇인가요?
-              </MajorBanner_2>
-            </MajorBanner_TextBox>
-            <Arrow src={RightArrow} />
-          </MajorBanner_Banner>
-        </MajorBanner>
-      </ClubBanner>
-    </Banner>
+        <ClubBanner>
+          <IMGBanner src={QueryBanner} />
+          <MajorBanner>
+            <MajorBanner_Banner>
+              <Arrow src={LeftArrow} />
+              <MajorBanner_TextBox>
+                <MajorBanner_1>전공 선택</MajorBanner_1>
+                <MajorBanner_2>
+                  <MajorBanner_3>배우고 싶은 </MajorBanner_3>전공은
+                  <br />
+                  무엇인가요?
+                </MajorBanner_2>
+              </MajorBanner_TextBox>
+              <Arrow src={RightArrow} />
+            </MajorBanner_Banner>
+          </MajorBanner>
+        </ClubBanner>
+      </Banner>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 332px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+`;
 
 const Banner = styled.div`
   display: flex;
   width: 100%;
-  height: 362px;
-  margin-top: 60px;
+  height: 100%;
+  max-width: 1346px;
   flex-direction: column;
-  gap: 32px;
-  padding: 32px;
-  align-items: center;
+  align-items: end;
+  justify-content: center;
+  gap: 16px;
   user-select: none;
 `;
 
@@ -76,23 +85,20 @@ const LinkBtn = styled.a`
 
 const ClubBanner = styled.div`
   display: flex;
-  margin-bottom: 58px;
-  height: 166.1px;
-  width: 84.48%;
   gap: 37px;
   justify-content: center;
   align-items: center;
 `;
 
 const IMGBanner = styled.img`
-  width: 954px;
+  width: 856px;
   height: 100%;
 `;
 
 const MajorBanner = styled.div`
   display: flex;
   padding: 0px 60px 8px;
-  width: 571px;
+  width: 470px;
   height: 159px;
   align-items: center;
   border-radius: 10px;
