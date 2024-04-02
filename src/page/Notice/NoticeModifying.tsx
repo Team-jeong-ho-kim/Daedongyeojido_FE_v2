@@ -190,10 +190,7 @@ const NoticeModifying: React.FC = () => {
   };
 
   const onPlusField = () => {
-    const newArr: NoticeFieldType[] = [
-      ...fields,
-      { major: "UNDEFINED", toDo: "" },
-    ];
+    const newArr: NoticeFieldType[] = [...fields, { major: "", toDo: "" }];
 
     setFields(newArr);
   };
@@ -531,13 +528,10 @@ const NoticeTitleBox = styled.div`
 
 const NoticeTitleInput = styled.input`
   width: 1052px;
-  height: 82px;
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 40px;
+  height: 70px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 40px;
-  padding: 20px 21px;
+  padding: 16px 21px;
   border-radius: 10px;
   background-color: #f4f4f4;
   transition: border 0.05s ease;
@@ -559,11 +553,9 @@ const NoticeSubtitleInput = styled.input`
   width: 1052px;
   height: 64px;
   color: #86888c;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 24px;
   font-weight: 700;
-  line-height: 24px;
-  padding: 18px 21px;
+  padding: 17px 21px;
   border-radius: 10px;
   background-color: #f5f5f5;
   transition: border 0.05s ease;
@@ -707,9 +699,8 @@ const ClubExplain = styled.div`
 
 const ClubExplainInput = styled.textarea`
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: normal;
-  font-family: "Spoqa Han Sans Neo";
   background-color: #f5f5f5;
   overflow: hidden;
   resize: none;
@@ -731,7 +722,6 @@ const Inbox = styled.div`
 
 const Alltitle = styled.p`
   height: 33px;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 26px;
   font-weight: 700;
   line-height: normal;
@@ -765,7 +755,6 @@ const LeftInput = styled.input`
   background-color: #f5f5f5;
   text-align: center;
   color: #000;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
   font-weight: 700;
   line-height: 20px;
@@ -782,7 +771,6 @@ const RightInput = styled.input`
   background-color: #f5f5f5;
   text-align: center;
   color: #585858;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 22px;
   font-weight: 700;
   line-height: 22px;
@@ -866,8 +854,7 @@ const RecruitmentDays = styled.p`
   border-radius: 10px;
   background-color: #f5f5f5;
   padding: 0 19px;
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
+  color: #616060;
   font-size: 20px;
   font-weight: 400;
   line-height: 20px;
@@ -887,7 +874,6 @@ const Content = styled.div`
 
 const Contents = styled.p`
   color: #000;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
   font-weight: 400;
   line-height: 25px;
@@ -920,7 +906,6 @@ const WWAATextarea = styled.textarea`
   font-size: 22px;
   font-weight: 300;
   line-height: normal;
-  font-family: "Spoqa Han Sans Neo";
   border-radius: 10px;
   padding: 15px 24px;
   background-color: #f5f5f5;

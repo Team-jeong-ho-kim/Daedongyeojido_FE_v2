@@ -1,6 +1,7 @@
 export type PassingResultType = "PASS" | "FAIL" | "WAIT";
 export type AlarmKindType = "REPORT_PASS_RESULT" | "INTERVIEW_PASS_RESULT";
 export type MajorType =
+  | ""
   | "UNDEFINED"
   | "FRONT"
   | "BACK"
