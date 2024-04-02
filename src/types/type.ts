@@ -190,7 +190,6 @@ export type ApplicationType = {
   classNumber: string;
   name: string;
   introduce: string;
-  isApply: boolean;
   reportPassingResult: PassingResultType;
   noticeQuests: noticeQueststype[];
 };

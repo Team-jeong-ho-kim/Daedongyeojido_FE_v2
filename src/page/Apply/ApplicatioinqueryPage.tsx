@@ -62,8 +62,8 @@ export const ApplicationQueryPage = () => {
         setData(res.data);
         console.log(res.data);
         if (data) {
-          setCla(data.isApply ? "APPLYER" : "INDEPENDENT");
-        }
+          setCla("APPLYER");
+        } else setCla("INDEPENDENT");
       });
     }
   }, []);
