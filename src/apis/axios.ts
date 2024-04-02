@@ -3,7 +3,7 @@ import { Cookie } from "../utils/cookie";
 import { reissue } from "./auth";
 
 export const instance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
+  baseURL: "https://prod-server.xquare.app/jung-ho",
   timeout: 3000,
 });
 
