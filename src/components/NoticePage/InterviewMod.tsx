@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import LeftArrowBold from "../../assets/img/PNG/LeftArrowBold.png";
 import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
 import x from "../../assets/img/SVG/x.svg";
-import {
-  deleteITVtime,
-  getClubITVquery,
-  getITVquery,
-} from "../../apis/interview";
+import { deleteITVtime, getClubITVquery } from "../../apis/interview";
 import { patchITVmodify } from "../../apis/interview";
 import { InterviewTimeType } from "../../types/type";
 import { InterviewTimePatchType } from "../../types/type";
