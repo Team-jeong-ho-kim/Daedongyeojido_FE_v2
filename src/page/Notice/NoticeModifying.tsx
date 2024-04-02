@@ -33,7 +33,6 @@ const NoticeModifying: React.FC = () => {
   const [IntervEnd, setIntervEnd] = useState<string | null>(null);
   const [fields, setFields] = useState<NoticeFieldType[]>([]);
   const [data, setData] = useState<NoticeDetailType>({
-    isApply: false,
     clubName: clubName ?? "",
     noticeTitle: "",
     noticeExplain: "",
