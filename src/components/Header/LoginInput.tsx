@@ -27,17 +27,16 @@ const LoginInput: React.FC<LoginInputProps> = ({
 };
 
 const Input = styled.input`
-  width: 480px;
-  height: 62.5px;
-  padding: 15px;
+  width: 312px;
+  height: 48px;
+  padding: 13px 12px;
   background-color: #fff;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 2px solid #eaecef;
-  padding-left: 24px;
   cursor: text;
 `;
 
