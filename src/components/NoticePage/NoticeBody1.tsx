@@ -1,22 +1,17 @@
 import styled from "styled-components";
-import { NoticeBanner } from "../../assets";
+import QueryBanner from "../../assets/img/PNG/QueryBanner.png";
 import { LeftArrow, RightArrow } from "../../assets";
 
 const NoticeBody1 = () => {
   return (
     <Banner>
       <AddNoticeCt>
-        <CustomApply>지원서 커스텀</CustomApply>
-        <AddNotice>공고 만들기</AddNotice>
+        <LinkBtn>면접 시간 설정</LinkBtn>
+        <LinkBtn href="/Custom">지원서 커스텀</LinkBtn>
+        <LinkBtn href="/NoticeModify/:clubName/:id">공고 만들기</LinkBtn>
       </AddNoticeCt>
       <ClubBanner>
-        <ClubBanner_Banner>
-          <ClubBanner_TextBox>
-            <ClubBanner_1>대마고 인재, 당신을 기다립니다</ClubBanner_1>
-            <ClubBanner_2>대마고 전용 동아리 공고</ClubBanner_2>
-          </ClubBanner_TextBox>
-          <IMGBanner src={NoticeBanner} />
-        </ClubBanner_Banner>
+        <IMGBanner src={QueryBanner} />
         <MajorBanner>
           <MajorBanner_Banner>
             <Arrow src={LeftArrow} />
@@ -56,29 +51,19 @@ const AddNoticeCt = styled.div`
   justify-content: flex-end;
 `;
 
-const AddNotice = styled.button`
-  width: 150px;
+const LinkBtn = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
   height: 100%;
   color: #fff;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
   font-weight: 500;
   line-height: 20px;
   border-radius: 4px;
   background-color: #52565d;
-  cursor: pointer;
-`;
-
-const CustomApply = styled.button`
-  width: 168px;
-  height: 100%;
-  color: #fff;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
-  border-radius: 4px;
-  background-color: #52565d;
+  padding: 0px 20px;
   cursor: pointer;
 `;
 
@@ -92,48 +77,8 @@ const ClubBanner = styled.div`
   align-items: center;
 `;
 
-const ClubBanner_Banner = styled.div`
-  display: flex;
-  padding: 0px 67.1px;
-  align-items: center;
-  justify-content: space-between;
-  width: 1020px;
-  height: 100%;
-  border-radius: 10px;
-  border: 2px solid #eaecef;
-  background-color: #fffdfa;
-`;
-
-const ClubBanner_TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0px;
-  height: 100%;
-`;
-
-const ClubBanner_1 = styled.p`
-  height: 29.1px;
-  color: #5f6166;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 22px;
-  letter-spacing: -0.022px;
-`;
-
-const ClubBanner_2 = styled.p`
-  height: 52.55px;
-  color: #ff5a70;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 40px;
-  letter-spacing: 0.04px;
-`;
-
 const IMGBanner = styled.img`
-  width: 306px;
+  width: 954px;
   height: 100%;
 `;
 

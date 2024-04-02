@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
           <Xob>
             <Mypage href="/My">마이페이지</Mypage>
             <Noticepage href="/Notices">공고</Noticepage>
-            <Clubpage>동아리</Clubpage>
+            <Clubpage href="/CheckClub">동아리</Clubpage>
           </Xob>
           <And>
             <Login onClick={onLoginToggle}>로그인</Login>|
