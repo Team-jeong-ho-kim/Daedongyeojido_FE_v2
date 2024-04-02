@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
           </Xob>
           <And>
             {accessToken ? (
-              <Login href="/My">
+              <Login href="/My" thisH={hrs}>
                 <p>마이페이지</p>
               </Login>
             ) : (
@@ -37,7 +37,9 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
               </Login>
             )}
             <Line></Line>
-            <Report href="/Ask">문의하기</Report>
+            <Report href="/Ask" thisH={hrs}>
+              문의하기
+            </Report>
           </And>
         </Oxb>
       </Box>
@@ -88,6 +90,7 @@ const Logo = styled.img`
 const Name = styled.p`
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const Xob = styled.div`
@@ -172,7 +175,9 @@ const And = styled.div`
   line-height: normal;
 `;
 
-const Login = styled.a`
+const Login = styled.a<{
+  thisH: string;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +185,7 @@ const Login = styled.a`
   height: auto;
   flex-shrink: 0;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${({ thisH }) => (thisH == "My" ? "#f3f4f5" : "#fff")};
   color: #474747;
   font-size: 14px;
   font-weight: 500;
@@ -199,7 +204,9 @@ const Line = styled.div`
   background-color: #d2d7dc;
 `;
 
-const Report = styled.a`
+const Report = styled.a<{
+  thisH: string;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,7 +214,7 @@ const Report = styled.a`
   height: auto;
   flex-shrink: 0;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${({ thisH }) => (thisH == "Ask" ? "#f3f4f5" : "#fff")};
   color: #474747;
   font-size: 14px;
   font-weight: 500;
