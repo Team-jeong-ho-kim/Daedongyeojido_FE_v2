@@ -34,7 +34,6 @@ instance.interceptors.response.use(
           Cookie.set("accessToken", res.data.accessToken);
           Cookie.set("refreshToken", res.data.refreshToken);
           Cookie.set("part", res.data.part);
-          alert("새로고침 하세요");
         })
         .catch(() => {
           Cookie.remove("accessToken");
