@@ -44,6 +44,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
         Cookie.set("accessToken", res.data.accessToken);
         Cookie.set("refreshToken", res.data.refreshToken);
         Cookie.set("part", res.data.part);
+        alert("로그인 되셨습니다.");
         handleClose();
       })
       .catch(() => {
@@ -96,8 +97,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
           </Divs>
           <LoginButton
             onClick={handleLogin}
-            canSubmit={Boolean(ID && password)}
-          >
+            canSubmit={Boolean(ID && password)}>
             로그인
           </LoginButton>
         </LoginBox>
