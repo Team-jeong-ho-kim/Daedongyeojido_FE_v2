@@ -21,6 +21,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     setSearchValue(inputValue);
+    setHide(true);
   };
 
   const MajorLevel = (major: string) => {
