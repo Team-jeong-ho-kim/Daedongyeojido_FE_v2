@@ -1,10 +1,41 @@
 import styled from "styled-components";
 import { NoticeFieldType } from "../../types/type";
+import { MajorType } from "../../types/type";
 
 const RecruitmentMajor = ({ major, toDo }: NoticeFieldType) => {
+  const majorTranslate = (major: MajorType) => {
+    switch (major) {
+      case "AI":
+        return "AI";
+      case "AND":
+        return "안드로이드";
+      case "BACK":
+        return "백엔드";
+      case "DESIGN":
+        return "디자인";
+      case "DEVOPS":
+        return "DevOps";
+      case "EMBEDDED":
+        return "임베디드";
+      case "FLUTTER":
+        return "플러터";
+      case "FRONT":
+        return "프론트엔드";
+      case "GAME":
+        return "게임 개발";
+      case "IOS":
+        return "IOS";
+      case "SECURITY":
+        return "보안";
+      case "UNDEFINED":
+        return "미정";
+      default:
+        return "없음";
+    }
+  };
   return (
     <Container>
-      <Major>{major}</Major>
+      <Major>{majorTranslate(major)}</Major>
       <Ideal>{toDo}</Ideal>
     </Container>
   );

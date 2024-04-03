@@ -151,6 +151,7 @@ const Foot = styled.button`
   width: 1591px;
   display: flex;
   justify-content: flex-end;
+  background-color: #fff;
 `;
 
 const ButtonSave = styled.button`
