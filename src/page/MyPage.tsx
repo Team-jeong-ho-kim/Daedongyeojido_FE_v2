@@ -9,7 +9,7 @@ import { getAnnouncement } from "../apis/announcement";
 import { AnnouncementType } from "../types/type";
 import { AnnounceBox } from "../components/MyPage/Announce";
 import { getMyInfo, updataProfile } from "../apis/user";
-import { MyInfoType } from "../types/type";
+import { MyInfoType, MajorType } from "../types/type";
 import { PassingResultType } from "../types/type";
 import { handleImageChange } from "../utils/handleImageChange";
 import { createImage } from "../apis/image";
@@ -112,6 +112,37 @@ const MyPage = () => {
     }
   };
 
+  const majorType = (major: MajorType) => {
+    switch (major) {
+      case "AI":
+        return "AI";
+      case "AND":
+        return "Android";
+      case "BACK":
+        return "Back-end";
+      case "DESIGN":
+        return "Design";
+      case "DEVOPS":
+        return "DevOps";
+      case "EMBEDDED":
+        return "Embedded";
+      case "FLUTTER":
+        return "Flutter";
+      case "FRONT":
+        return "Front-end";
+      case "GAME":
+        return "Game";
+      case "IOS":
+        return "IOS";
+      case "SECURITY":
+        return "InfoSec";
+      case "UNDEFINED":
+        return "미정";
+      default:
+        return "없음";
+    }
+  };
+
   useEffect(() => {
     getMyInfo()
       .then((res) => {
@@ -203,7 +234,10 @@ const MyPage = () => {
                 <MyInfoplus>
                   <MyInfo_basic>
                     <MyMainInfo>
-                      <MyName>{data.name}</MyName>
+                      <MyCover>
+                        <MyName>{data.name}</MyName>
+                        <ClNum>{data.classNumber}</ClNum>
+                      </MyCover>
                       <MyClass>
                         <MyClub>
                           동아리
@@ -212,7 +246,10 @@ const MyPage = () => {
                           </MyCClub>
                         </MyClub>
                         <MyClub>
-                          학번<MyCClub>{data.classNumber}</MyCClub>
+                          전공
+                          <MyCClub>
+                            {data.major && majorType(data.major)}
+                          </MyCClub>
                         </MyClub>
                       </MyClass>
                     </MyMainInfo>
@@ -819,14 +856,30 @@ const MyMainInfo = styled.div`
   gap: 8px;
 `;
 
+const MyCover = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  margin-bottom: 11px;
+`;
+
 const MyName = styled.p`
   font-family: "Spoqa Han Sans Neo";
   font-size: 30px;
   font-weight: 700;
   color: #000;
-  line-height: 30px;
-  margin-bottom: 11px;
+  height: 39px;
   padding: 0;
+`;
+
+const ClNum = styled.p`
+  font-family: Jost;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: normal;
+  color: #000;
+  height: 19px;
+  text-align: center;
 `;
 
 const MyClass = styled.div`

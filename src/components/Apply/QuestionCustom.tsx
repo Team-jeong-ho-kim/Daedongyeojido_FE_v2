@@ -157,8 +157,7 @@ const Input = styled.input`
   line-height: normal;
   letter-spacing: -1.25px;
   padding: 25px 40px;
-  &:hover {
-  }
+  cursor: text;
   &:focus::placeholder {
     color: transparent;
   }

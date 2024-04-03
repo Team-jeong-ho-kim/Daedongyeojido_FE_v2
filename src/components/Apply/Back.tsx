@@ -21,6 +21,7 @@ const Container = styled.div`
   padding-left: 10.5%;
   position: fixed;
   top: 60px;
+  background-color: #fff;
 `;
 
 const Icon = styled.img`

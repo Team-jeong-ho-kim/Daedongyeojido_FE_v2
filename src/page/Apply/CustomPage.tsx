@@ -27,7 +27,7 @@ export const CustomPage = () => {
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  margin-top: 60px;
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
   gap: 50px;
