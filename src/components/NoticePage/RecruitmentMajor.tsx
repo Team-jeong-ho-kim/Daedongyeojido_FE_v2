@@ -29,6 +29,8 @@ const RecruitmentMajor = ({ major, toDo }: NoticeFieldType) => {
         return "보안";
       case "UNDEFINED":
         return "미정";
+      case "":
+        return "미정";
       default:
         return "없음";
     }
