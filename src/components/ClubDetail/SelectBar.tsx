@@ -37,6 +37,7 @@ const Container = styled.div`
   width: 100%;
   height: 63px;
   padding: 20px 10.5%;
+  border-bottom: 1px solid #eaecef;
 `;
 
 const Text = styled.p<{ active: boolean }>`

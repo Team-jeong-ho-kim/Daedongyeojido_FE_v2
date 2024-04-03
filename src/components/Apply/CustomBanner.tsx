@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CustomBannerImg from "../../assets/img/PNG/CustomBanner.png";
+import CustomBannerImg from "../../assets/img/PNG/CustomBannerImg.png";
 
 export const CustomBanner = () => {
   return (
@@ -35,7 +35,7 @@ const Content = styled.p`
 `;
 
 const Banner = styled.img`
-  width: 1219px;
+  width: 78%;
   height: 213px;
   border-radius: 15px;
 `;

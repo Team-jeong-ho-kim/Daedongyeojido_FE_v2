@@ -101,7 +101,7 @@ const ContentWrappper = styled.div`
 
 const Content = styled.p`
   color: #273440;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   p {
     color: #60646f;
@@ -149,7 +149,7 @@ const Input = styled.input`
   background: #f5f5f5;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.02px;
