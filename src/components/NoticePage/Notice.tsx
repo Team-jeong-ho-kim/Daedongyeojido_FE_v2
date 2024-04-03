@@ -5,9 +5,14 @@ import { useNavigate } from "react-router-dom";
 interface Notices {
   notices: NoticePropsType;
   selectedMajor: string;
+  searches: string;
 }
 
-export const Notice: React.FC<Notices> = ({ notices, selectedMajor }) => {
+export const Notice: React.FC<Notices> = ({
+  notices,
+  selectedMajor,
+  searches,
+}) => {
   const link = useNavigate();
   const MajorLabel = (major: string) => {
     switch (major) {
@@ -72,23 +77,50 @@ export const Notice: React.FC<Notices> = ({ notices, selectedMajor }) => {
       {notices.notices &&
         notices.notices.map((notice: NoticeGetArrayType, index: number) => {
           return selectedMajor == "UNDEFINED" ? (
-            <Wrapper>
-              <ClubName key={index}>{notice.clubName}</ClubName>
-              <DateWrapper>
-                <Text>
-                  <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
-                  {notice.major.map((majors) => (
-                    <Major>{MajorLabel(majors)}</Major>
-                  ))}
-                </Text>
-                <Date>
-                  {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
-                </Date>
-              </DateWrapper>
-              <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
-                지원하기
-              </Button>
-            </Wrapper>
+            searches == "" ? (
+              <Wrapper>
+                <ClubName key={index}>{notice.clubName}</ClubName>
+                <DateWrapper>
+                  <Text>
+                    <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
+                    {notice.major.map((majors) => (
+                      <Major>{MajorLabel(majors)}</Major>
+                    ))}
+                  </Text>
+                  <Date>
+                    {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
+                  </Date>
+                </DateWrapper>
+                <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
+                  지원하기
+                </Button>
+              </Wrapper>
+            ) : (
+              (notice.clubName.toLowerCase().includes(searches.toLowerCase()) ||
+                notice.noticeTitle
+                  .toLowerCase()
+                  .includes(searches.toLowerCase()) ||
+                notice.major.filter((m) => MajorLabel(m).includes(searches))
+                  .length >= 1) && (
+                <Wrapper>
+                  <ClubName key={index}>{notice.clubName}</ClubName>
+                  <DateWrapper>
+                    <Text>
+                      <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
+                      {notice.major.map((majors) => (
+                        <Major>{MajorLabel(majors)}</Major>
+                      ))}
+                    </Text>
+                    <Date>
+                      {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
+                    </Date>
+                  </DateWrapper>
+                  <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
+                    지원하기
+                  </Button>
+                </Wrapper>
+              )
+            )
           ) : (
             notice.major.includes(MajorLevel(selectedMajor)) && (
               <Wrapper>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Notice } from "./Notice";
 import { useEffect, useState } from "react";
-import SearchIcon from "../../assets/img/SVG/Search.svg";
+import Delete from "../../assets/img/SVG/Delete.svg";
 import { NoticePropsType } from "../../types/type";
 
 interface Notices {
@@ -10,10 +10,16 @@ interface Notices {
 
 export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [selectMajor, setSelectMajor] = useState<string>("UNDEFINED");
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
+    let selectedValue = e.target.value;
     setSelectMajor(selectedValue);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = e.target.value;
+    setSearchValue(inputValue);
   };
 
   const MajorLevel = (major: string) => {
@@ -64,8 +70,16 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
           <Link href="/InterviewTimeMod">면접 시간 설정</Link>
         </LinkWrapper>
         <div>
-          <Search placeholder="찾고싶은 동아리나 공고를 입력해보세요." />
-          <Icon src={SearchIcon} />
+          <Search
+            placeholder="찾고싶은 동아리나 공고를 입력해보세요."
+            value={searchValue}
+            onChange={handleSearch}
+          />
+          <Icon
+            hide={searchValue}
+            src={Delete}
+            onClick={() => setSearchValue("")}
+          />
         </div>
       </SearchWrapper>
       <Slabber>
@@ -100,7 +114,13 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
             건
           </Total>
         </TotalBox>
-        {notices && <Notice notices={notices} selectedMajor={selectMajor} />}
+        {notices && (
+          <Notice
+            notices={notices}
+            selectedMajor={selectMajor}
+            searches={searchValue}
+          />
+        )}
       </NoticeWrapper>
     </Container>
   );
@@ -162,7 +182,10 @@ const Search = styled.input`
   }
 `;
 
-const Icon = styled.img`
+const Icon = styled.img<{
+  hide: boolean;
+}>`
+  display: ${({ hide }) => (hide ? "block" : "none")};
   position: absolute;
   top: 14px;
   right: 20px;
