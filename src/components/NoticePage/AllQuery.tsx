@@ -11,6 +11,7 @@ interface Notices {
 export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [selectMajor, setSelectMajor] = useState<string>("UNDEFINED");
   const [searchValue, setSearchValue] = useState<string>("");
+  const [hide, setHide] = useState<boolean>(false);
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let selectedValue = e.target.value;
@@ -76,9 +77,12 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
             onChange={handleSearch}
           />
           <Icon
-            hide={searchValue}
+            hide={hide}
             src={Delete}
-            onClick={() => setSearchValue("")}
+            onClick={() => {
+              setSearchValue("");
+              setHide(false);
+            }}
           />
         </div>
       </SearchWrapper>
