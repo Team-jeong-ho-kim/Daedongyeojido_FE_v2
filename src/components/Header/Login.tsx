@@ -97,7 +97,8 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
           </Divs>
           <LoginButton
             onClick={handleLogin}
-            canSubmit={Boolean(ID && password)}>
+            canSubmit={Boolean(ID && password)}
+          >
             로그인
           </LoginButton>
         </LoginBox>
@@ -186,6 +187,7 @@ const LoginButton = styled.button<{ canSubmit: boolean }>`
 const Divs = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
 `;
 
 const See = styled.img`
