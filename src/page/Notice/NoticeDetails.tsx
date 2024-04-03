@@ -6,7 +6,7 @@ import Check from "../../assets/img/SVG/Check.svg";
 import IVProcess from "../../assets/img/PNG/IVProcess.png";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteNotice, getDetailNotice } from "../../apis/notice";
 import { MyInfoType } from "../../types/type";
 import { getMyInfo } from "../../apis/user";
@@ -68,6 +68,7 @@ const ReplacedText = styled.p`
 `;
 
 const NoticeDetails = () => {
+  const link = useNavigate();
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<string>("RCMinfo");
@@ -139,22 +140,19 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}
-            >
+              onClick={handleSelectRCMinfo}>
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}
-            >
+              onClick={handleSelectIDTalent}>
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}
-            >
+              onClick={handleSelectAssignment}>
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -167,7 +165,9 @@ const NoticeDetails = () => {
                     usable={
                       user?.part == "INDEPENDENT" && !aReportId ? "else" : ""
                     }
-                  >
+                    onClick={() => {
+                      link(`/ApplicationWrite/${id}`);
+                    }}>
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
@@ -175,14 +175,12 @@ const NoticeDetails = () => {
                   </Done>
                   <ModifyButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleModify}
-                  >
+                    onClick={handleModify}>
                     수정하기
                   </ModifyButton>
                   <DeleteButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleDeleting}
-                  >
+                    onClick={handleDeleting}>
                     삭제하기
                   </DeleteButton>
                 </IsButton>

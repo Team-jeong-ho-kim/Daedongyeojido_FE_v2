@@ -34,7 +34,10 @@ function MainRouter() {
           element={<NoticeModifyPage />}
         />
         <Route path="/InterviewTimeMod" element={<InterviewTimeMod />} />
-        <Route path="/ApplicationWrite" element={<ApplicationWritePage />} />
+        <Route
+          path="/ApplicationWrite/:id"
+          element={<ApplicationWritePage />}
+        />
         <Route
           path="/ApplicationQuery/:id"
           element={<ApplicationQueryPage />}
