@@ -34,7 +34,7 @@ export const ScrollBox = ({ children }: PropType) => {
 };
 
 const Box = styled.div<{ isVisible: boolean }>`
-  transition: opacity 0.4s linear, transform 0.6s linear;
+  transition: opacity 0.5s linear, transform 0.7s linear;
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transform: ${(props) =>
     props.isVisible ? "translateY(0px)" : "translateY(60px)"};

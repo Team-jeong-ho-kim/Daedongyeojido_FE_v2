@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/MainPage/Footer";
@@ -129,6 +129,15 @@ const Mainpage = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	opacity: 0;
+  }
+  100% {
+	opacity: 1;
+  }
+`;
+
 const ContainerBackground = styled.div`
   background-color: #fbf9fa;
 `;
@@ -145,6 +154,7 @@ const FirstContainer = styled.div`
   height: 100vh;
   align-items: center;
   padding-top: 100px;
+  animation: ${fadeIn} 1s;
 `;
 
 const SecondContainer = styled.div`
