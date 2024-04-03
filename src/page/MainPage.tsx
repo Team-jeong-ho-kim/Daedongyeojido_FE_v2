@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/MainPage/Footer";
