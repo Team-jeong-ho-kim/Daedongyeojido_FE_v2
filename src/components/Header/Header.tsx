@@ -118,7 +118,7 @@ const Noticepage = styled.a<{
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
-    background-color: #a3a4a5;
+    background-color: #f3f4f5;
     box-shadow: 0 0 0 2px 2px #222;
   }
 `;
@@ -143,7 +143,7 @@ const Clubpage = styled.a<{
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
-    background-color: #a3a4a5;
+    background-color: #f3f4f5;
     box-shadow: 0 0 0 2px 2px #222;
   }
 `;
@@ -193,7 +193,7 @@ const Login = styled.a<{
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
-    background-color: #a3a4a5;
+    background-color: #f3f4f5;
     box-shadow: 0 0 0 2px 2px #222;
   }
 `;
@@ -222,7 +222,7 @@ const Report = styled.a<{
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
-    background-color: #a3a4a5;
+    background-color: #f3f4f5;
     box-shadow: 0 0 0 2px 2px #222;
   }
 `;
