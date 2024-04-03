@@ -190,6 +190,9 @@ const ThirdContainer = styled.div`
       color: #ff4a50;
     }
   }
+  > img {
+    height: 570px;
+  }
 `;
 
 const FourthContainer = styled.div`
