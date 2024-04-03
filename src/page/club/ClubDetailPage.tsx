@@ -22,6 +22,7 @@ export const ClubDetailPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [question, setQuestion] = useState<ClubQuestionsGetType[]>();
+  const [currentPage] = useState<string>("ClubDetailPage");
 
   const handleTabChange = (tabName: string) => {
     setActiveTab(tabName);
@@ -55,7 +56,7 @@ export const ClubDetailPage = () => {
       <Wrapper>
         {data && (
           <>
-            <SmallHeader />
+            <SmallHeader currentPage={currentPage} />
             <HeaderImg src={ClubBanner} />
             <SelectBar activeTab={activeTab} onTabChange={handleTabChange} />
             {activeTab === "동아리 소개" && (

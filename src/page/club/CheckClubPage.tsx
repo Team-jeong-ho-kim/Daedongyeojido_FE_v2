@@ -12,6 +12,7 @@ export const CheckClubPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [clubs, setClubs] = useState<ClubType[]>();
   const [banners, setBanners] = useState<ClubBannerType[]>([]);
+  const [currentPage,] = useState<string>("CheckClubPage");
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
@@ -28,7 +29,7 @@ export const CheckClubPage = () => {
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
-        <SmallHeader />
+        <SmallHeader currentPage={currentPage} />
         {clubs && <ClubMainBanner banners={banners} />}
         <Welcome>대동여지도에서 전공동아리 활동을 도와드려요</Welcome>
         {clubs && <Club clubs={clubs} />}
