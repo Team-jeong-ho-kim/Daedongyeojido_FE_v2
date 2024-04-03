@@ -17,21 +17,25 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 10.5%;
+  margin-left: 17.5%;
 `;
 
 const Title = styled.p`
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
+  font-family: "Spoqa Han Sans Neo";
+  letter-spacing: 0.028px;
 `;
 
 const Content = styled.p`
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400;
+  font-family: "Spoqa Han Sans Neo";
+  letter-spacing: 0.012px;
 `;
 
 const Banner = styled.img`
-  width: 1460px;
-  height: 489px;
+  width: 1219px;
+  height: 213px;
   border-radius: 15px;
 `;
