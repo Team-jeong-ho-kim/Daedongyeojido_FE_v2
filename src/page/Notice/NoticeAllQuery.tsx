@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
+import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { NoticePropsType } from "../../types/type";
 import { getAllNotice } from "../../apis/notice";
 import { AllQuery } from "../../components/NoticePage/AllQuery";
@@ -26,6 +27,7 @@ const NoticeAllQueryPage = () => {
         <Header onLoginToggle={handleLoginToggle} />
         {data && <AllQuery notices={data} />}
         <Footer />
+        <ScrollUpper />
       </Wrapper>
     </Container>
   );

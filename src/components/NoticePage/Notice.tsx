@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { NoticeGetArrayType, NoticePropsType } from "../../types/type";
+import { useNavigate } from "react-router-dom";
 
 interface Notices {
   notices: NoticePropsType;
+  selectedMajor: string;
 }
 
-export const Notice: React.FC<Notices> = ({ notices }) => {
+export const Notice: React.FC<Notices> = ({ notices, selectedMajor }) => {
+  const link = useNavigate();
   const MajorLabel = (major: string) => {
     switch (major) {
       case "FRONT":
@@ -13,9 +16,9 @@ export const Notice: React.FC<Notices> = ({ notices }) => {
       case "BACK":
         return "백엔드";
       case "SECURITY":
-        return "보안";
+        return "정보 보안";
       case "IOS":
-        return "아이오에스";
+        return "IOS";
       case "AND":
         return "안드로이드";
       case "FLUTTER":
@@ -23,40 +26,104 @@ export const Notice: React.FC<Notices> = ({ notices }) => {
       case "EMBEDDED":
         return "임베디드";
       case "AI":
-        return "인공지능";
+        return "AI";
       case "DEVOPS":
-        return "데브옵스";
+        return "DevOps";
       case "DESIGN":
         return "디자인";
       case "GAME":
-        return "게임개발";
+        return "게임";
       default:
         return "미정";
     }
   };
+
+  const MajorLevel = (major: string) => {
+    switch (major) {
+      case "FRONT":
+        return "FRONT";
+      case "BACK":
+        return "BACK";
+      case "SECURITY":
+        return "SECURITY";
+      case "IOS":
+        return "IOS";
+      case "AND":
+        return "AND";
+      case "FLUTTER":
+        return "FLUTTER";
+      case "EMBEDDED":
+        return "EMBEDDED";
+      case "AI":
+        return "AI";
+      case "DEVOPS":
+        return "DEVOPS";
+      case "DESIGN":
+        return "DESIGN";
+      case "GAME":
+        return "GAME";
+      default:
+        return "UNDEFINED";
+    }
+  };
+
   return (
     <Container>
       {notices.notices &&
-        notices.notices.map((notice: NoticeGetArrayType, index: number) => (
-          <>
-            <ClubName key={index}>{notice.clubName}</ClubName>
-            <DateWrapper>
-              <Text>
-                <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
-                <Major>{MajorLabel(notice.major)}</Major>
-              </Text>
-              <Date>
-                {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
-              </Date>
-            </DateWrapper>
-            <Button>지원하기</Button>
-          </>
-        ))}
+        notices.notices.map((notice: NoticeGetArrayType, index: number) => {
+          return selectedMajor == "UNDEFINED" ? (
+            <Wrapper>
+              <ClubName key={index}>{notice.clubName}</ClubName>
+              <DateWrapper>
+                <Text>
+                  <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
+                  {notice.major.map((majors) => (
+                    <Major>{MajorLabel(majors)}</Major>
+                  ))}
+                </Text>
+                <Date>
+                  {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
+                </Date>
+              </DateWrapper>
+              <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
+                지원하기
+              </Button>
+            </Wrapper>
+          ) : (
+            notice.major.includes(MajorLevel(selectedMajor)) && (
+              <Wrapper>
+                <ClubName key={index}>{notice.clubName}</ClubName>
+                <DateWrapper>
+                  <Text>
+                    <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
+                    {notice.major.map((majors) => (
+                      <Major>{MajorLabel(majors)}</Major>
+                    ))}
+                  </Text>
+                  <Date>
+                    {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
+                  </Date>
+                </DateWrapper>
+                <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
+                  지원하기
+                </Button>
+              </Wrapper>
+            )
+          );
+        })}
     </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 1154px;
+  background-color: #ffffff;
+  margin-bottom: 80px;
+`;
+
+const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 1154px;
@@ -71,10 +138,12 @@ const ClubName = styled.p`
   color: #f46254;
   font-size: 16px;
   font-weight: 500;
+  width: 75px;
 `;
 
 const DateWrapper = styled.div`
   display: flex;
+  width: 750px;
   flex-direction: column;
   gap: 25px;
 `;
@@ -114,4 +183,10 @@ const Button = styled.div`
   color: #fff;
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  }
 `;

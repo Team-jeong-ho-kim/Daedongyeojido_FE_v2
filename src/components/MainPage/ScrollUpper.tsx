@@ -44,7 +44,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.img`
-  background-color: #fff;
+  background-color: #f3f3f3;
   position: fixed;
   bottom: 60px;
   right: 60px;

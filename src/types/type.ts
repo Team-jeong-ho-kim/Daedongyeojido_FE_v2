@@ -251,7 +251,7 @@ export type NoticeGetArrayType = {
   id: number;
   clubName: string;
   noticeTitle: string;
-  major: MajorType;
+  major: MajorType[];
   recruitDay: RecruitDay;
   isApply: boolean;
 };

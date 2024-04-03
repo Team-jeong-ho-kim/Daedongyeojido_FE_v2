@@ -1,13 +1,54 @@
 import styled from "styled-components";
 import { Notice } from "./Notice";
+import { useEffect, useState } from "react";
 import SearchIcon from "../../assets/img/SVG/Search.svg";
-import { NoticeGetArrayType, NoticePropsType } from "../../types/type";
+import { NoticePropsType } from "../../types/type";
 
 interface Notices {
   notices: NoticePropsType;
 }
 
 export const AllQuery: React.FC<Notices> = ({ notices }) => {
+  const [selectMajor, setSelectMajor] = useState<string>("UNDEFINED");
+
+  const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setSelectMajor(selectedValue);
+  };
+
+  const MajorLevel = (major: string) => {
+    switch (major) {
+      case "FRONT":
+        return "FRONT";
+      case "BACK":
+        return "BACK";
+      case "SECURITY":
+        return "SECURITY";
+      case "IOS":
+        return "IOS";
+      case "AND":
+        return "AND";
+      case "FLUTTER":
+        return "FLUTTER";
+      case "EMBEDDED":
+        return "EMBEDDED";
+      case "AI":
+        return "AI";
+      case "DEVOPS":
+        return "DEVOPS";
+      case "DESIGN":
+        return "DESIGN";
+      case "GAME":
+        return "GAME";
+      default:
+        return "UNDEFINED";
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectMajor);
+  }, [selectMajor]);
+
   return (
     <Container>
       <SearchWrapper>
@@ -26,42 +67,40 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
           <Search placeholder="찾고싶은 동아리나 공고를 입력해보세요." />
           <Icon src={SearchIcon} />
         </div>
+      </SearchWrapper>
+      <Slabber>
         <FilterWrapper>
-          <Filter>
-            <option value="UNDEFINED" disabled selected>
+          <Filter onChange={handleSelectMajor}>
+            <Opt value="UNDEFINED" selected>
               전공
-            </option>
-            <option value="FRONT">프론트엔드</option>
-            <option value="BACK">백엔드</option>
-            <option value="IOS">아이오에스</option>
-            <option value="AND">안드로이드</option>
-            <option value="FLUTTER">플러터</option>
-            <option value="EMBEDDED">임베디드</option>
-            <option value="AI">인공지능</option>
-            <option value="SECURITY">보안</option>
-            <option value="DEVOPS">데브옵스</option>
-            <option value="DESIGN">디자인</option>
-            <option value="GAME">게임</option>
-          </Filter>
-          <Filter>
-            <option value="UNDEFINED" disabled selected>
-              동아리
-            </option>
-            {notices.notices.map(
-              (notice: NoticeGetArrayType, index: number) => (
-                <option key={index} value={notice.clubName}>
-                  {notice.clubName}
-                </option>
-              )
-            )}
+            </Opt>
+            <Opt value="FRONT">프론트엔드</Opt>
+            <Opt value="BACK">백엔드</Opt>
+            <Opt value="IOS">IOS</Opt>
+            <Opt value="AND">안드로이드</Opt>
+            <Opt value="FLUTTER">플러터</Opt>
+            <Opt value="EMBEDDED">임베디드</Opt>
+            <Opt value="AI">AI</Opt>
+            <Opt value="SECURITY">정보 보안</Opt>
+            <Opt value="DEVOPS">DevOps</Opt>
+            <Opt value="DESIGN">디자인</Opt>
+            <Opt value="GAME">게임</Opt>
           </Filter>
         </FilterWrapper>
-      </SearchWrapper>
+      </Slabber>
       <NoticeWrapper>
         <TotalBox>
-          <Total>총 {notices.notices.length}건</Total>
+          <Total>
+            총{" "}
+            {
+              notices.notices.filter((obj) =>
+                obj.major.includes(MajorLevel(selectMajor))
+              ).length
+            }
+            건
+          </Total>
         </TotalBox>
-        {notices && <Notice notices={notices} />}
+        {notices && <Notice notices={notices} selectedMajor={selectMajor} />}
       </NoticeWrapper>
     </Container>
   );
@@ -73,24 +112,34 @@ const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3px;
-  padding: 51px 382px 14px 382px;
+  gap: 4px;
+  padding: 51px 382px 0;
   > div {
     position: relative;
   }
 `;
 
+const Slabber = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 15px 382px;
+  align-items: center;
+`;
+
 const LinkWrapper = styled.div`
   display: flex;
   align-self: flex-end;
-  width: 250px;
   justify-content: space-around;
+  gap: 3px;
 `;
 
 const Link = styled.a`
   color: #4e5968;
   font-size: 10px;
   font-weight: 500;
+  display: flex;
+  padding: 6px 17px;
+  cursor: pointer;
 `;
 
 const Search = styled.input`
@@ -102,6 +151,15 @@ const Search = styled.input`
   color: #4e5968;
   font-size: 16px;
   font-weight: 500;
+  cursor: text;
+  transition: box-shadow 0.2s;
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 const Icon = styled.img`
@@ -110,6 +168,12 @@ const Icon = styled.img`
   right: 20px;
   width: 26px;
   height: 26px;
+  cursor: pointer;
+  transition: scale 0.1s;
+  user-select: none;
+  &:hover {
+    scale: 1.05;
+  }
 `;
 
 const FilterWrapper = styled.div`
@@ -118,9 +182,17 @@ const FilterWrapper = styled.div`
 `;
 
 const Filter = styled.select`
-  width: 100px;
-  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #e5e7e9;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 15.6px;
+  color: #4b4b4b;
 `;
+
+const Opt = styled.option``;
 
 const NoticeWrapper = styled.div`
   display: flex;
@@ -129,6 +201,7 @@ const NoticeWrapper = styled.div`
   min-height: 401px;
   padding-top: 30px;
   background-color: #f7f7f7;
+  user-select: none;
 `;
 
 const TotalBox = styled.div`
