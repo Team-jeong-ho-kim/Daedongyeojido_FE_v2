@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ClubType, ClubsProps } from "../../types/type";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,8 @@ export const Club = ({ clubs }: ClubsProps) => {
           key={index}
           onClick={() => {
             link(`/ClubDetail/${club.clubName}`);
-          }}>
+          }}
+        >
           <ClubLogo src={club.clubImageUrl} />
           <ClubName>{club.clubName}</ClubName>
           <ClubInfo>{club.title}</ClubInfo>
@@ -28,6 +29,17 @@ export const Club = ({ clubs }: ClubsProps) => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-200px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 223px 223px 223px 223px 223px 223px);
@@ -35,6 +47,7 @@ const Container = styled.div`
   row-gap: 30px;
   padding: 0px 20%;
   justify-content: space-around;
+  animation: ${fadeIn} 0.8s;
 `;
 
 const ClubWrapper = styled.div`

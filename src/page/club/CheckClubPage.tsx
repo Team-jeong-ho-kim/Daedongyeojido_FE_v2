@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ClubMainBanner } from "../../components/ClubMain/ClubMainBanner";
 import { Club } from "../../components/ClubMain/Club";
 import { SmallHeader } from "../../components/ClubMain/SmallBanner";
@@ -12,7 +12,7 @@ export const CheckClubPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [clubs, setClubs] = useState<ClubType[]>();
   const [banners, setBanners] = useState<ClubBannerType[]>([]);
-  const [currentPage,] = useState<string>("CheckClubPage");
+  const [currentPage] = useState<string>("CheckClubPage");
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
@@ -39,6 +39,17 @@ export const CheckClubPage = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateX(-100px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -55,4 +66,5 @@ const Welcome = styled.p`
   text-align: center;
   font-size: 25px;
   font-weight: 500;
+  animation: ${fadeIn} 1s;
 `;

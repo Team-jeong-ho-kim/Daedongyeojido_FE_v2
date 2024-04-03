@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { createInquiry } from "../../apis/inquiry";
 import { InquiryPostType } from "../../types/type";
 
@@ -170,6 +170,17 @@ export const Ask = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-30px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -178,6 +189,7 @@ const Container = styled.div`
   height: 789px;
   gap: 35px;
   margin-left: 20%;
+  animation: ${fadeIn} 1s;
 `;
 
 const Title = styled.p`

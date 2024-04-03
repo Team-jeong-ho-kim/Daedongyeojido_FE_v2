@@ -221,7 +221,7 @@ const MyPage = () => {
           break;
       }
     }
-  }, [data, myMajor]);
+  }, [myMajor]);
 
   return (
     <>
@@ -353,33 +353,35 @@ const MyPage = () => {
                                   <ApplyLD>
                                     지원 마감일 : {report.deadline}
                                   </ApplyLD>
-                                  <ApplyIvD>
-                                    면접 일시 :{" "}
-                                    {report.interviewStartTime.split("T")[0]}{" "}
-                                    {
-                                      report.interviewStartTime
-                                        .split("T")[1]
-                                        .split(":")[0]
-                                    }
-                                    :
-                                    {
-                                      report.interviewStartTime
-                                        .split("T")[1]
-                                        .split(":")[1]
-                                    }{" "}
-                                    ~{" "}
-                                    {
-                                      report.interviewEndTime
-                                        .split("T")[1]
-                                        .split(":")[0]
-                                    }
-                                    :
-                                    {
-                                      report.interviewEndTime
-                                        .split("T")[1]
-                                        .split(":")[1]
-                                    }
-                                  </ApplyIvD>
+                                  {report.interviewStartTime && (
+                                    <ApplyIvD>
+                                      면접 일시 :{" "}
+                                      {report.interviewStartTime.split("T")[0]}{" "}
+                                      {
+                                        report.interviewStartTime
+                                          .split("T")[1]
+                                          .split(":")[0]
+                                      }
+                                      :
+                                      {
+                                        report.interviewStartTime
+                                          .split("T")[1]
+                                          .split(":")[1]
+                                      }{" "}
+                                      ~{" "}
+                                      {
+                                        report.interviewEndTime
+                                          .split("T")[1]
+                                          .split(":")[0]
+                                      }
+                                      :
+                                      {
+                                        report.interviewEndTime
+                                          .split("T")[1]
+                                          .split(":")[1]
+                                      }
+                                    </ApplyIvD>
+                                  )}
                                 </ApplyD>
                               </ApplyData>
                             </ApplyDetails>
@@ -868,7 +870,7 @@ const MyName = styled.p`
   font-size: 30px;
   font-weight: 700;
   color: #000;
-  height: 39px;
+  height: 39 px;
   padding: 0;
 `;
 
