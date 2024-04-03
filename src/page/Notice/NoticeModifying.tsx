@@ -526,9 +526,9 @@ const NoticeTitleBox = styled.div`
 `;
 
 const NoticeTitleInput = styled.input`
-  width: 1052px;
-  height: 70px;
-  font-size: 30px;
+  width: 875px;
+  height: 48px;
+  font-size: 20px;
   font-weight: 700;
   padding: 16px 21px;
   border-radius: 10px;
@@ -549,11 +549,11 @@ const NoticeTitleInput = styled.input`
 `;
 
 const NoticeSubtitleInput = styled.input`
-  width: 1052px;
-  height: 64px;
+  width: 875px;
+  height: 42px;
   color: #86888c;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   padding: 17px 21px;
   border-radius: 10px;
   background-color: #f5f5f5;
@@ -570,6 +570,9 @@ const NoticeSubtitleInput = styled.input`
   &:focus::placeholder {
     color: transparent;
   }
+  &::placeholder {
+    color: #4e5968;
+  }
 `;
 
 const SaveButton = styled.button<{
@@ -583,7 +586,7 @@ const SaveButton = styled.button<{
   color: #fff;
   font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 20px;
   cursor: pointer;
   user-select: none;
@@ -697,7 +700,7 @@ const ClubExplain = styled.div`
 `;
 
 const ClubExplainInput = styled.textarea`
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
   line-height: normal;
   background-color: #f5f5f5;
@@ -721,7 +724,7 @@ const Inbox = styled.div`
 
 const Alltitle = styled.p`
   height: 33px;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   line-height: normal;
 `;
@@ -735,9 +738,9 @@ const RecruitmentBox = styled.div`
 `;
 
 const Recruits = styled.div`
-  width: 1088px;
+  width: 1453px;
   border-radius: 10px;
-  border: 2px solid #ececec;
+  border: 1px solid #ececec;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -748,13 +751,13 @@ const Recruits = styled.div`
 `;
 
 const LeftInput = styled.input`
-  width: 200px;
-  height: 48px;
+  width: 271px;
+  height: 40px;
   border-radius: 10px;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
   text-align: center;
   color: #000;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 20px;
   cursor: text;
@@ -764,13 +767,13 @@ const LeftInput = styled.input`
 `;
 
 const RightInput = styled.input`
-  width: 800px;
-  height: 48px;
+  width: 1135px;
+  height: 40px;
   border-radius: 10px;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
   text-align: center;
   color: #585858;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 22px;
   cursor: text;
@@ -820,14 +823,14 @@ const ApplyManuals = styled.div`
 `;
 
 const ApplyManualsInput = styled.input`
-  width: 1385px;
-  height: 37px;
+  width: 1345px;
+  height: 30px;
   border-radius: 10px;
   background-color: #f5f5f5;
   padding: 0 19px;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   transition: border 0.05s ease;
@@ -848,13 +851,13 @@ const ApplyManualsInput = styled.input`
 const RecruitmentDays = styled.p`
   display: flex;
   align-items: center;
-  width: 1385px;
-  height: 37px;
+  width: 1345px;
+  height: 30px;
   border-radius: 10px;
   background-color: #f5f5f5;
   padding: 0 19px;
   color: #616060;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   transition: border 0.05s ease;
@@ -873,7 +876,7 @@ const Content = styled.div`
 
 const Contents = styled.p`
   color: #000;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 25px;
   height: 25px;
@@ -902,12 +905,12 @@ const Report = styled.div`
 const WWAATextarea = styled.textarea`
   width: 100%;
   height: 153px;
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 300;
   line-height: normal;
   border-radius: 10px;
   padding: 15px 24px;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
   overflow: hidden;
   resize: none;
   transition: border 0.05s ease;
