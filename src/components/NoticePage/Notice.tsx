@@ -1,123 +1,117 @@
 import styled from "styled-components";
-import DAEBanner from "../../assets/img/PNG/Daedongyeojido.png";
-import { NoticeGetType } from "../../types/type";
+import { NoticeGetArrayType, NoticePropsType } from "../../types/type";
 
-const Notice = ({
-  clubName,
-  clubImageUrl,
-  recruitDay,
-  noticeTitle,
-}: NoticeGetType) => {
+interface Notices {
+  notices: NoticePropsType;
+}
+
+export const Notice: React.FC<Notices> = ({ notices }) => {
+  const MajorLabel = (major: string) => {
+    switch (major) {
+      case "FRONT":
+        return "프론트엔드";
+      case "BACK":
+        return "백엔드";
+      case "SECURITY":
+        return "보안";
+      case "IOS":
+        return "아이오에스";
+      case "AND":
+        return "안드로이드";
+      case "FLUTTER":
+        return "플러터";
+      case "EMBEDDED":
+        return "임베디드";
+      case "AI":
+        return "인공지능";
+      case "DEVOPS":
+        return "데브옵스";
+      case "DESIGN":
+        return "디자인";
+      case "GAME":
+        return "게임개발";
+      default:
+        return "미정";
+    }
+  };
   return (
     <Container>
-      <Block>
-        <Banner>
-          <img src={clubImageUrl ?? DAEBanner} />
-        </Banner>
-        <Detail>
-          <TextBox>
-            <ClubName>{clubName}</ClubName>
-            <NoticeTitle>{noticeTitle}</NoticeTitle>
-          </TextBox>
-          <NoticeDL>
-            {recruitDay.startDay} ~ {recruitDay.endDay}
-          </NoticeDL>
-        </Detail>
-      </Block>
+      {notices.notices &&
+        notices.notices.map((notice: NoticeGetArrayType, index: number) => (
+          <>
+            <ClubName key={index}>{notice.clubName}</ClubName>
+            <DateWrapper>
+              <Text>
+                <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
+                <Major>{MajorLabel(notice.major)}</Major>
+              </Text>
+              <Date>
+                {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
+              </Date>
+            </DateWrapper>
+            <Button>지원하기</Button>
+          </>
+        ))}
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
-  width: 300px;
-  height: 236px;
-  border-radius: 10px;
-  background-color: #ff5a70;
-  align-items: flex-end;
-  margin-bottom: 50px;
-  user-select: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s;
-  &:hover {
-    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.7);
-    transform: translateY(-18px);
-  }
-`;
-
-const Block = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 236px;
-  border-radius: 10px;
-  border: 1px solid #d3d3d3;
-  background-color: #fff;
-  position: relative;
-  cursor: pointer;
-`;
-
-const Banner = styled.div`
-  width: 100%;
-  height: 130px;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  > img {
-    width: 100%;
-  }
-`;
-
-const Detail = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 102px;
-  border-radius: 0 0 10px 10px;
-  padding: 30px 16px 0 16px;
-  cursor: pointer;
-`;
-
-const TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  width: 1154px;
+  height: 167px;
+  background-color: #ffffff;
+  padding: 37px 50px;
+  border-top: 0.5px solid #d9d9d9;
+  border-bottom: 0.5px solid #d9d9d9;
 `;
 
 const ClubName = styled.p`
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 12px;
+  color: #f46254;
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.018px;
-  &:hover {
-    cursor: pointer;
-  }
+`;
+
+const DateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+`;
+
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+`;
+
+const Date = styled.p`
+  color: #4e5968;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 const NoticeTitle = styled.p`
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: -0.75px;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
-const NoticeDL = styled.p`
-  color: #898989;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.012px;
-  &:hover {
-    cursor: pointer;
-  }
+const Major = styled.p`
+  color: #4e5968;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
-export default Notice;
+const Button = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  width: 110px;
+  height: 30px;
+  border-radius: 4px;
+  background: #f46254;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+`;

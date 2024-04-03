@@ -2,14 +2,13 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
-import NoticeBody1 from "../../components/NoticePage/NoticeBody1";
-import NoticeBody2 from "../../components/NoticePage/NoticeBody2";
-import { NoticeGetType } from "../../types/type";
+import { NoticePropsType } from "../../types/type";
 import { getAllNotice } from "../../apis/notice";
+import { AllQuery } from "../../components/NoticePage/AllQuery";
 
 const NoticeAllQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
-  const [data, setData] = useState<NoticeGetType[]>();
+  const [data, setData] = useState<NoticePropsType>();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -23,16 +22,21 @@ const NoticeAllQueryPage = () => {
 
   return (
     <Container>
-      <Header onLoginToggle={handleLoginToggle} />
-      <NoticeBody1 />
-      {data && <NoticeBody2 notices={data} />}
-      <Footer />
+      <Wrapper>
+        <Header onLoginToggle={handleLoginToggle} />
+        {data && <AllQuery notices={data} />}
+        <Footer />
+      </Wrapper>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100vw;
+`;
+
+const Wrapper = styled.div`
+  margin-top: 60px;
 `;
 
 export default NoticeAllQueryPage;

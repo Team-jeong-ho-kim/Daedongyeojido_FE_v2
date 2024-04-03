@@ -247,16 +247,18 @@ type RecruitDay = {
   endDay: string;
 };
 
-export type NoticeGetType = {
+export type NoticeGetArrayType = {
   id: number;
   clubName: string;
   noticeTitle: string;
+  major: MajorType;
   recruitDay: RecruitDay;
-  clubImageUrl: string;
+  isApply: boolean;
 };
 
 export type NoticePropsType = {
-  notices: NoticeGetType[];
+  isCreateNotice: boolean;
+  notices: NoticeGetArrayType[];
 };
 
 export type QuestionsType = {
