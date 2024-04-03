@@ -43,9 +43,7 @@ const Swiper: React.FC<Props> = ({ text }) => {
 };
 
 const ReplacedText = styled.p`
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
   line-height: normal;
   text-align: center;
@@ -351,20 +349,17 @@ const NoticeTitleBox = styled.div`
 `;
 
 const NoticeTitle = styled.p`
-  height: 50px;
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 40px;
+  height: 48px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 40px;
 `;
 
 const NoticeSubtitle = styled.p`
-  height: 30px;
+  height: 42px;
   color: #86888c;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 24px;
 `;
 
@@ -457,7 +452,7 @@ const DeleteButton = styled.button<{
 `;
 
 const ClubExplainBox = styled.div`
-  height: 388px;
+  height: 488px;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -477,8 +472,7 @@ const Inbox = styled.div`
 
 const Alltitle = styled.p`
   height: 33px;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   line-height: normal;
 `;
@@ -535,8 +529,6 @@ const ApplyManuals = styled.div`
 `;
 
 const Contents = styled.p`
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 22px;
   font-weight: 400;
   line-height: 30px;
@@ -566,11 +558,8 @@ const Report = styled.div`
 `;
 
 const WWAAContent = styled.p`
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
   font-size: 22px;
   font-weight: 300;
-  line-height: 28px;
 `;
 
 const CCLLUUBB = styled.p`
