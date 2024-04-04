@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { NoticeGetArrayType, NoticePropsType } from "../../types/type";
 import { useNavigate } from "react-router-dom";
-import { Cookie } from "../../utils/cookie";
 
 interface Notices {
   notices: NoticePropsType;
@@ -15,7 +14,6 @@ export const Notice: React.FC<Notices> = ({
   searches,
 }) => {
   const link = useNavigate();
-  const accessToken = Cookie.get("accessToken");
   const MajorLabel = (major: string) => {
     switch (major) {
       case "FRONT":
@@ -93,14 +91,7 @@ export const Notice: React.FC<Notices> = ({
                     {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
                   </Date>
                 </DateWrapper>
-                <Button
-                  onClick={() => {
-                    if (!accessToken) {
-                      alert("로그인 해주세요");
-                      return;
-                    }
-                    link(`/NoticeDetails/${notice.id}`);
-                  }}>
+                <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
                   지원하기
                 </Button>
               </Wrapper>
@@ -156,12 +147,28 @@ export const Notice: React.FC<Notices> = ({
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(100px);
+	opacity: 0;
+  }
+  5% {
+	transform: translateY(150px);
+	opacity: 0.1;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 1154px;
   background-color: #ffffff;
   margin-bottom: 80px;
+  animation: ${fadeIn} 1s ease forwards;
 `;
 
 const Wrapper = styled.div`
@@ -173,6 +180,11 @@ const Wrapper = styled.div`
   padding: 37px 50px;
   border-top: 0.5px solid #d9d9d9;
   border-bottom: 0.5px solid #d9d9d9;
+  transition: transform 0.2s, box-shadow 0.2s;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const ClubName = styled.p`
@@ -225,8 +237,13 @@ const Button = styled.div`
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: scale 0.1s, transform 0.15s, box-shadow 0.15s;
   &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  }
+  &:active {
+    scale: 0.9;
     transform: translateY(-3px);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   }

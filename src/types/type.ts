@@ -82,6 +82,7 @@ export type MyAlarmType = {
   contents: string;
   clubName: string;
   userName: string;
+  createTime: string;
   passingResult: PassingResultType;
   major: MajorType;
   alarmType: AlarmKindType;
@@ -263,18 +264,23 @@ export type NoticePropsType = {
 };
 
 export type QuestionsType = {
-  id: number;
+  noticeId: number;
   question: string;
 };
 
 export type ApplicationNoticeType = {
   name: string;
   classNumber: string;
-  questions: QuestionsType[];
+  questions: CustomQuests[];
 };
 
 export type writeProps = {
   write: ApplicationNoticeType;
+};
+
+export type CustomQuests = {
+  id: number;
+  question: string;
 };
 
 //admin-club
@@ -327,7 +333,7 @@ export type MemoGetType = {
   name: string;
   major: MajorType;
   interviewPassingResult: PassingResultType;
-  memoContent: string;
+  memo: string;
 };
 
 export type MemoPatchType = {

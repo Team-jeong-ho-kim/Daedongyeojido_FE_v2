@@ -1,4 +1,5 @@
 import { NoticeDetailType } from "../types/type";
+import { QuestionsType } from "../types/type";
 import { instance } from "./axios";
 
 export const createNotice = async (data: NoticeDetailType) => {
@@ -9,8 +10,16 @@ export const modifyNotice = async (data: NoticeDetailType) => {
   return await instance.patch("/notice/update", data);
 };
 
-export const addQuestion = async (data: { id: number; question: string }) => {
+export const addQuestion = async (data: QuestionsType) => {
   return await instance.post("/notice/add-quest", data);
+};
+
+export const getQuestions = async (noticeId: number) => {
+  return await instance.get(`/notice/all-quest/${noticeId}`);
+};
+
+export const deleteQuestion = async (noticeQuestId: number) => {
+  return await instance.delete(`/notice/delete-noticeQuest/${noticeQuestId}`);
 };
 
 export const getAllNotice = async () => {

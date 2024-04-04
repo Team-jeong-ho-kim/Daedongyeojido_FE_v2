@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Delete from "../../assets/img/SVG/Delete.svg";
 import { MyInfoType, NoticePropsType } from "../../types/type";
 import { Cookie } from "../../utils/cookie";
+import { NoticeGetArrayType } from "../../types/type";
 import { getMyInfo } from "../../apis/user";
 
 interface Notices {
@@ -14,9 +15,9 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [selectMajor, setSelectMajor] = useState<string>("UNDEFINED");
   const [searchValue, setSearchValue] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
-  const [data, setData] = useState<MyInfoType>();
+  const [user, setUser] = useState<MyInfoType>();
+  const [notId, setNotId] = useState<number>(0);
   const part = Cookie.get("part");
-  const accessToken = Cookie.get("accessToken");
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -26,7 +27,8 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setSearchValue(inputValue);
-    setHide(true);
+    if (inputValue) setHide(true);
+    else setHide(false);
   };
 
   const MajorLevel = (major: string) => {
@@ -58,40 +60,77 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
     }
   };
 
+  const MajorLabel = (major: string) => {
+    switch (major) {
+      case "FRONT":
+        return "프론트엔드";
+      case "BACK":
+        return "백엔드";
+      case "SECURITY":
+        return "정보 보안";
+      case "IOS":
+        return "IOS";
+      case "AND":
+        return "안드로이드";
+      case "FLUTTER":
+        return "플러터";
+      case "EMBEDDED":
+        return "임베디드";
+      case "AI":
+        return "AI";
+      case "DEVOPS":
+        return "DevOps";
+      case "DESIGN":
+        return "디자인";
+      case "GAME":
+        return "게임";
+      default:
+        return "미정";
+    }
+  };
+
   useEffect(() => {
     console.log(selectMajor);
   }, [selectMajor]);
 
   useEffect(() => {
-    if (!accessToken) return;
-
-    getMyInfo()
-      .then((res) => {
-        setData(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getMyInfo().then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      let search = notices.notices.filter(
+        (notice) => user.myClub == notice.clubName
+      );
+      if (search[0].clubName == user.myClub) {
+        setNotId(search[0].id);
+      }
+    }
+  }, [user]);
 
   return (
     <Container>
       <SearchWrapper>
         <LinkWrapper>
-          {part === "CLUB_LEADER" || part === "ADMIN" ? (
-            <LinkWp>
-              {notices.isCreateNotice ? (
-                <Link href={`/NoticeModify/${data?.myClub}`}>공고 만들기</Link>
-              ) : (
-                <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
-                  공고 만들기
-                </Link>
-              )}
-              <Link href="/Custom">지원서 커스텀</Link>
-              <Link href="/InterviewTimeMod">면접 시간 설정</Link>
-            </LinkWp>
-          ) : null}
+          {part === "CLUB_LEADER" ||
+            (part === "ADMIN" && (
+              <LinkWp>
+                {notices.isCreateNotice ? (
+                  <Link href={`/NoticeModify/${user?.myClub}`}>
+                    공고 만들기
+                  </Link>
+                ) : (
+                  <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
+                    공고 만들기
+                  </Link>
+                )}
+                <Link href={`/Custom/${notId}`}>지원서 커스텀</Link>
+                <Link href="/InterviewTimeMod">면접 시간 설정</Link>
+              </LinkWp>
+            ))}
         </LinkWrapper>
         <div>
           <Search
@@ -135,11 +174,24 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
         <TotalBox>
           <Total>
             총{" "}
-            {
-              notices.notices.filter((obj) =>
-                obj.major.includes(MajorLevel(selectMajor))
-              ).length
-            }
+            {searchValue
+              ? notices.notices.filter(
+                  (notice: NoticeGetArrayType) =>
+                    notice.clubName
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase()) ||
+                    notice.noticeTitle
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase()) ||
+                    notice.major.filter((m) =>
+                      MajorLabel(m).includes(searchValue)
+                    ).length >= 1
+                ).length
+              : selectMajor == "UNDEFINED"
+              ? notices.notices.length
+              : notices.notices.filter((obj) =>
+                  obj.major.includes(MajorLevel(selectMajor))
+                ).length}
             건
           </Total>
         </TotalBox>

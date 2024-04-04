@@ -10,23 +10,22 @@ export const Memo = ({ reportId }: { reportId: number }) => {
     name: "",
     major: "UNDEFINED",
     interviewPassingResult: "WAIT",
-    memoContent: "",
+    memo: "",
   });
-  const [selected, setSelected] = useState<"pass" | "fail">();
 
   const handleSave = () => {
-    if (memo?.memoContent)
-      patchModifyMemo({
-        reportId: reportId,
-        memo: memo?.memoContent,
-      });
+    patchModifyMemo({
+      reportId: reportId,
+      memo: memo.memo,
+    });
+    alert("저장되었습니다.");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setMemo({
       ...memo,
-      memoContent: value,
+      memo: value,
     });
   };
 
@@ -40,7 +39,6 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         });
       }
     }
-    setSelected("pass");
   };
 
   const handleULTFail = () => {
@@ -53,7 +51,6 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         });
       }
     }
-    setSelected("fail");
   };
 
   useEffect(() => {
@@ -63,26 +60,22 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         console.log(res.data);
       });
     }
-  });
+  }, []);
   return (
     <Container>
       <TopWrapper>
         <Title>
-          {memo?.classNumber} {memo?.name} {memo?.major} 면접 기록
+          {memo.classNumber} {memo.name} {memo.major} 면접 기록
         </Title>
         <BtnWrapper>
-          <ButtonPass onClick={handleULTPass} selected={selected === "pass"}>
-            합격
-          </ButtonPass>
-          <ButtonFail onClick={handleULTFail} selected={selected === "fail"}>
-            불합격
-          </ButtonFail>
+          <ButtonPass onClick={handleULTPass}>합격</ButtonPass>
+          <ButtonFail onClick={handleULTFail}>불합격</ButtonFail>
         </BtnWrapper>
       </TopWrapper>
       <Record
         placeholder="면접 내용을 기록해보세요."
         onChange={handleChange}
-        value={memo?.memoContent}
+        value={memo.memo}
       />
       <Foot>
         <ButtonSave onClick={handleSave}>저장하기</ButtonSave>
@@ -112,32 +105,27 @@ const BtnWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 28px;
+  font-size: 48px;
   font-weight: 700;
 `;
 
-const ButtonPass = styled.button<{ selected: boolean }>`
+const ButtonPass = styled.button`
   width: 130px;
   height: 40px;
-  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
+  color: #000;
   border-radius: 10px;
-  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
-  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
-  font-size: 14px;
-  font-weight: 500;
-  cursor: ${({ selected }) => (selected ? "default" : "pointer")};
+  border: 1px solid #333b3d;
+  background-color: #f3f4f5;
+  cursor: pointer;
 `;
 
-const ButtonFail = styled.button<{ selected: boolean }>`
+const ButtonFail = styled.button`
   width: 145px;
   height: 40px;
-  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
+  color: #fff;
   border-radius: 10px;
-  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
-  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
-  font-size: 14px;
-  font-weight: 500;
-  cursor: ${({ selected }) => (selected ? "default" : "pointer")};
+  background-color: #333b3d;
+  cursor: pointer;
 `;
 
 const Record = styled.textarea`
@@ -149,13 +137,19 @@ const Record = styled.textarea`
   border: 2px solid #eaecef;
   color: #2f3239;
   padding: 30px;
+  cursor: text;
+  transition: border 0.5s ease;
   resize: none;
   &::placeholder {
     font-size: 20px;
     color: #b0b0b0;
   }
+  &:hover,
   &:focus {
     border: 2px solid #2f3239;
+  }
+  &:focus::placeholder {
+    color: transparent;
   }
 `;
 

@@ -25,7 +25,7 @@ export const Ask = () => {
   const handleFocus = () => {
     setData({
       ...data,
-      phoneNumber: "010",
+      phoneNumber: "",
     });
   };
 
@@ -37,20 +37,10 @@ export const Ask = () => {
         phoneNumber: `010-${inputValue.slice(0, 4)}-${inputValue.slice(4, 8)}`,
       });
     }
-    if (inputValue == "010") {
+    if (inputValue == "010" || inputValue.length < 10) {
       setData({
         ...data,
         phoneNumber: "",
-      });
-    } else if (inputValue.length == 7) {
-      setData({
-        ...data,
-        phoneNumber: `010-${inputValue.slice(0, 3)}-${inputValue.slice(3, 7)}`,
-      });
-    } else if (inputValue.length == 8) {
-      setData({
-        ...data,
-        phoneNumber: `010-${inputValue.slice(0, 4)}-${inputValue.slice(4, 8)}`,
       });
     } else if (inputValue.length == 10) {
       setData({
@@ -68,7 +58,11 @@ export const Ask = () => {
   const handlePNChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     if (/^[0-9]*$/.test(inputValue)) {
-      if (!inputValue.startsWith("010")) {
+      if (
+        !inputValue.startsWith("010") &&
+        !inputValue.startsWith("01") &&
+        !inputValue.startsWith("0")
+      ) {
         setData({
           ...data,
           phoneNumber: `010${inputValue}`,
@@ -96,10 +90,10 @@ export const Ask = () => {
 
   const onClick = () => {
     if (
-      data.name !== "" &&
-      data.phoneNumber !== "" &&
+      data.name &&
+      data.phoneNumber &&
       data.inquiryType &&
-      data.inquiryContent !== ""
+      data.inquiryContent
     ) {
       createInquiry(data)
         .then(() => {
@@ -146,12 +140,10 @@ export const Ask = () => {
           <Select
             name="inquiryType"
             value={data.inquiryType}
-            onChange={onChange}>
-            <option disabled hidden>
-              문의 종류를 선택해주세요
-            </option>
-            <option value="SERVER">서버오류</option>
-            <option value="CLIENT">클라오류</option>
+            onChange={onChange}
+          >
+            <option value="SERVER">서버 오류</option>
+            <option value="CLIENT">클라이언트 오류</option>
           </Select>
         </InputWrapper>
       </TopWrapper>
@@ -242,6 +234,9 @@ const Textarea = styled.textarea`
     color: #818181;
     font-size: 14px;
     font-weight: 500;
+  }
+  &:focus::placeholder {
+    color: transparent;
   }
 `;
 

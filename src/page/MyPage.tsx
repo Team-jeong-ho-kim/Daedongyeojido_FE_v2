@@ -143,6 +143,38 @@ const MyPage = () => {
     }
   };
 
+  const createTimeSet = (date: string) => {
+    let today = new Date().getTime();
+    let reDate = new Date(date.split(".")[0]).getTime();
+    let k = Math.floor(today - reDate);
+    if (k >= 31536000000) {
+      return `${Math.floor(
+        today / (1000 * 60 * 60 * 24 * 365) -
+          reDate / (1000 * 60 * 60 * 24 * 365)
+      )}년 전`;
+    } else if (k >= 2592000000) {
+      return `${Math.floor(
+        today / (1000 * 60 * 60 * 24 * 30) - reDate / (1000 * 60 * 60 * 24 * 30)
+      )}개월 전`;
+    } else if (k >= 604800000) {
+      return `${Math.floor(
+        today / (1000 * 60 * 60 * 24 * 7) - reDate / (1000 * 60 * 60 * 24 * 7)
+      )}주 전`;
+    } else if (k >= 86400000) {
+      return `${Math.floor(
+        today / (1000 * 60 * 60 * 24) - reDate / (1000 * 60 * 60 * 24)
+      )}일 전`;
+    } else if (k >= 3600000) {
+      return `${Math.floor(
+        today / (1000 * 60 * 60) - reDate / (1000 * 60 * 60)
+      )}시간 전`;
+    } else if (k >= 60000) {
+      return `${Math.floor(today / (1000 * 60) - reDate / (1000 * 60))}분 전`;
+    } else {
+      return `${Math.floor(today / 1000 - reDate / 1000)}초 전`;
+    }
+  };
+
   useEffect(() => {
     getMyInfo()
       .then((res) => {
@@ -415,7 +447,9 @@ const MyPage = () => {
                         if (alarmType(alarm) === "서류합격") {
                           return (
                             <AlarmPass>
-                              <AlarmLT>1시간 전</AlarmLT>
+                              <AlarmLT>
+                                {createTimeSet(alarm.createTime)}
+                              </AlarmLT>
                               <AlarmName>
                                 <AlarmPC>{alarm.clubName}</AlarmPC>
                                 <AlarmPassed>서류합격</AlarmPassed>
@@ -437,7 +471,9 @@ const MyPage = () => {
                         } else if (alarmType(alarm) === "면접합격") {
                           return (
                             <AlarmPass>
-                              <AlarmLT>2시간 전</AlarmLT>
+                              <AlarmLT>
+                                {createTimeSet(alarm.createTime)}
+                              </AlarmLT>
                               <AlarmName>
                                 <AlarmPC>{alarm.clubName}</AlarmPC>
                                 <AlarmPassed>최종합격</AlarmPassed>
@@ -451,7 +487,9 @@ const MyPage = () => {
                         } else if (alarmType(alarm) === "서류탈락") {
                           return (
                             <AlarmPass>
-                              <AlarmLT>3시간 전</AlarmLT>
+                              <AlarmLT>
+                                {createTimeSet(alarm.createTime)}
+                              </AlarmLT>
                               <AlarmName>
                                 <AlarmPC>{alarm.clubName}</AlarmPC>
                                 <AlarmPassed>서류탈락</AlarmPassed>
@@ -465,7 +503,9 @@ const MyPage = () => {
                         } else if (alarmType(alarm) === "면접탈락") {
                           return (
                             <AlarmPass>
-                              <AlarmLT>4시간 전</AlarmLT>
+                              <AlarmLT>
+                                {createTimeSet(alarm.createTime)}
+                              </AlarmLT>
                               <AlarmName>
                                 <AlarmPC>{alarm.clubName}</AlarmPC>
                                 <AlarmPassed>면접탈락</AlarmPassed>
@@ -798,10 +838,9 @@ const InterviewScheduleSelect = styled.button`
   font-weight: 300;
   line-height: 8px;
   cursor: pointer;
-  transition: box-shadow 0.1s, scale 0.1s;
+  transition: box-shadow 0.1s;
   &:hover {
     box-shadow: 0 0 0 0.5px #000;
-    scale: 1.1;
   }
 `;
 

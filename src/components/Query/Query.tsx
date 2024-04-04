@@ -84,6 +84,7 @@ const Wrapper = styled.div`
 const CheckWrapper = styled.div`
   display: flex;
   gap: 5px;
+  margin-bottom: 3px;
 `;
 
 const Check = styled.p`

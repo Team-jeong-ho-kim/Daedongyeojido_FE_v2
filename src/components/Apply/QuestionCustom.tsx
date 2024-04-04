@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Plus from "../../assets/img/SVG/Plus.svg";
 import Delete from "../../assets/img/SVG/Delete.svg";
-import { addQuestion } from "../../apis/notice";
-import { QuestionsType } from "../../types/type";
+import { addQuestion, getQuestions, deleteQuestion } from "../../apis/notice";
+import { QuestionsType, CustomQuests } from "../../types/type";
+import { useParams } from "react-router-dom";
 
 export const QuestionCustom = () => {
-  const [NoQ, setNoQ] = useState<QuestionsType[]>([]);
-  let id = 1;
+  const [NoQ, setNoQ] = useState<CustomQuests[]>([]);
+  const [YesQ, setYesQ] = useState<QuestionsType>();
+  const { id } = useParams();
   const [question, setQuestion] = useState<string>("");
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,28 +20,30 @@ export const QuestionCustom = () => {
   };
 
   const handleAddQuestion = () => {
+    if (question == "") {
+      alert("질문을 입력해주세요.");
+      return;
+    }
     if (NoQ.length >= 15) {
       alert("질문은 최대 15개까지 추가할 수 있습니다.");
       NoQ.slice(15, Infinity);
       return;
     }
-    NoQ.push({ id, question });
-    id += 1;
-    if (question === "") {
-      alert("질문 내용을 작성해주세요");
-      return;
-    }
-    addQuestion({
-      id: NoQ[NoQ.length - 1].id,
-      question: NoQ[NoQ.length - 1].question,
-    }).catch((err) => {
-      console.log(err);
-    });
+    setYesQ({ noticeId: id ? parseInt(id) : 0, question });
+    if (YesQ) addQuestion(YesQ);
   };
 
-  const handleDeleteQuestion = (id: number) => {
-    setNoQ((prevNoQ) => prevNoQ.filter((obj) => obj.id !== id));
+  const handleDeleteQuestion = (questId: number) => {
+    deleteQuestion(questId);
+    setNoQ((prevNoQ) => prevNoQ.filter((obj) => obj.id !== questId));
   };
+
+  useEffect(() => {
+    getQuestions(id ? parseInt(id) : 0).then((res) => {
+      setNoQ(res.data);
+      console.log(res.data);
+    });
+  }, [YesQ, deleteQuestion]);
 
   return (
     <Container>
@@ -96,7 +100,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 27px;
   width: 1219px;
-  height: 740px;
+  margin-bottom: 100px;
 `;
 
 const ContentWrappper = styled.div`

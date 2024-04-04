@@ -42,7 +42,7 @@ function MainRouter() {
           path="/ApplicationQuery/:id"
           element={<ApplicationQueryPage />}
         />
-        <Route path="/Custom" element={<CustomPage />} />
+        <Route path="/Custom/:id" element={<CustomPage />} />
         <Route path="/Ask" element={<AskPage />} />
         <Route path="/Leverie" element={<LeveriePage />} />
         <Route
