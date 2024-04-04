@@ -35,7 +35,7 @@ const Container = styled.div`
   gap: 10%;
   align-items: center;
   height: 620px;
-  margin-left: 10.5%;
+  padding: 0px 17%;
 `;
 
 const Text = styled.p`
@@ -45,13 +45,14 @@ const Text = styled.p`
 `;
 
 const Title = styled.p`
-  font-size: 44px;
+  font-size: 34px;
   font-weight: 700;
 `;
 
 const OneLine = styled.p`
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 500;
+  color: #464646;
 `;
 
 const TagWrapper = styled.div`
@@ -60,18 +61,18 @@ const TagWrapper = styled.div`
 `;
 
 const Tag = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 `;
 
 const Content = styled.div`
   width: 605px;
   color: #5e5e5e;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
 `;
 
 const LogoImg = styled.img`
-  width: 773px;
-  height: 472px;
+  width: 40%;
+  height: 45%;
 `;

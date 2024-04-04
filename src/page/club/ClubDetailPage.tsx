@@ -131,7 +131,7 @@ const Wrapper = styled.div`
 `;
 
 const HeaderImg = styled.img`
-  width: 1920px;
+  width: 100%;
   height: 350px;
 `;
 

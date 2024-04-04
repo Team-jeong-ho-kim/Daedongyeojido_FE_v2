@@ -47,14 +47,16 @@ export const QnA = ({ questResponses }: PropType) => {
           onClick={() => {
             if (isIn) return;
             setIsOpen(false);
-          }}>
+          }}
+        >
           <Modal
             onMouseEnter={() => {
               setIsIn(true);
             }}
             onMouseLeave={() => {
               setIsIn(false);
-            }}>
+            }}
+          >
             <ModalTitle>{clubName}에게 질문하기</ModalTitle>
             <TextArea
               placeholder="질문을 작성해주세요"
@@ -99,8 +101,8 @@ const ModalWrapper = styled.div`
   align-items: center;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2px);
@@ -154,7 +156,7 @@ const Button = styled.div`
 `;
 
 const PlusImg = styled.img`
-  width: 91px;
-  height: 91px;
+  width: 55px;
+  height: 55px;
   margin-left: 87%;
 `;

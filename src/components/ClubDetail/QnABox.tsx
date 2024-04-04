@@ -40,7 +40,7 @@ const QnAWrapper = styled.div<{
   display: flex;
   flex-direction: column;
   padding: 10px;
-  width: 1266px;
+  width: 80%;
   height: ${({ opened }) => (opened ? "auto" : "45px")};
   border-bottom: 1px solid #eaecef;
   border-radius: 5px 5px 0 0;
@@ -54,7 +54,7 @@ const QnAWrapper = styled.div<{
 const QnATop = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1266px;
+  width: 100%;
   height: 45px;
   padding: 10px;
 `;

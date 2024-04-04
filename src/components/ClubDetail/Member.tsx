@@ -50,13 +50,13 @@ const TextWrapper = styled.div`
 `;
 
 const Name = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 `;
 
 const Major = styled.p`
   color: #626262;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
 `;
 

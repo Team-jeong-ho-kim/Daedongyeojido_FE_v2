@@ -12,6 +12,7 @@ export const Memo = ({ reportId }: { reportId: number }) => {
     interviewPassingResult: "WAIT",
     memoContent: "",
   });
+  const [selected, setSelected] = useState<"pass" | "fail">();
 
   const handleSave = () => {
     if (memo?.memoContent)
@@ -39,6 +40,7 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         });
       }
     }
+    setSelected("pass");
   };
 
   const handleULTFail = () => {
@@ -51,6 +53,7 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         });
       }
     }
+    setSelected("fail");
   };
 
   useEffect(() => {
@@ -68,8 +71,12 @@ export const Memo = ({ reportId }: { reportId: number }) => {
           {memo?.classNumber} {memo?.name} {memo?.major} 면접 기록
         </Title>
         <BtnWrapper>
-          <ButtonPass onClick={handleULTPass}>합격</ButtonPass>
-          <ButtonFail onClick={handleULTFail}>불합격</ButtonFail>
+          <ButtonPass onClick={handleULTPass} selected={selected === "pass"}>
+            합격
+          </ButtonPass>
+          <ButtonFail onClick={handleULTFail} selected={selected === "fail"}>
+            불합격
+          </ButtonFail>
         </BtnWrapper>
       </TopWrapper>
       <Record
@@ -105,27 +112,32 @@ const BtnWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 700;
 `;
 
-const ButtonPass = styled.button`
+const ButtonPass = styled.button<{ selected: boolean }>`
   width: 130px;
   height: 40px;
-  color: #000;
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   border-radius: 10px;
-  border: 1px solid #333b3d;
-  background-color: #f3f4f5;
-  cursor: pointer;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  font-size: 14px;
+  font-weight: 500;
+  cursor: ${({ selected }) => (selected ? "default" : "pointer")};
 `;
 
-const ButtonFail = styled.button`
+const ButtonFail = styled.button<{ selected: boolean }>`
   width: 145px;
   height: 40px;
-  color: #fff;
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   border-radius: 10px;
-  background-color: #333b3d;
-  cursor: pointer;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  font-size: 14px;
+  font-weight: 500;
+  cursor: ${({ selected }) => (selected ? "default" : "pointer")};
 `;
 
 const Record = styled.textarea`

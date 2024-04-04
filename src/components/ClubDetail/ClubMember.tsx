@@ -34,7 +34,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
 `;
 
