@@ -192,8 +192,8 @@ const Wrapper = styled.div`
   border-bottom: 0.5px solid #d9d9d9;
   transition: transform 0.2s, box-shadow 0.2s;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   }
 `;
 
