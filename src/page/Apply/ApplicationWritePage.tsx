@@ -7,11 +7,14 @@ import { Back } from "../../components/Apply/Back";
 import { ApplicationNoticeType } from "../../types/type";
 import { getApplication } from "../../apis/notice";
 import { useParams } from "react-router-dom";
+import { getMyInfo } from "../../apis/user";
+import { MyInfoType } from "../../types/type";
 
 export const ApplicationWritePage = () => {
   const { id } = useParams<{ id: string }>();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ApplicationNoticeType>();
+  const [user, setUser] = useState<MyInfoType>();
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
@@ -30,6 +33,21 @@ export const ApplicationWritePage = () => {
       });
   }, [id]);
 
+  useEffect(() => {
+    getMyInfo().then((res) => {
+      setUser(res.data);
+      if (user && data) {
+        if (
+          user.myReport.find((report) => report.clubName == data.classNumber)
+        ) {
+          //   alert("해당 공고에 대한 지원서를 작성한 기록이 남아있습니다.");
+          //   link("/Notices");
+          return true;
+        }
+      }
+    });
+  }, []);
+
   if (!id) return null;
 
   return (
@@ -37,7 +55,7 @@ export const ApplicationWritePage = () => {
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
         <Back />
-        {data && <Write write={data} id={parseInt(id)} />}
+        {data && <Write write={data} id={id ? parseInt(id) : 0} />}
         <Footer />
       </Wrapper>
     </Container>

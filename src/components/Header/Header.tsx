@@ -243,6 +243,9 @@ const Login = styled.a<{
   font-weight: 500;
   padding: 9px;
   cursor: pointer;
+  > p {
+    cursor: pointer;
+  }
   transition: background-color 0.3s, box-shadow 0.35s ease;
   &:hover {
     background-color: #f3f4f5;

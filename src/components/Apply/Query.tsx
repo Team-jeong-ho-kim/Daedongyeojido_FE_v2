@@ -38,15 +38,15 @@ export const Query = ({ info }: InfoProps) => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 1832px;
+  width: 1462px;
   margin-left: 10%;
+  padding-bottom: 80px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 114px;
+  gap: 60px;
   width: 1462px;
   height: auto;
   border-radius: 10px;
@@ -79,7 +79,6 @@ const Number = styled.p`
 
 const Introduce = styled.div`
   width: 1351px;
-  height: 391px;
   display: flex;
   gap: 15px;
 `;
