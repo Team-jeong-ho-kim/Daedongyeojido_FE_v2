@@ -21,7 +21,10 @@ export const QnA = ({ questResponses }: PropType) => {
   const onSubmit = () => {
     if (!clubName) return;
 
-    if (data === "") return;
+    if (data === "") {
+      alert("질문을 작성해주세요");
+      return;
+    }
 
     postQuest({
       question: data,
