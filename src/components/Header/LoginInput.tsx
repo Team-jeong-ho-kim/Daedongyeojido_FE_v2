@@ -6,6 +6,7 @@ interface LoginInputProps {
   onChange: any;
   onKeyUp?: any;
   onKeyDown?: any;
+  onFocus?: any;
   type?: any;
 }
 
@@ -16,6 +17,7 @@ const LoginInput: React.FC<LoginInputProps> = ({
   onKeyUp,
   type,
   onKeyDown,
+  onFocus,
 }) => {
   return (
     <Input
@@ -25,6 +27,7 @@ const LoginInput: React.FC<LoginInputProps> = ({
       type={type}
       onKeyUp={onKeyUp}
       onKeyDown={onKeyDown}
+      onFocus={onFocus}
     />
   );
 };

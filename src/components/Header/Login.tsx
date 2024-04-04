@@ -31,6 +31,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
       })
       .catch(() => {
         alert("아이디 또는 비밀번호가 틀렸습니다.");
+        setPassword("");
         setIsError(true);
       });
   };
@@ -49,12 +50,26 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
       })
       .catch(() => {
         alert("아이디 또는 비밀번호가 틀렸습니다.");
+        setPassword("");
         setIsError(true);
       });
   };
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleEnterLogin();
+  };
+
+  const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = e.target.value;
+    const restr = /^[a-zA-Z0-9]+$/;
+    if ((restr.test(input) || input == "") && input.length <= 20) setID(input);
+  };
+
+  const handlePW = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = e.target.value;
+    const restr = /^[a-zA-Z0-9]+$/;
+    if ((restr.test(input) || input == "") && input.length <= 30)
+      setPassword(input);
   };
 
   return (
@@ -69,7 +84,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
               if (e.target.value == "") {
                 setIsSee(false);
               }
-              setID(e.target.value);
+              handleId(e);
             }}
           />
           <Divs>
@@ -77,11 +92,12 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
               type={isSee ? "text" : "password"}
               placeholder="비밀번호"
               value={password}
+              onFocus={() => setPassword("")}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value == "") {
                   setIsSee(false);
                 }
-                setPassword(e.target.value);
+                handlePW(e);
               }}
               onKeyDown={handleEnter}
             />
@@ -97,7 +113,8 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
           </Divs>
           <LoginButton
             onClick={handleLogin}
-            canSubmit={Boolean(ID && password)}>
+            canSubmit={Boolean(ID && password)}
+          >
             로그인
           </LoginButton>
         </LoginBox>
