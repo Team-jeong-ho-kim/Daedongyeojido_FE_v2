@@ -37,17 +37,20 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
         </Home>
         <Oxb>
           <Xob>
-            {part === "ADMIN" ? (
-              <Page href="/Leverie" thisH={hrs}>
+            {part === "REVERIE" || part === "ADMIN" ? (
+              <Leveriepage href="/Leverie" thisH={hrs}>
                 레벨리
-              </Page>
+              </Leveriepage>
             ) : null}
             {part === "CLUB_MEMBER" ||
             part === "CLUB_LEADER" ||
             part === "ADMIN" ? (
-              <Page href={`/ApplicantQuery/${data?.myClub}`} thisH={hrs}>
+              <Applicantpage
+                href={`/ApplicantQuery/${data?.myClub}`}
+                thisH={hrs}
+              >
                 지원자 보기
-              </Page>
+              </Applicantpage>
             ) : null}
             <Noticepage href="/Notices" thisH={hrs}>
               공고
@@ -129,7 +132,7 @@ const Xob = styled.div`
   gap: 18px;
 `;
 
-const Page = styled.a<{
+const Leveriepage = styled.a<{
   thisH: string;
 }>`
   display: flex;
@@ -139,7 +142,32 @@ const Page = styled.a<{
   height: auto;
   flex-shrink: 0;
   border-radius: 8px;
-  background-color: ${({ thisH }) => (thisH == "Notices" ? "#f3f4f5" : "#fff")};
+  background-color: ${({ thisH }) => (thisH == "Leverie" ? "#f3f4f5" : "#fff")};
+  color: #4e5968;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  padding: 9px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.35s ease;
+  &:hover {
+    background-color: #f3f4f5;
+    box-shadow: 0 0 0 2px 2px #222;
+  }
+`;
+
+const Applicantpage = styled.a<{
+  thisH: string;
+}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background-color: ${({ thisH }) =>
+    thisH == "ApplicantQuery" ? "#f3f4f5" : "#fff"};
   color: #4e5968;
   font-size: 14px;
   font-weight: 400;

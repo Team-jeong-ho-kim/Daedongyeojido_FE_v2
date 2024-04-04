@@ -15,9 +15,9 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
       </Text>
       <Line></Line>
       <SmallLogoImg src={jeju} />
-      <Text isActive={currentPage === "ClubDetailPage"}>
+      <Text2 isActive={currentPage === "ClubDetailPage"}>
         전공동아리 상세 보기
-      </Text>
+      </Text2>
     </Container>
   );
 };
@@ -42,18 +42,17 @@ const Text = styled.a<TextProps>`
   user-select: none;
   font-weight: ${({ isActive }) => (isActive ? "700" : "500")};
   color: ${({ isActive }) => (isActive ? "#000000" : "#4E5968")};
-  cursor: ${({ isActive }) => (isActive ? "pointer" : "inherit")};
   &:hover {
     cursor: pointer;
   }
 `;
 
-// const Detail = styled.a<TextProps>`
-//   font-size: 14px;
-//   font-weight: ${({ isActive }) => (isActive ? "500" : "700")};
-//   color: ${({ isActive }) => (isActive ? "#4E5968" : "#000000")};
-//   cursor: inherit;
-// `;
+const Text2 = styled.a<TextProps>`
+  font-size: 14px;
+  user-select: none;
+  font-weight: ${({ isActive }) => (isActive ? "700" : "500")};
+  color: ${({ isActive }) => (isActive ? "#000000" : "#4E5968")};
+`;
 
 const Line = styled.div`
   width: 1px;

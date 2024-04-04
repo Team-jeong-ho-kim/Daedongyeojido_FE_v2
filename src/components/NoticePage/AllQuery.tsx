@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { Notice } from "./Notice";
 import { useEffect, useState } from "react";
 import Delete from "../../assets/img/SVG/Delete.svg";
-import { NoticePropsType } from "../../types/type";
+import { MyInfoType, NoticePropsType } from "../../types/type";
+import { Cookie } from "../../utils/cookie";
+import { getMyInfo } from "../../apis/user";
 
 interface Notices {
   notices: NoticePropsType;
@@ -12,6 +14,8 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [selectMajor, setSelectMajor] = useState<string>("UNDEFINED");
   const [searchValue, setSearchValue] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
+  const [data, setData] = useState<MyInfoType>();
+  const part = Cookie.get("part");
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -57,21 +61,34 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
     console.log(selectMajor);
   }, [selectMajor]);
 
+  useEffect(() => {
+    getMyInfo()
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Container>
       <SearchWrapper>
         <LinkWrapper>
-          <LinkWp>
-            {notices.isCreateNotice ? (
-              <Link href="/NoticeModify/:clubName">공고 만들기</Link>
-            ) : (
-              <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
-                공고 만들기
-              </Link>
-            )}
-            <Link href="/Custom">지원서 커스텀</Link>
-            <Link href="/InterviewTimeMod">면접 시간 설정</Link>
-          </LinkWp>
+          {part === "CLUB_LEADER" || part === "ADMIN" ? (
+            <LinkWp>
+              {notices.isCreateNotice ? (
+                <Link href={`/NoticeModify/${data?.myClub}`}>공고 만들기</Link>
+              ) : (
+                <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
+                  공고 만들기
+                </Link>
+              )}
+              <Link href="/Custom">지원서 커스텀</Link>
+              <Link href="/InterviewTimeMod">면접 시간 설정</Link>
+            </LinkWp>
+          ) : null}
         </LinkWrapper>
         <div>
           <Search
