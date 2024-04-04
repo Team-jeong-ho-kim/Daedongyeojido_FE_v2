@@ -9,7 +9,7 @@ import { getApplication } from "../../apis/notice";
 import { useParams } from "react-router-dom";
 
 export const ApplicationWritePage = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ApplicationNoticeType>();
   const handleLoginToggle = () => {
@@ -28,14 +28,16 @@ export const ApplicationWritePage = () => {
         console.log(err);
         alert("wait");
       });
-  }, []);
+  }, [id]);
+
+  if (!id) return null;
 
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
         <Back />
-        {data && <Write write={data} />}
+        {data && <Write write={data} id={parseInt(id)} />}
         <Footer />
       </Wrapper>
     </Container>
