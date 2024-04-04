@@ -37,7 +37,6 @@ export const ClubAdminPage = () => {
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <Wrapper>
-        <Back />
         <TitleWrapper>
           <Title>동아리 관리</Title>
           <ClubsBox>
@@ -65,7 +64,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 100px;
   gap: 40px;
 `;
 
