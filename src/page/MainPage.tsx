@@ -176,7 +176,7 @@ const SecondContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 700;
   > span {
     color: #ff4a50;
