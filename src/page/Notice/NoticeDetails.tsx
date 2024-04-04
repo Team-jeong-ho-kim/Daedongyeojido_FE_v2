@@ -13,7 +13,6 @@ import { getMyInfo } from "../../apis/user";
 import { MemoEditType, NoticeDetailType } from "../../types/type";
 import { Memo } from "../../components/Memo/Memo";
 import Login from "../../components/Header/Login";
-import { Cookie } from "../../utils/cookie";
 
 interface Props {
   text: string;
@@ -71,7 +70,6 @@ const ReplacedText = styled.p`
 
 const NoticeDetails = () => {
   const link = useNavigate();
-  const accessToken = Cookie.get("accessToken");
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<string>("RCMinfo");
@@ -175,12 +173,6 @@ const NoticeDetails = () => {
                         : "as"
                     }
                     onClick={() => {
-                      if (accessToken) {
-                        alert("로그인을 먼저 해주세요");
-                        handleLoginToggle;
-                        return;
-                      }
-
                       link(`/ApplicationWrite/${id}`);
                     }}>
                     지원하기
