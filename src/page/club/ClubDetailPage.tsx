@@ -15,6 +15,7 @@ import { getClubQuestion } from "../../apis/question";
 import QuestBox from "../../components/ClubDetail/QuestBox";
 import Login from "../../components/Header/Login";
 import { Cookie } from "../../utils/cookie";
+import { getMyInfo } from "../../apis/user";
 
 export const ClubDetailPage = () => {
   const { clubName } = useParams();
@@ -22,10 +23,11 @@ export const ClubDetailPage = () => {
   const [activeTab, setActiveTab] = useState<string>("동아리 소개");
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ClubDetailType>();
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [question, setQuestion] = useState<ClubQuestionsGetType[]>();
   const [currentPage] = useState<string>("ClubDetailPage");
+  const [isSee, setIsSee] = useState<boolean>(false);
 
   const handleTabChange = (tabName: string) => {
     setActiveTab(tabName);
@@ -52,16 +54,17 @@ export const ClubDetailPage = () => {
 
   useEffect(() => {
     if (clubName && accessToken) {
-      getClubQuestion(clubName)
-        .then((res) => {
-          setQuestion(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-
-          alert("");
-        });
+      getMyInfo().then((res) => {
+        if (res.data.part === "ADMIN" || "CLUB_LEADER") {
+          if (res.data.myClub === clubName) {
+            getClubQuestion(clubName).then((res) => {
+              setQuestion(res.data);
+              console.log(res.data);
+              setIsSee(true);
+            });
+          }
+        }
+      });
     }
   }, []);
 
@@ -74,7 +77,14 @@ export const ClubDetailPage = () => {
           <>
             <SmallHeader currentPage={currentPage} />
             <HeaderImg src={ClubBanner} />
-            <SelectBar activeTab={activeTab} onTabChange={handleTabChange} />
+            <SelectBar
+              activeTab={activeTab}
+              onTabChange={handleTabChange}
+              isSee={isSee}
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            />
             {activeTab === "동아리 소개" && (
               <Clubintroduce
                 title={data.title}
