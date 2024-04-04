@@ -5,7 +5,6 @@ import Footer from "../components/MainPage/Footer";
 import Login from "../components/Header/Login";
 import { Conveyor } from "../components/MainPage/Conveyor";
 import Anything from "../assets/img/SVG/Anything.svg";
-import Macbook from "../assets/img/SVG/MacBook.svg";
 import Macbook2 from "../assets/img/SVG/MacBook2.svg";
 import Quest from "../assets/img/SVG/Quest.svg";
 import Apply from "../assets/img/SVG/Apply.svg";
