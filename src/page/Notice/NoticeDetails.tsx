@@ -13,6 +13,7 @@ import { getMyInfo } from "../../apis/user";
 import { MemoEditType, NoticeDetailType } from "../../types/type";
 import { Memo } from "../../components/Memo/Memo";
 import Login from "../../components/Header/Login";
+import { Cookie } from "../../utils/cookie";
 
 interface Props {
   text: string;
@@ -70,6 +71,7 @@ const ReplacedText = styled.p`
 
 const NoticeDetails = () => {
   const link = useNavigate();
+  const accessToken = Cookie.get("accessToken");
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<string>("RCMinfo");
@@ -144,22 +146,19 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}
-            >
+              onClick={handleSelectRCMinfo}>
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}
-            >
+              onClick={handleSelectIDTalent}>
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}
-            >
+              onClick={handleSelectAssignment}>
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -176,9 +175,14 @@ const NoticeDetails = () => {
                         : "as"
                     }
                     onClick={() => {
+                      if (accessToken) {
+                        alert("로그인을 먼저 해주세요");
+                        handleLoginToggle;
+                        return;
+                      }
+
                       link(`/ApplicationWrite/${id}`);
-                    }}
-                  >
+                    }}>
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
@@ -186,14 +190,12 @@ const NoticeDetails = () => {
                   </Done>
                   <ModifyButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleModify}
-                  >
+                    onClick={handleModify}>
                     수정하기
                   </ModifyButton>
                   <DeleteButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleDeleting}
-                  >
+                    onClick={handleDeleting}>
                     삭제하기
                   </DeleteButton>
                 </IsButton>
