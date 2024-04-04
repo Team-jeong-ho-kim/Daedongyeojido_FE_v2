@@ -6,6 +6,7 @@ import Login from "../components/Header/Login";
 import { Conveyor } from "../components/MainPage/Conveyor";
 import Anything from "../assets/img/SVG/Anything.svg";
 import Macbook from "../assets/img/SVG/MacBook.svg";
+import Macbook2 from "../assets/img/SVG/MacBook2.svg";
 import Quest from "../assets/img/SVG/Quest.svg";
 import Apply from "../assets/img/SVG/Apply.svg";
 import Calendar from "../assets/img/SVG/Calendar.svg";
@@ -55,13 +56,14 @@ const Mainpage = () => {
       <ScrollBox>
         <FourthContainer>
           <div>
+            <span>등록 · 생성</span>
             동아리 관리,
             <br />
             등록부터 생성까지
             <br />
             간편하게
           </div>
-          <img src={Macbook} />
+          <img src={Macbook2} />
         </FourthContainer>
       </ScrollBox>
       <ContainerBackground>
@@ -151,10 +153,21 @@ const FirstContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: 1200px;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 200px;
   animation: ${fadeIn} 1s;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 92.36%,
+      rgba(0, 0, 0, 0.08) 104.83%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(234, 74, 70, 0) 20.1%,
+      rgba(234, 74, 70, 0.1) 100%
+    ),
+    #fff;
 `;
 
 const SecondContainer = styled.div`
@@ -178,7 +191,7 @@ const ThirdContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 40px;
   > div {
     font-size: 40px;
     font-weight: 700;
@@ -191,7 +204,7 @@ const ThirdContainer = styled.div`
     }
   }
   > img {
-    height: 570px;
+    height: 500px;
   }
 `;
 
@@ -202,16 +215,23 @@ const FourthContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 70px;
   > div {
+    width: 800px;
     font-size: 40px;
     font-weight: 700;
-    text-align: center;
+    text-align: start;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    > span {
+      color: #ff4a50;
+      font-size: 20px;
+      font-weight: 700;
+    }
   }
   > img {
-    height: 600px;
+    height: 500px;
   }
 `;
 
