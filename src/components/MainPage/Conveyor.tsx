@@ -95,7 +95,7 @@ const LeftArrowButton = styled.div`
     width: 60px;
     cursor: pointer;
   }
-  z-index: 999;
+  z-index: 10;
 `;
 
 const RightArrowButton = styled.div`
@@ -107,5 +107,5 @@ const RightArrowButton = styled.div`
     width: 60px;
     cursor: pointer;
   }
-  z-index: 999;
+  z-index: 10;
 `;
