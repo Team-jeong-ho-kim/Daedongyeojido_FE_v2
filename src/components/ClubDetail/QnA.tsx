@@ -21,6 +21,8 @@ export const QnA = ({ questResponses }: PropType) => {
   const onSubmit = () => {
     if (!clubName) return;
 
+    if (data === "") return;
+
     postQuest({
       question: data,
       clubName: clubName,
@@ -47,16 +49,14 @@ export const QnA = ({ questResponses }: PropType) => {
           onClick={() => {
             if (isIn) return;
             setIsOpen(false);
-          }}
-        >
+          }}>
           <Modal
             onMouseEnter={() => {
               setIsIn(true);
             }}
             onMouseLeave={() => {
               setIsIn(false);
-            }}
-          >
+            }}>
             <ModalTitle>{clubName}에게 질문하기</ModalTitle>
             <TextArea
               placeholder="질문을 작성해주세요"
