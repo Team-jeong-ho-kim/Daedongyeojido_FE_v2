@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { NoticeGetArrayType, NoticePropsType } from "../../types/type";
 import { useNavigate } from "react-router-dom";
+import { Cookie } from "../../utils/cookie";
 
 interface Notices {
   notices: NoticePropsType;
@@ -14,6 +15,7 @@ export const Notice: React.FC<Notices> = ({
   searches,
 }) => {
   const link = useNavigate();
+  const accessToken = Cookie.get("accessToken");
   const MajorLabel = (major: string) => {
     switch (major) {
       case "FRONT":
@@ -91,7 +93,14 @@ export const Notice: React.FC<Notices> = ({
                     {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
                   </Date>
                 </DateWrapper>
-                <Button onClick={() => link(`/NoticeDetails/${notice.id}`)}>
+                <Button
+                  onClick={() => {
+                    if (!accessToken) {
+                      alert("로그인 해주세요");
+                      return;
+                    }
+                    link(`/NoticeDetails/${notice.id}`);
+                  }}>
                   지원하기
                 </Button>
               </Wrapper>
