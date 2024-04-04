@@ -28,18 +28,16 @@ export const ApplicantQueryPage = () => {
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
-      <Wrapper>
-        <Back />
-        <ApplicantWrapper>
-          <div>
-            <Title>지원자 보기</Title>
-            <Content>
-              지원자들의 정보, 지원서, 면접 메모, 합격여부를 확인하세요.
-            </Content>
-          </div>
-          <Box>{query && <Query querys={query} />}</Box>
-        </ApplicantWrapper>
-      </Wrapper>
+      <Back />
+      <ApplicantWrapper>
+        <div>
+          <Title>지원자 보기</Title>
+          <Content>
+            지원자들의 정보, 지원서, 면접 메모, 합격여부를 확인하세요.
+          </Content>
+        </div>
+        <Box>{query && <Query querys={query} />}</Box>
+      </ApplicantWrapper>
       <Footer />
     </Container>
   );
@@ -51,14 +49,8 @@ const Container = styled.div`
   gap: 150px;
 `;
 
-const Wrapper = styled.div`
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-`;
-
 const ApplicantWrapper = styled.div`
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -76,10 +68,12 @@ const Content = styled.div`
 `;
 
 const Box = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, 401px 401px 401px);
   column-gap: 53px;
-  row-gap: 45px;
+  row-gap: 45px; */
+  flex-wrap: wrap;
+  gap: 53px;
   width: 1462px;
   border-radius: 10px;
   border: 3px solid #eaecef;

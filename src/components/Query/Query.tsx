@@ -36,7 +36,7 @@ export const Query = ({ querys }: QueryProps) => {
   return (
     <Container>
       {querys.map((query: ApplicantType, index: number) => (
-        <>
+        <Wrapper>
           <CheckWrapper>
             <Check onClick={() => handleReportView(query.reportId)}>
               &middot; 서류 보기
@@ -63,17 +63,21 @@ export const Query = ({ querys }: QueryProps) => {
               </Result>
             </ResultWrapper>
           </Box>
-        </>
+        </Wrapper>
       ))}
     </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 53px;
+`;
+
+const Wrapper = styled.div`
   width: 401px;
   height: 194px;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
 `;
 
