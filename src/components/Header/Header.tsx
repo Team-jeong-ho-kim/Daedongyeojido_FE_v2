@@ -52,8 +52,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
             part === "ADMIN" ? (
               <Applicantpage
                 href={`/ApplicantQuery/${data?.myClub}`}
-                thisH={hrs}
-              >
+                thisH={hrs}>
                 지원자 보기
               </Applicantpage>
             ) : null}
@@ -149,7 +148,7 @@ const Adminpage = styled.a<{ thisH: string }>`
   color: #4e5968;
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: -0.9px; 
+  letter-spacing: -0.9px;
   padding: 9px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.35s ease;

@@ -13,8 +13,11 @@ type TextProps = {
 export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
   const [data, setData] = useState<MyInfoType>();
   const part = Cookie.get("part");
+  const accessToken = Cookie.get("accessToken");
 
   useEffect(() => {
+    if (!accessToken) return;
+
     getMyInfo()
       .then((res) => {
         setData(res.data);

@@ -19,11 +19,16 @@ export const CheckClubPage = () => {
   };
 
   useEffect(() => {
-    getAllClub().then((res) => {
-      console.log(res.data);
-      setBanners(res.data.banners);
-      setClubs(res.data.allClubResponses);
-    });
+    getAllClub()
+      .then((res) => {
+        console.log(res.data);
+        setBanners(res.data.banners);
+        setClubs(res.data.allClubResponses);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("");
+      });
   }, []);
 
   return (
