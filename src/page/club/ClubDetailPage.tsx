@@ -13,13 +13,15 @@ import { ClubDetailType, ClubQuestionsGetType } from "../../types/type";
 import { getDetailClub } from "../../apis/club";
 import { getClubQuestion } from "../../apis/question";
 import QuestBox from "../../components/ClubDetail/QuestBox";
+import { Cookie } from "../../utils/cookie";
 
 export const ClubDetailPage = () => {
   const { clubName } = useParams();
+  const accessToken = Cookie.get("accessToken");
   const [activeTab, setActiveTab] = useState<string>("동아리 소개");
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ClubDetailType>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [question, setQuestion] = useState<ClubQuestionsGetType[]>();
   const [currentPage] = useState<string>("ClubDetailPage");
@@ -34,19 +36,31 @@ export const ClubDetailPage = () => {
 
   useEffect(() => {
     if (clubName) {
-      getDetailClub(clubName).then((res) => {
-        setData(res.data);
-        console.log(res.data);
-      });
+      getDetailClub(clubName)
+        .then((res) => {
+          setData(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+
+          alert("");
+        });
     }
   }, []);
 
   useEffect(() => {
-    if (clubName) {
-      getClubQuestion(clubName).then((res) => {
-        setQuestion(res.data);
-        console.log(res.data);
-      });
+    if (clubName && accessToken) {
+      getClubQuestion(clubName)
+        .then((res) => {
+          setQuestion(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+
+          alert("");
+        });
     }
   }, []);
 
@@ -83,16 +97,14 @@ export const ClubDetailPage = () => {
                 onClick={() => {
                   if (isIn) return;
                   setIsOpen(false);
-                }}
-              >
+                }}>
                 <Modal
                   onMouseEnter={() => {
                     setIsIn(true);
                   }}
                   onMouseLeave={() => {
                     setIsIn(false);
-                  }}
-                >
+                  }}>
                   {question?.map((quest, index) => {
                     return (
                       <QuestBox
@@ -151,6 +163,7 @@ const Modal = styled.div`
   align-items: center;
   padding-top: 20px;
   gap: 10px;
+  overflow: auto;
 `;
 
 const ModalWrapper = styled.div`

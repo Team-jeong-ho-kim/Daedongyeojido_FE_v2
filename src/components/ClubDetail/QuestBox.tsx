@@ -78,6 +78,7 @@ const QuestionBox = styled.div<{ isOpen: boolean }>`
   font-weight: 500;
   cursor: pointer;
   overflow: hidden;
+  flex: none;
 `;
 
 const Input = styled.input`
