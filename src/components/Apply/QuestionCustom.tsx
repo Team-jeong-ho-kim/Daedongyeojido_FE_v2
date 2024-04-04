@@ -25,9 +25,15 @@ export const QuestionCustom = () => {
     }
     NoQ.push({ id, question });
     id += 1;
+    if (question === "") {
+      alert("질문 내용을 작성해주세요");
+      return;
+    }
     addQuestion({
       id: NoQ[NoQ.length - 1].id,
       question: NoQ[NoQ.length - 1].question,
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
