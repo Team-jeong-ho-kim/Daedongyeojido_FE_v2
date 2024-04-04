@@ -1,9 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import MacBook from "../../assets/img/SVG/MacBook.svg";
+import MainMac from "../../assets/img/PNG/MainMac.png";
+import MainMac2 from "../../assets/img/PNG/MainMac2.png";
+import MainMac3 from "../../assets/img/PNG/MainMac3.png";
+import MainMac4 from "../../assets/img/PNG/MainMac4.png";
+import MainMac5 from "../../assets/img/PNG/MainMac5.png";
 import Arrow from "../../assets/img/SVG/Arrow.svg";
 
-const images = [MacBook, MacBook, MacBook, MacBook, MacBook];
+const images = [MainMac, MainMac2, MainMac3, MainMac4, MainMac5];
 
 export const Conveyor = () => {
   const [index, setIndex] = useState(0);
@@ -82,7 +86,7 @@ const Slide = styled.div`
 
   img {
     width: auto;
-    height: 100%;
+    height: 60%;
   }
 `;
 
