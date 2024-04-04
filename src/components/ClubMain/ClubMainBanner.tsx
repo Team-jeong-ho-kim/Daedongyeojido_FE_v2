@@ -15,7 +15,7 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
     }, 5000);
 
     return () => clearInterval(intervalId);
-  }, [banners]);
+  }, [banners, img]);
 
   const imgChangeLeft = () => {
     setImg((prevIndex) =>
@@ -54,7 +54,11 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
         </MoveBanner>
         <ExplainWrapper>
           {banners.map((banner: ClubBannerType, index: number) => (
-            <BannerExplain key={index} $isActive={index === img}>
+            <BannerExplain
+              key={index}
+              $isActive={index === img}
+              onClick={() => setImg(index)}
+            >
               {banner.bannerTitle}
             </BannerExplain>
           ))}
@@ -143,4 +147,5 @@ const BannerExplain = styled.div<{ $isActive: boolean }>`
   color: ${(props) => (props.$isActive ? "#FF2D6A" : "#495057")};
   font-size: 12px;
   padding: 9px 20px;
+  cursor: pointer;
 `;

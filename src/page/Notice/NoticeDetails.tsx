@@ -119,6 +119,7 @@ const NoticeDetails = () => {
     if (id) {
       getDetailNotice(+id).then((res) => {
         setData(res.data);
+        console.log(res.data);
       });
     }
     getMyInfo().then((res) => {
@@ -127,6 +128,7 @@ const NoticeDetails = () => {
         if (user.myReport.find((report) => report.clubName == data.clubName)) {
           setAReportId(true);
         } else setAReportId(false);
+        console.log(aReportId);
       }
     });
   }, []);
@@ -140,19 +142,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -163,11 +168,15 @@ const NoticeDetails = () => {
                 <IsButton>
                   <ApplyButton
                     usable={
-                      user?.part == "INDEPENDENT" && !aReportId ? "else" : ""
+                      (user?.part == "INDEPENDENT" && !aReportId) ||
+                      user?.part == "ADMIN"
+                        ? "else"
+                        : "as"
                     }
                     onClick={() => {
                       link(`/ApplicationWrite/${id}`);
-                    }}>
+                    }}
+                  >
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
@@ -175,12 +184,14 @@ const NoticeDetails = () => {
                   </Done>
                   <ModifyButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleModify}>
+                    onClick={handleModify}
+                  >
                     수정하기
                   </ModifyButton>
                   <DeleteButton
                     usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleDeleting}>
+                    onClick={handleDeleting}
+                  >
                     삭제하기
                   </DeleteButton>
                 </IsButton>
@@ -386,16 +397,21 @@ const ApplyButton = styled.button<{
     scale: 1.05;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
+  &:active {
+    scale: 0.9;
+  }
 `;
 
 const Done = styled.div<{
   usable: string;
 }>`
-  display: ${({ usable }) => (usable == "applyer" ? "block" : "none")};
+  display: ${({ usable }) => (usable == "applyer" ? "flex" : "none")};
   width: 180px;
   height: 49px;
+  justify-content: center;
+  align-items: center;
   border-radius: 4px;
-  background-color: #52565d;
+  background-color: #b5b5b5;
   color: #fff;
   font-family: "Spoqa Han Sans Neo";
   font-size: 20px;
@@ -425,6 +441,9 @@ const ModifyButton = styled.button<{
     scale: 1.05;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
+  &:active {
+    scale: 0.9;
+  }
 `;
 
 const DeleteButton = styled.button<{
@@ -446,6 +465,9 @@ const DeleteButton = styled.button<{
   &:hover {
     scale: 1.05;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+  &:active {
+    scale: 0.9;
   }
 `;
 

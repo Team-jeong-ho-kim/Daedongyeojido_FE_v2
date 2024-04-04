@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import { NoticeFieldType } from "../../types/type";
 import { MajorType } from "../../types/type";
 
-const RecruitmentMajor = ({ major, toDo }: NoticeFieldType) => {
+interface Notices {
+  major: MajorType;
+  todo: string;
+}
+
+const RecruitmentMajor: React.FC<Notices> = ({ major, todo }) => {
   const majorTranslate = (major: MajorType) => {
     switch (major) {
       case "AI":
@@ -38,7 +42,7 @@ const RecruitmentMajor = ({ major, toDo }: NoticeFieldType) => {
   return (
     <Container>
       <Major>{majorTranslate(major)}</Major>
-      <Ideal>{toDo}</Ideal>
+      <Ideal>{todo}</Ideal>
     </Container>
   );
 };

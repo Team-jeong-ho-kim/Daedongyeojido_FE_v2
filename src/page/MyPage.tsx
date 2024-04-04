@@ -643,6 +643,7 @@ const Apply = styled.div`
   border: 1px solid #eaecef;
   background-color: #fff;
   animation: ${fadeIn} 1s;
+  cursor: pointer;
   transition: box-shadow 0.2s ease, scale 0.1s;
   &:hover {
     scale: 1.01;
@@ -654,6 +655,7 @@ const ApplyDetails = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ApplyName = styled.p`
@@ -668,11 +670,13 @@ const ApplyName = styled.p`
   line-height: 18px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ApplyData = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const ApplyMajor = styled.p`
@@ -681,11 +685,13 @@ const ApplyMajor = styled.p`
   font-size: 12px;
   font-weight: 700;
   line-height: 12px;
+  cursor: pointer;
 `;
 
 const ApplyD = styled.div`
   display: flex;
   gap: 13.7px;
+  cursor: pointer;
 `;
 
 const ApplyLD = styled.p`
@@ -695,6 +701,7 @@ const ApplyLD = styled.p`
   font-weight: 400;
   line-height: 12px;
   width: 150px;
+  cursor: pointer;
 `;
 
 const ApplyIvD = styled.p`
@@ -704,6 +711,7 @@ const ApplyIvD = styled.p`
   font-weight: 400;
   line-height: 12px;
   width: 227px;
+  cursor: pointer;
 `;
 
 const ApplyStatus = styled.p`
@@ -719,6 +727,7 @@ const ApplyStatus = styled.p`
   padding-right: 24px;
   align-items: center;
   justify-content: flex-end;
+  cursor: pointer;
 `;
 
 const AlarmCenter = styled.div`
@@ -1009,13 +1018,11 @@ const Text1 = styled.p<{
   line-height: 18px;
   background-color: #fff;
   cursor: pointer;
-  transition: text-shadow 0.1s, font-weight 0.1s ease;
+  transition: font-size 0.1s ease;
   &:hover {
-    text-shadow: 1px 1px #222;
-    font-size: 19px;
+    font-size: 20px;
   }
   &:active {
-    text-shadow: 1px 1px #222;
     font-size: 17px;
   }
 `;
@@ -1040,13 +1047,11 @@ const Text2 = styled.p<{
   line-height: 18px;
   background-color: #fff;
   cursor: pointer;
-  transition: text-shadow 0.1s, font-weight 0.1s ease;
+  transition: font-size 0.1s ease;
   &:hover {
-    text-shadow: 1px 1px #222;
-    font-size: 19px;
+    font-size: 20px;
   }
   &:active {
-    text-shadow: 1px 1px #222;
     font-size: 17px;
   }
 `;
@@ -1071,13 +1076,11 @@ const Text3 = styled.p<{
   line-height: 18px;
   background-color: #fff;
   cursor: pointer;
-  transition: text-shadow 0.1s, font-weight 0.1s ease;
+  transition: font-size 0.1s ease;
   &:hover {
-    text-shadow: 1px 1px #222;
-    font-size: 19px;
+    font-size: 20px;
   }
   &:active {
-    text-shadow: 1px 1px #222;
     font-size: 17px;
   }
 `;

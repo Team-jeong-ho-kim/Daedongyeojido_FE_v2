@@ -61,15 +61,17 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
     <Container>
       <SearchWrapper>
         <LinkWrapper>
-          {notices.isCreateNotice ? (
-            <Link href="/NoticeModify/:clubName">공고 만들기</Link>
-          ) : (
-            <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
-              공고 만들기
-            </Link>
-          )}
-          <Link href="/Custom">지원서 커스텀</Link>
-          <Link href="/InterviewTimeMod">면접 시간 설정</Link>
+          <LinkWp>
+            {notices.isCreateNotice ? (
+              <Link href="/NoticeModify/:clubName">공고 만들기</Link>
+            ) : (
+              <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
+                공고 만들기
+              </Link>
+            )}
+            <Link href="/Custom">지원서 커스텀</Link>
+            <Link href="/InterviewTimeMod">면접 시간 설정</Link>
+          </LinkWp>
         </LinkWrapper>
         <div>
           <Search
@@ -88,24 +90,26 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
         </div>
       </SearchWrapper>
       <Slabber>
-        <FilterWrapper>
-          <Filter onChange={handleSelectMajor}>
-            <Opt value="UNDEFINED" selected>
-              전공
-            </Opt>
-            <Opt value="FRONT">프론트엔드</Opt>
-            <Opt value="BACK">백엔드</Opt>
-            <Opt value="IOS">IOS</Opt>
-            <Opt value="AND">안드로이드</Opt>
-            <Opt value="FLUTTER">플러터</Opt>
-            <Opt value="EMBEDDED">임베디드</Opt>
-            <Opt value="AI">AI</Opt>
-            <Opt value="SECURITY">정보 보안</Opt>
-            <Opt value="DEVOPS">DevOps</Opt>
-            <Opt value="DESIGN">디자인</Opt>
-            <Opt value="GAME">게임</Opt>
-          </Filter>
-        </FilterWrapper>
+        <SlabWrap>
+          <FilterWrapper>
+            <Filter onChange={handleSelectMajor}>
+              <Opt value="UNDEFINED" selected>
+                전공
+              </Opt>
+              <Opt value="FRONT">프론트엔드</Opt>
+              <Opt value="BACK">백엔드</Opt>
+              <Opt value="IOS">IOS</Opt>
+              <Opt value="AND">안드로이드</Opt>
+              <Opt value="FLUTTER">플러터</Opt>
+              <Opt value="EMBEDDED">임베디드</Opt>
+              <Opt value="AI">AI</Opt>
+              <Opt value="SECURITY">정보 보안</Opt>
+              <Opt value="DEVOPS">DevOps</Opt>
+              <Opt value="DESIGN">디자인</Opt>
+              <Opt value="GAME">게임</Opt>
+            </Filter>
+          </FilterWrapper>
+        </SlabWrap>
       </Slabber>
       <NoticeWrapper>
         <TotalBox>
@@ -136,9 +140,9 @@ const Container = styled.div``;
 const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
-  padding: 51px 382px 0;
+  padding: 51px 0 0;
   > div {
     position: relative;
   }
@@ -147,14 +151,27 @@ const SearchWrapper = styled.div`
 const Slabber = styled.div`
   width: 100%;
   display: flex;
-  padding: 15px 382px;
+  padding: 15px 0;
+  justify-content: center;
   align-items: center;
+`;
+
+const SlabWrap = styled.div`
+  width: 1153px;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
-  align-self: flex-end;
-  justify-content: space-around;
+  width: 100%;
+  justify-content: center;
+`;
+
+const LinkWp = styled.div`
+  display: flex;
+  width: 1153px;
+  justify-content: flex-end;
   gap: 3px;
 `;
 

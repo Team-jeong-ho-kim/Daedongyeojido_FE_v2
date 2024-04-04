@@ -9,11 +9,14 @@ import { getApplication } from "../../apis/report";
 import { postITVresult } from "../../apis/alarm";
 import { useParams, useNavigate } from "react-router-dom";
 import { deleteApply } from "../../apis/report";
+import { MyInfoType } from "../../types/type";
+import { getMyInfo } from "../../apis/user";
 
 export const ApplicationQueryPage = () => {
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<ApplicationType>();
+  const [user, setUser] = useState<MyInfoType>();
   const [cla, setCla] = useState<string>("");
   const link = useNavigate();
 
@@ -58,15 +61,30 @@ export const ApplicationQueryPage = () => {
 
   useEffect(() => {
     if (id) {
-      getApplication(parseInt(id)).then((res) => {
-        setData(res.data);
-        console.log(res.data);
-        if (data) {
-          setCla("APPLYER");
-        } else setCla("INDEPENDENT");
-      });
+      getApplication(parseInt(id))
+        .then((res) => {
+          setData(res.data);
+          console.log(res.data);
+          if (data) {
+            setCla("APPLYER");
+          } else setCla("INDEPENDENT");
+        })
+        .catch((err) => console.error(err));
     }
+    getMyInfo().then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    });
   }, []);
+  useEffect(() => {
+    if (user) {
+      if (user.part == "CLUB_LEADER") {
+        setCla("CLUB_LEADER");
+      } else if (user.part == "ADMIN") {
+        setCla("ADMIN");
+      }
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -86,17 +104,23 @@ export const ApplicationQueryPage = () => {
             <Cover>
               <Cancel
                 onClick={handleApplyCancel}
-                usable={cla == "APPLYER" ? "applyer" : "none"}
-              ></Cancel>
+                usable={cla == "APPLYER" || cla == "ADMIN" ? "applyer" : "none"}
+              >
+                취소하기
+              </Cancel>
               <Pass
                 onClick={handlePassW}
-                usable={cla == "CLUB_LEADER" ? "clubLeader" : "none"}
+                usable={
+                  cla == "CLUB_LEADER" || cla == "ADMIN" ? "clubLeader" : "none"
+                }
               >
                 합격
               </Pass>
               <Fail
                 onClick={handleFailL}
-                usable={cla == "CLUB_LEADER" ? "clubLeader" : "none"}
+                usable={
+                  cla == "CLUB_LEADER" || cla == "ADMIN" ? "clubLeader" : "none"
+                }
               >
                 불합격
               </Fail>
@@ -119,6 +143,7 @@ const Wrapper = styled.div`
 const Headi = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 1462px;
   align-items: flex-end;
 `;
 

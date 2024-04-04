@@ -1,16 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { writeProps, reportQests, MajorType } from "../../types/type";
+import {
+  ApplicationNoticeType,
+  reportQests,
+  MajorType,
+  NoticeDetailType,
+} from "../../types/type";
 import { WriteAPI } from "../../apis/report";
 import { useNavigate } from "react-router-dom";
+import { getDetailNotice } from "../../apis/notice";
 
-export const Write = ({ write }: writeProps) => {
-  const navigate = useNavigate();
+interface Writer {
+  write: ApplicationNoticeType;
+  id: number;
+}
+
+export const Write: React.FC<Writer> = ({ write, id }) => {
+  const link = useNavigate();
   const [introduceText, setIntroduceText] = useState<string>("");
+  const [data, setData] = useState<NoticeDetailType>();
   const [answers, setAnswers] = useState<reportQests[]>([]);
   const [selectedMajor, setSelectedMajor] = useState<MajorType>("BACK");
 
   const handleWrite = () => {
+    if (introduceText == "") {
+      alert("자기소개를 작성해주세요.");
+      return;
+    }
+    if (answers.filter((i) => i.answer == "").length > 0) {
+      alert("모든 면접 질문에 응답해주세요.");
+      return;
+    }
+
     const reportQuests = answers.map((answer: reportQests) => {
       return {
         noticeQuestId: answer.noticeQuestId,
@@ -19,12 +40,12 @@ export const Write = ({ write }: writeProps) => {
     });
 
     WriteAPI({
-      noticeId: 1,
+      noticeId: id,
       introduce: introduceText,
       major: selectedMajor,
       reportQuests: reportQuests,
     }).then(() => {
-      navigate(`/NoticeDetails/1`);
+      link(`/NoticeDetails/${id}`);
     });
   };
 
@@ -40,6 +61,48 @@ export const Write = ({ write }: writeProps) => {
   const handleMajorClick = (major: MajorType) => {
     setSelectedMajor(major);
   };
+
+  const majorType = (major: MajorType) => {
+    switch (major) {
+      case "AI":
+        return "AI";
+      case "AND":
+        return "Android";
+      case "BACK":
+        return "BackEnd";
+      case "DESIGN":
+        return "Design";
+      case "DEVOPS":
+        return "DevOps";
+      case "EMBEDDED":
+        return "Embedded";
+      case "FLUTTER":
+        return "Flutter";
+      case "FRONT":
+        return "FrontEnd";
+      case "GAME":
+        return "Game";
+      case "IOS":
+        return "IOS";
+      case "SECURITY":
+        return "InfoSec";
+      case "UNDEFINED":
+        return "Undefined";
+      case "":
+        return "None";
+      default:
+        return "None";
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getDetailNotice(+id).then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      });
+    }
+  }, []);
 
   return (
     <Container>
@@ -61,30 +124,17 @@ export const Write = ({ write }: writeProps) => {
             <div>
               <Message>전공을 선택해주세요.</Message>
               <MajorWrapper>
-                <Major
-                  onClick={() => handleMajorClick("BACK")}
-                  selected={selectedMajor === "BACK"}
-                >
-                  BackEnd
-                </Major>
-                <Major
-                  onClick={() => handleMajorClick("FRONT")}
-                  selected={selectedMajor === "FRONT"}
-                >
-                  FrontEnd
-                </Major>
-                <Major
-                  onClick={() => handleMajorClick("DESIGN")}
-                  selected={selectedMajor === "DESIGN"}
-                >
-                  Designer
-                </Major>
-                <Major
-                  onClick={() => handleMajorClick("AND")}
-                  selected={selectedMajor === "AND"}
-                >
-                  Andriod
-                </Major>
+                {data &&
+                  data.fields.map((major) => {
+                    return (
+                      <Major
+                        onClick={() => handleMajorClick(major.major)}
+                        selected={selectedMajor === major.major}
+                      >
+                        {majorType(major.major)}
+                      </Major>
+                    );
+                  })}
               </MajorWrapper>
             </div>
           </InfoWrapper>
@@ -123,7 +173,7 @@ export const Write = ({ write }: writeProps) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 1832px;
+  padding-bottom: 80px;
   margin-left: 10%;
 `;
 
@@ -147,9 +197,20 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
+  font-size: 20px;
+  font-weight: 500;
   border-radius: 4px;
   background: #52565d;
   cursor: pointer;
+  user-select: none;
+  transition: scale 0.1s, box-shadow 0.1s;
+  &:hover {
+    scale: 1.05;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+  &:active {
+    scale: 0.9;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -202,6 +263,7 @@ const Major = styled.p<{ selected?: boolean }>`
   color: ${({ selected }) => (selected ? "#000" : "#acacac")};
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const Introduce = styled.textarea`
@@ -214,10 +276,9 @@ const Introduce = styled.textarea`
   color: #52585c;
   font-size: 25px;
   font-weight: 500;
-  & ::placeholder {
-    color: #52585c;
-    font-size: 25px;
-    font-weight: 500;
+  cursor: text;
+  &:focus::placeholder {
+    color: transparent;
   }
 `;
 

@@ -39,9 +39,13 @@ const SmallLogoImg = styled.img`
 
 const Text = styled.a<TextProps>`
   font-size: 14px;
+  user-select: none;
   font-weight: ${({ isActive }) => (isActive ? "700" : "500")};
   color: ${({ isActive }) => (isActive ? "#000000" : "#4E5968")};
   cursor: ${({ isActive }) => (isActive ? "pointer" : "inherit")};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 // const Detail = styled.a<TextProps>`

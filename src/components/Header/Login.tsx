@@ -44,7 +44,7 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
         Cookie.set("accessToken", res.data.accessToken);
         Cookie.set("refreshToken", res.data.refreshToken);
         Cookie.set("part", res.data.part);
-        alert("로그인 되셨습니다.");
+        alert("로그인되었습니다.");
         handleClose();
       })
       .catch(() => {

@@ -19,7 +19,8 @@ export type PartType =
   | "CLUB_MEMBER"
   | "CLUB_LEADER"
   | "TEACHER"
-  | "CLUB_LEADER_TEACHER";
+  | "CLUB_LEADER_TEACHER"
+  | "ADMIN";
 
 // auth
 export interface LoginType {
@@ -296,7 +297,7 @@ export type memberProps = {
 
 export type NoticeFieldType = {
   major: MajorType;
-  toDo: string;
+  todo: string;
 };
 
 export type NoticeDetailType = {

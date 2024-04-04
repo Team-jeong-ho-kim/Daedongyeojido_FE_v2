@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import RecruitmentMajor from "./RecruitmentMajor";
 import { NoticeFieldType } from "../../types/type";
+import React from "react";
 
-type PropType = {
+interface PropType {
   fields: NoticeFieldType[];
-};
+}
 
-const Recruitments = ({ fields }: PropType) => {
+const Recruitments: React.FC<PropType> = ({ fields }) => {
   return (
     <Container>
       {fields &&
@@ -14,7 +15,7 @@ const Recruitments = ({ fields }: PropType) => {
           return (
             <RecruitmentMajor
               major={field.major}
-              toDo={field.toDo}
+              todo={field.todo}
               key={index}
             />
           );

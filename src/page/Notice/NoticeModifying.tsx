@@ -59,7 +59,7 @@ const NoticeModifying: React.FC = () => {
         res.data.fields.map((field: any) => {
           newArr.push({
             major: field.major,
-            toDo: field.todo,
+            todo: field.todo,
           });
         });
         setFields(newArr);
@@ -183,13 +183,13 @@ const NoticeModifying: React.FC = () => {
     if (type === "major") {
       newArr[index].major = e.target.value as MajorType;
     } else {
-      newArr[index].toDo = e.target.value;
+      newArr[index].todo = e.target.value;
     }
     setFields(newArr);
   };
 
   const onPlusField = () => {
-    const newArr: NoticeFieldType[] = [...fields, { major: "", toDo: "" }];
+    const newArr: NoticeFieldType[] = [...fields, { major: "", todo: "" }];
 
     setFields(newArr);
   };
@@ -327,7 +327,7 @@ const NoticeModifying: React.FC = () => {
                     />
                     <RightInput
                       type="text"
-                      value={fields[index].toDo}
+                      value={fields[index].todo}
                       onChange={(e) => onChangeField(e, index, "todo")}
                       maxLength={50}
                       placeholder="모집 이유"
