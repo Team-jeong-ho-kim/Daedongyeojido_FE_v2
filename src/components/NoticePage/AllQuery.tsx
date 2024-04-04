@@ -14,12 +14,12 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [hide, setHide] = useState<boolean>(false);
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let selectedValue = e.target.value;
+    const selectedValue = e.target.value;
     setSelectMajor(selectedValue);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = e.target.value;
+    const inputValue = e.target.value;
     setSearchValue(inputValue);
     setHide(true);
   };
@@ -94,7 +94,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
           <FilterWrapper>
             <Filter onChange={handleSelectMajor}>
               <Opt value="UNDEFINED" selected>
-                전공
+                전체
               </Opt>
               <Opt value="FRONT">프론트엔드</Opt>
               <Opt value="BACK">백엔드</Opt>
