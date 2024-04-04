@@ -96,10 +96,10 @@ export const Ask = () => {
 
   const onClick = () => {
     if (
-      data.name &&
-      data.phoneNumber &&
+      data.name !== "" &&
+      data.phoneNumber !== "" &&
       data.inquiryType &&
-      data.inquiryContent
+      data.inquiryContent !== ""
     ) {
       createInquiry(data)
         .then(() => {
@@ -146,8 +146,7 @@ export const Ask = () => {
           <Select
             name="inquiryType"
             value={data.inquiryType}
-            onChange={onChange}
-          >
+            onChange={onChange}>
             <option disabled hidden>
               문의 종류를 선택해주세요
             </option>
