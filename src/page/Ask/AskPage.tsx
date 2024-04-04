@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import { Ask } from "../../components/Ask/Ask";
 import Footer from "../../components/MainPage/Footer";
 import { useState } from "react";
+import Login from "../../components/Header/Login";
 
 export const AskPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
@@ -12,6 +13,7 @@ export const AskPage = () => {
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
+      {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
       <Wrapper>
         <Ask />
         <Footer />

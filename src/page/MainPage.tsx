@@ -12,7 +12,7 @@ import Calendar from "../assets/img/SVG/Calendar.svg";
 import { ScrollBox } from "../components/MainPage/ScrollBox";
 
 const Mainpage = () => {
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);

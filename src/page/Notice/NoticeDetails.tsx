@@ -12,6 +12,7 @@ import { MyInfoType } from "../../types/type";
 import { getMyInfo } from "../../apis/user";
 import { MemoEditType, NoticeDetailType } from "../../types/type";
 import { Memo } from "../../components/Memo/Memo";
+import Login from "../../components/Header/Login";
 
 interface Props {
   text: string;
@@ -138,6 +139,7 @@ const NoticeDetails = () => {
       {data && (
         <>
           <Header onLoginToggle={handleLoginToggle} />
+          {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
           <HeaderFrame>
             <RCMinfo
               href="#Recruitment"

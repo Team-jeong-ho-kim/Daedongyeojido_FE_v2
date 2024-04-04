@@ -31,15 +31,15 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   border-radius: 10px 0px 0px 10px;
   border: none;
 `;
 
 const TextWrapper = styled.div`
-  width: 308px;
-  height: 170px;
+  width: 269px;
+  height: 150px;
   border-radius: 0px 10px 10px 0px;
   background: #f7f7f7;
   padding-left: 8%;

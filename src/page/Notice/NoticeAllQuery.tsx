@@ -6,6 +6,7 @@ import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { NoticePropsType } from "../../types/type";
 import { getAllNotice } from "../../apis/notice";
 import { AllQuery } from "../../components/NoticePage/AllQuery";
+import Login from "../../components/Header/Login";
 
 const NoticeAllQueryPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const NoticeAllQueryPage = () => {
     <Container>
       <Wrapper>
         <Header onLoginToggle={handleLoginToggle} />
+        {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
         {data && <AllQuery notices={data} />}
         <Footer />
         <ScrollUpper />

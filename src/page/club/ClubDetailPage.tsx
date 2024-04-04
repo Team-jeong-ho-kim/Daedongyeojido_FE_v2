@@ -13,6 +13,7 @@ import { ClubDetailType, ClubQuestionsGetType } from "../../types/type";
 import { getDetailClub } from "../../apis/club";
 import { getClubQuestion } from "../../apis/question";
 import QuestBox from "../../components/ClubDetail/QuestBox";
+import Login from "../../components/Header/Login";
 import { Cookie } from "../../utils/cookie";
 
 export const ClubDetailPage = () => {
@@ -67,6 +68,7 @@ export const ClubDetailPage = () => {
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
+      {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
       <Wrapper>
         {data && (
           <>

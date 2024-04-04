@@ -9,15 +9,14 @@ import { getApplication } from "../../apis/report";
 import { postITVresult } from "../../apis/alarm";
 import { useParams, useNavigate } from "react-router-dom";
 import { deleteApply } from "../../apis/report";
-import { MyInfoType } from "../../types/type";
-import { getMyInfo } from "../../apis/user";
+import { Cookie } from "../../utils/cookie";
 
 export const ApplicationQueryPage = () => {
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const [selected, setSelected] = useState<"pass" | "fail">();
   const [data, setData] = useState<ApplicationType>();
-  const [user, setUser] = useState<MyInfoType>();
-  const [cla, setCla] = useState<string>("");
+  const part = Cookie.get("part");
   const link = useNavigate();
 
   const handleLoginToggle = () => {
@@ -44,6 +43,7 @@ export const ApplicationQueryPage = () => {
         });
       }
     }
+    setSelected("pass");
   };
 
   const handleFailL = () => {
@@ -57,6 +57,7 @@ export const ApplicationQueryPage = () => {
         });
       }
     }
+    setSelected("fail");
   };
 
   useEffect(() => {
@@ -65,26 +66,10 @@ export const ApplicationQueryPage = () => {
         .then((res) => {
           setData(res.data);
           console.log(res.data);
-          if (data) {
-            setCla("APPLYER");
-          } else setCla("INDEPENDENT");
         })
         .catch((err) => console.error(err));
     }
-    getMyInfo().then((res) => {
-      setUser(res.data);
-      console.log(res.data);
-    });
   }, []);
-  useEffect(() => {
-    if (user) {
-      if (user.part == "CLUB_LEADER") {
-        setCla("CLUB_LEADER");
-      } else if (user.part == "ADMIN") {
-        setCla("ADMIN");
-      }
-    }
-  }, [user]);
 
   return (
     <Container>
@@ -102,28 +87,19 @@ export const ApplicationQueryPage = () => {
               </Content>
             </div>
             <Cover>
-              <Cancel
-                onClick={handleApplyCancel}
-                usable={cla == "APPLYER" || cla == "ADMIN" ? "applyer" : "none"}
-              >
-                취소하기
-              </Cancel>
-              <Pass
-                onClick={handlePassW}
-                usable={
-                  cla == "CLUB_LEADER" || cla == "ADMIN" ? "clubLeader" : "none"
-                }
-              >
-                합격
-              </Pass>
-              <Fail
-                onClick={handleFailL}
-                usable={
-                  cla == "CLUB_LEADER" || cla == "ADMIN" ? "clubLeader" : "none"
-                }
-              >
-                불합격
-              </Fail>
+              {part === "INDEPENDENT" ? (
+                <Cancel onClick={handleApplyCancel}>취소하기</Cancel>
+              ) : null}
+              {part === "CLUB_LEADER" || part === "ADMIN" ? (
+                <ButtonWrapper>
+                  <Pass onClick={handlePassW} selected={selected === "pass"}>
+                    합격
+                  </Pass>
+                  <Fail onClick={handleFailL} selected={selected === "fail"}>
+                    불합격
+                  </Fail>
+                </ButtonWrapper>
+              ) : null}
             </Cover>
           </Headi>
         </Top>
@@ -152,10 +128,7 @@ const Cover = styled.div`
   gap: 9px;
 `;
 
-const Cancel = styled.button<{
-  usable: string;
-}>`
-  display: ${({ usable }) => (usable == "applyer" ? "inline-block" : "none")};
+const Cancel = styled.button`
   width: 102px;
   height: 36px;
   border-radius: 10px;
@@ -174,17 +147,13 @@ const Cancel = styled.button<{
   }
 `;
 
-const Pass = styled.button<{
-  usable: string;
-}>`
-  display: ${({ usable }) =>
-    usable == "clubLeader" ? "inline-block" : "none"};
+const Pass = styled.button<{ selected: boolean }>`
   width: 130px;
   height: 40px;
   border-radius: 10px;
-  border: 1px solid #333b3d;
-  background-color: #f3f4f5;
-  color: #333b3d;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
   font-weight: 500;
@@ -197,16 +166,13 @@ const Pass = styled.button<{
   }
 `;
 
-const Fail = styled.button<{
-  usable: string;
-}>`
-  display: ${({ usable }) =>
-    usable == "clubLeader" ? "inline-block" : "none"};
+const Fail = styled.button<{ selected: boolean }>`
   width: 145px;
   height: 40px;
   border-radius: 10px;
-  background-color: #333b3d;
-  color: #fff;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   font-family: "Spoqa Han Sans Neo";
   font-size: 16px;
   font-weight: 500;
@@ -217,6 +183,11 @@ const Fail = styled.button<{
     transform: translateY(-3px);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 const Top = styled.div`

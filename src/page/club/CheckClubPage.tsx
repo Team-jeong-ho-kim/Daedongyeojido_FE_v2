@@ -7,6 +7,7 @@ import Footer from "../../components/MainPage/Footer";
 import { useEffect, useState } from "react";
 import { getAllClub } from "../../apis/club";
 import { ClubType, ClubBannerType } from "../../types/type";
+import Login from "../../components/Header/Login";
 
 export const CheckClubPage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
@@ -28,6 +29,7 @@ export const CheckClubPage = () => {
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
+      {isLoginVisible && <Login onLoginToggle={handleLoginToggle} />}
       <Wrapper>
         <SmallHeader currentPage={currentPage} />
         {clubs && <ClubMainBanner banners={banners} />}

@@ -27,15 +27,18 @@ export const ClubMember = ({ clubMembers, clubName }: PropType) => {
 };
 
 const Container = styled.div`
-  padding: 5% 10.5%;
+  padding: 5% 0%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 130px;
 `;
 
 const Title = styled.p`
   font-size: 28px;
   font-weight: 700;
+  align-self: flex-start;
+  margin-left: 13%;
 `;
 
 const GradeWrapper = styled.div`
@@ -46,7 +49,7 @@ const GradeWrapper = styled.div`
 
 const MemberWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 478px 478px 478px);
-  column-gap: 21px;
+  grid-template-columns: repeat(auto-fill, 420px 420px 420px);
+  column-gap: 80px;
   row-gap: 28px;
 `;
