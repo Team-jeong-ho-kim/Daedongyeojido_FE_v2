@@ -16,6 +16,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
   const hrs = window.location.href.split("/")[3];
 
   useEffect(() => {
+    if (!accessToken) return;
+
     getMyInfo()
       .then((res) => {
         setData(res.data);
