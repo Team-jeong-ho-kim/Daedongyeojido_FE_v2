@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import { Back } from "../components/Apply/Back";
 import { Club } from "../components/ClubAdmin/Club";
 import { useEffect, useState } from "react";
 import WhitePlus from "../assets/img/SVG/WhitePlus.svg";
