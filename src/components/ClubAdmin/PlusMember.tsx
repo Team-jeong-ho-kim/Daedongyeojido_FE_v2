@@ -57,6 +57,20 @@ export const PlusMember: React.FC<Props> = ({
       });
   };
 
+  const handleCNChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = e.target.value;
+    inputValue = inputValue.replace(
+      /^[a-zA-Zㄱ-ㅎ가-힣#?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]+$/g,
+      ""
+    );
+    if (inputValue.length < 5) {
+      setPlus({
+        ...plus,
+        classNumber: inputValue,
+      });
+    }
+  };
+
   const handlePartChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue: string = e.target.value;
 
@@ -74,6 +88,13 @@ export const PlusMember: React.FC<Props> = ({
   };
 
   const onAdd = () => {
+    if (
+      plus.userName === "" ||
+      plus.part === undefined ||
+      plus.classNumber === "" ||
+      plus.major == "UNDEFINED"
+    )
+      return;
     const newArr = info.memberResponses;
     newArr.push(plus);
 
@@ -147,7 +168,7 @@ export const PlusMember: React.FC<Props> = ({
           />
           <_NameNumber
             placeholder="학번"
-            onChange={handleChange}
+            onChange={handleCNChange}
             name="classNumber"
             value={plus.classNumber.toString()}
           />
@@ -202,6 +223,7 @@ const CloseIcon = styled.img`
   justify-content: center;
   width: 15px;
   height: 15px;
+  cursor: pointer;
 `;
 
 const Text = styled.div`
@@ -245,6 +267,7 @@ const NameNumber = styled.div`
   border-radius: 5px;
   border: 1px solid #cccccc;
   color: black;
+  cursor: text;
 `;
 const MemberWrapper = styled.div`
   display: flex;
@@ -263,6 +286,7 @@ const SaveBtn = styled.div`
   background-color: #52565d;
   color: #ffffff;
   font-size: 16px;
+  cursor: pointer;
 `;
 
 const Bottom = styled.div`
@@ -299,6 +323,7 @@ const _NameNumber = styled.input`
   padding: 12px;
   border: 1px solid rgba(110, 110, 135, 0.5);
   border-radius: 5px;
+  cursor: text;
   &::placeholder {
     font-size: 12px;
     color: #6e6e87;
@@ -311,9 +336,11 @@ const _Select = styled.select`
   border-radius: 5px;
   border: 1px solid rgba(110, 110, 135, 0.5);
   color: #6e6e87;
+  cursor: pointer;
 `;
 
 const _PlusIcon = styled.img`
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;

@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
                 동아리 관리
               </Adminpage>
             ) : null}
-            {part === "REVERIE" ? (
+            {part === "REVERIE" || part === "ADMIN" ? (
               <Leveriepage href="/Leverie" thisH={hrs}>
                 레벨리
               </Leveriepage>

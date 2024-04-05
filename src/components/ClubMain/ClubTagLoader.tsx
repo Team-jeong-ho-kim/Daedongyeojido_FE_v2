@@ -1,39 +1,22 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Trashcan from "../../assets/img/SVG/Trashcan.svg";
 import Plus from "../../assets/img/SVG/Plus.svg";
 import DelTag from "../../assets/img/SVG/DelTag.svg";
 import { ClubDetailsType } from "../../types/type";
 
-interface Tags {
-  tag1: string;
-  tag2: string;
-  tag3: string;
-  tag4: string;
-  tag5: string;
-}
-
 interface Update {
   club: ClubDetailsType;
-  tagLoad: (data: Tags) => void;
+  tagLoad: (data: string[]) => void;
 }
 
 const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
-  const [currentTags, setCurrentTags] = useState<number>(club.tags.length);
+  const [currentTags, setCurrentTags] = useState<number>(
+    club.tags.length < 1 ? 1 : club.tags.length
+  );
   const [deleteMod, setDeleteMod] = useState<boolean>(false);
   const [noneTag, setNoneTag] = useState<boolean>(false);
-  const [tag1, setTag1] = useState<string>(club.tags[0]);
-  const [tag2, setTag2] = useState<string>(club.tags[1]);
-  const [tag3, setTag3] = useState<string>(club.tags[2]);
-  const [tag4, setTag4] = useState<string>(club.tags[3]);
-  const [tag5, setTag5] = useState<string>(club.tags[4]);
-  const [tagz, setTagz] = useState<Tags>({
-    tag1: tag1,
-    tag2: tag2,
-    tag3: tag3,
-    tag4: tag4,
-    tag5: tag5,
-  });
+  const [tagz, setTagz] = useState<string[]>(club.tags);
 
   const handleAddTag = () => {
     if (currentTags < 5) setCurrentTags(currentTags + 1);
@@ -43,11 +26,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
-      setTag1(inputValue);
-      setTagz({
-        ...tagz,
-        tag1: tag1,
-      });
+      setTagz([inputValue, tagz[1], tagz[2], tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
   };
@@ -56,11 +35,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
-      setTag2(inputValue);
-      setTagz({
-        ...tagz,
-        tag2: tag2,
-      });
+      setTagz([tagz[0], inputValue, tagz[2], tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
   };
@@ -69,11 +44,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
-      setTag3(inputValue);
-      setTagz({
-        ...tagz,
-        tag3: tag3,
-      });
+      setTagz([tagz[0], tagz[1], inputValue, tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
   };
@@ -82,11 +53,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
-      setTag4(inputValue);
-      setTagz({
-        ...tagz,
-        tag4: tag4,
-      });
+      setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4]]);
       tagLoad(tagz);
     }
   };
@@ -95,11 +62,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 10) {
-      setTag5(inputValue);
-      setTagz({
-        ...tagz,
-        tag5: tag5,
-      });
+      setTagz([tagz[0], tagz[1], tagz[2], tagz[3], inputValue]);
       tagLoad(tagz);
     }
   };
@@ -109,7 +72,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (!inputValue.startsWith("#")) {
       inputValue = "#" + inputValue;
     }
-    setTag1(inputValue);
+    setTagz([inputValue, tagz[1], tagz[2], tagz[3], tagz[4]]);
   };
 
   const handleFocusTag2 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -117,7 +80,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (!inputValue.startsWith("#")) {
       inputValue = "#" + inputValue;
     }
-    setTag2(inputValue);
+    setTagz([tagz[0], inputValue, tagz[2], tagz[3], tagz[4]]);
   };
 
   const handleFocusTag3 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -125,7 +88,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (!inputValue.startsWith("#")) {
       inputValue = "#" + inputValue;
     }
-    setTag3(inputValue);
+    setTagz([tagz[0], tagz[1], inputValue, tagz[3], tagz[4]]);
   };
 
   const handleFocusTag4 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -133,7 +96,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (!inputValue.startsWith("#")) {
       inputValue = "#" + inputValue;
     }
-    setTag4(inputValue);
+    setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4]]);
   };
 
   const handleFocusTag5 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -141,7 +104,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (!inputValue.startsWith("#")) {
       inputValue = "#" + inputValue;
     }
-    setTag5(inputValue);
+    setTagz([tagz[0], tagz[1], tagz[2], tagz[3], inputValue]);
   };
 
   const handleBlurTag1 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -151,9 +114,10 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     } else if (inputValue === "") {
       inputValue = "";
     } else if (!inputValue.startsWith("#")) {
+      inputValue = inputValue.replace("#", "");
       inputValue = "#" + inputValue;
     }
-    setTag1(inputValue);
+    setTagz([inputValue, tagz[1], tagz[2], tagz[3], tagz[4]]);
   };
 
   const handleBlurTag2 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -163,9 +127,10 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     } else if (inputValue === "") {
       inputValue = "";
     } else if (!inputValue.startsWith("#")) {
+      inputValue = inputValue.replace("#", "");
       inputValue = "#" + inputValue;
     }
-    setTag2(inputValue);
+    setTagz([tagz[0], inputValue, tagz[2], tagz[3], tagz[4]]);
   };
 
   const handleBlurTag3 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -175,9 +140,10 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     } else if (inputValue === "") {
       inputValue = "";
     } else if (!inputValue.startsWith("#")) {
+      inputValue = inputValue.replace("#", "");
       inputValue = "#" + inputValue;
     }
-    setTag3(inputValue);
+    setTagz([tagz[0], tagz[1], inputValue, tagz[3], tagz[4]]);
   };
 
   const handleBlurTag4 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -187,9 +153,10 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     } else if (inputValue === "") {
       inputValue = "";
     } else if (!inputValue.startsWith("#")) {
+      inputValue = inputValue.replace("#", "");
       inputValue = "#" + inputValue;
     }
-    setTag4(inputValue);
+    setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4]]);
   };
 
   const handleBlurTag5 = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -199,17 +166,26 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     } else if (inputValue === "") {
       inputValue = "";
     } else if (!inputValue.startsWith("#")) {
+      inputValue = inputValue.replace("#", "");
       inputValue = "#" + inputValue;
     }
-    setTag5(inputValue);
+    setTagz([tagz[0], tagz[1], tagz[2], tagz[3], inputValue]);
   };
+
+  useEffect(() => {
+    console.log(
+      tagz.filter((tag) => tag !== undefined && tag !== "" && tag !== "#")
+    );
+    tagLoad(
+      tagz.filter((tag) => tag !== undefined && tag !== "" && tag !== "#")
+    );
+  }, [tagz]);
 
   const handleDeleteOn = () => {
     setDeleteMod(!deleteMod);
   };
 
   const handleDeleteTag = () => {
-    setTag5("");
     setCurrentTags(currentTags - 1);
   };
 
@@ -222,10 +198,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
 
   const handleDelete1 = () => {
     if (currentTags > 1) {
-      setTag1(tag2);
-      setTag2(tag3);
-      setTag3(tag4);
-      setTag4(tag5);
+      setTagz([tagz[1], tagz[2], tagz[3], tagz[4], ""]);
     } else if (currentTags == 1) {
       handleNoneTag();
       return;
@@ -235,24 +208,21 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
 
   const handleDelete2 = () => {
     if (currentTags > 2) {
-      setTag2(tag3);
-      setTag3(tag4);
-      setTag4(tag5);
+      setTagz([tagz[0], tagz[2], tagz[3], tagz[4], ""]);
     }
     handleDeleteTag();
   };
 
   const handleDelete3 = () => {
     if (currentTags > 3) {
-      setTag3(tag4);
-      setTag4(tag5);
+      setTagz([tagz[0], tagz[1], tagz[3], tagz[4], ""]);
     }
     handleDeleteTag();
   };
 
   const handleDelete4 = () => {
     if (currentTags > 4) {
-      setTag4(tag5);
+      setTagz([tagz[0], tagz[1], tagz[2], tagz[4], ""]);
     }
     handleDeleteTag();
   };
@@ -275,7 +245,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
             <TagWrap>
               <Tager
                 type="text"
-                value={tag1}
+                value={tagz[0]}
                 maxLength={10}
                 onChange={handleWriteTag1}
                 onFocus={handleFocusTag1}
@@ -289,7 +259,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
             <TagWrap>
               <Tager
                 type="text"
-                value={tag2}
+                value={tagz[1]}
                 maxLength={10}
                 onChange={handleWriteTag2}
                 onFocus={handleFocusTag2}
@@ -303,7 +273,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
             <TagWrap>
               <Tager
                 type="text"
-                value={tag3}
+                value={tagz[2]}
                 maxLength={10}
                 onChange={handleWriteTag3}
                 onFocus={handleFocusTag3}
@@ -317,7 +287,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
             <TagWrap>
               <Tager
                 type="text"
-                value={tag4}
+                value={tagz[3]}
                 maxLength={10}
                 onChange={handleWriteTag4}
                 onFocus={handleFocusTag4}
@@ -331,7 +301,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
             <TagWrap>
               <Tager
                 type="text"
-                value={tag5}
+                value={tagz[4]}
                 maxLength={10}
                 onChange={handleWriteTag5}
                 onFocus={handleFocusTag5}

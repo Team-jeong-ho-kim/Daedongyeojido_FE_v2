@@ -135,4 +135,5 @@ const IconWrapper = styled.div`
 const Icon = styled.img`
   width: 10px;
   height: 10px;
+  cursor: pointer;
 `;

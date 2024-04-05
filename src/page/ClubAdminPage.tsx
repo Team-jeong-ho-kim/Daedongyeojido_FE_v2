@@ -110,12 +110,14 @@ const PlusClubBtn = styled.div`
 `;
 
 const Input = styled.input`
+  padding: 0 9px;
   flex: 1;
   background-color: #52565d;
   color: #ffffff;
   font-size: 14px;
   border: none;
   outline: none;
+  cursor: text;
 
   &::placeholder {
     color: #ffffff;

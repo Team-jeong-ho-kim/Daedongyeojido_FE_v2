@@ -20,7 +20,11 @@ export const Clubintroduce = ({
         <OneLine>{title}</OneLine>
         <TagWrapper>
           {tags.map((tag, index) => {
-            return <Tag key={index}>#{tag}</Tag>;
+            return (
+              <Tag key={index}>
+                {tag == "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
+              </Tag>
+            );
           })}
         </TagWrapper>
         <Content>{introduction}</Content>

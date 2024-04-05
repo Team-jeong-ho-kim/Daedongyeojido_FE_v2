@@ -21,7 +21,11 @@ export const Club = ({ clubs }: ClubsProps) => {
             <TagWrapper>
               {club &&
                 club.tags.map((tag, index) => {
-                  return <ClubTag key={index}>#{tag}</ClubTag>;
+                  return (
+                    <ClubTag key={index}>
+                      {tag == "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
+                    </ClubTag>
+                  );
                 })}
             </TagWrapper>
           </ClubWrapper>

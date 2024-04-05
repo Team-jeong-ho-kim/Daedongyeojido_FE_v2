@@ -5,6 +5,7 @@ import { Cookie } from "../../utils/cookie";
 import { MyInfoType } from "../../types/type";
 import { useEffect, useState } from "react";
 import { getMyInfo } from "../../apis/user";
+import { useParams } from "react-router-dom";
 
 type TextProps = {
   isActive: boolean;
@@ -14,6 +15,7 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
   const [data, setData] = useState<MyInfoType>();
   const part = Cookie.get("part");
   const accessToken = Cookie.get("accessToken");
+  const { clubName } = useParams();
 
   useEffect(() => {
     if (!accessToken) return;
@@ -41,7 +43,8 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
           전공동아리 상세 보기
         </Text2>
       </Wrapper>
-      {part === "CLUB_LEADER" || part === "ADMIN" ? (
+      {(part === "CLUB_LEADER" || part === "ADMIN") &&
+      clubName == data?.myClub ? (
         <Modify href={`/ClubInfoModify/${data?.myClub}`}>수정하기</Modify>
       ) : null}
     </Container>
@@ -73,9 +76,7 @@ const Text = styled.a<TextProps>`
   user-select: none;
   font-weight: ${({ isActive }) => (isActive ? "700" : "500")};
   color: ${({ isActive }) => (isActive ? "#000000" : "#4E5968")};
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Text2 = styled.a<TextProps>`
@@ -94,4 +95,5 @@ const Modify = styled.a`
   color: #474747;
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;

@@ -8,28 +8,16 @@ import LeftArrow from "../../assets/img/PNG/LeftArrow.png";
 import { getDetailClub, patchClub } from "../../apis/club";
 import { ClubDetailsType } from "../../types/type";
 import { useParams } from "react-router-dom";
-
-interface Tags {
-  tag1: string;
-  tag2: string;
-  tag3: string;
-  tag4: string;
-  tag5: string;
-}
+import { useNavigate } from "react-router-dom";
 
 const ClubInfoMod = () => {
   const { clubName } = useParams();
+  const link = useNavigate();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [explain, setExplain] = useState<string>("");
   const [longExp, setLongExp] = useState<string>("");
   const [data, setData] = useState<ClubDetailsType>();
-  const [tagz, setTagz] = useState<Tags>({
-    tag1: "",
-    tag2: "",
-    tag3: "",
-    tag4: "",
-    tag5: "",
-  });
+  const [tagz, setTagz] = useState<string[]>(["", "", "", "", ""]);
   const [clubBanner, setClubBanner] = useState<string>("");
   const [clubImage, setClubImage] = useState<string>("");
 
@@ -44,19 +32,21 @@ const ClubInfoMod = () => {
 
   useEffect(() => {
     if (data) {
-      setExplain(data?.title);
-      setLongExp(data?.introduction);
+      setExplain(data.title);
+      setLongExp(data.introduction);
+      setTagz([
+        data.tags[0],
+        data.tags[1] ? data.tags[1] : "",
+        data.tags[2] ? data.tags[2] : "",
+        data.tags[3] ? data.tags[3] : "",
+        data.tags[4] ? data.tags[4] : "",
+      ]);
+      console.log(tagz);
     }
   }, [data]);
 
-  const handleTagChange = (tag: Tags) => {
-    setTagz({
-      tag1: tag.tag1,
-      tag2: tag.tag2,
-      tag3: tag.tag3,
-      tag4: tag.tag4,
-      tag5: tag.tag5,
-    });
+  const handleTagChange = (tag: string[]) => {
+    setTagz(tag);
   };
 
   const handleImageChange = (url: string[]) => {
@@ -86,17 +76,17 @@ const ClubInfoMod = () => {
 
   const handleSave = () => {
     if (!clubName) return;
-
     patchClub({
       clubName: clubName,
       title: explain,
       introduction: longExp,
       clubBanner: clubBanner,
       clubImageUrl: clubImage,
-      tags: [tagz.tag1],
+      tags: tagz,
     })
       .then((res) => {
         console.log(res);
+        link(`/ClubDetail/${clubName}`);
       })
       .catch((err) => {
         console.log(err);
@@ -108,7 +98,7 @@ const ClubInfoMod = () => {
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
       <HeaderFrame>
-        <GoBack>
+        <GoBack onClick={() => link(`/ClubDetail/${clubName}`)}>
           <Left src={LeftArrow} />
           뒤로가기
         </GoBack>
