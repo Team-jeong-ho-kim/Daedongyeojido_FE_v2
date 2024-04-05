@@ -24,12 +24,6 @@ const WaveText = keyframes`
   100% { transform: translateY(0); }
 `;
 
-const Accent = keyframes`
-  0% { scale: 1; }
-  50% { scale: 1.033; }
-  100% { scale: 1; }
-`;
-
 const Swiper: React.FC<Props> = ({ text }) => {
   const regex = /@@(.*?)@@|##(.*?)##|\$\$(.*?)\$\$|%%(.*?)%%/g;
   const replaced = text.replace(regex, (match, p1, p2, p3, p4) => {
