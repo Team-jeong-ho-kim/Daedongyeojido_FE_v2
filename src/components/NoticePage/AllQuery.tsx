@@ -18,6 +18,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   const [user, setUser] = useState<MyInfoType>();
   const [notId, setNotId] = useState<number>(0);
   const part = Cookie.get("part");
+  const accessToken = Cookie.get("accessToken");
 
   const handleSelectMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -94,6 +95,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
   }, [selectMajor]);
 
   useEffect(() => {
+    if (!accessToken) return;
     getMyInfo().then((res) => {
       setUser(res.data);
       console.log(res.data);
