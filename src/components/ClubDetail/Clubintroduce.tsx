@@ -73,6 +73,6 @@ const Content = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 40%;
-  height: 45%;
+  width: 60%;
+  height: 65%;
 `;

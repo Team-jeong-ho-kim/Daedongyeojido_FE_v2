@@ -102,14 +102,14 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
 
   useEffect(() => {
     if (user) {
-      let search = notices.notices.filter(
+      const search = notices.notices.filter(
         (notice) => user.myClub == notice.clubName
       );
       if (search[0].clubName == user.myClub) {
         setNotId(search[0].id);
       }
     }
-  }, [user]);
+  }, []);
 
   return (
     <Container>
