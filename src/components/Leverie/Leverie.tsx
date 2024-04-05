@@ -66,7 +66,7 @@ const Container = styled.div`
   width: 100%;
   height: 789px;
   gap: 35px;
-  margin-left: 20%;
+  margin-left: 25%;
 `;
 
 const Title = styled.p`
@@ -97,10 +97,11 @@ const Input = styled.input`
   border-radius: 10px;
   background: #f6f7f8;
   padding: 17px;
+  width: 53%;
 `;
 
 const Textarea = styled.textarea`
-  width: 1014px;
+  width: 53%;
   height: 285px;
   resize: none;
   padding: 16px 18px;
@@ -116,10 +117,9 @@ const Textarea = styled.textarea`
   }
 `;
 
-const Button = styled.div`
-  width: 134px;
+const Button = styled.button`
+  width: 7.1%;
   height: 49px;
-  padding: 12px 30px;
   border-radius: 4px;
   background: #52565d;
   color: white;
