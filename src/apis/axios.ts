@@ -24,6 +24,8 @@ instance.interceptors.response.use(
     return res;
   },
   (err) => {
+    console.log(err);
+
     const {
       response: { status },
     } = err;

@@ -91,10 +91,17 @@ const ClubInfoMod = () => {
       clubName: clubName,
       title: explain,
       introduction: longExp,
-      clubBannerUrl: clubBanner,
+      clubBanner: clubBanner,
       clubImageUrl: clubImage,
-      tags: [tagz.tag1, tagz.tag2, tagz.tag3, tagz.tag4, tagz.tag5],
-    });
+      tags: [tagz.tag1],
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("");
+      });
   };
 
   return (

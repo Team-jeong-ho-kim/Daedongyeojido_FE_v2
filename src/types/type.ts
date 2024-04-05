@@ -163,7 +163,7 @@ export type ClubInfoModType = {
   title: string;
   introduction: string;
   clubImageUrl: string;
-  clubBannerUrl: string;
+  clubBanner: string;
   tags: string[];
 };
 
