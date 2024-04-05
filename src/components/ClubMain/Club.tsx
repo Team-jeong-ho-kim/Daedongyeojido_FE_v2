@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 export const Club = ({ clubs }: ClubsProps) => {
   const link = useNavigate();
+  const itemsPerRow = Math.floor(1400 / (223 + 30));
+  const lastRowItemCount = clubs.length % itemsPerRow;
+  const fakeItemsCount =
+    lastRowItemCount > 0 ? itemsPerRow - lastRowItemCount : 0;
 
   return (
     <Diver>
@@ -13,22 +17,23 @@ export const Club = ({ clubs }: ClubsProps) => {
             key={index}
             onClick={() => {
               link(`/ClubDetail/${club.clubName}`);
-            }}
-          >
+            }}>
             <ClubLogo src={club.clubImageUrl} />
             <ClubName>{club.clubName}</ClubName>
             <ClubInfo>{club.title}</ClubInfo>
             <TagWrapper>
-              {club &&
-                club.tags.map((tag, index) => {
-                  return (
-                    <ClubTag key={index}>
-                      {tag == "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
-                    </ClubTag>
-                  );
-                })}
+              {club.tags.map((tag, index) => (
+                <ClubTag key={index}>
+                  {tag === "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
+                </ClubTag>
+              ))}
             </TagWrapper>
           </ClubWrapper>
+        ))}
+        {Array.from({ length: fakeItemsCount }, (_, index) => (
+          <ClubWrapper
+            key={`fake-${index}`}
+            style={{ visibility: "hidden" }}></ClubWrapper>
         ))}
       </Container>
     </Diver>

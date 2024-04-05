@@ -31,7 +31,9 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
 
   return (
     <Container>
-      <BannerImg src={banners[img]?.bannerImgUrl} alt={`Banner ${img}`} />
+      <BannerWrapper>
+        <BannerImg src={banners[img]?.bannerImgUrl} alt={`Banner ${img}`} />
+      </BannerWrapper>
       <BannerBar>
         <MoveBanner>
           <NumberWrapper>
@@ -57,8 +59,7 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
             <BannerExplain
               key={index}
               $isActive={index === img}
-              onClick={() => setImg(index)}
-            >
+              onClick={() => setImg(index)}>
               {banner.bannerTitle}
             </BannerExplain>
           ))}
@@ -70,9 +71,15 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
 
 const Container = styled.div``;
 
+const BannerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 426px;
+`;
+
 const BannerImg = styled.img`
   position: relative;
-  width: 100%;
   height: 426px;
 `;
 
