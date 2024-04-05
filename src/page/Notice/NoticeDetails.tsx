@@ -95,10 +95,6 @@ const NoticeDetails = () => {
     setIsSelected("Assignment");
   };
 
-  const handleModify = () => {
-    window.location.href = "/NoticeModify";
-  };
-
   const handleDelete = () => {
     if (!id) return;
 
@@ -144,19 +140,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -167,27 +166,37 @@ const NoticeDetails = () => {
                 <IsButton>
                   <ApplyButton
                     usable={
-                      (user?.part == "INDEPENDENT" && !aReportId) ||
-                      user?.part == "ADMIN"
-                        ? "else"
-                        : "as"
+                      user?.part == "INDEPENDENT" && !aReportId ? "else" : "as"
                     }
                     onClick={() => {
                       link(`/ApplicationWrite/${id}`);
-                    }}>
+                    }}
+                  >
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
                     서류제출완료
                   </Done>
                   <ModifyButton
-                    usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleModify}>
+                    usable={
+                      user?.part == "CLUB_LEADER" || user?.part == "ADMIN"
+                        ? "clubLeader"
+                        : "else"
+                    }
+                    onClick={() => {
+                      link(`/NoticeModify/${user?.myClub}`);
+                    }}
+                  >
                     수정하기
                   </ModifyButton>
                   <DeleteButton
-                    usable={user?.part == "CLUB_LEADER" ? "clubLeader" : "else"}
-                    onClick={handleDeleting}>
+                    usable={
+                      user?.part == "CLUB_LEADER" || user?.part == "ADMIN"
+                        ? "clubLeader"
+                        : "else"
+                    }
+                    onClick={handleDeleting}
+                  >
                     삭제하기
                   </DeleteButton>
                 </IsButton>
