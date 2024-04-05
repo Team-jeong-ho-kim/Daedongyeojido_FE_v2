@@ -175,7 +175,7 @@ const NoticeModifying: React.FC = () => {
   };
 
   const onChangeField = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     index: number,
     type: "major" | "todo"
   ) => {
