@@ -303,7 +303,7 @@ export type memberProps = {
 
 export type NoticeFieldType = {
   major: MajorType;
-  todo: string;
+  toDo: string;
 };
 
 export type NoticeDetailType = {

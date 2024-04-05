@@ -15,7 +15,7 @@ const Recruitments: React.FC<PropType> = ({ fields }) => {
           return (
             <RecruitmentMajor
               major={field.major}
-              todo={field.todo}
+              todo={field.toDo}
               key={index}
             />
           );

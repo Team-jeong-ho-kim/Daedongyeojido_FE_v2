@@ -59,7 +59,7 @@ const NoticeModifying: React.FC = () => {
         res.data.fields.map((field: any) => {
           newArr.push({
             major: field.major,
-            todo: field.todo,
+            toDo: field.toDo,
           });
         });
         setFields(newArr);
@@ -183,13 +183,13 @@ const NoticeModifying: React.FC = () => {
     if (type === "major") {
       newArr[index].major = e.target.value as MajorType;
     } else {
-      newArr[index].todo = e.target.value;
+      newArr[index].toDo = e.target.value;
     }
     setFields(newArr);
   };
 
   const onPlusField = () => {
-    const newArr: NoticeFieldType[] = [...fields, { major: "", todo: "" }];
+    const newArr: NoticeFieldType[] = [...fields, { major: "", toDo: "" }];
 
     setFields(newArr);
   };
@@ -213,10 +213,16 @@ const NoticeModifying: React.FC = () => {
           endDay: data.interviewDay.endDay + "T10:00:00",
         },
       };
-      modifyNotice(postData).then(() => {
-        alert("성공적으로 수정되었습니다");
-        link("/");
-      });
+      modifyNotice(postData)
+        .then((res) => {
+          alert("성공적으로 수정되었습니다");
+          console.log(res);
+
+          // link("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       const postData = {
         ...data,
@@ -254,8 +260,7 @@ const NoticeModifying: React.FC = () => {
               usable={"clubLeader"}
               onClick={() => {
                 onSubmit();
-              }}
-            >
+              }}>
               저장하기
             </SaveButton>
           </NoticeTitleBox>
@@ -327,7 +332,7 @@ const NoticeModifying: React.FC = () => {
                     />
                     <RightInput
                       type="text"
-                      value={fields[index].todo}
+                      value={fields[index].toDo}
                       onChange={(e) => onChangeField(e, index, "todo")}
                       maxLength={50}
                       placeholder="모집 이유"
@@ -335,8 +340,7 @@ const NoticeModifying: React.FC = () => {
                     <Delete
                       onClick={() => {
                         onDeleteField(index);
-                      }}
-                    >
+                      }}>
                       삭제
                     </Delete>
                   </div>
@@ -344,8 +348,7 @@ const NoticeModifying: React.FC = () => {
             </Recruits>
             <span
               style={{ cursor: "pointer", color: "gray" }}
-              onClick={onPlusField}
-            >
+              onClick={onPlusField}>
               {" "}
               추가
             </span>
