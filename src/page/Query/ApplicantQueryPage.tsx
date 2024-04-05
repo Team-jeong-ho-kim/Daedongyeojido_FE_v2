@@ -46,15 +46,22 @@ export const ApplicantQueryPage = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 150px;
+  width: 100%;
 `;
 
 const ApplicantWrapper = styled.div`
   margin-top: 130px;
+  width: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 26px;
-  margin-left: 10.5%;
+  > div:nth-child(1) {
+    width: 100%;
+    max-width: 1462px;
+  }
 `;
 
 const Title = styled.div`
@@ -74,7 +81,8 @@ const Box = styled.div`
   row-gap: 45px; */
   flex-wrap: wrap;
   gap: 53px;
-  width: 1462px;
+  width: 100%;
+  max-width: 1462px;
   border-radius: 10px;
   border: 3px solid #eaecef;
   padding: 50px 75px;
