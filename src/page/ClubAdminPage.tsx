@@ -57,9 +57,12 @@ export const ClubAdminPage = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,21 +73,26 @@ const Wrapper = styled.div`
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 500px;
   gap: 40px;
+  width: 100%;
 `;
 
 const Title = styled.div`
   font-size: 40px;
   font-weight: 700;
+  width: 100%;
+  max-width: 1504px;
 `;
 
 const ClubsBox = styled.div`
+  width: 100%;
+  max-width: 1504px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 30px;
-  width: 1503px;
   border-radius: 10px;
   border: 3px solid #eaecef;
   padding: 50px 75px;

@@ -75,9 +75,10 @@ export const Club = ({ clubs }: memberProps) => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 258px 258px 258px 258px 258px);
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
   column-gap: 10px;
   row-gap: 20px;
+  width: 100%;
 `;
 
 const TeacherWrapper = styled.div`
