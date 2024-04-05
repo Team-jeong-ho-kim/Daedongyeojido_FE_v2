@@ -17,12 +17,12 @@ interface ContainerProps {
 
 interface Props {
   selectedClub: adminPageType;
-  handleEditClick: () => void;
+  handleItvToggle: () => void;
 }
 
 export const PlusMember: React.FC<Props> = ({
   selectedClub,
-  handleEditClick,
+  handleItvToggle,
 }) => {
   const [isPlusMemberVisible] = useState<boolean>(false);
   const [info, setInfo] = useState<adminPageType>({
@@ -99,10 +99,6 @@ export const PlusMember: React.FC<Props> = ({
     });
   };
 
-  const handleCloseIconClick = () => {
-    handleEditClick();
-  };
-
   return (
     <Container isPlusMemberVisible={isPlusMemberVisible}>
       <Text>
@@ -120,7 +116,7 @@ export const PlusMember: React.FC<Props> = ({
             placeholder="담당 선생님"
           />
         </div>
-        <CloseIcon src={Close} onClick={handleCloseIconClick} />
+        <CloseIcon src={Close} onClick={handleItvToggle} />
       </Text>
       <Line></Line>
       <MemberWrapper>

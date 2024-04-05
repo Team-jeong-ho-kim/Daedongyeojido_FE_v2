@@ -9,6 +9,7 @@ import { PlusMember } from "./PlusMember";
 export const Club = ({ clubs }: memberProps) => {
   const [selectedClub, setSelectedClub] = useState<adminPageType | null>(null);
   const [, setIsPlusMemberVisible] = useState<boolean>(false);
+  const [ivsdSelect, setIvsdSelect] = useState<boolean>(false);
 
   const onDelete = (name: string) => {
     if (!window.confirm(`정말 "${name}"동아리를 삭제 하시겠습니까?`)) return;
@@ -20,7 +21,12 @@ export const Club = ({ clubs }: memberProps) => {
 
   const handleEditClick = (club: adminPageType) => {
     setSelectedClub(club);
+    handleItvToggle(!ivsdSelect);
     setIsPlusMemberVisible(true);
+  };
+
+  const handleItvToggle = () => {
+    setIvsdSelect(!ivsdSelect);
   };
 
   return (
@@ -57,10 +63,10 @@ export const Club = ({ clubs }: memberProps) => {
           </ClubBox>
         </div>
       ))}
-      {selectedClub && (
+      {ivsdSelect && selectedClub && (
         <PlusMember
           selectedClub={selectedClub}
-          handleEditClick={() => handleEditClick(selectedClub)}
+          handleItvToggle={handleItvToggle}
         />
       )}
     </Container>

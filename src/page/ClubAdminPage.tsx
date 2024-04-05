@@ -70,6 +70,7 @@ const Wrapper = styled.div`
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 500px;
   gap: 40px;
 `;
 
