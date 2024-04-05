@@ -135,6 +135,7 @@ const Name = styled.p`
 const Xob = styled.div`
   display: flex;
   justify-content: space-around;
+  gap: 3px;
 `;
 
 const Adminpage = styled.a<{ thisH: string }>`

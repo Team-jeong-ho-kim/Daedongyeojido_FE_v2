@@ -95,17 +95,21 @@ export const Notice: React.FC<Notices> = ({
                     {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
                   </Date>
                 </DateWrapper>
-                <Button
-                  onClick={() => {
-                    if (!accessToken) {
-                      alert("로그인 해주세요");
-                      return;
-                    }
-                    link(`/NoticeDetails/${notice.id}`);
-                  }}
-                >
-                  지원하기
-                </Button>
+                {!notice.isApply ? (
+                  <Button
+                    onClick={() => {
+                      if (!accessToken) {
+                        alert("로그인 해주세요");
+                        return;
+                      }
+                      link(`/NoticeDetails/${notice.id}`);
+                    }}
+                  >
+                    지원하기
+                  </Button>
+                ) : (
+                  <Buttoned>지원됨</Buttoned>
+                )}
               </Wrapper>
             ) : (
               (notice.clubName.toLowerCase().includes(searches.toLowerCase()) ||
@@ -264,4 +268,19 @@ const Button = styled.div`
     transform: translateY(-3px);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   }
+`;
+
+const Buttoned = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  width: 110px;
+  height: 30px;
+  border-radius: 4px;
+  background: #c4c7cd;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 `;
