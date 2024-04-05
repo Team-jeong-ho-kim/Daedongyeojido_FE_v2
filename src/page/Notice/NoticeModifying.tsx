@@ -324,13 +324,22 @@ const NoticeModifying: React.FC = () => {
               {fields &&
                 fields.map((_field, index) => (
                   <div key={index}>
-                    <LeftInput
-                      type="text"
-                      value={fields[index].major}
-                      onChange={(e) => onChangeField(e, index, "major")}
-                      maxLength={10}
-                      placeholder="모집 전공"
-                    />
+                    <Select onChange={(e) => onChangeField(e, index, "major")}>
+                      <option value={fields[index].major} disabled selected>
+                        모집 전공
+                      </option>
+                      <option value="FRONT">frontend</option>
+                      <option value="BACK">backend</option>
+                      <option value="IOS">ios</option>
+                      <option value="AND">android</option>
+                      <option value="FLUTTER">flutter</option>
+                      <option value="EMBEDDED">embedded</option>
+                      <option value="AI">ai</option>
+                      <option value="SECURITY">security</option>
+                      <option value="DEVOPS">devops</option>
+                      <option value="DESIGN">design</option>
+                      <option value="GAME">game</option>
+                    </Select>
                     <RightInput
                       type="text"
                       value={fields[index].toDo}
@@ -758,7 +767,7 @@ const Recruits = styled.div`
   }
 `;
 
-const LeftInput = styled.input`
+const Select = styled.select`
   width: 271px;
   height: 40px;
   border-radius: 10px;
