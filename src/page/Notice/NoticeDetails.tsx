@@ -140,19 +140,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -167,7 +170,8 @@ const NoticeDetails = () => {
                     }
                     onClick={() => {
                       link(`/ApplicationWrite/${id}`);
-                    }}>
+                    }}
+                  >
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
@@ -181,7 +185,8 @@ const NoticeDetails = () => {
                     }
                     onClick={() => {
                       link(`/NoticeModify/${user?.myClub}/${id}`);
-                    }}>
+                    }}
+                  >
                     수정하기
                   </ModifyButton>
                   <DeleteButton
@@ -190,7 +195,8 @@ const NoticeDetails = () => {
                         ? "clubLeader"
                         : "else"
                     }
-                    onClick={handleDeleting}>
+                    onClick={handleDeleting}
+                  >
                     삭제하기
                   </DeleteButton>
                 </IsButton>
@@ -246,7 +252,6 @@ const NoticeDetails = () => {
                 <Alltitle>문의사항</Alltitle>
                 <Contents>{data.inquiry}</Contents>
               </Report>
-              <CCLLUUBB>{data.clubName}</CCLLUUBB>
             </Inbox>
           </Body>
           <Footer />
@@ -338,12 +343,13 @@ const Body = styled.div`
   flex-direction: column;
   width: 100%;
   padding-top: 100px;
+  padding-bottom: 150px;
 `;
 
 const NoticeTop = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 200px;
+  padding: 0 300px;
   height: 248px;
   justify-content: center;
   gap: 3px;
@@ -358,7 +364,7 @@ const NoticeTitleBox = styled.div`
 
 const NoticeTitle = styled.p`
   height: 48px;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 40px;
 `;
@@ -366,7 +372,7 @@ const NoticeTitle = styled.p`
 const NoticeSubtitle = styled.p`
   height: 42px;
   color: #86888c;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 24px;
 `;
@@ -484,7 +490,7 @@ const Inbox = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 61px 200px 146px;
+  padding: 61px 300px 146px;
   justify-content: center;
   gap: 88px;
 `;
@@ -523,7 +529,7 @@ const IVPBox = styled.div`
 `;
 
 const IVPImg = styled.img`
-  width: 1200px;
+  width: 100%;
   height: 120px;
 `;
 
@@ -579,21 +585,6 @@ const Report = styled.div`
 const WWAAContent = styled.p`
   font-size: 22px;
   font-weight: 300;
-`;
-
-const CCLLUUBB = styled.p`
-  display: flex;
-  width: 100%;
-  margin: 30px 0 75px;
-  justify-content: center;
-  text-align: center;
-  color: #000;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 90px;
-  font-weight: 700;
-  line-height: 50px;
-  text-shadow: 0 10px 5px rgba(0, 0, 0, 0.3);
-  animation: ${Accent} 2s ease-in-out infinite;
 `;
 
 const BlurBack = styled.div`
