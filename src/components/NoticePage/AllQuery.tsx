@@ -107,8 +107,10 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
       const search = notices.notices.filter(
         (notice) => user.myClub == notice.clubName
       );
-      if (search[0].clubName == user.myClub) {
-        setNotId(search[0].id);
+      if (search.length > 0) {
+        if (search[0].clubName == user.myClub) {
+          setNotId(search[0].id);
+        }
       }
     }
   }, [user]);
