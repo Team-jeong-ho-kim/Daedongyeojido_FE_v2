@@ -260,7 +260,8 @@ const NoticeModifying: React.FC = () => {
               usable={"clubLeader"}
               onClick={() => {
                 onSubmit();
-              }}>
+              }}
+            >
               저장하기
             </SaveButton>
           </NoticeTitleBox>
@@ -340,7 +341,8 @@ const NoticeModifying: React.FC = () => {
                     <Delete
                       onClick={() => {
                         onDeleteField(index);
-                      }}>
+                      }}
+                    >
                       삭제
                     </Delete>
                   </div>
@@ -348,7 +350,8 @@ const NoticeModifying: React.FC = () => {
             </Recruits>
             <span
               style={{ cursor: "pointer", color: "gray" }}
-              onClick={onPlusField}>
+              onClick={onPlusField}
+            >
               {" "}
               추가
             </span>
@@ -515,7 +518,7 @@ const Body = styled.div`
 const NoticeTop = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 200px;
+  padding: 0 300px;
   height: 248px;
   justify-content: center;
   gap: 8px;
@@ -720,7 +723,7 @@ const Inbox = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 61px 200px 128px;
+  padding: 61px 300px 128px;
   justify-content: center;
   gap: 88px;
 `;
@@ -735,13 +738,15 @@ const Alltitle = styled.p`
 const RecruitmentBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
   width: 100%;
+  span {
+    align-self: center;
+  }
 `;
 
 const Recruits = styled.div`
-  width: 1453px;
+  width: 100%;
   border-radius: 10px;
   border: 1px solid #ececec;
   display: flex;
@@ -801,8 +806,8 @@ const IVPBox = styled.div`
 `;
 
 const IVPImg = styled.img`
-  width: 1200px;
-  height: 120px;
+  width: 100%;
+  height: 150px;
 `;
 
 const ApplyManual = styled.div`
@@ -820,6 +825,7 @@ const ApplyManualContent = styled.div`
 `;
 
 const ApplyManuals = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 25px;
@@ -872,6 +878,7 @@ const RecruitmentDays = styled.p`
 `;
 
 const Content = styled.div`
+  width: 9%;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -908,7 +915,7 @@ const Report = styled.div`
 const WWAATextarea = styled.textarea`
   width: 100%;
   height: 153px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 300;
   line-height: normal;
   border-radius: 10px;
