@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
-import { Back } from "../../components/Apply/Back";
 import { Query } from "../../components/Query/Query";
 import Footer from "../../components/MainPage/Footer";
 import { ApplicantType } from "../../types/type";
@@ -28,7 +27,6 @@ export const ApplicantQueryPage = () => {
   return (
     <Container>
       <Header onLoginToggle={handleLoginToggle} />
-      <Back />
       <ApplicantWrapper>
         <div>
           <Title>지원자 보기</Title>

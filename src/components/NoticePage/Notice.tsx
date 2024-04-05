@@ -123,9 +123,11 @@ export const Notice: React.FC<Notices> = ({
                   <DateWrapper>
                     <Text>
                       <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
-                      {notice.major.map((majors) => (
-                        <Major>{MajorLabel(majors)}</Major>
-                      ))}
+                      <Major1>
+                        {notice.major.map((majors) => (
+                          <Major>{MajorLabel(majors)}</Major>
+                        ))}
+                      </Major1>
                     </Text>
                     <Date>
                       {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
@@ -144,9 +146,11 @@ export const Notice: React.FC<Notices> = ({
                 <DateWrapper>
                   <Text>
                     <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
-                    {notice.major.map((majors) => (
-                      <Major>{MajorLabel(majors)}</Major>
-                    ))}
+                    <Major1>
+                      {notice.major.map((majors) => (
+                        <Major>{MajorLabel(majors)}</Major>
+                      ))}
+                    </Major1>
                   </Text>
                   <Date>
                     {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}

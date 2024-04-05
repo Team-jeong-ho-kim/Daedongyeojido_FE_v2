@@ -461,7 +461,7 @@ const RecruitmentDate: React.FC<Props> = ({
       <Database>
         <Recruit>
           <RecruitD>
-            <Title>면접 기간</Title>
+            <Title>모집 기간</Title>
             <Content>
               시작일 ~ 종료일
               <br />
