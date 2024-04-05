@@ -85,9 +85,11 @@ export const Notice: React.FC<Notices> = ({
                 <DateWrapper>
                   <Text>
                     <NoticeTitle>{notice.noticeTitle}</NoticeTitle>
-                    {notice.major.map((majors) => (
-                      <Major>{MajorLabel(majors)}</Major>
-                    ))}
+                    <Major1>
+                      {notice.major.map((majors) => (
+                        <Major>{MajorLabel(majors)}</Major>
+                      ))}
+                    </Major1>
                   </Text>
                   <Date>
                     {notice.recruitDay.startDay} ~ {notice.recruitDay.endDay}
@@ -232,6 +234,11 @@ const Major = styled.p`
   color: #4e5968;
   font-size: 14px;
   font-weight: 500;
+`;
+
+const Major1 = styled.p`
+  display: flex;
+  gap: 10px;
 `;
 
 const Button = styled.div`
