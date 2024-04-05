@@ -61,15 +61,12 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
 
   const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value;
-    const restr = /^[a-zA-Z0-9]+$/;
-    if ((restr.test(input) || input == "") && input.length <= 20) setID(input);
+    setID(input);
   };
 
   const handlePW = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value;
-    const restr = /^[a-zA-Z0-9]+$/;
-    if ((restr.test(input) || input == "") && input.length <= 30)
-      setPassword(input);
+    setPassword(input);
   };
 
   return (
@@ -103,9 +100,9 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
             />
             {password &&
               (isSee ? (
-                <See src={IC} onClick={() => setIsSee(false)} />
+                <Seeno src={IC} onClick={() => setIsSee(false)} />
               ) : (
-                <Seeno src={ICN} onClick={() => setIsSee(true)} />
+                <See src={ICN} onClick={() => setIsSee(true)} />
               ))}
             {isError && (
               <Error>아이디 또는 비밀번호가 일치하지 않습니다.</Error>
