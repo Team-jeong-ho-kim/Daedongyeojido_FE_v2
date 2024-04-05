@@ -268,7 +268,9 @@ const MyPage = () => {
                     <MyMainInfo>
                       <MyCover>
                         <MyName>{data.name}</MyName>
-                        <ClNum>{data.classNumber}</ClNum>
+                        <ClNum>
+                          {data.classNumber == null ? "0000" : data.classNumber}
+                        </ClNum>
                       </MyCover>
                       <MyClass>
                         <MyClub>
