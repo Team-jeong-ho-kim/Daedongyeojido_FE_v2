@@ -52,7 +52,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
             part === "ADMIN" ? (
               <Applicantpage
                 href={`/ApplicantQuery/${data?.myClub}`}
-                thisH={hrs}>
+                thisH={hrs}
+              >
                 지원자 보기
               </Applicantpage>
             ) : null}
@@ -144,7 +145,8 @@ const Adminpage = styled.a<{ thisH: string }>`
   height: auto;
   flex-shrink: 0;
   border-radius: 8px;
-  background-color: ${({ thisH }) => (thisH == "Leverie" ? "#f3f4f5" : "#fff")};
+  background-color: ${({ thisH }) =>
+    thisH == "ClubAdmin" ? "#f3f4f5" : "#fff"};
   color: #4e5968;
   font-size: 14px;
   font-weight: 400;
