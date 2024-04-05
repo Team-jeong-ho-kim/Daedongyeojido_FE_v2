@@ -5,9 +5,22 @@ import MainMac2 from "../../assets/img/PNG/MainMac2.png";
 import MainMac3 from "../../assets/img/PNG/MainMac3.png";
 import MainMac4 from "../../assets/img/PNG/MainMac4.png";
 import MainMac5 from "../../assets/img/PNG/MainMac5.png";
+import MainMacLow1 from "../../assets/img/PNG/MainMacLow1.png";
+import MainMacLow2 from "../../assets/img/PNG/MainMacLow2.png";
+import MainMacLow3 from "../../assets/img/PNG/MainMacLow3.png";
+import MainMacLow4 from "../../assets/img/PNG/MainMacLow4.png";
+import MainMacLow5 from "../../assets/img/PNG/MainMacLow5.png";
 import Arrow from "../../assets/img/SVG/Arrow.svg";
+import { ConveyorImg } from "./ConveyorImg";
 
-const images = [MainMac, MainMac2, MainMac3, MainMac4, MainMac5];
+const lowImages = [
+  MainMacLow1,
+  MainMacLow2,
+  MainMacLow3,
+  MainMacLow4,
+  MainMacLow5,
+];
+const highImages = [MainMac, MainMac2, MainMac3, MainMac4, MainMac5];
 
 export const Conveyor = () => {
   const [index, setIndex] = useState(0);
@@ -47,9 +60,9 @@ export const Conveyor = () => {
         <img src={Arrow} />
       </LeftArrowButton>
       <SlideContainer style={{ transform: `translateX(${index * 100}vw)` }}>
-        {images.map((image, idx) => (
+        {lowImages.map((_, idx) => (
           <Slide key={idx}>
-            <img src={image} alt={`Slide ${idx}`} />
+            <ConveyorImg lowSrc={lowImages[idx]} highSrc={highImages[idx]} />
           </Slide>
         ))}
       </SlideContainer>

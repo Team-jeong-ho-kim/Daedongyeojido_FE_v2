@@ -1,10 +1,11 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/MainPage/Footer";
 import Login from "../components/Header/Login";
 import { Conveyor } from "../components/MainPage/Conveyor";
-import Anything from "../assets/img/SVG/Anything.svg";
+import AnythingLow from "../assets/img/PNG/AnythingLow.png";
+import AnythingHigh from "../assets/img/PNG/AnythingHigh.png";
 import Macbook2 from "../assets/img/SVG/MacBook2.svg";
 import Quest from "../assets/img/SVG/Quest.svg";
 import Apply from "../assets/img/SVG/Apply.svg";
@@ -13,10 +14,29 @@ import { ScrollBox } from "../components/MainPage/ScrollBox";
 
 const Mainpage = () => {
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
+  const ref = useRef<HTMLImageElement>(null);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
+
+  function changeImg() {
+    if (ref.current) {
+      ref.current.src = AnythingHigh;
+    }
+  }
+
+  function loadImg() {
+    const newImg = new Image();
+    newImg.src = AnythingHigh;
+    newImg.addEventListener("load", function () {
+      changeImg();
+    });
+  }
+
+  useEffect(() => {
+    loadImg();
+  }, []);
 
   return (
     <Container>
@@ -49,7 +69,7 @@ const Mainpage = () => {
             <span>관리의 모든 것</span>
             하나로 관리하다
           </div>
-          <img src={Anything} />
+          <img src={AnythingLow} ref={ref} />
         </ThirdContainer>
       </ScrollBox>
       <ScrollBox>
