@@ -121,11 +121,11 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
             (part === "ADMIN" && (
               <LinkWp>
                 {notices.isCreateNotice ? (
-                  <Link href={`/NoticeModify/${user?.myClub}`}>
+                  <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
                     공고 만들기
                   </Link>
                 ) : (
-                  <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
+                  <Link href={`/NoticeModify/${user?.myClub}`}>
                     공고 만들기
                   </Link>
                 )}
