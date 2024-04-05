@@ -92,14 +92,15 @@ export const QuestionCustom = () => {
 };
 
 const Container = styled.div`
-  margin-left: 17.5%;
+  width: 100%;
+  max-width: 1220px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 27px;
-  width: 1219px;
+  width: 100%;
   margin-bottom: 100px;
 `;
 
@@ -148,12 +149,12 @@ const TotalNumber = styled.p`
 
 const InputWrapper = styled.div`
   position: relative;
-  width: 1219px;
+  width: 100%;
   height: 82px;
 `;
 
 const Input = styled.input`
-  width: 1219px;
+  width: 100%;
   height: 60px;
   border-radius: 10px;
   background: #f5f5f5;
@@ -184,13 +185,14 @@ const CompletionWrapper = styled.div`
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 7px;
+  width: 100%;
 `;
 
 const Completion = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 600px;
+  width: 100%;
   height: 46px;
   padding: 12px 30px;
   border-radius: 10px;

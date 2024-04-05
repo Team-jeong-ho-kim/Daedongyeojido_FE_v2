@@ -14,10 +14,11 @@ export const CustomBanner = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
+  max-width: 1220px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 17.5%;
 `;
 
 const Title = styled.p`
@@ -35,7 +36,7 @@ const Content = styled.p`
 `;
 
 const Banner = styled.img`
-  width: 78%;
+  width: 100%;
   height: 213px;
   border-radius: 15px;
 `;

@@ -24,11 +24,15 @@ export const CustomPage = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+`;
 
 const Wrapper = styled.div`
+  width: 100%;
   margin-top: 140px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 50px;
 `;
