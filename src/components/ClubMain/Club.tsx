@@ -56,7 +56,7 @@ const Container = styled.div`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
-  width: 1520px;
+  width: 1400px;
   justify-content: center;
   animation: ${fadeIn} 0.8s;
 `;

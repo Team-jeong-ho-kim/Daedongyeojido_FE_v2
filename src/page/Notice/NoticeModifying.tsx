@@ -807,7 +807,7 @@ const IVPBox = styled.div`
 
 const IVPImg = styled.img`
   width: 100%;
-  height: 150px;
+  height: 100%;
 `;
 
 const ApplyManual = styled.div`
