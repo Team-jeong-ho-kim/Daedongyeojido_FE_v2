@@ -144,9 +144,9 @@ const MyPage = () => {
   };
 
   const createTimeSet = (date: string) => {
-    let today = new Date().getTime();
-    let reDate = new Date(date.split(".")[0]).getTime();
-    let k = Math.floor(today - reDate);
+    const today = new Date().getTime();
+    const reDate = new Date(date.split(".")[0]).getTime();
+    const k = Math.floor(today - reDate);
     if (k >= 31536000000) {
       return `${Math.floor(
         today / (1000 * 60 * 60 * 24 * 365) -
@@ -207,7 +207,7 @@ const MyPage = () => {
   }, []);
 
   useEffect(() => {
-    let majorP = data?.major;
+    const majorP = data?.major;
     if (data) {
       switch (majorP) {
         case "UNDEFINED":
@@ -856,7 +856,7 @@ const AlarmText = styled.p`
 const AnnounceCenter = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1000px;
+  width: 80%;
   gap: 10px;
   margin-top: 86px;
   animation: ${fadeIn} 1s;
