@@ -218,7 +218,7 @@ const NoticeModifying: React.FC = () => {
           alert("성공적으로 수정되었습니다");
           console.log(res);
 
-          // link("/");
+          link("/");
         })
         .catch((err) => {
           console.log(err);
