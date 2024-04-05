@@ -21,7 +21,7 @@ export const Club = ({ clubs }: memberProps) => {
 
   const handleEditClick = (club: adminPageType) => {
     setSelectedClub(club);
-    handleItvToggle(!ivsdSelect);
+    handleItvToggle();
     setIsPlusMemberVisible(true);
   };
 
