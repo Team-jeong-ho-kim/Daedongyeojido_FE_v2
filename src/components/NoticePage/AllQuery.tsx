@@ -111,7 +111,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
         setNotId(search[0].id);
       }
     }
-  }, []);
+  }, [user]);
 
   return (
     <Container>
