@@ -52,6 +52,7 @@ const Container = styled.div`
 const ApplicantWrapper = styled.div`
   margin-top: 130px;
   width: 100%;
+  min-height: 400px;
   align-items: center;
   display: flex;
   flex-direction: column;
