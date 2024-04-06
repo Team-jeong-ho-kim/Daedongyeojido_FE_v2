@@ -37,7 +37,7 @@ const Replacing = (str: string) => {
 
 const Swiper: React.FC<Props> = ({ text }) => {
   const regex = /@@(.*?)@@|##(.*?)##|\$\$(.*?)\$\$|%%(.*?)%%/g;
-  let replaced = text.replace(regex, (match, p1, p2, p3, p4) => {
+  const replaced = text.replace(regex, (match, p1, p2, p3, p4) => {
     if (p1) return `<span class="accentRed">${p1}</span>`;
     else if (p2) return `<span class="accentYellow">${p2}</span>`;
     else if (p3) return `<span class="accentGreen">${p3}</span>`;

@@ -48,8 +48,8 @@ const Button = styled.img`
   position: fixed;
   bottom: 60px;
   right: 60px;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border: none;
   cursor: pointer;
   border-radius: 8px;
