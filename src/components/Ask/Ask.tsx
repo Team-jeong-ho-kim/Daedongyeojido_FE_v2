@@ -30,7 +30,7 @@ export const Ask = () => {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    let inputValue = e.target.value;
+    const inputValue = e.target.value;
     if (inputValue.startsWith("010")) {
       setData({
         ...data,
@@ -205,7 +205,7 @@ const Text = styled.p`
 `;
 
 const Input = styled.input`
-  width: 200px;
+  width: 100%;
   height: 24px;
   border-bottom: 1px solid #eaecef;
   cursor: text;
@@ -220,19 +220,19 @@ const Select = styled.select`
 `;
 
 const Textarea = styled.textarea`
-  width: 1014px;
+  width: 53%;
   height: 285px;
   resize: none;
   padding: 16px 18px;
   border-radius: 10px;
   background: #f6f7f8;
   color: #52585c;
-  font-size: 25px;
   font-weight: 500;
+  font-size: 18px;
   cursor: text;
-  & ::placeholder {
+  &::placeholder {
     color: #818181;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
   }
   &:focus::placeholder {
@@ -240,10 +240,9 @@ const Textarea = styled.textarea`
   }
 `;
 
-const Button = styled.div`
-  width: 134px;
+const Button = styled.button`
+  width: 7.1%;
   height: 49px;
-  padding: 12px 30px;
   border-radius: 4px;
   background: #52565d;
   color: white;
