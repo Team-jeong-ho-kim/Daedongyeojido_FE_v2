@@ -5,7 +5,7 @@ import Footer from "../components/MainPage/Footer";
 import Login from "../components/Header/Login";
 import { Conveyor } from "../components/MainPage/Conveyor";
 import Anything from "../assets/img/PNG/Anything.png";
-import Macbook2 from "../assets/img/SVG/MacBook2.svg";
+import MainMacLow1 from "../assets/img/PNG/MainMac.png";
 import Quest from "../assets/img/SVG/Quest.svg";
 import Apply from "../assets/img/SVG/Apply.svg";
 import Calendar from "../assets/img/SVG/Calendar.svg";
@@ -62,7 +62,7 @@ const Mainpage = () => {
             <br />
             간편하게
           </div>
-          <img src={Macbook2} />
+          <img src={MainMacLow1} />
         </FourthContainer>
       </ScrollBox>
       <ContainerBackground>

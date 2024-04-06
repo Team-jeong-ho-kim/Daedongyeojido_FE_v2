@@ -40,8 +40,6 @@ export const ApplicationWritePage = () => {
         if (
           user.myReport.find((report) => report.clubName == data.classNumber)
         ) {
-          //   alert("해당 공고에 대한 지원서를 작성한 기록이 남아있습니다.");
-          //   link("/Notices");
           return true;
         }
       }

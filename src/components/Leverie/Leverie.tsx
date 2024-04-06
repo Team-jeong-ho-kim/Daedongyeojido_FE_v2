@@ -108,11 +108,10 @@ const Textarea = styled.textarea`
   border-radius: 10px;
   background: #f6f7f8;
   color: #52585c;
-  font-size: 25px;
   font-weight: 500;
-  & ::placeholder {
+  &::placeholder {
     color: #818181;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
   }
 `;
