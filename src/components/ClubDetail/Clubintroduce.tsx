@@ -49,7 +49,7 @@ const Container = styled.div`
   display: flex;
   gap: 10%;
   align-items: center;
-  height: 620px;
+  min-height: 620px;
   padding: 0 17%;
 `;
 
@@ -81,15 +81,16 @@ const Tag = styled.p`
 `;
 
 const Content = styled.div`
-  width: 605px;
+  width: 25vw;
   color: #5e5e5e;
   font-size: 14px;
   font-weight: 400;
 `;
 
 const LogoImg = styled.img`
-  width: 60%;
-  height: 65%;
+  width: 35vw;
+  height: 20vw;
+  margin: 50px 0;
 `;
 
 const Dae = styled.div`

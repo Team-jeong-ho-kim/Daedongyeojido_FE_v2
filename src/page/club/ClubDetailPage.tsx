@@ -6,6 +6,7 @@ import Footer from "../../components/MainPage/Footer";
 import { Clubintroduce } from "../../components/ClubDetail/Clubintroduce";
 import { useState, useEffect } from "react";
 import ClubBanner from "../../assets/img/PNG/ClubBanner.png";
+import Daedongyeojido from "../../assets/img/PNG/Daedongyeojido.png";
 import { ClubMember } from "../../components/ClubDetail/ClubMember";
 import { QnA } from "../../components/ClubDetail/QnA";
 import { useParams } from "react-router-dom";
@@ -76,7 +77,11 @@ export const ClubDetailPage = () => {
         {data && (
           <>
             <SmallHeader currentPage={currentPage} />
-            <HeaderImg src={ClubBanner} />
+            <HeaderImg
+              src={
+                data.clubBannerUrl !== null ? data.clubBannerUrl : ClubBanner
+              }
+            />
             <SelectBar
               activeTab={activeTab}
               onTabChange={handleTabChange}
@@ -90,7 +95,11 @@ export const ClubDetailPage = () => {
                 title={data.title}
                 tags={data.tags}
                 introduction={data.introduction}
-                clubImageUrl={data.clubImageUrl}
+                clubImageUrl={
+                  data.clubImageUrl !== "" || data.clubImageUrl !== ""
+                    ? data.clubImageUrl
+                    : Daedongyeojido
+                }
                 clubName={data.clubName}
               />
             )}
@@ -157,8 +166,8 @@ const Wrapper = styled.div`
 `;
 
 const HeaderImg = styled.img`
-  width: 100%;
-  height: 350px;
+  width: 100vw;
+  height: 32.5vh;
 `;
 
 const Modal = styled.div`

@@ -85,7 +85,10 @@ const InterviewMod = () => {
 
   useEffect(() => {
     setSDate(
-      `${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.date}`
+      `${selectedDate.year}-${String(selectedDate.month + 1).padStart(
+        2,
+        "0"
+      )}-${String(selectedDate.date).padStart(2, "0")}`
     );
     console.log(selectedDate.year, selectedDate.month + 1, selectedDate.date);
   }, [selectedDate]);
@@ -436,6 +439,7 @@ const InterviewMod = () => {
           <Times>
             {data &&
               data.map((time) => {
+                console.log(sDate);
                 return (
                   <>
                     {time.interviewStartTime.split("T")[0] == sDate && (
