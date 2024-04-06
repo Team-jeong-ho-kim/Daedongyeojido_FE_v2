@@ -30,7 +30,19 @@ export const QuestionCustom = () => {
       return;
     }
     setYesQ({ noticeId: id ? parseInt(id) : 0, question });
-    if (YesQ) addQuestion(YesQ);
+    if ({ noticeId: id ? parseInt(id) : 0, question })
+      addQuestion({ noticeId: id ? parseInt(id) : 0, question })
+        .then((res) => {
+          console.log(res);
+          setQuestion("");
+          getQuestions(id ? parseInt(id) : 0).then((res) => {
+            setNoQ(res.data);
+            console.log(res.data);
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   const handleDeleteQuestion = (questId: number) => {
@@ -43,7 +55,7 @@ export const QuestionCustom = () => {
       setNoQ(res.data);
       console.log(res.data);
     });
-  }, [YesQ, deleteQuestion]);
+  }, [deleteQuestion]);
 
   return (
     <Container>
@@ -66,6 +78,7 @@ export const QuestionCustom = () => {
           <Input
             placeholder="추가할 질문을 작성해주세요."
             onChange={handleQuestionChange}
+            value={question}
           />
           <PlusIcon src={Plus} onClick={handleAddQuestion} />
         </InputWrapper>
