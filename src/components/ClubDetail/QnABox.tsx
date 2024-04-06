@@ -7,20 +7,37 @@ type PropType = {
   answer: string;
 };
 
+const Replacing = (str: string) => {
+  const returnStr = str.split("\n").map((line, index) => (
+    <div key={index}>
+      {line}
+      <br />
+    </div>
+  ));
+
+  return returnStr;
+};
+
 export const QnABox = ({ quest, answer }: PropType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <QnAWrapper opened={true}>
       <QnATop>
-        <Title>{quest}</Title>
+        <Title>
+          <EQE>Q.</EQE> <QnASol>{Replacing(quest)}</QnASol>
+        </Title>
         <ArrowImg
           src={DownArrow}
           opened={isOpen}
           onClick={() => setIsOpen(!isOpen)}
         />
       </QnATop>
-      {isOpen && <Content>{answer}</Content>}
+      {isOpen && (
+        <Content>
+          <EOE>A.</EOE> {Replacing(answer)}
+        </Content>
+      )}
     </QnAWrapper>
   );
 };
@@ -40,8 +57,8 @@ const QnAWrapper = styled.div<{
   display: flex;
   flex-direction: column;
   padding: 10px;
-  width: 80%;
-  height: ${({ opened }) => (opened ? "auto" : "45px")};
+  width: 70%;
+  min-height: ${({ opened }) => (opened ? "auto" : "45px")};
   border-bottom: 1px solid #eaecef;
   border-radius: 5px 5px 0 0;
   transition: box-shadow 0.2s ease, scale 0.1s;
@@ -55,8 +72,12 @@ const QnATop = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 45px;
+  min-height: 45px;
   padding: 10px;
+`;
+
+const QnASol = styled.div`
+  gap: 1px;
 `;
 
 const ArrowImg = styled.img<{
@@ -72,13 +93,28 @@ const ArrowImg = styled.img<{
 `;
 
 const Content = styled.p`
+  display: flex;
   padding-left: 10.5%;
+  color: #4e5558;
+  font-size: 20px;
+  font-weight: 500;
+  gap: 6px;
+`;
+
+const Title = styled.p`
+  display: flex;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const EOE = styled.p`
   color: #4e5558;
   font-size: 20px;
   font-weight: 500;
 `;
 
-const Title = styled.p`
+const EQE = styled.p`
   font-size: 20px;
   font-weight: 700;
 `;

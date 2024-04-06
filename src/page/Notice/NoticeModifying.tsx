@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { MajorType } from "../../types/type";
 import React from "react";
 import { createNotice, getDetailNotice, modifyNotice } from "../../apis/notice";
+import { Cookie } from "../../utils/cookie";
 
 interface Day {
   date: number;
@@ -21,6 +22,7 @@ interface Day {
 const NoticeModifying: React.FC = () => {
   const { clubName, id } = useParams();
   const link = useNavigate();
+  const part = Cookie.get("part");
   const [tip, setTip] = useState<boolean>(false);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [recru, setRecru] = useState<boolean>(false);
@@ -163,15 +165,37 @@ const NoticeModifying: React.FC = () => {
     setTip(!tip);
   };
 
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setData({
       ...data,
       [name]: value,
     });
+  };
+
+  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const lineCount = value.split("\n").length - 1;
+    if (lineCount <= 4) {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleClubExplainChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const inputValue = e.target.value;
+    const lineCount = inputValue.split("\n").length - 1;
+    if (lineCount <= 2) {
+      setData({
+        ...data,
+        clubExplain: inputValue,
+      });
+    }
   };
 
   const onChangeField = (
@@ -255,9 +279,12 @@ const NoticeModifying: React.FC = () => {
               maxLength={30}
               onChange={onChange}
               placeholder="공고 제목"
+              spellCheck={false}
             />
             <SaveButton
-              usable={"clubLeader"}
+              usable={
+                part == "ADMIN" || part == "CLUB_LEADER" ? "clubLeader" : "none"
+              }
               onClick={() => {
                 onSubmit();
               }}
@@ -272,6 +299,7 @@ const NoticeModifying: React.FC = () => {
             maxLength={45}
             onChange={onChange}
             placeholder="공고 부제목"
+            spellCheck={false}
           />
         </NoticeTop>
         <ClubExplainBox>
@@ -279,11 +307,16 @@ const NoticeModifying: React.FC = () => {
             <ClubExplainInput
               name="clubExplain"
               value={data.clubExplain}
-              maxLength={300}
+              maxLength={500}
               cols={100}
-              rows={3}
-              onChange={onChange}
+              onChange={handleClubExplainChange}
               placeholder="동아리 소개"
+              spellCheck={false}
+              style={{
+                height: `${
+                  Math.min(3, data.clubExplain.split("\n").length) * 25.5 + 3
+                }px`,
+              }}
             />
           </ClubExplain>
           <I>
@@ -324,8 +357,11 @@ const NoticeModifying: React.FC = () => {
               {fields &&
                 fields.map((_field, index) => (
                   <div key={index}>
-                    <Select onChange={(e) => onChangeField(e, index, "major")}>
-                      <option value={fields[index].major} disabled selected>
+                    <Select
+                      value={fields[index].major}
+                      onChange={(e) => onChangeField(e, index, "major")}
+                    >
+                      <option value="" disabled selected>
                         모집 전공
                       </option>
                       <option value="FRONT">frontend</option>
@@ -346,6 +382,7 @@ const NoticeModifying: React.FC = () => {
                       onChange={(e) => onChangeField(e, index, "todo")}
                       maxLength={50}
                       placeholder="모집 이유"
+                      spellCheck={false}
                     />
                     <Delete
                       onClick={() => {
@@ -395,6 +432,7 @@ const NoticeModifying: React.FC = () => {
                   maxLength={50}
                   onChange={onChange}
                   placeholder="지원방법 작성"
+                  spellCheck={false}
                 />
               </ApplyManuals>
               <ApplyManuals>
@@ -414,8 +452,9 @@ const NoticeModifying: React.FC = () => {
               name="weWant"
               value={data.weWant}
               placeholder="인재상 작성"
-              maxLength={300}
-              onChange={onChange}
+              maxLength={1000}
+              onChange={onTextChange}
+              spellCheck={false}
             />
           </WeWantAndAssignment>
           <WeWantAndAssignment>
@@ -424,8 +463,9 @@ const NoticeModifying: React.FC = () => {
               name="assignment"
               value={data.assignment}
               placeholder="과제 작성"
-              maxLength={300}
-              onChange={onChange}
+              maxLength={1000}
+              onChange={onTextChange}
+              spellCheck={false}
             />
           </WeWantAndAssignment>
           <Report>
@@ -434,8 +474,9 @@ const NoticeModifying: React.FC = () => {
               name="inquiry"
               value={data.inquiry}
               placeholder="문의사항 작성"
-              maxLength={300}
-              onChange={onChange}
+              maxLength={1000}
+              onChange={onTextChange}
+              spellCheck={false}
             />
           </Report>
         </Inbox>
@@ -715,6 +756,7 @@ const ClubExplain = styled.div`
 `;
 
 const ClubExplainInput = styled.textarea`
+  min-height: 25px;
   font-size: 20px;
   font-weight: 500;
   line-height: normal;
@@ -923,10 +965,10 @@ const Report = styled.div`
 
 const WWAATextarea = styled.textarea`
   width: 100%;
-  height: 153px;
+  min-height: 153px;
   font-size: 18px;
   font-weight: 300;
-  line-height: normal;
+  line-height: 22.5px;
   border-radius: 10px;
   padding: 15px 24px;
   background-color: #f8f8f8;

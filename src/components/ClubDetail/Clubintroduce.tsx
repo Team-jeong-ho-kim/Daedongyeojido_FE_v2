@@ -15,21 +15,32 @@ export const Clubintroduce = ({
 }: PropType) => {
   return (
     <Container>
-      <Text>
-        <Title>{clubName}</Title>
-        <OneLine>{title}</OneLine>
-        <TagWrapper>
-          {tags.map((tag, index) => {
-            return (
-              <Tag key={index}>
-                {tag == "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
-              </Tag>
-            );
-          })}
-        </TagWrapper>
-        <Content>{introduction}</Content>
-      </Text>
-      <LogoImg src={clubImageUrl ?? undefined} />
+      {introduction && title ? (
+        <>
+          <Text>
+            <Title>{clubName}</Title>
+            <OneLine>{title}</OneLine>
+            <TagWrapper>
+              {tags.map((tag, index) => {
+                return (
+                  <Tag key={index}>
+                    {tag == "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
+                  </Tag>
+                );
+              })}
+            </TagWrapper>
+            <Content>{introduction}</Content>
+          </Text>
+          <LogoImg src={clubImageUrl ?? undefined} />
+        </>
+      ) : (
+        <Hyeok>
+          <Dae>
+            동아리 정보가 없습니다.
+            <Sang>{clubName}에서는 당신을 원합니다.</Sang>
+          </Dae>
+        </Hyeok>
+      )}
     </Container>
   );
 };
@@ -39,7 +50,7 @@ const Container = styled.div`
   gap: 10%;
   align-items: center;
   height: 620px;
-  padding: 0px 17%;
+  padding: 0 17%;
 `;
 
 const Text = styled.p`
@@ -79,4 +90,31 @@ const Content = styled.div`
 const LogoImg = styled.img`
   width: 60%;
   height: 65%;
+`;
+
+const Dae = styled.div`
+  width: 600px;
+  height: 350px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 21px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+`;
+
+const Sang = styled.div`
+  color: #c4c7cd;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+const Hyeok = styled.div`
+  width: 66vw;
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+  align-items: center;
 `;

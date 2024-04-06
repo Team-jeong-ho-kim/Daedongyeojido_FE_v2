@@ -32,10 +32,11 @@ const QuestBox = ({ questionId, question, answer }: ClubQuestionsGetType) => {
       onClick={() => {
         if (isIn) return;
         setIsOpen(!isOpen);
-      }}>
-      <div>
+      }}
+    >
+      <Div>
         {question} {!!!answer && <Strong>( 답변하지 않은 질문입니다 )</Strong>}
-      </div>
+      </Div>
       <Input
         placeholder="답변을 작성해주세요"
         onMouseEnter={() => {
@@ -56,7 +57,8 @@ const QuestBox = ({ questionId, question, answer }: ClubQuestionsGetType) => {
           }}
           onMouseLeave={() => {
             setIsIn(false);
-          }}>
+          }}
+        >
           제출
         </Button>
       )}
@@ -78,16 +80,24 @@ const QuestionBox = styled.div<{ isOpen: boolean }>`
   font-weight: 500;
   cursor: pointer;
   overflow: hidden;
+  user-select: none;
   flex: none;
 `;
 
+const Div = styled.div`
+  cursor: pointer;
+`;
+
 const Input = styled.input`
-  width: 600px;
-  height: 40px;
-  padding-left: 10px;
+  max-width: 600px;
+  min-height: 40px;
+  padding: 10px;
   border: 1px solid #f3f4f5;
   border-radius: 5px;
   margin-top: 20px;
+  margin-right: 10px;
+  cursor: text;
+  overflow: hidden;
 `;
 
 const Button = styled.div`
@@ -105,4 +115,5 @@ const Button = styled.div`
 
 const Strong = styled.span`
   color: red;
+  cursor: pointer;
 `;
