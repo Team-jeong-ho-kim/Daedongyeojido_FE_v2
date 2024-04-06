@@ -73,6 +73,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 53px;
+  min-height: 250px;
 `;
 
 const Wrapper = styled.div`

@@ -33,7 +33,10 @@ function MainRouter() {
           path="/NoticeModify/:clubName/:id"
           element={<NoticeModifyPage />}
         />
-        <Route path="/InterviewTimeMod" element={<InterviewTimeMod />} />
+        <Route
+          path="/InterviewTimeMod/:clubName"
+          element={<InterviewTimeMod />}
+        />
         <Route
           path="/ApplicationWrite/:id"
           element={<ApplicationWritePage />}

@@ -3,21 +3,13 @@ import { useState, useEffect } from "react";
 import Plus from "../../assets/img/SVG/Plus.svg";
 import Delete from "../../assets/img/SVG/Delete.svg";
 import { addQuestion, getQuestions, deleteQuestion } from "../../apis/notice";
-import { QuestionsType, CustomQuests } from "../../types/type";
+import { CustomQuests } from "../../types/type";
 import { useParams } from "react-router-dom";
 
 export const QuestionCustom = () => {
   const [NoQ, setNoQ] = useState<CustomQuests[]>([]);
-  const [, setYesQ] = useState<QuestionsType>();
   const { id } = useParams();
   const [question, setQuestion] = useState<string>("");
-
-  const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    if (inputValue.length <= 50) {
-      setQuestion(inputValue);
-    }
-  };
 
   const handleAddQuestion = () => {
     if (question == "") {
@@ -26,10 +18,9 @@ export const QuestionCustom = () => {
     }
     if (NoQ.length >= 15) {
       alert("질문은 최대 15개까지 추가할 수 있습니다.");
-      NoQ.slice(15, Infinity);
+      setNoQ(NoQ.slice(0, 15));
       return;
     }
-    setYesQ({ noticeId: id ? parseInt(id) : 0, question });
     if ({ noticeId: id ? parseInt(id) : 0, question })
       addQuestion({ noticeId: id ? parseInt(id) : 0, question })
         .then((res) => {
@@ -77,8 +68,9 @@ export const QuestionCustom = () => {
         <InputWrapper>
           <Input
             placeholder="추가할 질문을 작성해주세요."
-            onChange={handleQuestionChange}
-            value={question}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setQuestion(e.target.value);
+            }}
           />
           <PlusIcon src={Plus} onClick={handleAddQuestion} />
         </InputWrapper>
@@ -195,6 +187,7 @@ const PlusIcon = styled.img`
 
 const CompletionWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 7px;
@@ -205,7 +198,7 @@ const Completion = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 49%;
   height: 46px;
   padding: 12px 30px;
   border-radius: 10px;

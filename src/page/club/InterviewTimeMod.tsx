@@ -2,24 +2,15 @@ import styled from "styled-components";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import { LeftArrow } from "../../assets";
-import { useState, useEffect } from "react";
-import { getMyInfo } from "../../apis/user";
-import { MyInfoType } from "../../types/type";
+import { useState } from "react";
 import InterviewMod from "../../components/NoticePage/InterviewMod";
 
 const InterviewTimeMod = () => {
-  const [user, setUser] = useState<MyInfoType>();
   const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
   };
-
-  useEffect(() => {
-    getMyInfo().then((res) => {
-      setUser(res.data);
-    });
-  });
 
   return (
     <Container>
@@ -40,7 +31,7 @@ const InterviewTimeMod = () => {
           <Title>면접 시간 선택</Title>
           <Content>신입생 지원자의 면접 시간을 선택하고 수정해보세요</Content>
         </div>
-        <InterviewMod clubName={user?.myClub} />
+        <InterviewMod />
       </Body>
       ㅣ
       <Footer />

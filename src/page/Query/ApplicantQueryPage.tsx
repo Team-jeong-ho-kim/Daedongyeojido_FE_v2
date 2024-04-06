@@ -5,10 +5,11 @@ import Footer from "../../components/MainPage/Footer";
 import { ApplicantType } from "../../types/type";
 import { useEffect, useState } from "react";
 import { getApplicant } from "../../apis/report";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ApplicantQueryPage = () => {
   const { clubName } = useParams();
+  const link = useNavigate();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [query, setQuery] = useState<ApplicantType[]>([]);
   const handleLoginToggle = () => {
@@ -18,6 +19,10 @@ export const ApplicantQueryPage = () => {
   useEffect(() => {
     if (clubName) {
       getApplicant(clubName).then((res) => {
+        if (res.data.length <= 0) {
+          alert("지원자가 없습니다.");
+          link(`/ClubDetail/${clubName}`);
+        }
         setQuery(res.data);
         console.log(res.data);
       });

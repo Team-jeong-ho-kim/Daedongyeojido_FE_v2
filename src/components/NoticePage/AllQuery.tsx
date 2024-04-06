@@ -134,7 +134,9 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
                 {notId ? (
                   <Link href={`/Custom/${notId}`}>지원서 커스텀</Link>
                 ) : null}
-                <Link href="/InterviewTimeMod">면접 시간 설정</Link>
+                <Link href={`/InterviewTimeMod/${user?.myClub}`}>
+                  면접 시간 설정
+                </Link>
               </LinkWp>
             ))}
         </LinkWrapper>

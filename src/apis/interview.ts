@@ -18,7 +18,7 @@ export const patchITVmodify = async (
   clubName: string,
   times: InterviewTimePatchType[]
 ) => {
-  return await instance.patch(`/interview/Modify-time/${clubName}`, times);
+  return await instance.patch(`/interview/modify-time/${clubName}`, times);
 };
 
 export const deleteITVtime = async (interviewTime: number) => {

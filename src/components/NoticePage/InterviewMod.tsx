@@ -7,15 +7,12 @@ import { deleteITVtime, getClubITVquery } from "../../apis/interview";
 import { patchITVmodify } from "../../apis/interview";
 import { InterviewTimeType } from "../../types/type";
 import { InterviewTimePatchType } from "../../types/type";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Day {
   date: number;
   month: number;
   year: number;
-}
-
-interface Props {
-  clubName: string | undefined;
 }
 
 const daysInMonth = (month: number, year: number): number => {
@@ -41,7 +38,9 @@ const monthNames: string[] = [
   "December",
 ];
 
-const InterviewMod: React.FC<Props> = ({ clubName }) => {
+const InterviewMod = () => {
+  const { clubName } = useParams();
+  const link = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -81,6 +80,7 @@ const InterviewMod: React.FC<Props> = ({ clubName }) => {
     } else {
       setSelectedDate({ date, month: currentMonth, year: currentYear });
     }
+    console.log(patchTimes);
   };
 
   useEffect(() => {
@@ -350,7 +350,7 @@ const InterviewMod: React.FC<Props> = ({ clubName }) => {
     patchTimes.map((time) => {
       if (time.interviewStartTime.split("T")[0] == sDate) m++;
     });
-    console.log(patchTimes);
+    console.log(newPatch);
     if (m >= 6) {
       alert("날짜별로 면접 시간은 최대 6개만 추가할 수 있습니다.");
       return;
@@ -362,6 +362,7 @@ const InterviewMod: React.FC<Props> = ({ clubName }) => {
     if (clubName) {
       patchITVmodify(clubName, patchTimes);
       alert("수정되었습니다.");
+      link("/Notices");
     }
   };
 
@@ -374,18 +375,7 @@ const InterviewMod: React.FC<Props> = ({ clubName }) => {
         })
         .catch((err) => console.error(err));
     }
-  });
-
-  useEffect(() => {
-    if (clubName) {
-      getClubITVquery(clubName)
-        .then((res) => {
-          setData(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [data]);
+  }, []);
 
   return (
     <Container>
@@ -462,9 +452,10 @@ const InterviewMod: React.FC<Props> = ({ clubName }) => {
                               if (clubName) {
                                 getClubITVquery(clubName).then((res) => {
                                   setData(res.data);
+                                  console.log(res.data);
                                 });
                               }
-                            }, [data]);
+                            }, []);
                           }}
                         />
                       </Time>
