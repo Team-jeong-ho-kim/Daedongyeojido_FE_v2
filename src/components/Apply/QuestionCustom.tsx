@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 export const QuestionCustom = () => {
   const [NoQ, setNoQ] = useState<CustomQuests[]>([]);
-  const [YesQ, setYesQ] = useState<QuestionsType>();
+  const [, setYesQ] = useState<QuestionsType>();
   const { id } = useParams();
   const [question, setQuestion] = useState<string>("");
 
