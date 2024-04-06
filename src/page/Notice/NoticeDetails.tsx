@@ -24,9 +24,20 @@ const WaveText = keyframes`
   100% { transform: translateY(0); }
 `;
 
+const Replacing = (str: string) => {
+  const returnStr = str.split("\n").map((line, index) => (
+    <div key={index}>
+      {line}
+      <br />
+    </div>
+  ));
+
+  return returnStr;
+};
+
 const Swiper: React.FC<Props> = ({ text }) => {
   const regex = /@@(.*?)@@|##(.*?)##|\$\$(.*?)\$\$|%%(.*?)%%/g;
-  const replaced = text.replace(regex, (match, p1, p2, p3, p4) => {
+  let replaced = text.replace(regex, (match, p1, p2, p3, p4) => {
     if (p1) return `<span class="accentRed">${p1}</span>`;
     else if (p2) return `<span class="accentYellow">${p2}</span>`;
     else if (p3) return `<span class="accentGreen">${p3}</span>`;
@@ -34,8 +45,19 @@ const Swiper: React.FC<Props> = ({ text }) => {
     return match;
   });
 
-  return <ReplacedText dangerouslySetInnerHTML={{ __html: replaced }} />;
+  const liter = replaced.split("\n").map((line, index) => (
+    <NoDiv key={index}>
+      <ReplacedText dangerouslySetInnerHTML={{ __html: line }} />
+    </NoDiv>
+  ));
+  console.log(liter);
+
+  return liter;
 };
+
+const NoDiv = styled.div`
+  height: 28.8px;
+`;
 
 const ReplacedText = styled.p`
   font-size: 20px;
@@ -236,15 +258,15 @@ const NoticeDetails = () => {
               </ApplyManual>
               <WeWantAndAssignment id="WeWant">
                 <Alltitle>{data.clubName}'s 인재상</Alltitle>
-                <WWAAContent>{data.weWant}</WWAAContent>
+                <WWAAContent>{Replacing(data.weWant)}</WWAAContent>
               </WeWantAndAssignment>
               <WeWantAndAssignment id="Assignment">
                 <Alltitle>{data.clubName}'s 과제</Alltitle>
-                <WWAAContent>{data.assignment}</WWAAContent>
+                <WWAAContent>{Replacing(data.assignment)}</WWAAContent>
               </WeWantAndAssignment>
               <Report>
                 <Alltitle>문의사항</Alltitle>
-                <Contents>{data.inquiry}</Contents>
+                <Contents>{Replacing(data.inquiry)}</Contents>
               </Report>
             </Inbox>
           </Body>
@@ -473,6 +495,7 @@ const DeleteButton = styled.button<{
 const ClubExplainBox = styled.div`
   height: 488px;
   display: flex;
+  flex-direction: column;x
   width: 100%;
   justify-content: center;
   align-items: center;

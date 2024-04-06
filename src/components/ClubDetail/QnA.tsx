@@ -41,25 +41,35 @@ export const QnA = ({ questResponses }: PropType) => {
 
   return (
     <Container>
-      {questResponses &&
+      {questResponses.length > 0 ? (
         questResponses.map((quest, index) => {
           return (
             <QnABox key={index} quest={quest.question} answer={quest.answer} />
           );
-        })}
+        })
+      ) : (
+        <Hyeok>
+          <Dae>
+            Q&A가 없습니다.
+            <Sang>{clubName}에 궁금한 것들을 질문해보세요.</Sang>
+          </Dae>
+        </Hyeok>
+      )}
       {isOpen && (
         <ModalWrapper
           onClick={() => {
             if (isIn) return;
             setIsOpen(false);
-          }}>
+          }}
+        >
           <Modal
             onMouseEnter={() => {
               setIsIn(true);
             }}
             onMouseLeave={() => {
               setIsIn(false);
-            }}>
+            }}
+          >
             <ModalTitle>{clubName}에게 질문하기</ModalTitle>
             <TextArea
               placeholder="질문을 작성해주세요"
@@ -141,6 +151,7 @@ const TextArea = styled.textarea`
   border-radius: 5px;
   border: 1px #eaecef solid;
   padding: 14px 16px;
+  cursor: text;
 `;
 
 const Button = styled.div`
@@ -162,4 +173,32 @@ const PlusImg = styled.img`
   width: 55px;
   height: 55px;
   margin-left: 87%;
+  cursor: pointer;
+`;
+
+const Dae = styled.div`
+  width: 600px;
+  height: 350px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 21px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+`;
+
+const Sang = styled.div`
+  color: #c4c7cd;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+const Hyeok = styled.div`
+  width: 66vw;
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+  align-items: center;
 `;
