@@ -96,7 +96,7 @@ export const ClubDetailPage = () => {
                 tags={data.tags}
                 introduction={data.introduction}
                 clubImageUrl={
-                  data.clubImageUrl !== "" || data.clubImageUrl !== ""
+                  data.clubImageUrl !== null && data.clubImageUrl !== ""
                     ? data.clubImageUrl
                     : Daedongyeojido
                 }
