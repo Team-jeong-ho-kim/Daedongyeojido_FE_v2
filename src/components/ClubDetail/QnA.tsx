@@ -102,10 +102,10 @@ const fadeIn = keyframes`
 `;
 
 const Container = styled.div`
-  margin-left: 17%;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  padding: 50px 0px;
+  padding: 5% 0px;
 `;
 
 const ModalWrapper = styled.div`
@@ -172,7 +172,7 @@ const Button = styled.div`
 const PlusImg = styled.img`
   width: 55px;
   height: 55px;
-  margin-left: 87%;
+  margin-left: 84%;
   cursor: pointer;
 `;
 
