@@ -33,6 +33,8 @@ export const ApplicationQueryPage = () => {
   };
 
   const handlePassW = () => {
+    if (data?.reportPassingResult !== "WAIT") return;
+
     if (confirm(`정말 ${data?.name} 학생을 서류합격시키겠습니까?`)) {
       if (id) {
         const reportId = parseInt(id);
@@ -47,6 +49,8 @@ export const ApplicationQueryPage = () => {
   };
 
   const handleFailL = () => {
+    if (data?.reportPassingResult !== "WAIT") return;
+
     if (confirm(`정말 ${data?.name} 학생을 불합격시키겠습니까?`)) {
       if (id) {
         const reportId = parseInt(id);
@@ -59,6 +63,8 @@ export const ApplicationQueryPage = () => {
     }
     setSelected("fail");
   };
+
+  // const handleCancel = () => {};
 
   useEffect(() => {
     if (id) {

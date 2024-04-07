@@ -30,6 +30,8 @@ export const Memo = ({ reportId }: { reportId: number }) => {
   };
 
   const handleULTPass = () => {
+    if (memo?.interviewPassingResult !== "WAIT") return;
+
     if (confirm(`정말 ${memo?.name} 학생을 최종합격시키겠습니까?`)) {
       if (reportId) {
         postITVresult({
@@ -42,6 +44,8 @@ export const Memo = ({ reportId }: { reportId: number }) => {
   };
 
   const handleULTFail = () => {
+    if (memo?.interviewPassingResult !== "WAIT") return;
+
     if (confirm(`정말 ${memo?.name} 학생을 최종탈락시키겠습니까?`)) {
       if (reportId) {
         postITVresult({
