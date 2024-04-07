@@ -72,6 +72,7 @@ const MyPage = () => {
   const handleLogout = () => {
     Cookie.remove("accessToken");
     Cookie.remove("refreshToken");
+    Cookie.remove("part");
     window.location.href = "/";
   };
 
@@ -318,13 +319,13 @@ const MyPage = () => {
                 <MyInfo_Menu>
                   <ApplyDetail>
                     <Ball1
-                      isApplyDetail={page == "ApplyDetail" ? true : false}
-                    ></Ball1>
+                      isApplyDetail={
+                        page == "ApplyDetail" ? true : false
+                      }></Ball1>
                     <Text1
                       isApplyDetail={page == "ApplyDetail" ? true : false}
                       id="ApplyDetail"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       지원내역
                     </Text1>
                   </ApplyDetail>
@@ -333,20 +334,17 @@ const MyPage = () => {
                     <Text2
                       isAlarm={page == "Alarm" ? true : false}
                       id="Alarm"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       알림
                     </Text2>
                   </Alarm>
                   <Announce>
                     <Ball3
-                      isAnnounce={page == "Announce" ? true : false}
-                    ></Ball3>
+                      isAnnounce={page == "Announce" ? true : false}></Ball3>
                     <Text3
                       isAnnounce={page == "Announce" ? true : false}
                       id="Announce"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       공지사항
                     </Text3>
                   </Announce>
@@ -377,8 +375,7 @@ const MyPage = () => {
                             key={report.id}
                             onClick={() =>
                               link(`/ApplicationQuery/${report.id}`)
-                            }
-                          >
+                            }>
                             <ApplyDetails>
                               <ApplyName>{report.clubName}</ApplyName>
                               <ApplyData>
@@ -458,8 +455,7 @@ const MyPage = () => {
                                 <InterviewScheduleSelect
                                   onClick={() =>
                                     handleIvsdSelectToggle(alarm.alarmId)
-                                  }
-                                >
+                                  }>
                                   면접 시간 선택
                                 </InterviewScheduleSelect>
                               </AlarmName>
