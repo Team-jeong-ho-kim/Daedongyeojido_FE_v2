@@ -61,8 +61,9 @@ const GradeWrapper = styled.div`
 `;
 
 const MemberWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 420px 420px 420px);
+  flex-wrap: wrap;
+  padding: 0px 12%;
+  display: flex;
   column-gap: 80px;
   row-gap: 28px;
 `;
