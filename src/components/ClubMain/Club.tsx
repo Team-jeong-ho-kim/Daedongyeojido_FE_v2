@@ -17,7 +17,8 @@ export const Club = ({ clubs }: ClubsProps) => {
             key={index}
             onClick={() => {
               link(`/ClubDetail/${club.clubName}`);
-            }}>
+            }}
+          >
             <ClubLogo src={club.clubImageUrl} />
             <ClubName>{club.clubName}</ClubName>
             <ClubInfo>{club.title}</ClubInfo>
@@ -33,7 +34,8 @@ export const Club = ({ clubs }: ClubsProps) => {
         {Array.from({ length: fakeItemsCount }, (_, index) => (
           <ClubWrapper
             key={`fake-${index}`}
-            style={{ visibility: "hidden" }}></ClubWrapper>
+            style={{ visibility: "hidden" }}
+          ></ClubWrapper>
         ))}
       </Container>
     </Diver>
