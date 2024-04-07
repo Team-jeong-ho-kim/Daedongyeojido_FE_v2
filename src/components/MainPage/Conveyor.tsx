@@ -105,7 +105,7 @@ const Slide = styled.div`
 
 const LeftArrowButton = styled.div`
   position: absolute;
-  left: 180px;
+  left: 10%;
   transform: rotate(180deg);
   width: 60px;
   height: 60px;
@@ -118,7 +118,7 @@ const LeftArrowButton = styled.div`
 
 const RightArrowButton = styled.div`
   position: absolute;
-  right: 180px;
+  right: 10%;
   width: 60px;
   height: 60px;
   img {
