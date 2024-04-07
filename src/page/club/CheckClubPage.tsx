@@ -61,6 +61,7 @@ const Container = styled.div``;
 
 const Wrapper = styled.div`
   margin-top: 60px;
+  min-height: 300px;
 `;
 
 const Welcome = styled.p`
