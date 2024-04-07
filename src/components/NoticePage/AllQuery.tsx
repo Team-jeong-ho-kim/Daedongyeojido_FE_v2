@@ -119,26 +119,23 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
     <Container>
       <SearchWrapper>
         <LinkWrapper>
-          {part === "CLUB_LEADER" ||
-            (part === "ADMIN" && (
-              <LinkWp>
-                {notices.isCreateNotice ? (
-                  <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
-                    공고 만들기
-                  </Link>
-                ) : (
-                  <Link href={`/NoticeModify/${user?.myClub}`}>
-                    공고 만들기
-                  </Link>
-                )}
-                {notId ? (
-                  <Link href={`/Custom/${notId}`}>지원서 커스텀</Link>
-                ) : null}
-                <Link href={`/InterviewTimeMod/${user?.myClub}`}>
-                  면접 시간 설정
+          {part === "CLUB_LEADER" || part === "ADMIN" ? (
+            <LinkWp>
+              {notices.isCreateNotice ? (
+                <Link onClick={() => alert("이미 만들어진 공고가 있습니다.")}>
+                  공고 만들기
                 </Link>
-              </LinkWp>
-            ))}
+              ) : (
+                <Link href={`/NoticeModify/${user?.myClub}`}>공고 만들기</Link>
+              )}
+              {notId ? (
+                <Link href={`/Custom/${notId}`}>지원서 커스텀</Link>
+              ) : null}
+              <Link href={`/InterviewTimeMod/${user?.myClub}`}>
+                면접 시간 설정
+              </Link>
+            </LinkWp>
+          ) : null}
         </LinkWrapper>
         <div>
           <Search
