@@ -137,7 +137,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
             </LinkWp>
           ) : null}
         </LinkWrapper>
-        <div>
+        <InputWrapper>
           <Search
             placeholder="찾고싶은 동아리나 공고를 입력해보세요."
             value={searchValue}
@@ -151,7 +151,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
               setHide(false);
             }}
           />
-        </div>
+        </InputWrapper>
       </SearchWrapper>
       <Slabber>
         <SlabWrap>
@@ -215,6 +215,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
 const Container = styled.div``;
 
 const SearchWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -261,8 +262,12 @@ const Link = styled.a`
   cursor: pointer;
 `;
 
+const InputWrapper = styled.div`
+  width: 60%;
+`;
+
 const Search = styled.input`
-  width: 1153px;
+  width: 100%;
   height: 53px;
   padding: 16px 31px;
   border: 1px solid #d9d9d9;

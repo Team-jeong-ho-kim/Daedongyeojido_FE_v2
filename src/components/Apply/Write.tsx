@@ -53,6 +53,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
     });
   };
 
+  console.log(handleWrite);
+
   const handleAnswerChange = (index: number, value: string) => {
     const questionId = write.questions[index].id;
     const updatedAnswers = [...answers];
@@ -178,19 +180,22 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
 const Container = styled.div`
   width: 100%;
   padding-bottom: 80px;
-  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Top = styled.div`
+  width: 70%;
   height: 208px;
   display: flex;
   align-items: end;
   padding-bottom: 34px;
-  gap: 44%;
+  justify-content: space-between;
 `;
 
 const Content = styled.p`
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
 `;
 
@@ -221,11 +226,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 114px;
-  width: 1462px;
+  width: 70%;
   height: auto;
   border-radius: 10px;
   border: 3px solid #eaecef;
-  padding: 60px 55px;
+  padding: 42px 59px;
 `;
 
 const IntroduceWrapper = styled.div`
@@ -241,13 +246,13 @@ const InfoWrapper = styled.div`
 `;
 
 const Name = styled.p`
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 700;
 `;
 
 const Number = styled.p`
   color: #64686f;
-  font-size: 30px;
+  font-size: 14px;
   font-weight: 700;
 `;
 
@@ -271,14 +276,14 @@ const Major = styled.p<{ selected?: boolean }>`
 `;
 
 const Introduce = styled.textarea`
-  width: 1351px;
+  width: 100%;
   height: 391px;
   resize: none;
   padding: 35px 30px;
   border-radius: 10px;
   background: #f6f7f8;
   color: #52585c;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
   cursor: text;
   &:focus::placeholder {
@@ -298,7 +303,7 @@ const Title = styled.p`
 `;
 
 const Line = styled.div`
-  width: 1351px;
+  width: 100%;
   border: 1px solid #eaecef;
 `;
 
@@ -322,17 +327,17 @@ const O = styled.div`
 `;
 
 const Question = styled.p`
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 400;
 `;
 
 const Input = styled.input`
-  width: 1275px;
+  width: 100%;
   height: 82px;
   border-radius: 10px;
   background: #f6f7f8;
   color: #52585c;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 500;
   padding: 25px 27px;
 `;
