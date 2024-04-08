@@ -185,7 +185,7 @@ const fadeIn = keyframes`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1154px;
+  width: 60%;
   background-color: #ffffff;
   margin-bottom: 80px;
   animation: ${fadeIn} 1s ease forwards;
@@ -194,8 +194,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1154px;
+  width: 100%;
   height: 167px;
+  gap: 10%;
   background-color: #ffffff;
   padding: 37px 50px;
   border-top: 0.5px solid #d9d9d9;
@@ -211,7 +212,7 @@ const ClubName = styled.p`
   color: #f46254;
   font-size: 16px;
   font-weight: 500;
-  width: 75px;
+  width: 11%;
 `;
 
 const DateWrapper = styled.div`

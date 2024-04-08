@@ -155,24 +155,22 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
       </SearchWrapper>
       <Slabber>
         <SlabWrap>
-          <FilterWrapper>
-            <Filter onChange={handleSelectMajor}>
-              <Opt value="UNDEFINED" selected>
-                전체
-              </Opt>
-              <Opt value="FRONT">프론트엔드</Opt>
-              <Opt value="BACK">백엔드</Opt>
-              <Opt value="IOS">IOS</Opt>
-              <Opt value="AND">안드로이드</Opt>
-              <Opt value="FLUTTER">플러터</Opt>
-              <Opt value="EMBEDDED">임베디드</Opt>
-              <Opt value="AI">AI</Opt>
-              <Opt value="SECURITY">정보 보안</Opt>
-              <Opt value="DEVOPS">DevOps</Opt>
-              <Opt value="DESIGN">디자인</Opt>
-              <Opt value="GAME">게임</Opt>
-            </Filter>
-          </FilterWrapper>
+          <Filter onChange={handleSelectMajor}>
+            <Opt value="UNDEFINED" selected>
+              전체
+            </Opt>
+            <Opt value="FRONT">프론트엔드</Opt>
+            <Opt value="BACK">백엔드</Opt>
+            <Opt value="IOS">IOS</Opt>
+            <Opt value="AND">안드로이드</Opt>
+            <Opt value="FLUTTER">플러터</Opt>
+            <Opt value="EMBEDDED">임베디드</Opt>
+            <Opt value="AI">AI</Opt>
+            <Opt value="SECURITY">정보 보안</Opt>
+            <Opt value="DEVOPS">DevOps</Opt>
+            <Opt value="DESIGN">디자인</Opt>
+            <Opt value="GAME">게임</Opt>
+          </Filter>
         </SlabWrap>
       </Slabber>
       <NoticeWrapper>
@@ -235,7 +233,7 @@ const Slabber = styled.div`
 `;
 
 const SlabWrap = styled.div`
-  width: 1153px;
+  width: 60%;
   display: flex;
   justify-content: flex-start;
 `;
@@ -248,7 +246,7 @@ const LinkWrapper = styled.div`
 
 const LinkWp = styled.div`
   display: flex;
-  width: 1153px;
+  width: 60%;
   justify-content: flex-end;
   gap: 3px;
 `;
@@ -303,11 +301,6 @@ const Icon = styled.img<{
   }
 `;
 
-const FilterWrapper = styled.div`
-  display: flex;
-  gap: 13px;
-`;
-
 const Filter = styled.select`
   border-radius: 4px;
   border: 1px solid #e5e7e9;
@@ -332,7 +325,7 @@ const NoticeWrapper = styled.div`
 `;
 
 const TotalBox = styled.div`
-  width: 1154px;
+  width: 60%;
   height: 60px;
   padding: 20px 50px;
   background-color: #ffffff;
