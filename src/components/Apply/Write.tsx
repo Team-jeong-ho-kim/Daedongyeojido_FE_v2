@@ -22,6 +22,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
   const [answers, setAnswers] = useState<reportQests[]>([]);
   const [selectedMajor, setSelectedMajor] = useState<MajorType>("BACK");
 
+  console.log(write);
+
   const handleWrite = () => {
     if (introduceText == "") {
       alert("자기소개를 작성해주세요.");
@@ -31,6 +33,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
       alert("모든 면접 질문에 응답해주세요.");
       return;
     }
+
+    console.log(answers);
 
     const reportQuests = answers.map((answer: reportQests) => {
       return {
@@ -50,9 +54,11 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
   };
 
   const handleAnswerChange = (index: number, value: string) => {
+    const questionId = write.questions[index].id;
     const updatedAnswers = [...answers];
     updatedAnswers[index] = {
       ...updatedAnswers[index],
+      noticeQuestId: questionId,
       answer: value,
     };
     setAnswers(updatedAnswers);
@@ -129,8 +135,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
                     return (
                       <Major
                         onClick={() => handleMajorClick(major.major)}
-                        selected={selectedMajor === major.major}
-                      >
+                        selected={selectedMajor === major.major}>
                         {majorType(major.major)}
                       </Major>
                     );
@@ -143,8 +148,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
             value={introduceText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setIntroduceText(e.target.value)
-            }
-          ></Introduce>
+            }></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>
