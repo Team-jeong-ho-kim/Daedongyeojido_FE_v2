@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MajorType } from "../../types/type";
+import { ProfileNone } from "../../assets";
 
 type PropType = {
   name: string;
@@ -16,7 +17,13 @@ export const Member = ({
 }: PropType) => {
   return (
     <Container>
-      <Image src={profileImageUrl ?? undefined} />
+      <Image
+        src={
+          profileImageUrl !== null && profileImageUrl !== ""
+            ? profileImageUrl
+            : ProfileNone
+        }
+      />
       <TextWrapper>
         <Name>{name}</Name>
         <Major>{major}</Major>

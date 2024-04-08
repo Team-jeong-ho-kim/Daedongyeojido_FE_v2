@@ -592,6 +592,7 @@ const Container2 = styled.div`
 const CenterBox = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
 `;
 
 const LeftBox = styled.div`
@@ -599,39 +600,45 @@ const LeftBox = styled.div`
   padding-top: 62px;
   padding-right: 77px;
   justify-content: flex-end;
-  width: 30%;
+  width: 30vw;
   height: 1020px;
   border: 1px solid #eaecef;
   position: fixed;
-  left: 0.33%;
+  left: 0;
 `;
 
 const RightBox = styled.div`
-  position: relative;
-  width: 70%;
+  position: absolute;
+  width: 70vw;
   height: 1020px;
   border: 1px solid #eaecef;
   padding-left: 79px;
   padding-top: 70px;
   user-select: none;
-  left: 30%;
+  left: 30vw;
 `;
 
 const NoApply = styled.div`
   display: flex;
-  position: absolute;
-  top: 179px;
-  left: 470px;
+  width: 100%;
+  margin-top: 8vh;
+  padding-right: 79px;
   flex-direction: column;
   align-items: center;
   animation: ${fadeIn} 1s;
+  @media screen and (min-width: 2560px) {
+    margin-top: 4vh;
+  }
+  @media screen and (min-width: 3840px) {
+    margin-top: 2vh;
+  }
 `;
 
 const NoAlarm = styled.div`
   display: flex;
-  position: absolute;
-  top: 179px;
-  left: 550px;
+  width: 100%;
+  margin-top: 8vh;
+  padding-right: 79px;
   flex-direction: column;
   align-items: center;
   animation: ${fadeIn} 1s;
@@ -639,9 +646,9 @@ const NoAlarm = styled.div`
 
 const NoAnno = styled.div`
   display: flex;
-  position: absolute;
-  top: 179px;
-  left: 536px;
+  width: 100%;
+  margin-top: 8vh;
+  padding-right: 79px;
   flex-direction: column;
   align-items: center;
   animation: ${fadeIn} 1s;

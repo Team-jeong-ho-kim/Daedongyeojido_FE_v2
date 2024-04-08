@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Trashcan from "../../assets/img/SVG/Trashcan.svg";
 import Photo from "../../assets/img/SVG/Photo.svg";
 import { ClubDetailsType } from "../../types/type";
+import { handleImageChange } from "../../utils/handleImageChange";
+import { createImage } from "../../apis/image";
 
 interface Update {
   club: ClubDetailsType;
@@ -10,8 +12,10 @@ interface Update {
 }
 
 const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
-  const [bannerImg, setBannerImg] = useState<string>(club.clubBannerUrl);
-  const [introImg, setIntroImg] = useState<string>(club.clubImageUrl);
+  const [bannerImg, setBannerImg] = useState<Blob | null>();
+  const [introImg, setIntroImg] = useState<Blob | null>();
+  const [reBanner, setReBenner] = useState<string>(club.clubBannerUrl);
+  const [reIntro, setReIntro] = useState<string>(club.clubImageUrl);
 
   const handleBannerUpload = () => {
     const bannerInput: HTMLElement | null = document.getElementById("banner");
@@ -22,17 +26,11 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
     const bannerInput: HTMLElement | null | any =
       document.getElementById("banner");
     if (bannerInput) bannerInput.value = "";
-    setBannerImg("");
+    setBannerImg(null);
   };
 
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedImage = e.target.files[0];
-      if (selectedImage) {
-        setBannerImg(URL.createObjectURL(selectedImage));
-        imgLoad([bannerImg, introImg]);
-      }
-    }
+    handleImageChange(e, setBannerImg);
   };
 
   const handleIntroUpload = () => {
@@ -44,18 +42,28 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
     const introInput: HTMLElement | null | any =
       document.getElementById("introd");
     if (introInput) introInput.value = "";
-    setIntroImg("");
+    setIntroImg(null);
   };
 
   const handleIntrodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedImage = e.target.files[0];
-      if (selectedImage) {
-        setIntroImg(URL.createObjectURL(selectedImage));
-        imgLoad([bannerImg, introImg]);
-      }
-    }
+    handleImageChange(e, setIntroImg);
   };
+
+  useEffect(() => {
+    if (!bannerImg) return;
+    createImage(bannerImg).then((res) => {
+      imgLoad([res.data.imageUrl, reIntro]);
+      setReBenner(res.data.imageUrl);
+    });
+  }, [bannerImg]);
+
+  useEffect(() => {
+    if (!introImg) return;
+    createImage(introImg).then((res) => {
+      imgLoad([reBanner, res.data.imageUrl]);
+      setReIntro(res.data.imageUrl);
+    });
+  }, [introImg]);
 
   return (
     <ImgSelecter>
@@ -69,7 +77,7 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
               <Visual>이미지 크기: 1920px×350px</Visual>
             </>
           )}
-          {bannerImg && <BannerImage src={bannerImg} alt="" />}
+          {bannerImg && <BannerImage src={reBanner} alt="" />}
         </Center>
         <input
           type="file"
@@ -89,7 +97,7 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
               <Visual>이미지 크기: 1920px×1170px</Visual>
             </>
           )}
-          {introImg && <IntroImage src={introImg} alt="" />}
+          {introImg && <IntroImage src={reIntro} alt="" />}
         </Center>
         <input
           type="file"

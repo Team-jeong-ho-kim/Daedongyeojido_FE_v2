@@ -43,9 +43,9 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
           전공동아리 상세 보기
         </Text2>
       </Wrapper>
-      {(part === "CLUB_LEADER" || part === "ADMIN") &&
-      clubName == data?.myClub ? (
-        <Modify href={`/ClubInfoModify/${data?.myClub}`}>수정하기</Modify>
+      {(part === "CLUB_LEADER" && clubName == data?.myClub) ||
+      part === "ADMIN" ? (
+        <Modify href={`/ClubInfoModify/대동여지도`}>수정하기</Modify>
       ) : null}
     </Container>
   );

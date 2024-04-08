@@ -1,7 +1,5 @@
-import { ChangeEvent } from "react";
-
 export const handleImageChange = (
-  event: ChangeEvent<HTMLInputElement>,
+  event: React.ChangeEvent<HTMLInputElement>,
   func: (file: Blob) => void
 ) => {
   const files = event.target.files;

@@ -17,23 +17,27 @@ export const Club = ({ clubs }: ClubsProps) => {
             key={index}
             onClick={() => {
               link(`/ClubDetail/${club.clubName}`);
-            }}>
+            }}
+          >
             <ClubLogo src={club.clubImageUrl} />
-            <ClubName>{club.clubName}</ClubName>
-            <ClubInfo>{club.title}</ClubInfo>
-            <TagWrapper>
-              {club.tags.map((tag, index) => (
-                <ClubTag key={index}>
-                  {tag === "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
-                </ClubTag>
-              ))}
-            </TagWrapper>
+            <CC>
+              <ClubName>{club.clubName}</ClubName>
+              <ClubInfo>{club.title}</ClubInfo>
+              <TagWrapper>
+                {club.tags.map((tag, index) => (
+                  <ClubTag key={index}>
+                    {tag === "#" ? "" : tag.startsWith("#") ? tag : `#${tag}`}
+                  </ClubTag>
+                ))}
+              </TagWrapper>
+            </CC>
           </ClubWrapper>
         ))}
         {Array.from({ length: fakeItemsCount }, (_, index) => (
           <ClubWrapper
             key={`fake-${index}`}
-            style={{ visibility: "hidden" }}></ClubWrapper>
+            style={{ visibility: "hidden" }}
+          ></ClubWrapper>
         ))}
       </Container>
     </Diver>
@@ -69,7 +73,6 @@ const Container = styled.div`
 const ClubWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 223px;
   height: 220px;
   margin-bottom: 80px;
@@ -79,6 +82,13 @@ const ClubWrapper = styled.div`
     transform: translateY(-4px);
     box-shadow: 0 4px 3px rgba(0, 0, 0, 0.4);
   }
+`;
+const CC = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 3px;
+  gap: 10px;
+  cursor: pointer;
 `;
 
 const ClubLogo = styled.img`

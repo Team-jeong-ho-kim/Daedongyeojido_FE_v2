@@ -6,7 +6,7 @@ import ClubImgEditor from "../../components/ClubMain/ClubImgEditor";
 import ClubTagLoader from "../../components/ClubMain/ClubTagLoader";
 import LeftArrow from "../../assets/img/PNG/LeftArrow.png";
 import { getDetailClub, patchClub } from "../../apis/club";
-import { ClubDetailsType } from "../../types/type";
+import { ClubDetailsType, ClubInfoModType } from "../../types/type";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -76,14 +76,20 @@ const ClubInfoMod = () => {
 
   const handleSave = () => {
     if (!clubName) return;
-    patchClub({
+    let tag = tagz.filter((t) => t != "");
+    Patch({
       clubName: clubName,
       title: explain,
       introduction: longExp,
       clubBanner: clubBanner,
       clubImageUrl: clubImage,
-      tags: tagz,
-    })
+      tags: tag,
+    });
+  };
+
+  const Patch = (data: ClubInfoModType) => {
+    console.log(data);
+    patchClub(data)
       .then((res) => {
         console.log(res);
         link(`/ClubDetail/${clubName}`);
