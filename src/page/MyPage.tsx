@@ -196,7 +196,7 @@ const MyPage = () => {
           .then((res) => {
             console.log(res.data);
 
-            setGetAnnounce(res.data);
+            setGetAnnounce(res.data.reverse());
           })
           .catch((err) => {
             console.log(err);
