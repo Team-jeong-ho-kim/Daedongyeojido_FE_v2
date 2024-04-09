@@ -879,7 +879,6 @@ const ApplyManuals = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 25px;
 `;
 
 const ApplyManualsInput = styled.input`
@@ -929,10 +928,34 @@ const RecruitmentDays = styled.p`
 `;
 
 const Content = styled.div`
-  width: 9%;
+  width: 10%;
   display: flex;
   align-items: center;
   gap: 8px;
+  @media (max-width: 1700px) {
+    width: 15%;
+  }
+  @media (max-width: 1650px) {
+    width: 20%;
+  }
+  @media (max-width: 1490px) {
+    width: 25%;
+  }
+  @media (max-width: 1400px) {
+    width: 30%;
+  }
+  @media (max-width: 1340px) {
+    width: 35%;
+  }
+  @media (max-width: 1290px) {
+    width: 40%;
+  }
+  @media (max-width: 1250px) {
+    width: 45%;
+  }
+  @media (max-width: 1210px) {
+    width: 50%;
+  }
 `;
 
 const Contents = styled.p`

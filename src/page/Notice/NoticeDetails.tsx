@@ -156,19 +156,22 @@ const NoticeDetails = () => {
             <RCMinfo
               href="#Recruitment"
               selected={isSelected}
-              onClick={handleSelectRCMinfo}>
+              onClick={handleSelectRCMinfo}
+            >
               모집정보
             </RCMinfo>
             <IDTalent
               href="#WeWant"
               selected={isSelected}
-              onClick={handleSelectIDTalent}>
+              onClick={handleSelectIDTalent}
+            >
               인재상
             </IDTalent>
             <Assign
               href="#Assignment"
               selected={isSelected}
-              onClick={handleSelectAssignment}>
+              onClick={handleSelectAssignment}
+            >
               동아리 과제
             </Assign>
           </HeaderFrame>
@@ -183,7 +186,8 @@ const NoticeDetails = () => {
                     }
                     onClick={() => {
                       link(`/ApplicationWrite/${id}`);
-                    }}>
+                    }}
+                  >
                     지원하기
                   </ApplyButton>
                   <Done usable={aReportId ? "applyer" : "else"}>
@@ -197,7 +201,8 @@ const NoticeDetails = () => {
                     }
                     onClick={() => {
                       link(`/NoticeModify/${user?.myClub}/${id}`);
-                    }}>
+                    }}
+                  >
                     수정하기
                   </ModifyButton>
                   <DeleteButton
@@ -206,7 +211,8 @@ const NoticeDetails = () => {
                         ? "clubLeader"
                         : "else"
                     }
-                    onClick={handleDeleting}>
+                    onClick={handleDeleting}
+                  >
                     삭제하기
                   </DeleteButton>
                 </IsButton>
