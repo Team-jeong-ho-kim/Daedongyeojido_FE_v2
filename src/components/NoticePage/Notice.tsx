@@ -213,6 +213,12 @@ const ClubName = styled.p`
   font-size: 16px;
   font-weight: 500;
   width: 11%;
+  @media (max-width: 1660px) {
+    font-size: 14px;
+  }
+  @media (max-width: 1560px) {
+    font-size: 12px;
+  }
 `;
 
 const DateWrapper = styled.div`
