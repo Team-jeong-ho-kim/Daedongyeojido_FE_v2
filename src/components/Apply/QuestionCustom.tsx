@@ -68,6 +68,7 @@ export const QuestionCustom = () => {
         <InputWrapper>
           <Input
             placeholder="추가할 질문을 작성해주세요."
+            value={question}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setQuestion(e.target.value);
             }}
