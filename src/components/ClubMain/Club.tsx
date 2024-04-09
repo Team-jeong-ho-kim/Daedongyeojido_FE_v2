@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { ClubType, ClubsProps } from "../../types/type";
 import { useNavigate } from "react-router-dom";
+import DefaultLogo from "../../assets/img/PNG/defaultLogo.png";
 
 export const Club = ({ clubs }: ClubsProps) => {
   const link = useNavigate();
@@ -17,9 +18,8 @@ export const Club = ({ clubs }: ClubsProps) => {
             key={index}
             onClick={() => {
               link(`/ClubDetail/${club.clubName}`);
-            }}
-          >
-            <ClubLogo src={club.clubImageUrl} />
+            }}>
+            <ClubLogo src={club.clubImageUrl ?? DefaultLogo} />
             <CC>
               <ClubName>{club.clubName}</ClubName>
               <ClubInfo>{club.title}</ClubInfo>
@@ -36,8 +36,7 @@ export const Club = ({ clubs }: ClubsProps) => {
         {Array.from({ length: fakeItemsCount }, (_, index) => (
           <ClubWrapper
             key={`fake-${index}`}
-            style={{ visibility: "hidden" }}
-          ></ClubWrapper>
+            style={{ visibility: "hidden" }}></ClubWrapper>
         ))}
       </Container>
     </Diver>
