@@ -59,7 +59,8 @@ export const ClubMainBanner = ({ banners }: ClubsBannerProps) => {
             <BannerExplain
               key={index}
               $isActive={index === img}
-              onClick={() => setImg(index)}>
+              onClick={() => setImg(index)}
+            >
               {banner.bannerTitle}
             </BannerExplain>
           ))}
@@ -155,4 +156,15 @@ const BannerExplain = styled.div<{ $isActive: boolean }>`
   font-size: 12px;
   padding: 9px 20px;
   cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  &:hover {
+    background-color: #ff2d6a;
+    color: #fff;
+  }
+  &:active {
+    background-color: #ff2d6a;
+    color: #fff;
+    scale: 0.92;
+  }
 `;

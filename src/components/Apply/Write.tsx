@@ -137,7 +137,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
                     return (
                       <Major
                         onClick={() => handleMajorClick(major.major)}
-                        selected={selectedMajor === major.major}>
+                        selected={selectedMajor === major.major}
+                      >
                         {majorType(major.major)}
                       </Major>
                     );
@@ -150,7 +151,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
             value={introduceText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setIntroduceText(e.target.value)
-            }></Introduce>
+            }
+          ></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>
@@ -212,12 +214,12 @@ const Button = styled.div`
   background: #52565d;
   cursor: pointer;
   user-select: none;
-  transition: scale 0.1s, box-shadow 0.1s;
+  transition: filter 0.2s ease, scale 0.2s;
   &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
   }
   &:active {
+    filter: brightness(70%);
     scale: 0.9;
   }
 `;

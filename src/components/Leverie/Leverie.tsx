@@ -124,5 +124,14 @@ const Button = styled.button`
   color: white;
   font-size: 20px;
   font-weight: 400;
+  cursor: pointer;
   margin-left: 46%;
+  transition: filter 0.2s ease, scale 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(70%);
+    scale: 0.9;
+  }
 `;

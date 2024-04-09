@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
 import Plus from "../../assets/img/SVG/Plus.svg";
 import Delete from "../../assets/img/SVG/Delete.svg";
@@ -97,9 +97,21 @@ export const QuestionCustom = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-50px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   max-width: 1220px;
+  animation: ${fadeIn} 1s;
 `;
 
 const Wrapper = styled.div`

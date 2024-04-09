@@ -5,7 +5,7 @@ import { SelectBar } from "../../components/ClubDetail/SelectBar";
 import Footer from "../../components/MainPage/Footer";
 import { Clubintroduce } from "../../components/ClubDetail/Clubintroduce";
 import { useState, useEffect } from "react";
-import Banner from "../../assets/img/PNG/Banner.png";
+import { Banner } from "../../assets";
 import Daedongyeojido from "../../assets/img/PNG/Daedongyeojido.png";
 import { ClubMember } from "../../components/ClubDetail/ClubMember";
 import { QnA } from "../../components/ClubDetail/QnA";
@@ -169,7 +169,8 @@ const Wrapper = styled.div`
 
 const HeaderImg = styled.img`
   width: 100vw;
-  height: 32.5vh;
+  height: 18.25vw;
+  overflow: hidden;
 `;
 
 const Modal = styled.div`

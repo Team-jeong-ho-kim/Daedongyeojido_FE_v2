@@ -146,7 +146,17 @@ export const PlusMember: React.FC<Props> = ({
             <NameNumber>{element.userName}</NameNumber>
             <NameNumber>{element.classNumber}</NameNumber>
             <NameNumber>
-              {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
+              {element.part === "ADMIN"
+                ? "관리자"
+                : element.part === "CLUB_LEADER"
+                ? "동아리장"
+                : element.part === "TEACHER"
+                ? "담당 선생님"
+                : element.part === "CLUB_MEMBER"
+                ? "동아리원"
+                : element.part === "CLUB_LEADER_TEACHER"
+                ? "동아리 전담 선생님"
+                : "무소속"}
             </NameNumber>
             <NameNumber>{element.major}</NameNumber>
             <Icon
@@ -287,6 +297,14 @@ const SaveBtn = styled.div`
   color: #ffffff;
   font-size: 16px;
   cursor: pointer;
+  transition: scale 0.2s, filter 0.2s ease;
+  &:hover {
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(70%);
+    scale: 0.9;
+  }
 `;
 
 const Bottom = styled.div`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MajorType } from "../../types/type";
-import { ProfileNone } from "../../assets";
+import { Logo } from "../../assets";
 
 type PropType = {
   name: string;
@@ -21,7 +21,7 @@ export const Member = ({
         src={
           profileImageUrl !== null && profileImageUrl !== ""
             ? profileImageUrl
-            : ProfileNone
+            : Logo
         }
       />
       <TextWrapper>
@@ -48,12 +48,16 @@ const TextWrapper = styled.div`
   width: 269px;
   height: 150px;
   border-radius: 0px 10px 10px 0px;
-  background: #f7f7f7;
+  background-color: #fff;
   padding-left: 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 8px;
+  transition: background-color 0.25s;
+  &:hover {
+    background-color: #f7f7f7;
+  }
 `;
 
 const Name = styled.p`

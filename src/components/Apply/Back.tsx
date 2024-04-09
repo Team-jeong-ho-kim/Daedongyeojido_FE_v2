@@ -6,8 +6,10 @@ export const Back = () => {
   const link = useNavigate();
   return (
     <Container>
-      <Icon src={BackIcon} onClick={() => link("/Notices")} />
-      <Text onClick={() => link("/Notices")}>뒤로가기</Text>
+      <Div onClick={() => link("/Notices")}>
+        <Icon src={BackIcon} onClick={() => link("/Notices")} />
+        <Text onClick={() => link("/Notices")}>뒤로가기</Text>
+      </Div>
     </Container>
   );
 };
@@ -15,7 +17,6 @@ export const Back = () => {
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 6px;
   width: 100%;
   height: 40px;
   padding-left: 10.5%;
@@ -24,13 +25,22 @@ const Container = styled.div`
   background-color: #fff;
 `;
 
+const Div = styled.div`
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+  align-items: center;
+`;
+
 const Icon = styled.img`
   width: 6px;
   height: 11px;
+  cursor: pointer;
 `;
 
 const Text = styled.p`
   color: #4e5968;
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;

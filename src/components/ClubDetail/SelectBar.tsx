@@ -19,12 +19,14 @@ export const SelectBar: React.FC<SelectBarProps> = ({
       <div>
         <Text
           active={activeTab === "동아리 소개"}
-          onClick={() => onTabChange("동아리 소개")}>
+          onClick={() => onTabChange("동아리 소개")}
+        >
           동아리 소개
         </Text>
         <Text
           active={activeTab === "동아리원"}
-          onClick={() => onTabChange("동아리원")}>
+          onClick={() => onTabChange("동아리원")}
+        >
           동아리원
         </Text>
         <Text active={activeTab === "QnA"} onClick={() => onTabChange("QnA")}>
@@ -66,4 +68,9 @@ const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  &:hover {
+    filter: invert(25%);
+  }
 `;

@@ -83,6 +83,7 @@ export type AlarmPostType = {
 
 export type MyAlarmType = {
   alarmId: number;
+  reportId: number;
   title: string;
   contents: string;
   clubName: string;

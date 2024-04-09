@@ -19,7 +19,7 @@ import { Cookie } from "../utils/cookie";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
-  const [page, setPage] = useState<string>("ApplyDetail");
+  const [page, setPage] = useState<string>("Announce");
   const [getAlarm, setGetAlarm] = useState<MyAlarmType[]>();
   const [getAnnounce, setGetAnnounce] = useState<AnnouncementType[]>();
   const [ivsdSelect, setIvsdSelect] = useState<boolean>(false);
@@ -325,28 +325,6 @@ const MyPage = () => {
                 </MyInfoplus>
                 <B></B>
                 <MyInfo_Menu>
-                  <ApplyDetail>
-                    <Ball1
-                      isApplyDetail={page == "ApplyDetail" ? true : false}
-                    ></Ball1>
-                    <Text1
-                      isApplyDetail={page == "ApplyDetail" ? true : false}
-                      id="ApplyDetail"
-                      onClick={handlePage}
-                    >
-                      지원내역
-                    </Text1>
-                  </ApplyDetail>
-                  <Alarm>
-                    <Ball2 isAlarm={page == "Alarm" ? true : false}></Ball2>
-                    <Text2
-                      isAlarm={page == "Alarm" ? true : false}
-                      id="Alarm"
-                      onClick={handlePage}
-                    >
-                      알림
-                    </Text2>
-                  </Alarm>
                   <Announce>
                     <Ball3
                       isAnnounce={page == "Announce" ? true : false}
@@ -359,6 +337,28 @@ const MyPage = () => {
                       공지사항
                     </Text3>
                   </Announce>
+                  <Alarm>
+                    <Ball2 isAlarm={page == "Alarm" ? true : false}></Ball2>
+                    <Text2
+                      isAlarm={page == "Alarm" ? true : false}
+                      id="Alarm"
+                      onClick={handlePage}
+                    >
+                      알림
+                    </Text2>
+                  </Alarm>
+                  <ApplyDetail>
+                    <Ball1
+                      isApplyDetail={page == "ApplyDetail" ? true : false}
+                    ></Ball1>
+                    <Text1
+                      isApplyDetail={page == "ApplyDetail" ? true : false}
+                      id="ApplyDetail"
+                      onClick={handlePage}
+                    >
+                      지원내역
+                    </Text1>
+                  </ApplyDetail>
                 </MyInfo_Menu>
                 <B></B>
                 <Logout>
@@ -467,7 +467,7 @@ const MyPage = () => {
                                   <AlarmPassed>서류합격</AlarmPassed>
                                   <InterviewScheduleSelect
                                     onClick={() =>
-                                      handleIvsdSelectToggle(alarm.alarmId)
+                                      handleIvsdSelectToggle(alarm.reportId)
                                     }
                                   >
                                     면접 시간 선택
@@ -613,8 +613,8 @@ const CenterBox = styled.div`
 
 const LeftBox = styled.div`
   display: flex;
-  padding-top: 62px;
-  padding-right: 77px;
+  padding-top: 3.25vw;
+  padding-right: 4vw;
   justify-content: flex-end;
   width: 30vw;
   height: 1020px;
@@ -809,9 +809,8 @@ const AlarmPass = styled.div`
   height: 90px;
   animation: ${fadeIn} 1s;
   border-radius: 0 5px;
-  transition: box-shadow 0.2s ease, scale 0.1s;
+  transition: box-shadow 0.2s;
   &:hover {
-    scale: 1.01;
     box-shadow: 0 0 0 1px #d4d6de;
   }
 `;
@@ -859,10 +858,10 @@ const InterviewScheduleSelect = styled.button`
   font-weight: 300;
   line-height: 8px;
   cursor: pointer;
-  transition: box-shadow 0.1s;
+  transition: filter 0.2s;
   &:hover {
-    box-shadow: 0 0 0 0.5px #000;
-  }
+    filter: brightness(70%);
+  }}
 `;
 
 const AlarmText = styled.p`
@@ -1163,13 +1162,12 @@ const LogoutB = styled.button`
   color: #fff;
   font-weight: 400;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, scale 0.1s;
+  transition: filter 0.2s, scale 0.1s;
   &:hover {
-    box-shadow: 0 0 0 2px #a3a5aa;
-    scale: 1.1;
+    filter: brightness(70%);
   }
   &:active {
-    box-shadow: 0 0 0 0;
+    filter: brightness(100%);
     scale: 0.75;
     background-color: #f00;
   }

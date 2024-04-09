@@ -6,7 +6,6 @@ import x from "../../assets/img/SVG/x.svg";
 import { deleteITVtime, getClubITVquery } from "../../apis/interview";
 import { patchITVmodify } from "../../apis/interview";
 import { InterviewTimeType } from "../../types/type";
-import { InterviewTimePatchType } from "../../types/type";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface Day {
@@ -58,7 +57,6 @@ const InterviewMod = () => {
     }-${new Date().getDate()}`
   );
   const [data, setData] = useState<InterviewTimeType[]>([]);
-  const [patchTimes, setPatchTimes] = useState<InterviewTimePatchType[]>([]);
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
 
@@ -80,7 +78,6 @@ const InterviewMod = () => {
     } else {
       setSelectedDate({ date, month: currentMonth, year: currentYear });
     }
-    console.log(patchTimes);
   };
 
   useEffect(() => {
@@ -338,16 +335,16 @@ const InterviewMod = () => {
     }
   };
 
-  const handlePush = () => {
+  const handlePush = async () => {
     const newPatch = [
-      ...patchTimes,
+      ...data,
       {
         interviewStartTime: `${sDate}T${start}:00`,
         interviewEndTime: `${sDate}T${end}:00`,
       },
     ];
     let m = 0;
-    patchTimes.map((time) => {
+    data.map((time) => {
       if (time.interviewStartTime.split("T")[0] == sDate) m++;
     });
     console.log(newPatch);
@@ -355,39 +352,46 @@ const InterviewMod = () => {
       alert("날짜별로 면접 시간은 최대 6개만 추가할 수 있습니다.");
       return;
     }
-    setPatchTimes(newPatch);
-    if (clubName) patchITVmodify(clubName, patchTimes);
+    if (clubName) {
+      await patchITVmodify(clubName, newPatch);
+      fetchData();
+    }
   };
 
   const handlePatch = () => {
     if (clubName) {
-      alert("수정되었습니다.");
       link("/Notices");
     }
   };
 
-  useEffect(() => {
-    if (clubName) {
-      getClubITVquery(clubName)
-        .then((res) => {
-          setPatchTimes(res.data);
-          setData(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => console.error(err));
+  const handleDeleteTime = async (id: number) => {
+    try {
+      if (clubName) {
+        await deleteITVtime({
+          clubName: clubName,
+          interviewTimeId: id,
+        });
+        fetchData();
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  };
+
+  const fetchData = async () => {
+    try {
+      if (clubName) {
+        const res = await getClubITVquery(clubName);
+        setData(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    if (clubName) {
-      getClubITVquery(clubName)
-        .then((res) => {
-          setData(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [patchTimes]);
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -459,7 +463,7 @@ const InterviewMod = () => {
                         <Del
                           src={x}
                           onClick={() => {
-                            if (clubName) deleteITVtime(time.interviewTimeId);
+                            handleDeleteTime(time.interviewTimeId);
                           }}
                         />
                       </Time>
@@ -680,10 +684,9 @@ const Adding = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  transition: filter 0.2s ease;
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 5px rgba (0, 0, 0, 0.5);
+    filter: brightness(70%);
   }
 `;
 
@@ -755,10 +758,9 @@ const Plus = styled.button<{
   font-weight: 700;
   line-height: normal;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  transition: filter 0.2s ease;
   &:hover {
-    transform: translateY(${({ isAll }) => (isAll ? "-2px" : "0")});
-    box-shadow: 0 0 5px rgba (0, 0, 0, 0.5);
+    filter: brightness(${({ isAll }) => (isAll ? "70%" : "100%")});
   }
 `;
 

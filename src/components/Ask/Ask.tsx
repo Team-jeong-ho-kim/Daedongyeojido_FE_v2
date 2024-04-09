@@ -250,9 +250,12 @@ const Button = styled.button`
   font-weight: 400;
   margin-left: 46%;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: filter 0.2s ease, scale 0.2s;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(70%);
+    scale: 0.9;
   }
 `;

@@ -42,7 +42,6 @@ const monthNames: string[] = [
 ];
 
 const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
-  console.log(reportID);
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -56,13 +55,15 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
   );
   const [itvTime, setItvTime] = useState<InterviewTimeType[]>([]);
   const [selectedTimeId, setSelectedTimeId] = useState<number>(-1);
-  const [sDate, setSDate] = useState<string>("1970-01-01");
+  const [sDate, setSDate] = useState<string>(
+    `${selectedDate.year}-${String(selectedDate.month + 1).padStart(
+      2,
+      "0"
+    )}-${String(selectedDate.date).padStart(2, "0")}`
+  );
   const [sTime, setSTime] = useState<string>("00:00:00");
 
   const handleClose = () => {
-    setSelectedTimeId(-1);
-    setSDate("1970-01-01");
-    setSTime("00:00:00");
     handleItvToggle();
   };
 
@@ -82,13 +83,12 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
         currentMonth === 11 ? prevYear + 1 : prevYear
       );
     } else {
-      setSelectedDate({ date, month: currentMonth, year: currentYear });
-      setSDate(
-        `${selectedDate.year}-${String(selectedDate.month + 1).padStart(
-          2,
-          "0"
-        )}-${String(selectedDate.date).padStart(2, "0")}`
-      );
+      const newSelected: Day = { date, month: currentMonth, year: currentYear };
+      setSelectedDate(newSelected);
+      const newSDate = `${newSelected.year}-${String(
+        newSelected.month + 1
+      ).padStart(2, "0")}-${String(newSelected.date).padStart(2, "0")}`;
+      setSDate(newSDate);
     }
   };
 
@@ -197,7 +197,7 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       confirm(
         `선택한 시간을 면접 날짜 및 시간으로 확정하시겠습니까?\n${
@@ -207,22 +207,31 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
         )}일 ${sTime}`
       )
     ) {
-      postITVtime({
-        reportId: selectedTimeId,
+      await postITVtime({
+        reportId: reportID,
         interviewTimeId: selectedTimeId,
       });
       handleClose();
     } else return;
   };
 
+  const fetchData = async () => {
+    try {
+      const res = await getITVquery(reportID);
+      setItvTime(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    getITVquery(14)
-      .then((res) => {
-        setItvTime(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, [selectedDate]);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [sDate]);
 
   return (
     <Container>
@@ -558,13 +567,13 @@ const Time = styled.div<{
   align-items: center;
   border: 1px solid #eceef1;
   border-radius: 5px;
+  cursor: pointer;
   color: ${({ isSelected }) => (isSelected ? "#fff" : "#000")};
   background-color: ${({ isSelected }) => (isSelected ? "#fe4650" : "#fff")};
-  transition: box-shadow 0.2s, transform 0.2s ease, color 0.2s,
-    background-color 0.2s ease;
+  transition: color 0.2s, background-color 0.2s ease;
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    background-color: ${({ isSelected }) => (isSelected ? "#fe4650" : "#000")};
   }
 `;
 

@@ -88,8 +88,8 @@ const Content = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 35vw;
-  height: 20vw;
+  width: 34.51vw;
+  height: 21vw;
   margin: 50px 0;
 `;
 

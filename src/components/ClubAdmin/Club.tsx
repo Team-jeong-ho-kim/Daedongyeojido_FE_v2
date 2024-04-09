@@ -54,7 +54,7 @@ export const Club = ({ clubs }: memberProps) => {
       case "SECURITY":
         return "Security";
       case "UNDEFINED":
-        return "Undefined";
+        return "";
       default:
         return "Unknown";
     }
@@ -79,7 +79,17 @@ export const Club = ({ clubs }: memberProps) => {
                   </NameNCN>
                   <PartNMajor>
                     <Info>
-                      {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
+                      {element.part === "ADMIN"
+                        ? "관리자"
+                        : element.part === "CLUB_LEADER"
+                        ? "동아리장"
+                        : element.part === "TEACHER"
+                        ? "담당 선생님"
+                        : element.part === "CLUB_MEMBER"
+                        ? "동아리원"
+                        : element.part === "CLUB_LEADER_TEACHER"
+                        ? "동아리 전담 선생님"
+                        : "무소속"}
                     </Info>
                     <Info>{MajorTransl(element.major)}</Info>
                   </PartNMajor>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import CustomBannerImg from "../../assets/img/PNG/CustomBannerImg.png";
 
 export const CustomBanner = () => {
@@ -13,12 +13,24 @@ export const CustomBanner = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+	transform: translateY(-50px);
+	opacity: 0;
+  }
+  100% {
+	transform: translateY(0);
+	opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   max-width: 1220px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  animation: ${fadeIn} 1s;
 `;
 
 const Title = styled.p`

@@ -202,10 +202,6 @@ const Wrapper = styled.div`
   border-top: 0.5px solid #d9d9d9;
   border-bottom: 0.5px solid #d9d9d9;
   transition: transform 0.2s, box-shadow 0.2s;
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const ClubName = styled.p`
@@ -269,15 +265,13 @@ const Button = styled.div`
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: scale 0.1s, transform 0.15s, box-shadow 0.15s;
+  transition: scale 0.1s, filter 0.35s ease;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    filter: invert(30%);
   }
   &:active {
+    filter: invert(30%);
     scale: 0.9;
-    transform: translateY(-3px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   }
 `;
 

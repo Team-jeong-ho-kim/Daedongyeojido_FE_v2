@@ -1,4 +1,5 @@
 import { instance } from "./axios";
+import { InterviewTimeDeleteType } from "../types/type";
 import { InterviewTimePostType } from "../types/type";
 import { InterviewTimePatchType } from "../types/type";
 
@@ -21,6 +22,8 @@ export const patchITVmodify = async (
   return await instance.patch(`/interview/modify-time/${clubName}`, times);
 };
 
-export const deleteITVtime = async (interviewTime: number) => {
-  return await instance.delete(`/interview/delete-time/${interviewTime}`);
+export const deleteITVtime = async (data: InterviewTimeDeleteType) => {
+  return await instance.delete(`/interview/delete-time`, {
+    data: data,
+  });
 };

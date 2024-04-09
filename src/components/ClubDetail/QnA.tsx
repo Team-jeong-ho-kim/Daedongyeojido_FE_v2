@@ -176,6 +176,10 @@ const PlusImg = styled.img`
   height: 55px;
   margin-left: 84%;
   cursor: pointer;
+  transition: filter 0.2s ease;
+  &:hover {
+    filter: invert(25%);
+  }
 `;
 
 const Dae = styled.div`

@@ -20,7 +20,13 @@ export const Club = ({ clubs }: ClubsProps) => {
               link(`/ClubDetail/${club.clubName}`);
             }}
           >
-            <ClubLogo src={club.clubImageUrl ?? DefaultLogo} />
+            <ClubLogo
+              src={
+                club.clubImageUrl !== null && club.clubImageUrl !== ""
+                  ? club.clubImageUrl
+                  : DefaultLogo
+              }
+            />
             <CC>
               <ClubName>{club.clubName}</ClubName>
               <ClubInfo>{club.title}</ClubInfo>
@@ -79,17 +85,18 @@ const ClubWrapper = styled.div`
   margin-bottom: 80px;
   gap: 10px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  user-select: none;
+  transition: filter 0.2s ease, background-color 0.2s ease;
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.4);
+    filter: brightness(90%);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
 const CC = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 3px;
   gap: 10px;
+  padding: 0px;
   cursor: pointer;
 `;
 

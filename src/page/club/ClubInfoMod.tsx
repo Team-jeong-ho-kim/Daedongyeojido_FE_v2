@@ -214,10 +214,13 @@ const SaveButton = styled.button`
   font-weight: 400;
   line-height: 20px;
   cursor: pointer;
-  transition: scale 0.15s, box-shadow 0.2s;
+  transition: filter 0.15s, scale: 0.2s;
   &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+  }
+  &:active {
+	filter: brightness(70%);
+	scale: 0.9;
   }
 `;
 

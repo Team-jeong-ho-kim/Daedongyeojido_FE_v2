@@ -431,12 +431,12 @@ const ApplyButton = styled.button<{
   line-height: 20px;
   cursor: pointer;
   user-select: none;
-  transition: scale 0.15s, box-shadow 0.2s;
+  transition: scale 0.15s, filter 0.2s;
   &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
   }
   &:active {
+    filter: brightness(70%);
     scale: 0.9;
   }
 `;
@@ -475,12 +475,12 @@ const ModifyButton = styled.button<{
   line-height: 20px;
   cursor: pointer;
   user-select: none;
-  transition: scale 0.15s, box-shadow 0.2s;
+  transition: scale 0.15s, filter 0.2s;
   &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
   }
   &:active {
+    filter: brightness(70%);
     scale: 0.9;
   }
 `;
@@ -501,11 +501,12 @@ const DeleteButton = styled.button<{
   cursor: pointer;
   user-select: none;
   transition: scale 0.15s, box-shadow 0.2s;
+  transition: scale 0.15s, filter 0.2s;
   &:hover {
-    scale: 1.05;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
   }
   &:active {
+    filter: brightness(70%);
     scale: 0.9;
   }
 `;
