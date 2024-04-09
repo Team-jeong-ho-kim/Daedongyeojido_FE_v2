@@ -12,20 +12,18 @@ export const ClubMember = ({ clubMembers, clubName }: PropType) => {
           <Title>
             {new Date().getFullYear()}년 {clubName}의 동아리원들을 소개합니다!
           </Title>
-          <GradeWrapper>
-            <MemberWrapper>
-              {clubMembers.map((member) => {
-                return (
-                  <Member
-                    name={member.name}
-                    major={member.major}
-                    oneLiner={member.oneLiner}
-                    profileImageUrl={member.profileImageUrl}
-                  />
-                );
-              })}
-            </MemberWrapper>
-          </GradeWrapper>
+          <MemberWrapper>
+            {clubMembers.map((member) => {
+              return (
+                <Member
+                  name={member.name}
+                  major={member.major}
+                  oneLiner={member.oneLiner}
+                  profileImageUrl={member.profileImageUrl}
+                />
+              );
+            })}
+          </MemberWrapper>
         </>
       ) : (
         <Hyeok>
@@ -52,12 +50,6 @@ const Title = styled.p`
   font-weight: 700;
   align-self: flex-start;
   margin-left: 13%;
-`;
-
-const GradeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
 `;
 
 const MemberWrapper = styled.div`

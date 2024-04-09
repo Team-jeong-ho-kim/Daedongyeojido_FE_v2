@@ -18,7 +18,8 @@ export const Club = ({ clubs }: ClubsProps) => {
             key={index}
             onClick={() => {
               link(`/ClubDetail/${club.clubName}`);
-            }}>
+            }}
+          >
             <ClubLogo src={club.clubImageUrl ?? DefaultLogo} />
             <CC>
               <ClubName>{club.clubName}</ClubName>
@@ -36,7 +37,8 @@ export const Club = ({ clubs }: ClubsProps) => {
         {Array.from({ length: fakeItemsCount }, (_, index) => (
           <ClubWrapper
             key={`fake-${index}`}
-            style={{ visibility: "hidden" }}></ClubWrapper>
+            style={{ visibility: "hidden" }}
+          ></ClubWrapper>
         ))}
       </Container>
     </Diver>
@@ -75,6 +77,7 @@ const ClubWrapper = styled.div`
   width: 223px;
   height: 220px;
   margin-bottom: 80px;
+  gap: 10px;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s;
   &:hover {
