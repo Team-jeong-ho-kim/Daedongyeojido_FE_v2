@@ -91,8 +91,10 @@ const RecruitmentDate: React.FC<Props> = ({
           setCurrentMonth1(currentMonth1 - 1);
           setSelectedDate1({ date, month: currentMonth1, year: currentYear1 });
         }
+      } else {
+        setSelectedDate1({ date, month: currentMonth1, year: currentYear1 });
+        setSelectedDate2({ date, month: currentMonth1, year: currentYear1 });
       }
-      return;
     }
     if (isPrevMonth) {
       if (currentMonth1 == 0) {
@@ -129,8 +131,13 @@ const RecruitmentDate: React.FC<Props> = ({
     isPrevMonth?: boolean,
     isNextMonth?: boolean
   ) => {
-    if (selectedDate1.month == selectedDate2.month && date < selectedDate1.date)
-      return;
+    if (
+      selectedDate1.month == selectedDate2.month &&
+      date < selectedDate1.date
+    ) {
+      setSelectedDate1({ date, month: currentMonth2, year: currentYear2 });
+      setSelectedDate2({ date, month: currentMonth2, year: currentYear2 });
+    }
     if (isPrevMonth) {
       if (
         selectedDate1.year <= selectedDate2.year &&
@@ -395,10 +402,17 @@ const RecruitmentDate: React.FC<Props> = ({
     } else if (selectedDate1.year > selectedDate2.year) {
       alert("시작 날짜를 종료 날짜보다 늦게 둘 수 없습니다.");
       return;
-    } else if (selectedDate1.month > selectedDate2.month) {
+    } else if (
+      selectedDate1.year == selectedDate2.year &&
+      selectedDate1.month > selectedDate2.month
+    ) {
       alert("시작 날짜를 종료 날짜보다 늦게 둘 수 없습니다.");
       return;
-    } else if (selectedDate1.date > selectedDate2.date) {
+    } else if (
+      selectedDate1.year == selectedDate2.year &&
+      selectedDate1.month == selectedDate2.month &&
+      selectedDate1.date > selectedDate2.date
+    ) {
       alert("시작 날짜를 종료 날짜보다 늦게 둘 수 없습니다.");
       return;
     }
@@ -442,7 +456,9 @@ const RecruitmentDate: React.FC<Props> = ({
       <Calender>
         <Header>
           <Arrow src={LeftArrowBold} onClick={handlePrevMonth1} />
-          <CurMonth>{monthNames[currentMonth1]}</CurMonth>
+          <CurMonth>
+            {monthNames[selectedDate1.month ?? currentMonth1]}
+          </CurMonth>
           <Arrow src={RightArrowBold} onClick={handleNextMonth1} />
         </Header>
         <CalenderContainer>
@@ -480,7 +496,9 @@ const RecruitmentDate: React.FC<Props> = ({
       <Calender>
         <Header>
           <Arrow src={LeftArrowBold} onClick={handlePrevMonth2} />
-          <CurMonth>{monthNames[currentMonth2]}</CurMonth>
+          <CurMonth>
+            {monthNames[selectedDate2.month ?? currentMonth2]}
+          </CurMonth>
           <Arrow src={RightArrowBold} onClick={handleNextMonth2} />
         </Header>
         <CalenderContainer>

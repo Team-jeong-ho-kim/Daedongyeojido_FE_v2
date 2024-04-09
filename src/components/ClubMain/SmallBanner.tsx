@@ -43,10 +43,14 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
           전공동아리 상세 보기
         </Text2>
       </Wrapper>
-      {(part === "CLUB_LEADER" && clubName == data?.myClub) ||
-      part === "ADMIN" ? (
+      {part === "CLUB_LEADER" && clubName == data?.myClub ? (
         <Modify href={`/ClubInfoModify/${data?.myClub}`}>수정하기</Modify>
-      ) : null}
+      ) : (
+        part === "ADMIN" &&
+        window.location.href.split("/")[3] === "ClubDetail" && (
+          <Modify href={`/ClubInfoModify/${clubName}`}>수정하기</Modify>
+        )
+      )}
     </Container>
   );
 };

@@ -347,9 +347,6 @@ const InterviewMod = () => {
       },
     ];
     let m = 0;
-    data.map((time) => {
-      if (time.interviewStartTime.split("T")[0] == sDate) m++;
-    });
     patchTimes.map((time) => {
       if (time.interviewStartTime.split("T")[0] == sDate) m++;
     });
@@ -359,15 +356,27 @@ const InterviewMod = () => {
       return;
     }
     setPatchTimes(newPatch);
+    if (clubName) patchITVmodify(clubName, patchTimes);
   };
 
   const handlePatch = () => {
     if (clubName) {
-      patchITVmodify(clubName, patchTimes);
       alert("수정되었습니다.");
       link("/Notices");
     }
   };
+
+  useEffect(() => {
+    if (clubName) {
+      getClubITVquery(clubName)
+        .then((res) => {
+          setPatchTimes(res.data);
+          setData(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, []);
 
   useEffect(() => {
     if (clubName) {
@@ -378,7 +387,7 @@ const InterviewMod = () => {
         })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [patchTimes]);
 
   return (
     <Container>
@@ -439,7 +448,6 @@ const InterviewMod = () => {
           <Times>
             {data &&
               data.map((time) => {
-                console.log(sDate);
                 return (
                   <>
                     {time.interviewStartTime.split("T")[0] == sDate && (
@@ -451,38 +459,7 @@ const InterviewMod = () => {
                         <Del
                           src={x}
                           onClick={() => {
-                            deleteITVtime(time.interviewTimeId);
-                            useEffect(() => {
-                              if (clubName) {
-                                getClubITVquery(clubName).then((res) => {
-                                  setData(res.data);
-                                  console.log(res.data);
-                                });
-                              }
-                            }, []);
-                          }}
-                        />
-                      </Time>
-                    )}
-                  </>
-                );
-              })}
-            {patchTimes &&
-              patchTimes.map((time) => {
-                return (
-                  <>
-                    {time.interviewStartTime.split("T")[0] == sDate && (
-                      <Time>
-                        {time.interviewStartTime.split("T")[1].split(":")[0]}:
-                        {time.interviewStartTime.split("T")[1].split(":")[1]} ~{" "}
-                        {time.interviewEndTime.split("T")[1].split(":")[0]}:
-                        {time.interviewEndTime.split("T")[1].split(":")[1]}
-                        <Del
-                          src={x}
-                          onClick={() => {
-                            setPatchTimes(
-                              patchTimes.filter((obj) => obj !== time)
-                            );
+                            if (clubName) deleteITVtime(time.interviewTimeId);
                           }}
                         />
                       </Time>

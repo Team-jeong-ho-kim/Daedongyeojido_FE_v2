@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Edit from "../../assets/img/SVG/Edit.svg";
 import Remove from "../../assets/img/SVG/Remove.svg";
-import { adminPageType, memberProps } from "../../types/type";
+import { adminPageType, MajorType, memberProps } from "../../types/type";
 import { deleteNotice } from "../../apis/admin-club";
 import { useState } from "react";
 import { PlusMember } from "./PlusMember";
@@ -29,6 +29,37 @@ export const Club = ({ clubs }: memberProps) => {
     setIvsdSelect(!ivsdSelect);
   };
 
+  const MajorTransl = (major: MajorType) => {
+    switch (major) {
+      case "AI":
+        return "AI";
+      case "AND":
+        return "Android";
+      case "BACK":
+        return "BackEnd";
+      case "DESIGN":
+        return "Design";
+      case "DEVOPS":
+        return "DevOps";
+      case "EMBEDDED":
+        return "Embedded";
+      case "FLUTTER":
+        return "Flutter";
+      case "FRONT":
+        return "FrontEnd";
+      case "GAME":
+        return "Game";
+      case "IOS":
+        return "IOS";
+      case "SECURITY":
+        return "Security";
+      case "UNDEFINED":
+        return "Undefined";
+      default:
+        return "Unknown";
+    }
+  };
+
   return (
     <Container>
       {clubs.map((club: adminPageType, index: number) => (
@@ -42,12 +73,16 @@ export const Club = ({ clubs }: memberProps) => {
             {club.memberResponses.map((element, index) => {
               return (
                 <TextWrapper key={index}>
-                  <Info>{element.userName}</Info>
-                  <Info>{element.classNumber}</Info>
-                  <Info>
-                    {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
-                  </Info>
-                  <Info>{element.major}</Info>
+                  <NameNCN>
+                    <Info>{element.userName}</Info>
+                    <Info>{element.classNumber ?? "0000"}</Info>
+                  </NameNCN>
+                  <PartNMajor>
+                    <Info>
+                      {element.part === "CLUB_MEMBER" ? "동아리원" : "동아리장"}
+                    </Info>
+                    <Info>{MajorTransl(element.major)}</Info>
+                  </PartNMajor>
                 </TextWrapper>
               );
             })}
@@ -110,6 +145,18 @@ const ClubBox = styled.div`
   border: 2px solid #cdd1d6;
 `;
 
+const NameNCN = styled.div`
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PartNMajor = styled.div`
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const ClubName = styled.p`
   font-size: 20px;
   font-weight: 700;
@@ -117,7 +164,7 @@ const ClubName = styled.p`
 
 const TextWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
 `;
 
 const Info = styled.p`

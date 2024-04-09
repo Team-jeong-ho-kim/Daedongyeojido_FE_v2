@@ -1,9 +1,9 @@
 import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
+import { useState /*, useEffect*/ } from "react";
 import LeftArrowBold from "../../assets/img/PNG/LeftArrowBold.png";
 import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
 import Close from "../../assets/img/PNG//Close.png";
-import { getITVquery } from "../../apis/interview";
+// import { getITVquery } from "../../apis/interview";
 import { postITVtime } from "../../apis/interview";
 import { InterviewTimeType } from "../../types/type";
 
@@ -53,7 +53,7 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
   const [currentYear, setCurrentYear] = useState<number>(
     new Date().getFullYear()
   );
-  const [itvTime, setItvTime] = useState<InterviewTimeType[]>();
+  const [itvTime, setItvTime] = useState<InterviewTimeType[]>([]);
   const [selectedTimeId, setSelectedTimeId] = useState<number>(-1);
   const [sDate, setSDate] = useState<string>("1970-01-01");
   const [sTime, setSTime] = useState<string>("00:00:00");
@@ -83,7 +83,10 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
     } else {
       setSelectedDate({ date, month: currentMonth, year: currentYear });
       setSDate(
-        `${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.date}`
+        `${selectedDate.year}-${String(selectedDate.month + 1).padStart(
+          2,
+          "0"
+        )}-${String(selectedDate.date).padStart(2, "0")}`
       );
     }
   };
@@ -198,7 +201,9 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
       confirm(
         `선택한 시간을 면접 날짜 및 시간으로 확정하시겠습니까?\n${
           sDate.split("-")[0]
-        }년 ${sDate.split("-")[1]}월 ${sDate.split("-")[2]}일 ${sTime}`
+        }년 ${parseInt(sDate.split("-")[1])}월 ${parseInt(
+          sDate.split("-")[2]
+        )}일 ${sTime}`
       )
     ) {
       postITVtime({
@@ -209,14 +214,17 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
     } else return;
   };
 
-  useEffect(() => {
-    getITVquery(reportID)
-      .then((res) => {
-        setItvTime(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => console.error(err));
-  });
+  //   useEffect(() => {
+  //     getITVquery(reportID)
+  //       .then((res) => {
+  //         setItvTime(res.data);
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }, [selectedDate]);
+  setItvTime([
+    { interviewTimeId: reportID, interviewStartTime: "", interviewEndTime: "" },
+  ]);
 
   return (
     <Container>
@@ -314,8 +322,8 @@ const fadeIn = keyframes`
 
 const Container = styled.div`
   position: absolute;
-  top: 30%;
-  left: 45%;
+  top: 30vh;
+  left: 45vw;
   display: flex;
   width: 839px;
   height: 480px;

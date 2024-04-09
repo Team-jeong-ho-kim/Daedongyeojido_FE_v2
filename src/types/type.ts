@@ -69,6 +69,11 @@ export type InterviewScheduleType = {
   clubName: string;
 };
 
+export type InterviewTimeDeleteType = {
+	clubName: string;
+	interviewTimeId: number;
+}
+
 //alarm
 export type AlarmPostType = {
   reportId: number;

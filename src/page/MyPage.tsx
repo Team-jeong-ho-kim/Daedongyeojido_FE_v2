@@ -26,7 +26,7 @@ const MyPage = () => {
   const [image, setImage] = useState<Blob | null>(null);
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
   const [data, setData] = useState<MyInfoType>();
-  const [itvScdl, setItvScdl] = useState<number>(0);
+  const [itvScdl, setItvScdl] = useState<number>();
   const [myMajor, setMyMajor] = useState<string>("");
   const link = useNavigate();
 
@@ -60,8 +60,13 @@ const MyPage = () => {
 
   const handleIvsdSelectToggle = (id: number) => {
     setItvScdl(id);
-    handleItvToggle();
   };
+
+  useEffect(() => {
+    if (itvScdl) {
+      handleItvToggle();
+    }
+  }, [itvScdl]);
 
   const handlePage = (e: React.MouseEvent<HTMLDivElement>) => {
     const targetId = e.target as HTMLDivElement;
@@ -147,8 +152,6 @@ const MyPage = () => {
   const createTimeSet = (date: string) => {
     const today = new Date().getTime();
     const reDate = new Date(date.split(".")[0]).getTime() + 32400000;
-    console.log(today);
-    console.log(reDate);
     const k = Math.floor(today - reDate);
     if (k >= 31536000000) {
       return `${Math.floor(
@@ -448,81 +451,84 @@ const MyPage = () => {
                     </NoAlarm>
                   ) : (
                     <AlarmCenter>
-                      {getAlarm?.map((alarm) => {
-                        if (alarmType(alarm) === "서류합격") {
-                          return (
-                            <AlarmPass>
-                              <AlarmLT>
-                                {createTimeSet(alarm.createTime)}
-                              </AlarmLT>
-                              <AlarmName>
-                                <AlarmPC>{alarm.clubName}</AlarmPC>
-                                <AlarmPassed>서류합격</AlarmPassed>
-                                <InterviewScheduleSelect
-                                  onClick={() =>
-                                    handleIvsdSelectToggle(alarm.alarmId)
-                                  }
-                                >
-                                  면접 시간 선택
-                                </InterviewScheduleSelect>
-                              </AlarmName>
-                              <AlarmText>
-                                {alarm.userName}님, {alarm.clubName}{" "}
-                                {alarm.major} 분야 서류합격을 축하드려요! 면접
-                                시간을 선택해주세요.
-                              </AlarmText>
-                            </AlarmPass>
-                          );
-                        } else if (alarmType(alarm) === "면접합격") {
-                          return (
-                            <AlarmPass>
-                              <AlarmLT>
-                                {createTimeSet(alarm.createTime)}
-                              </AlarmLT>
-                              <AlarmName>
-                                <AlarmPC>{alarm.clubName}</AlarmPC>
-                                <AlarmPassed>최종합격</AlarmPassed>
-                              </AlarmName>
-                              <AlarmText>
-                                {alarm.userName}님, {alarm.clubName}{" "}
-                                {alarm.major} 분야 최종합격을 축하드려요! 🎉
-                              </AlarmText>
-                            </AlarmPass>
-                          );
-                        } else if (alarmType(alarm) === "서류탈락") {
-                          return (
-                            <AlarmPass>
-                              <AlarmLT>
-                                {createTimeSet(alarm.createTime)}
-                              </AlarmLT>
-                              <AlarmName>
-                                <AlarmPC>{alarm.clubName}</AlarmPC>
-                                <AlarmPassed>서류탈락</AlarmPassed>
-                              </AlarmName>
-                              <AlarmText>
-                                {alarm.userName}님, 안타깝게도 {alarm.clubName}{" "}
-                                {alarm.major} 분야 서류 면접에서 떨어졌어요.
-                              </AlarmText>
-                            </AlarmPass>
-                          );
-                        } else if (alarmType(alarm) === "면접탈락") {
-                          return (
-                            <AlarmPass>
-                              <AlarmLT>
-                                {createTimeSet(alarm.createTime)}
-                              </AlarmLT>
-                              <AlarmName>
-                                <AlarmPC>{alarm.clubName}</AlarmPC>
-                                <AlarmPassed>면접탈락</AlarmPassed>
-                              </AlarmName>
-                              <AlarmText>
-                                {alarm.userName}님, 아쉽게도 {alarm.clubName}{" "}
-                                {alarm.major} 분야 심층 면접에서 떨어졌어요. 💧
-                              </AlarmText>
-                            </AlarmPass>
-                          );
-                        }
-                      })}
+                      {getAlarm &&
+                        getAlarm.map((alarm) => {
+                          if (alarmType(alarm) === "서류합격") {
+                            return (
+                              <AlarmPass>
+                                <AlarmLT>
+                                  {createTimeSet(alarm.createTime)}
+                                </AlarmLT>
+                                <AlarmName>
+                                  <AlarmPC>{alarm.clubName}</AlarmPC>
+                                  <AlarmPassed>서류합격</AlarmPassed>
+                                  <InterviewScheduleSelect
+                                    onClick={() =>
+                                      handleIvsdSelectToggle(alarm.alarmId)
+                                    }
+                                  >
+                                    면접 시간 선택
+                                  </InterviewScheduleSelect>
+                                </AlarmName>
+                                <AlarmText>
+                                  {alarm.userName}님, {alarm.clubName}{" "}
+                                  {alarm.major} 분야 서류합격을 축하드려요! 면접
+                                  시간을 선택해주세요.
+                                </AlarmText>
+                              </AlarmPass>
+                            );
+                          } else if (alarmType(alarm) === "면접합격") {
+                            return (
+                              <AlarmPass>
+                                <AlarmLT>
+                                  {createTimeSet(alarm.createTime)}
+                                </AlarmLT>
+                                <AlarmName>
+                                  <AlarmPC>{alarm.clubName}</AlarmPC>
+                                  <AlarmPassed>최종합격</AlarmPassed>
+                                </AlarmName>
+                                <AlarmText>
+                                  {alarm.userName}님, {alarm.clubName}{" "}
+                                  {alarm.major} 분야 최종합격을 축하드려요! 🎉
+                                </AlarmText>
+                              </AlarmPass>
+                            );
+                          } else if (alarmType(alarm) === "서류탈락") {
+                            return (
+                              <AlarmPass>
+                                <AlarmLT>
+                                  {createTimeSet(alarm.createTime)}
+                                </AlarmLT>
+                                <AlarmName>
+                                  <AlarmPC>{alarm.clubName}</AlarmPC>
+                                  <AlarmPassed>서류탈락</AlarmPassed>
+                                </AlarmName>
+                                <AlarmText>
+                                  {alarm.userName}님, 안타깝게도{" "}
+                                  {alarm.clubName} {alarm.major} 분야 서류
+                                  면접에서 떨어졌어요.
+                                </AlarmText>
+                              </AlarmPass>
+                            );
+                          } else if (alarmType(alarm) === "면접탈락") {
+                            return (
+                              <AlarmPass>
+                                <AlarmLT>
+                                  {createTimeSet(alarm.createTime)}
+                                </AlarmLT>
+                                <AlarmName>
+                                  <AlarmPC>{alarm.clubName}</AlarmPC>
+                                  <AlarmPassed>면접탈락</AlarmPassed>
+                                </AlarmName>
+                                <AlarmText>
+                                  {alarm.userName}님, 아쉽게도 {alarm.clubName}{" "}
+                                  {alarm.major} 분야 심층 면접에서 떨어졌어요.
+                                  💧
+                                </AlarmText>
+                              </AlarmPass>
+                            );
+                          }
+                        })}
                     </AlarmCenter>
                   )}
                 </>
@@ -556,7 +562,7 @@ const MyPage = () => {
       {ivsdSelect ? (
         <>
           <Container2></Container2>
-          <INT handleItvToggle={handleItvToggle} reportID={itvScdl} />
+          <INT handleItvToggle={handleItvToggle} reportID={itvScdl ?? 1} />
         </>
       ) : null}
       {/* {profileEdit ? true : false} */}
@@ -617,7 +623,7 @@ const LeftBox = styled.div`
 const RightBox = styled.div`
   position: absolute;
   width: 70vw;
-  height: 1020px;
+  min-height: 1020px;
   border: 1px solid #eaecef;
   padding-left: 79px;
   padding-top: 70px;
@@ -786,7 +792,7 @@ const AlarmCenter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 28px;
-  margin-top: 28px;
+  margin: 28px 0 100px;
   width: 999px;
 `;
 
