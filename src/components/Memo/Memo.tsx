@@ -92,13 +92,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-left: 8.5%;
   height: 1010px;
   justify-content: center;
+  align-items: center;
 `;
 
 const TopWrapper = styled.div`
-  width: 1591px;
+  width: 70%;
   display: flex;
   justify-content: space-between;
 `;
@@ -109,7 +109,7 @@ const BtnWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 700;
 `;
 
@@ -120,6 +120,7 @@ const ButtonPass = styled.button`
   border-radius: 10px;
   border: 1px solid #333b3d;
   background-color: #f3f4f5;
+  font-size: 14px;
   cursor: pointer;
 `;
 
@@ -127,13 +128,14 @@ const ButtonFail = styled.button`
   width: 145px;
   height: 40px;
   color: #fff;
+  font-size: 14px;
   border-radius: 10px;
   background-color: #333b3d;
   cursor: pointer;
 `;
 
 const Record = styled.textarea`
-  width: 1591px;
+  width: 70%;
   height: 700px;
   font-size: 24px;
   font-weight: 500;
@@ -158,7 +160,7 @@ const Record = styled.textarea`
 `;
 
 const Foot = styled.button`
-  width: 1591px;
+  width: 70%;
   display: flex;
   justify-content: flex-end;
   background-color: #fff;
@@ -168,6 +170,7 @@ const ButtonSave = styled.button`
   width: 159px;
   height: 40px;
   color: #fff;
+  font-size: 16px;
   border-radius: 10px;
   background-color: #333b3d;
   cursor: pointer;

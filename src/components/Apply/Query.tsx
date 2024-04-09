@@ -38,7 +38,7 @@ export const Query = ({ info }: InfoProps) => {
 };
 
 const Container = styled.div`
-  width: 1462px;
+  width: 78%;
   margin-left: 10%;
   padding-bottom: 80px;
 `;
@@ -47,7 +47,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
-  width: 1462px;
+  width: 100%;
   height: auto;
   border-radius: 10px;
   border: 3px solid #eaecef;

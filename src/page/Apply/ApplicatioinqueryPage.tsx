@@ -197,11 +197,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const Top = styled.div`
+  width: 78%;
   height: 208px;
   display: flex;
   align-items: end;
   padding-bottom: 34px;
-  gap: 49%;
+  justify-content: space-between;
   margin-left: 10%;
 `;
 

@@ -94,6 +94,7 @@ const NoticeDetails = () => {
   const [user, setUser] = useState<MyInfoType>();
   const [updatedMemo] = useState<MemoEditType>();
   const [aReportId, setAReportId] = useState<boolean>(false);
+  const { clubName } = useParams();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -195,7 +196,9 @@ const NoticeDetails = () => {
                   </Done>
                   <ModifyButton
                     usable={
-                      user?.part == "CLUB_LEADER" || user?.part == "ADMIN"
+                      (user?.part === "CLUB_LEADER" &&
+                        user.myClub === data.clubName) ||
+                      user?.part == "ADMIN"
                         ? "clubLeader"
                         : "else"
                     }
@@ -207,7 +210,9 @@ const NoticeDetails = () => {
                   </ModifyButton>
                   <DeleteButton
                     usable={
-                      user?.part == "CLUB_LEADER" || user?.part == "ADMIN"
+                      (user?.part == "CLUB_LEADER" &&
+                        user.myClub === data.clubName) ||
+                      user?.part == "ADMIN"
                         ? "clubLeader"
                         : "else"
                     }
