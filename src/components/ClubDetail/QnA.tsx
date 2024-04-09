@@ -39,10 +39,12 @@ export const QnA = ({ questResponses }: PropType) => {
       });
   };
 
+  const questionsWithAnswers = questResponses.filter((quest) => quest.answer);
+
   return (
     <Container>
-      {questResponses.length > 0 ? (
-        questResponses.map((quest, index) => {
+      {questionsWithAnswers.length > 0 ? (
+        questionsWithAnswers.map((quest, index) => {
           return (
             <QnABox key={index} quest={quest.question} answer={quest.answer} />
           );
