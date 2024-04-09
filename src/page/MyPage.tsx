@@ -55,15 +55,17 @@ const MyPage = () => {
   }, [image]);
 
   const handleItvToggle = () => {
-    setIvsdSelect(!ivsdSelect);
+    setIvsdSelect(false);
   };
 
   const handleIvsdSelectToggle = (id: number) => {
     setItvScdl(id);
+    setIvsdSelect(true);
   };
 
   useEffect(() => {
     if (itvScdl) {
+      console.log(itvScdl);
       handleItvToggle();
     }
   }, [itvScdl]);
@@ -186,6 +188,7 @@ const MyPage = () => {
       .then((res) => {
         setData(res.data);
         console.log(res.data);
+        setMyMajor(res.data.myMajor);
 
         getMyAlarm()
           .then((res) => {
@@ -259,7 +262,7 @@ const MyPage = () => {
           break;
       }
     }
-  }, [myMajor]);
+  }, []);
 
   return (
     <>
@@ -562,7 +565,7 @@ const MyPage = () => {
       {ivsdSelect ? (
         <>
           <Container2></Container2>
-          <INT handleItvToggle={handleItvToggle} reportID={itvScdl ?? 1} />
+          <INT handleItvToggle={handleItvToggle} reportID={itvScdl ?? 0} />
         </>
       ) : null}
       {/* {profileEdit ? true : false} */}

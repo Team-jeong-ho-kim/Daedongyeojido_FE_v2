@@ -2,8 +2,8 @@ import { instance } from "./axios";
 import { InterviewTimePostType } from "../types/type";
 import { InterviewTimePatchType } from "../types/type";
 
-export const getITVquery = async (reportID: number) => {
-  return await instance.get(`/interview/query-time/${reportID}`);
+export const getITVquery = async (reportId: number) => {
+  return await instance.get(`/interview/query-time/${reportId}`);
 };
 
 export const getClubITVquery = async (clubName: string) => {

@@ -1,9 +1,9 @@
 import styled, { keyframes } from "styled-components";
-import { useState /*, useEffect*/ } from "react";
+import { useState, useEffect } from "react";
 import LeftArrowBold from "../../assets/img/PNG/LeftArrowBold.png";
 import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
 import Close from "../../assets/img/PNG//Close.png";
-// import { getITVquery } from "../../apis/interview";
+import { getITVquery } from "../../apis/interview";
 import { postITVtime } from "../../apis/interview";
 import { InterviewTimeType } from "../../types/type";
 
@@ -42,6 +42,7 @@ const monthNames: string[] = [
 ];
 
 const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
+  console.log(reportID);
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -214,17 +215,14 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
     } else return;
   };
 
-  //   useEffect(() => {
-  //     getITVquery(reportID)
-  //       .then((res) => {
-  //         setItvTime(res.data);
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.error(err));
-  //   }, [selectedDate]);
-  setItvTime([
-    { interviewTimeId: reportID, interviewStartTime: "", interviewEndTime: "" },
-  ]);
+  useEffect(() => {
+    getITVquery(14)
+      .then((res) => {
+        setItvTime(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, [selectedDate]);
 
   return (
     <Container>
