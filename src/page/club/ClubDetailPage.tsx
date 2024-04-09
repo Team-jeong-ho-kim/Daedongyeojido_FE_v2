@@ -5,7 +5,7 @@ import { SelectBar } from "../../components/ClubDetail/SelectBar";
 import Footer from "../../components/MainPage/Footer";
 import { Clubintroduce } from "../../components/ClubDetail/Clubintroduce";
 import { useState, useEffect } from "react";
-import ClubBanner from "../../assets/img/PNG/ClubBanner.png";
+import Banner from "../../assets/img/PNG/Banner.png";
 import Daedongyeojido from "../../assets/img/PNG/Daedongyeojido.png";
 import { ClubMember } from "../../components/ClubDetail/ClubMember";
 import { QnA } from "../../components/ClubDetail/QnA";
@@ -78,9 +78,7 @@ export const ClubDetailPage = () => {
           <>
             <SmallHeader currentPage={currentPage} />
             <HeaderImg
-              src={
-                data.clubBannerUrl !== null ? data.clubBannerUrl : ClubBanner
-              }
+              src={data.clubBannerUrl !== null ? data.clubBannerUrl : Banner}
             />
             <SelectBar
               activeTab={activeTab}

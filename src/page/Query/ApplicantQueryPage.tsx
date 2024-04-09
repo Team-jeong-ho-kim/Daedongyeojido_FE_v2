@@ -79,10 +79,6 @@ const Content = styled.div`
 `;
 
 const Box = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, 401px 401px 401px);
-  column-gap: 53px;
-  row-gap: 45px; */
   flex-wrap: wrap;
   gap: 53px;
   width: 100%;
