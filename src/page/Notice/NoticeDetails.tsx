@@ -146,6 +146,22 @@ const NoticeDetails = () => {
     });
   }, []);
 
+  const isRecruitmentPeriod = () => {
+    if (!data) return false;
+    const currentDate = new Date();
+    const start = new Date(data.recruitDay.startDay);
+    const end = new Date(data.recruitDay.endDay);
+    return currentDate >= start && currentDate <= end;
+  };
+
+  const handleApplyButtonClick = () => {
+    if (isRecruitmentPeriod()) {
+      link(`/ApplicationWrite/${id}`);
+    } else {
+      alert("모집 기간이 아닙니다.");
+    }
+  };
+
   return (
     <Container>
       {data && (
@@ -184,9 +200,7 @@ const NoticeDetails = () => {
                     usable={
                       user?.part == "INDEPENDENT" && !aReportId ? "else" : "as"
                     }
-                    onClick={() => {
-                      link(`/ApplicationWrite/${id}`);
-                    }}
+                    onClick={handleApplyButtonClick}
                   >
                     지원하기
                   </ApplyButton>
