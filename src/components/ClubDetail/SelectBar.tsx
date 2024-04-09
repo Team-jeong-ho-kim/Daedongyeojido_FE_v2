@@ -39,6 +39,7 @@ export const SelectBar: React.FC<SelectBarProps> = ({
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 63px;
   padding: 20px 10.5%;
