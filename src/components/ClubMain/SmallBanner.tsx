@@ -45,7 +45,7 @@ export const SmallHeader = ({ currentPage }: { currentPage: string }) => {
       </Wrapper>
       {(part === "CLUB_LEADER" && clubName == data?.myClub) ||
       part === "ADMIN" ? (
-        <Modify href={`/ClubInfoModify/대동여지도`}>수정하기</Modify>
+        <Modify href={`/ClubInfoModify/${data?.myClub}`}>수정하기</Modify>
       ) : null}
     </Container>
   );
