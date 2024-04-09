@@ -94,7 +94,6 @@ const NoticeDetails = () => {
   const [user, setUser] = useState<MyInfoType>();
   const [updatedMemo] = useState<MemoEditType>();
   const [aReportId, setAReportId] = useState<boolean>(false);
-  const { clubName } = useParams();
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);
