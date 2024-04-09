@@ -70,9 +70,9 @@ export type InterviewScheduleType = {
 };
 
 export type InterviewTimeDeleteType = {
-	clubName: string;
-	interviewTimeId: number;
-}
+  clubName: string;
+  interviewTimeId: number;
+};
 
 //alarm
 export type AlarmPostType = {
@@ -168,7 +168,7 @@ export type ClubInfoModType = {
   title: string;
   introduction: string;
   clubImageUrl: string;
-  clubBanner: string;
+  clubBannerUrl: string;
   tags: string[];
 };
 

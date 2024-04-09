@@ -78,7 +78,11 @@ export const ClubDetailPage = () => {
           <>
             <SmallHeader currentPage={currentPage} />
             <HeaderImg
-              src={data.clubBannerUrl !== null ? data.clubBannerUrl : Banner}
+              src={
+                data.clubBannerUrl !== null && data.clubBannerUrl !== ""
+                  ? data.clubBannerUrl
+                  : Banner
+              }
             />
             <SelectBar
               activeTab={activeTab}

@@ -100,9 +100,9 @@ const Login = ({ onLoginToggle }: { onLoginToggle: () => void }) => {
             />
             {password &&
               (isSee ? (
-                <Seeno src={IC} onClick={() => setIsSee(false)} />
+                <Seeno src={ICN} onClick={() => setIsSee(false)} />
               ) : (
-                <See src={ICN} onClick={() => setIsSee(true)} />
+                <See src={IC} onClick={() => setIsSee(true)} />
               ))}
             {isError && (
               <Error>아이디 또는 비밀번호가 일치하지 않습니다.</Error>

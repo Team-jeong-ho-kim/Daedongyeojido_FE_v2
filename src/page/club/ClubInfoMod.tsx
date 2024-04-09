@@ -81,7 +81,7 @@ const ClubInfoMod = () => {
       clubName: clubName,
       title: explain,
       introduction: longExp,
-      clubBanner: clubBanner,
+      clubBannerUrl: clubBanner,
       clubImageUrl: clubImage,
       tags: tag,
     });
