@@ -6,7 +6,7 @@ import { Back } from "../../components/Apply/Back";
 import { useEffect, useState } from "react";
 import { ApplicationType } from "../../types/type";
 import { getApplication } from "../../apis/report";
-import { postITVresult } from "../../apis/alarm";
+import { cancelAlarm, postITVresult } from "../../apis/alarm";
 import { useParams, useNavigate } from "react-router-dom";
 import { deleteApply } from "../../apis/report";
 import { Cookie } from "../../utils/cookie";
@@ -14,7 +14,7 @@ import { Cookie } from "../../utils/cookie";
 export const ApplicationQueryPage = () => {
   const { id } = useParams();
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
-  const [selected, setSelected] = useState<"pass" | "fail">();
+  const [selected, setSelected] = useState<"PASS" | "FAIL">();
   const [data, setData] = useState<ApplicationType>();
   const part = Cookie.get("part");
   const link = useNavigate();
@@ -33,7 +33,33 @@ export const ApplicationQueryPage = () => {
   };
 
   const handlePassW = () => {
-    if (data?.reportPassingResult !== "WAIT") return;
+    if (!data || !id) return;
+
+    if (data?.reportPassingResult !== "WAIT") {
+      if (
+        confirm(
+          `정말 ${data.name}님의 ${
+            data?.reportPassingResult === "PASS" ? "합격" : "탈락"
+          }여부를\n취소하시겠습니까?`
+        )
+      ) {
+        cancelAlarm({
+          reportId: parseInt(id),
+          classNumber: parseInt(data.classNumber),
+          alarmType: "REPORT_PASS_RESULT",
+        }).then(() => {
+          getApplication(parseInt(id)).then((res) => {
+            setData(res.data);
+            setSelected(res.data.reportPassingResult);
+            console.log(res.data);
+          });
+          alert("면접 결과가 취소 되었습니다");
+        });
+        return;
+      } else {
+        return;
+      }
+    }
 
     if (confirm(`정말 ${data?.name} 학생을 서류합격시키겠습니까?`)) {
       if (id) {
@@ -42,14 +68,46 @@ export const ApplicationQueryPage = () => {
           reportId: reportId,
           passingResult: "PASS",
           alarmType: "REPORT_PASS_RESULT",
+        }).then(() => {
+          getApplication(parseInt(id)).then((res) => {
+            setData(res.data);
+            setSelected(res.data.reportPassingResult);
+            console.log(res.data);
+          });
         });
       }
     }
-    setSelected("pass");
+    setSelected("PASS");
   };
 
   const handleFailL = () => {
-    if (data?.reportPassingResult !== "WAIT") return;
+    if (!data || !id) return;
+
+    if (data?.reportPassingResult !== "WAIT") {
+      if (
+        confirm(
+          `정말 ${data.name}님의 ${
+            data?.reportPassingResult === "PASS" ? "합격" : "탈락"
+          }여부를\n취소하시겠습니까?`
+        )
+      ) {
+        cancelAlarm({
+          reportId: parseInt(id),
+          classNumber: parseInt(data.classNumber),
+          alarmType: "REPORT_PASS_RESULT",
+        }).then(() => {
+          getApplication(parseInt(id)).then((res) => {
+            setData(res.data);
+            setSelected(res.data.reportPassingResult);
+            console.log(res.data);
+          });
+          alert("면접 결과가 취소 되었습니다");
+        });
+        return;
+      } else {
+        return;
+      }
+    }
 
     if (confirm(`정말 ${data?.name} 학생을 불합격시키겠습니까?`)) {
       if (id) {
@@ -58,10 +116,16 @@ export const ApplicationQueryPage = () => {
           reportId: reportId,
           passingResult: "FAIL",
           alarmType: "REPORT_PASS_RESULT",
+        }).then(() => {
+          getApplication(parseInt(id)).then((res) => {
+            setData(res.data);
+            setSelected(res.data.reportPassingResult);
+            console.log(res.data);
+          });
         });
       }
     }
-    setSelected("fail");
+    setSelected("FAIL");
   };
 
   // const handleCancel = () => {};
@@ -71,6 +135,7 @@ export const ApplicationQueryPage = () => {
       getApplication(parseInt(id))
         .then((res) => {
           setData(res.data);
+          setSelected(res.data.reportPassingResult);
           console.log(res.data);
         })
         .catch((err) => console.error(err));
@@ -98,10 +163,10 @@ export const ApplicationQueryPage = () => {
               ) : null}
               {part === "CLUB_LEADER" || part === "ADMIN" ? (
                 <ButtonWrapper>
-                  <Pass onClick={handlePassW} selected={selected === "pass"}>
+                  <Pass onClick={handlePassW} selected={selected === "PASS"}>
                     합격
                   </Pass>
-                  <Fail onClick={handleFailL} selected={selected === "fail"}>
+                  <Fail onClick={handleFailL} selected={selected === "FAIL"}>
                     불합격
                   </Fail>
                 </ButtonWrapper>

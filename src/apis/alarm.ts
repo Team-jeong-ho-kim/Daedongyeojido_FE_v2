@@ -1,5 +1,5 @@
 import { instance } from "./axios";
-import { AlarmPostType } from "../types/type";
+import { AlarmKindType, AlarmPostType } from "../types/type";
 
 export const getMyAlarm = async () => {
   return await instance.get("/alarm/my-alarm");
@@ -7,4 +7,16 @@ export const getMyAlarm = async () => {
 
 export const postITVresult = async (alarm: AlarmPostType) => {
   return await instance.post("/alarm/interview-result", alarm);
+};
+
+type CancelType = {
+  reportId: number;
+  classNumber: number;
+  alarmType: AlarmKindType;
+};
+
+export const cancelAlarm = async (data: CancelType) => {
+  return await instance.delete("/alarm/cancel", {
+    data: data,
+  });
 };

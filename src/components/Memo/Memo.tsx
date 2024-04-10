@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MemoGetType } from "../../types/type";
 import { getMemoData, patchModifyMemo } from "../../apis/report";
-import { postITVresult } from "../../apis/alarm";
+import { cancelAlarm, postITVresult } from "../../apis/alarm";
 
 export const Memo = ({ reportId }: { reportId: number }) => {
   const [memo, setMemo] = useState<MemoGetType>({
@@ -30,7 +30,30 @@ export const Memo = ({ reportId }: { reportId: number }) => {
   };
 
   const handleULTPass = () => {
-    if (memo?.interviewPassingResult !== "WAIT") return;
+    if (memo?.interviewPassingResult !== "WAIT") {
+      if (
+        confirm(
+          `정말 ${memo.name}님의 ${
+            memo.interviewPassingResult === "PASS" ? "합격" : "탈락"
+          }여부를\n취소하시겠습니까?`
+        )
+      ) {
+        cancelAlarm({
+          reportId: reportId,
+          classNumber: parseInt(memo.classNumber),
+          alarmType: "INTERVIEW_PASS_RESULT",
+        }).then(() => {
+          getMemoData(reportId).then((res) => {
+            setMemo(res.data);
+            console.log(res.data);
+          });
+          alert("면접 결과가 취소 되었습니다");
+        });
+        return;
+      } else {
+        return;
+      }
+    }
 
     if (confirm(`정말 ${memo?.name} 학생을 최종합격시키겠습니까?`)) {
       if (reportId) {
@@ -38,13 +61,41 @@ export const Memo = ({ reportId }: { reportId: number }) => {
           reportId: reportId,
           passingResult: "PASS",
           alarmType: "INTERVIEW_PASS_RESULT",
+        }).then(() => {
+          getMemoData(reportId).then((res) => {
+            setMemo(res.data);
+            console.log(res.data);
+          });
         });
       }
     }
   };
 
   const handleULTFail = () => {
-    if (memo?.interviewPassingResult !== "WAIT") return;
+    if (memo?.interviewPassingResult !== "WAIT") {
+      if (
+        confirm(
+          `정말 ${memo.name}님의 ${
+            memo.interviewPassingResult === "PASS" ? "합격" : "탈락"
+          }여부를\n취소하시겠습니까?`
+        )
+      ) {
+        cancelAlarm({
+          reportId: reportId,
+          classNumber: parseInt(memo.classNumber),
+          alarmType: "INTERVIEW_PASS_RESULT",
+        }).then(() => {
+          getMemoData(reportId).then((res) => {
+            setMemo(res.data);
+            console.log(res.data);
+          });
+          alert("면접 결과가 취소 되었습니다");
+        });
+        return;
+      } else {
+        return;
+      }
+    }
 
     if (confirm(`정말 ${memo?.name} 학생을 최종탈락시키겠습니까?`)) {
       if (reportId) {
@@ -52,6 +103,11 @@ export const Memo = ({ reportId }: { reportId: number }) => {
           reportId: reportId,
           passingResult: "FAIL",
           alarmType: "INTERVIEW_PASS_RESULT",
+        }).then(() => {
+          getMemoData(reportId).then((res) => {
+            setMemo(res.data);
+            console.log(res.data);
+          });
         });
       }
     }
@@ -72,8 +128,16 @@ export const Memo = ({ reportId }: { reportId: number }) => {
           {memo.classNumber} {memo.name} {memo.major} 면접 기록
         </Title>
         <BtnWrapper>
-          <ButtonPass onClick={handleULTPass}>합격</ButtonPass>
-          <ButtonFail onClick={handleULTFail}>불합격</ButtonFail>
+          <ButtonPass
+            onClick={handleULTPass}
+            selected={memo.interviewPassingResult === "PASS"}>
+            합격
+          </ButtonPass>
+          <ButtonFail
+            onClick={handleULTFail}
+            selected={memo.interviewPassingResult === "FAIL"}>
+            불합격
+          </ButtonFail>
         </BtnWrapper>
       </TopWrapper>
       <Record
@@ -113,24 +177,25 @@ const Title = styled.p`
   font-weight: 700;
 `;
 
-const ButtonPass = styled.button`
+const ButtonPass = styled.button<{ selected: boolean }>`
   width: 130px;
   height: 40px;
-  color: #000;
   border-radius: 10px;
-  border: 1px solid #333b3d;
-  background-color: #f3f4f5;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   font-size: 14px;
   cursor: pointer;
 `;
 
-const ButtonFail = styled.button`
+const ButtonFail = styled.button<{ selected: boolean }>`
   width: 145px;
   height: 40px;
-  color: #fff;
   font-size: 14px;
   border-radius: 10px;
-  background-color: #333b3d;
+  background-color: ${({ selected }) => (selected ? "#333b3d" : "#f3f4f5")};
+  border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
+  color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   cursor: pointer;
 `;
 
