@@ -9,6 +9,7 @@ import { getDetailClub, patchClub } from "../../apis/club";
 import { ClubDetailsType, ClubInfoModType } from "../../types/type";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getMyInfo } from "../../apis/user";
 
 const ClubInfoMod = () => {
   const { clubName } = useParams();
@@ -20,6 +21,14 @@ const ClubInfoMod = () => {
   const [tagz, setTagz] = useState<string[]>(["", "", "", "", ""]);
   const [clubBanner, setClubBanner] = useState<string>("");
   const [clubImage, setClubImage] = useState<string>("");
+
+  useEffect(() => {
+    getMyInfo().then((res) => {
+      if (res.data.myClub !== clubName || res.data.part !== "CLUB_LEADER") {
+        window.location.href = "/";
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (clubName) {
