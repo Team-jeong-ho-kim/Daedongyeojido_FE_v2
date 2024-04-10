@@ -52,7 +52,7 @@ const Button = styled.img`
   height: 40px;
   border: none;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 4px;
   transition: transform 0.2s ease-in;
   &:hover {
     transform: translateY(-5px);
