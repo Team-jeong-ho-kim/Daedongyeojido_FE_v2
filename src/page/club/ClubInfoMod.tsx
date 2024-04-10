@@ -25,6 +25,8 @@ const ClubInfoMod = () => {
     if (clubName) {
       getDetailClub(clubName).then((res) => {
         setData(res.data);
+        setClubBanner(res.data.clubBannerUrl);
+        setClubImage(res.data.clubImageUrl);
         console.log(res.data);
       });
     }
