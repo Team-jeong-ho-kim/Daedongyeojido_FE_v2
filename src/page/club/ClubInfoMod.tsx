@@ -24,7 +24,7 @@ const ClubInfoMod = () => {
 
   useEffect(() => {
     getMyInfo().then((res) => {
-      if (res.data.myClub !== clubName || res.data.part !== "CLUB_LEADER") {
+      if (res.data.myClub !== clubName || (res.data.part !== "CLUB_LEADER" && res.data.part !== "ADMIN")) {
         window.location.href = "/";
       }
     });
