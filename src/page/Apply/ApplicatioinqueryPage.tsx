@@ -211,10 +211,13 @@ const Cancel = styled.button`
   line-height: normal;
   letter-spacing: 0.014px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  transition: filter 0.2s, scale 0.2s;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(70%);
+    scale: 0.9;
   }
 `;
 
@@ -230,10 +233,15 @@ const Pass = styled.button<{ selected: boolean }>`
   font-weight: 500;
   line-height: 16px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  transition: filter 0.2s, scale 0.2s, background-color 0.2s, color 0.2s;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(100%);
+    background-color: #333b3d;
+    color: #fff;
+    scale: 0.9;
   }
 `;
 
@@ -249,10 +257,15 @@ const Fail = styled.button<{ selected: boolean }>`
   font-weight: 500;
   line-height: 16px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s;
+  transition: filter 0.2s, scale 0.2s, background 0.2s, color 0.2s;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(100%);
+    background-color: #333b3d;
+    color: #fff;
+    scale: 0.9;
   }
 `;
 

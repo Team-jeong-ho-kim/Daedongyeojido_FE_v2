@@ -130,12 +130,14 @@ export const Memo = ({ reportId }: { reportId: number }) => {
         <BtnWrapper>
           <ButtonPass
             onClick={handleULTPass}
-            selected={memo.interviewPassingResult === "PASS"}>
+            selected={memo.interviewPassingResult === "PASS"}
+          >
             합격
           </ButtonPass>
           <ButtonFail
             onClick={handleULTFail}
-            selected={memo.interviewPassingResult === "FAIL"}>
+            selected={memo.interviewPassingResult === "FAIL"}
+          >
             불합격
           </ButtonFail>
         </BtnWrapper>
@@ -186,6 +188,16 @@ const ButtonPass = styled.button<{ selected: boolean }>`
   color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   font-size: 14px;
   cursor: pointer;
+  transition: filter 0.2s, scale 0.2s, background 0.2s, color 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(100%);
+    background-color: #333b3d;
+    color: #fff;
+    scale: 0.9;
+  }
 `;
 
 const ButtonFail = styled.button<{ selected: boolean }>`
@@ -197,6 +209,16 @@ const ButtonFail = styled.button<{ selected: boolean }>`
   border: ${({ selected }) => (selected ? "none" : "1px solid #333b3d")};
   color: ${({ selected }) => (selected ? "#fff" : "#333b3d")};
   cursor: pointer;
+  transition: filter 0.2s, scale 0.2s, background 0.2s, color 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(100%);
+    background-color: #333b3d;
+    color: #fff;
+    scale: 0.9;
+  }
 `;
 
 const Record = styled.textarea`
@@ -239,4 +261,12 @@ const ButtonSave = styled.button`
   border-radius: 10px;
   background-color: #333b3d;
   cursor: pointer;
+  transition: filter 0.2s, scale 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
+  &:active {
+    filter: brightness(100%);
+    scale: 0.9;
+  }
 `;
