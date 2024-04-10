@@ -5,7 +5,7 @@ import RightArrowBold from "../../assets/img/PNG/RightArrowBold.png";
 import Close from "../../assets/img/PNG//Close.png";
 import { getITVquery } from "../../apis/interview";
 import { postITVtime } from "../../apis/interview";
-import { InterviewTimeType } from "../../types/type";
+import { InterviewTimeType, MyInfoType } from "../../types/type";
 
 interface Day {
   date: number;
@@ -16,6 +16,7 @@ interface Day {
 interface Props {
   handleItvToggle: () => void;
   reportID: number;
+  user: MyInfoType | undefined;
 }
 
 const daysInMonth = (month: number, year: number): number => {
@@ -41,7 +42,11 @@ const monthNames: string[] = [
   "December",
 ];
 
-const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
+const interviewSchedule: React.FC<Props> = ({
+  handleItvToggle,
+  reportID,
+  user,
+}) => {
   const [selectedDate, setSelectedDate] = useState<Day>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -212,6 +217,7 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
         interviewTimeId: selectedTimeId,
       });
       handleClose();
+      window.location.reload();
     } else return;
   };
 
@@ -222,6 +228,29 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
       console.log(res.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const searchMultipliTimes = (IST: string, IET: string) => {
+    if (user) {
+      let found: boolean = true;
+      user.myReport.forEach((data) => {
+        if (data.interviewStartTime.split("T")[0] === IST.split("T")[0]) {
+          const ISTmTime = new Date(data.interviewStartTime).getTime();
+          const IETmTime = new Date(data.interviewEndTime).getTime();
+          const ISTTime = new Date(IST).getTime();
+          const IETTime = new Date(IET).getTime();
+          console.log(ISTmTime, IETmTime, ISTTime, IETTime);
+          if (
+            (ISTTime > ISTmTime && ISTTime < IETTime) ||
+            (IETTime > ISTmTime && IETTime < IETTime)
+          ) {
+            found = false;
+            return false;
+          }
+        }
+      });
+      return found;
     }
   };
 
@@ -271,38 +300,52 @@ const interviewSchedule: React.FC<Props> = ({ handleItvToggle, reportID }) => {
                 itvTime.map((time) => {
                   return (
                     <>
-                      {time.interviewStartTime.split("T")[0] == sDate && (
-                        <Time
-                          isSelected={time.interviewTimeId == selectedTimeId}
-                          onClick={() => {
-                            setSelectedTimeId(time.interviewTimeId);
-                            setSTime(
-                              `${
-                                time.interviewStartTime
-                                  .split("T")[1]
-                                  .split(":")[0]
-                              }:${
-                                time.interviewStartTime
-                                  .split("T")[1]
-                                  .split(":")[1]
-                              }~${
-                                time.interviewEndTime
-                                  .split("T")[1]
-                                  .split(":")[0]
-                              }:${
-                                time.interviewEndTime
-                                  .split("T")[1]
-                                  .split(":")[1]
-                              }`
-                            );
-                          }}
-                        >
-                          {time.interviewStartTime.split("T")[1].split(":")[0]}:
-                          {time.interviewStartTime.split("T")[1].split(":")[1]}{" "}
-                          ~ {time.interviewEndTime.split("T")[1].split(":")[0]}:
-                          {time.interviewEndTime.split("T")[1].split(":")[1]}
-                        </Time>
-                      )}
+                      {time.interviewStartTime.split("T")[0] == sDate &&
+                        searchMultipliTimes(
+                          time.interviewStartTime,
+                          time.interviewEndTime
+                        ) && (
+                          <Time
+                            isSelected={time.interviewTimeId == selectedTimeId}
+                            onClick={() => {
+                              setSelectedTimeId(time.interviewTimeId);
+                              setSTime(
+                                `${
+                                  time.interviewStartTime
+                                    .split("T")[1]
+                                    .split(":")[0]
+                                }:${
+                                  time.interviewStartTime
+                                    .split("T")[1]
+                                    .split(":")[1]
+                                }~${
+                                  time.interviewEndTime
+                                    .split("T")[1]
+                                    .split(":")[0]
+                                }:${
+                                  time.interviewEndTime
+                                    .split("T")[1]
+                                    .split(":")[1]
+                                }`
+                              );
+                            }}
+                          >
+                            {
+                              time.interviewStartTime
+                                .split("T")[1]
+                                .split(":")[0]
+                            }
+                            :
+                            {
+                              time.interviewStartTime
+                                .split("T")[1]
+                                .split(":")[1]
+                            }{" "}
+                            ~{" "}
+                            {time.interviewEndTime.split("T")[1].split(":")[0]}:
+                            {time.interviewEndTime.split("T")[1].split(":")[1]}
+                          </Time>
+                        )}
                     </>
                   );
                 })}

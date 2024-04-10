@@ -127,7 +127,7 @@ const MyPage = () => {
       case "AND":
         return "Android";
       case "BACK":
-        return "Back-end";
+        return "BackEnd";
       case "DESIGN":
         return "Design";
       case "DEVOPS":
@@ -137,13 +137,13 @@ const MyPage = () => {
       case "FLUTTER":
         return "Flutter";
       case "FRONT":
-        return "Front-end";
+        return "FrontEnd";
       case "GAME":
         return "Game";
       case "IOS":
         return "IOS";
       case "SECURITY":
-        return "InfoSec";
+        return "Security";
       case "UNDEFINED":
         return "미정";
       default:
@@ -391,7 +391,9 @@ const MyPage = () => {
                             <ApplyDetails>
                               <ApplyName>{report.clubName}</ApplyName>
                               <ApplyData>
-                                <ApplyMajor>{report.hopeMajor}</ApplyMajor>
+                                <ApplyMajor>
+                                  {majorType(report.hopeMajor)}
+                                </ApplyMajor>
                                 <ApplyD>
                                   <ApplyLD>
                                     지원 마감일 : {report.deadline}
@@ -573,7 +575,11 @@ const MyPage = () => {
       {ivsdSelect ? (
         <>
           <Container2></Container2>
-          <INT handleItvToggle={handleItvToggle} reportID={itvScdl ?? 0} />
+          <INT
+            handleItvToggle={handleItvToggle}
+            reportID={itvScdl ?? 0}
+            user={data}
+          />
         </>
       ) : null}
       {/* {profileEdit ? true : false} */}
