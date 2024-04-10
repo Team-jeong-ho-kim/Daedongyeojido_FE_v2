@@ -536,7 +536,7 @@ const MyPage = () => {
                   )}
                 </>
               )}
-              {page == "Announce" && (
+              {page === "Announce" && (
                 <>
                   <MyName>공지사항</MyName>
                   {getAnnounce && getAnnounce.length <= 0 ? (
@@ -546,16 +546,18 @@ const MyPage = () => {
                     </NoAnno>
                   ) : (
                     <AnnounceCenter>
-                      {getAnnounce?.map((announce) => {
-                        return (
-                          <AnnounceBox
-                            title={announce.title}
-                            contents={announce.contents}
-                          />
-                        );
-                      })}
+                      {getAnnounce &&
+                        getAnnounce
+                          .slice()
+                          .reverse()
+                          .map((announce) => (
+                            <AnnounceBox
+                              title={announce.title}
+                              contents={announce.contents}
+                            />
+                          ))}
                     </AnnounceCenter>
-                  )}{" "}
+                  )}
                 </>
               )}
             </RightBox>
@@ -861,7 +863,7 @@ const InterviewScheduleSelect = styled.button`
   transition: filter 0.2s;
   &:hover {
     filter: brightness(70%);
-  }}
+  }
 `;
 
 const AlarmText = styled.p`

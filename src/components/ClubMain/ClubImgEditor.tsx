@@ -74,7 +74,7 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
             <>
               <PhotoPlus src={Photo} />
               <Sensor>동아리 배너에 들어갈 사진을 선택해 주세요.</Sensor>
-              <Visual>이미지 크기: 1920px×350px</Visual>
+              <Visual>이미지 크기: 1920px×350px(png)</Visual>
             </>
           )}
           {bannerImg && <BannerImage src={reBanner} alt="" />}
@@ -94,7 +94,7 @@ const ClubImgEditor: React.FC<Update> = ({ club, imgLoad }) => {
             <>
               <PhotoPlus src={Photo} />
               <Sensor>동아리 설명에 들어갈 사진을 선택해 주세요.</Sensor>
-              <Visual>이미지 크기: 493px×300px</Visual>
+              <Visual>이미지 크기: 493px×300px(png)</Visual>
             </>
           )}
           {introImg && <IntroImage src={reIntro} alt="" />}
