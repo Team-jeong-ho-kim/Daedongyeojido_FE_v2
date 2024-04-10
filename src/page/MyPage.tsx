@@ -489,6 +489,12 @@ const MyPage = () => {
                                 <AlarmName>
                                   <AlarmPC>{alarm.clubName}</AlarmPC>
                                   <AlarmPassed>최종합격</AlarmPassed>
+                                  <InterviewScheduleSelect onClick={() => {}}>
+                                    입부 하기
+                                  </InterviewScheduleSelect>
+                                  <InterviewScheduleSelect onClick={() => {}}>
+                                    지원 취소
+                                  </InterviewScheduleSelect>
                                 </AlarmName>
                                 <AlarmText>
                                   {alarm.userName}님, {alarm.clubName}{" "}
