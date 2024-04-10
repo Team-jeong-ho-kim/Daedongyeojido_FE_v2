@@ -51,7 +51,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 150px;
-  width: 100%;
+  width: 100vw;
 `;
 
 const ApplicantWrapper = styled.div`
