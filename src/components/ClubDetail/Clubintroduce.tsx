@@ -6,6 +6,17 @@ type PropType = Pick<
   "tags" | "clubImageUrl" | "introduction" | "clubName" | "title"
 >;
 
+const Replacing = (str: string) => {
+  const returnStr = str.split("\n").map((line, index) => (
+    <div key={index}>
+      {line}
+      <br />
+    </div>
+  ));
+
+  return returnStr;
+};
+
 export const Clubintroduce = ({
   tags,
   clubImageUrl,
@@ -29,7 +40,7 @@ export const Clubintroduce = ({
                 );
               })}
             </TagWrapper>
-            <Content>{introduction}</Content>
+            <Content>{Replacing(introduction)}</Content>
           </Text>
           <LogoImg src={clubImageUrl ?? undefined} />
         </>
@@ -72,7 +83,8 @@ const OneLine = styled.p`
 
 const TagWrapper = styled.div`
   display: flex;
-  gap: 1%;
+  column-gap: 5px;
+  flex-wrap: wrap;
 `;
 
 const Tag = styled.p`
