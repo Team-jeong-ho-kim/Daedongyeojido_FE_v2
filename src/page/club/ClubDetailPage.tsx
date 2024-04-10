@@ -120,16 +120,14 @@ export const ClubDetailPage = () => {
                 onClick={() => {
                   if (isIn) return;
                   setIsOpen(false);
-                }}
-              >
+                }}>
                 <Modal
                   onMouseEnter={() => {
                     setIsIn(true);
                   }}
                   onMouseLeave={() => {
                     setIsIn(false);
-                  }}
-                >
+                  }}>
                   {question?.map((quest, index) => {
                     return (
                       <QuestBox
