@@ -195,8 +195,8 @@ export const PlusMember: React.FC<Props> = ({
             </option>
             <option value="FRONT">FrontEnd</option>
             <option value="BACK">BackEnd</option>
-            <option value="IOS">ios</option>
-            <option value="AND">Android</option>
+            <option value="IOS">IOS</option>
+            <option value="AOS">Android</option>
             <option value="FLUTTER">Flutter</option>
             <option value="EMBEDDED">Embedded</option>
             <option value="AI">AI</option>
