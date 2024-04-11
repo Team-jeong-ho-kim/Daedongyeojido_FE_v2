@@ -12,6 +12,7 @@ import { MajorType } from "../../types/type";
 import React from "react";
 import { createNotice, getDetailNotice, modifyNotice } from "../../apis/notice";
 import { Cookie } from "../../utils/cookie";
+import { getMyInfo } from "../../apis/user";
 
 interface Day {
   date: number;
@@ -53,6 +54,17 @@ const NoticeModifying: React.FC = () => {
     weWant: "",
     assignment: "",
   });
+
+  useEffect(() => {
+    getMyInfo().then((res) => {
+      if (
+        res.data.myClub !== clubName ||
+        (res.data.part !== "CLUB_LEADER" && res.data.part !== "ADMIN")
+      ) {
+        window.location.href = "/";
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -286,8 +298,7 @@ const NoticeModifying: React.FC = () => {
               }
               onClick={() => {
                 onSubmit();
-              }}
-            >
+              }}>
               저장하기
             </SaveButton>
           </NoticeTitleBox>
@@ -356,8 +367,7 @@ const NoticeModifying: React.FC = () => {
                   <div key={index}>
                     <Select
                       value={fields[index].major}
-                      onChange={(e) => onChangeField(e, index, "major")}
-                    >
+                      onChange={(e) => onChangeField(e, index, "major")}>
                       <option value="" disabled selected>
                         모집 전공
                       </option>
@@ -383,8 +393,7 @@ const NoticeModifying: React.FC = () => {
                     <Delete
                       onClick={() => {
                         onDeleteField(index);
-                      }}
-                    >
+                      }}>
                       삭제
                     </Delete>
                   </div>
@@ -392,8 +401,7 @@ const NoticeModifying: React.FC = () => {
             </Recruits>
             <span
               style={{ cursor: "pointer", color: "gray" }}
-              onClick={onPlusField}
-            >
+              onClick={onPlusField}>
               {" "}
               추가
             </span>
