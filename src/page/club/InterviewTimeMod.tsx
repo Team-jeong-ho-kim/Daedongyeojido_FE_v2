@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
-import { LeftArrow } from "../../assets";
+import LeftArrow from "../../assets/img/SVG/LeftArrow.svg";
 import { useState } from "react";
 import InterviewMod from "../../components/NoticePage/InterviewMod";
 
 const InterviewTimeMod = () => {
-  const [isLoginVisible, setIsLoginVisible] = useState<Boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false);
 
   const handleLoginToggle = () => {
     setIsLoginVisible(!isLoginVisible);

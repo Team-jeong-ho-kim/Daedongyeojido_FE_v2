@@ -5,7 +5,7 @@ import { SelectBar } from "../../components/ClubDetail/SelectBar";
 import Footer from "../../components/MainPage/Footer";
 import { Clubintroduce } from "../../components/ClubDetail/Clubintroduce";
 import { useState, useEffect } from "react";
-import { Banner } from "../../assets";
+import Banner from "../../assets/img/PNG/Banner.png";
 import Daedongyeojido from "../../assets/img/PNG/Daedongyeojido.png";
 import { ClubMember } from "../../components/ClubDetail/ClubMember";
 import { QnA } from "../../components/ClubDetail/QnA";
@@ -120,14 +120,16 @@ export const ClubDetailPage = () => {
                 onClick={() => {
                   if (isIn) return;
                   setIsOpen(false);
-                }}>
+                }}
+              >
                 <Modal
                   onMouseEnter={() => {
                     setIsIn(true);
                   }}
                   onMouseLeave={() => {
                     setIsIn(false);
-                  }}>
+                  }}
+                >
                   {question?.map((quest, index) => {
                     return (
                       <QuestBox

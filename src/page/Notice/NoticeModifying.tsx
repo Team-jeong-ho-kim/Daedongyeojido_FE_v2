@@ -276,7 +276,6 @@ const NoticeModifying: React.FC = () => {
               type="text"
               name="noticeTitle"
               value={data.noticeTitle}
-              maxLength={30}
               onChange={onChange}
               placeholder="공고 제목"
               spellCheck={false}
@@ -296,7 +295,6 @@ const NoticeModifying: React.FC = () => {
             type="text"
             name="noticeExplain"
             value={data.noticeExplain}
-            maxLength={45}
             onChange={onChange}
             placeholder="공고 부제목"
             spellCheck={false}
@@ -307,8 +305,6 @@ const NoticeModifying: React.FC = () => {
             <ClubExplainInput
               name="clubExplain"
               value={data.clubExplain}
-              maxLength={500}
-              cols={100}
               onChange={handleClubExplainChange}
               placeholder="동아리 소개"
               spellCheck={false}
@@ -380,7 +376,6 @@ const NoticeModifying: React.FC = () => {
                       type="text"
                       value={fields[index].toDo}
                       onChange={(e) => onChangeField(e, index, "todo")}
-                      maxLength={50}
                       placeholder="모집 이유"
                       spellCheck={false}
                     />
@@ -429,7 +424,6 @@ const NoticeModifying: React.FC = () => {
                   type="text"
                   name="applyMethod"
                   value={data.applyMethod}
-                  maxLength={50}
                   onChange={onChange}
                   placeholder="지원방법 작성"
                   spellCheck={false}
@@ -452,7 +446,6 @@ const NoticeModifying: React.FC = () => {
               name="weWant"
               value={data.weWant}
               placeholder="인재상 작성"
-              maxLength={1000}
               onChange={onTextChange}
               spellCheck={false}
             />
@@ -463,7 +456,6 @@ const NoticeModifying: React.FC = () => {
               name="assignment"
               value={data.assignment}
               placeholder="과제 작성"
-              maxLength={1000}
               onChange={onTextChange}
               spellCheck={false}
             />
@@ -474,7 +466,6 @@ const NoticeModifying: React.FC = () => {
               name="inquiry"
               value={data.inquiry}
               placeholder="문의사항 작성"
-              maxLength={1000}
               onChange={onTextChange}
               spellCheck={false}
             />

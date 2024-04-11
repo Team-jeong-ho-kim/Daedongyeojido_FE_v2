@@ -432,7 +432,7 @@ const IsTag = styled.p`
 
 const Tager = styled.input`
   padding: 16px 22px 12px;
-  width: 250px;
+  width: 100%;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
   font-size: 20px;

@@ -24,7 +24,10 @@ const ClubInfoMod = () => {
 
   useEffect(() => {
     getMyInfo().then((res) => {
-      if (res.data.myClub !== clubName || (res.data.part !== "CLUB_LEADER" && res.data.part !== "ADMIN")) {
+      if (
+        res.data.myClub !== clubName ||
+        (res.data.part !== "CLUB_LEADER" && res.data.part !== "ADMIN")
+      ) {
         window.location.href = "/";
       }
     });
@@ -87,7 +90,7 @@ const ClubInfoMod = () => {
 
   const handleSave = () => {
     if (!clubName) return;
-    let tag = tagz.filter((t) => t != "");
+    const tag = tagz.filter((t) => t != "");
     Patch({
       clubName: clubName,
       title: explain,
@@ -133,15 +136,11 @@ const ClubInfoMod = () => {
         {data && <ClubTagLoader club={data} tagLoad={handleTagChange} />}
         <OneLineIntro
           value={explain}
-          maxLength={150}
-          rows={3}
           onChange={handleIntroChange}
           placeholder="자신이 속한 동아리에 대해 짧게 설명해 주세요."
         />
         <DetailsInfo
           value={longExp}
-          maxLength={500}
-          rows={15}
           onChange={handleLongIntroChange}
           placeholder="자신이 속한 동아리에 대해 알려보세요! 동아리에 대한 상세 설명을 작성해 주세요."
         />

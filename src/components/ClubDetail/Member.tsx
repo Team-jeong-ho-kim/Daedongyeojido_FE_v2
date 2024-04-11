@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MajorType } from "../../types/type";
-import { Logo } from "../../assets";
+import Logo from "../../assets/img/PNG/DefaultProfile.png";
 
 type PropType = {
   name: string;
