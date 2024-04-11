@@ -22,12 +22,21 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     if (currentTags < 5) setCurrentTags(currentTags + 1);
   };
 
+  useEffect(() => {
+    console.log(currentTags);
+  }, [currentTags]);
+
   const handleWriteTag1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 11) {
-      setTagz([inputValue, tagz[1], tagz[2], tagz[3], tagz[4]]);
-      tagLoad(tagz);
+      setTagz([
+        inputValue,
+        tagz[1] ? tagz[1] : "",
+        tagz[2] ? tagz[2] : "",
+        tagz[3] ? tagz[3] : "",
+        tagz[4] ? tagz[4] : "",
+      ]);
     }
   };
 
@@ -35,8 +44,13 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 11) {
-      setTagz([tagz[0], inputValue, tagz[2], tagz[3], tagz[4]]);
-      tagLoad(tagz);
+      setTagz([
+        tagz[0],
+        inputValue,
+        tagz[2] ? tagz[2] : "",
+        tagz[3] ? tagz[3] : "",
+        tagz[4] ? tagz[4] : "",
+      ]);
     }
   };
 
@@ -44,8 +58,13 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 11) {
-      setTagz([tagz[0], tagz[1], inputValue, tagz[3], tagz[4]]);
-      tagLoad(tagz);
+      setTagz([
+        tagz[0],
+        tagz[1],
+        inputValue,
+        tagz[3] ? tagz[3] : "",
+        tagz[4] ? tagz[4] : "",
+      ]);
     }
   };
 
@@ -53,8 +72,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 11) {
-      setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4]]);
-      tagLoad(tagz);
+      setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4] ? tagz[4] : ""]);
     }
   };
 
@@ -63,9 +81,12 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
     if (inputValue.length <= 11) {
       setTagz([tagz[0], tagz[1], tagz[2], tagz[3], inputValue]);
-      tagLoad(tagz);
     }
   };
+
+  useEffect(() => {
+    tagLoad(tagz);
+  }, [tagz]);
 
   const handleFocusTag1 = (e: React.FocusEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -173,20 +194,12 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   };
 
   useEffect(() => {
-    console.log(
-      tagz.filter((tag) => tag !== undefined && tag !== "" && tag !== "#")
-    );
-    tagLoad(
-      tagz.filter((tag) => tag !== undefined && tag !== "" && tag !== "#")
-    );
+    console.log(tagz);
   }, [tagz]);
 
   const handleDeleteOn = () => {
     setDeleteMod(!deleteMod);
-  };
-
-  const handleDeleteTag = () => {
-    setCurrentTags(currentTags - 1);
+    console.log(tagz);
   };
 
   const handleNoneTag = () => {
@@ -203,28 +216,63 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
       handleNoneTag();
       return;
     }
-    handleDeleteTag();
+    setCurrentTags(currentTags - 1);
   };
 
   const handleDelete2 = () => {
     if (currentTags > 2) {
-      setTagz([tagz[0], tagz[2], tagz[3], tagz[4], ""]);
+      setTagz([
+        tagz[0],
+        tagz[2] ? tagz[2] : "",
+        tagz[3] ? tagz[3] : "",
+        tagz[4] ? tagz[4] : "",
+        "",
+      ]);
+    } else if (currentTags == 2) {
+      setTagz([tagz[0], "", "", "", ""]);
     }
-    handleDeleteTag();
+    setCurrentTags(currentTags - 1);
   };
 
   const handleDelete3 = () => {
     if (currentTags > 3) {
-      setTagz([tagz[0], tagz[1], tagz[3], tagz[4], ""]);
+      setTagz([
+        tagz[0],
+        tagz[1] ? tagz[1] : "",
+        tagz[3] ? tagz[3] : "",
+        tagz[4] ? tagz[4] : "",
+        "",
+      ]);
+    } else if (currentTags == 3) {
+      setTagz([tagz[0], tagz[1], "", "", ""]);
     }
-    handleDeleteTag();
+    setCurrentTags(currentTags - 1);
   };
 
   const handleDelete4 = () => {
     if (currentTags > 4) {
-      setTagz([tagz[0], tagz[1], tagz[2], tagz[4], ""]);
+      setTagz([
+        tagz[0],
+        tagz[1] ? tagz[1] : "",
+        tagz[2] ? tagz[2] : "",
+        tagz[4] ? tagz[4] : "",
+        "",
+      ]);
+    } else if (currentTags == 4) {
+      setTagz([tagz[0], tagz[1], tagz[2], "", ""]);
     }
-    handleDeleteTag();
+    setCurrentTags(currentTags - 1);
+  };
+
+  const handleDelete5 = () => {
+    setTagz([
+      tagz[0],
+      tagz[1] ? tagz[1] : "",
+      tagz[2] ? tagz[2] : "",
+      tagz[3] ? tagz[3] : "",
+      "",
+    ]);
+    setCurrentTags(currentTags - 1);
   };
 
   return (
@@ -331,9 +379,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
                   }px`,
                 }}
               />
-              {deleteMod && (
-                <DeleteTag src={DelTag} onClick={handleDeleteTag} />
-              )}
+              {deleteMod && <DeleteTag src={DelTag} onClick={handleDelete5} />}
             </TagWrap>
           )}
         </TagWrapper>

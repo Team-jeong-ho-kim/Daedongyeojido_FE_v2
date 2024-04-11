@@ -55,9 +55,12 @@ const ClubInfoMod = () => {
         data.tags[3] ? data.tags[3] : "",
         data.tags[4] ? data.tags[4] : "",
       ]);
-      console.log(tagz);
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log(tagz);
+  }, [tagz]);
 
   const handleTagChange = (tag: string[]) => {
     setTagz(tag);
@@ -79,7 +82,7 @@ const ClubInfoMod = () => {
   const handleLongIntroChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
     const lineCount = inputValue.split("\n").length;
-    if (inputValue.length <= 500 && lineCount <= 15) {
+    if (inputValue.length <= 500 && lineCount <= 20) {
       setLongExp(inputValue);
     }
   };
@@ -90,14 +93,13 @@ const ClubInfoMod = () => {
 
   const handleSave = () => {
     if (!clubName) return;
-    const tag = tagz.filter((t) => t != "");
     Patch({
       clubName: clubName,
       title: explain,
       introduction: longExp,
       clubBannerUrl: clubBanner,
       clubImageUrl: clubImage,
-      tags: tag,
+      tags: tagz.filter((t) => t !== ""),
     });
   };
 
@@ -288,7 +290,7 @@ const OneLineIntro = styled.textarea`
 
 const DetailsInfo = styled.textarea`
   width: 100%;
-  height: 472px;
+  height: 555px;
   font-size: 20px;
   font-weight: 400;
   line-height: 25px;
