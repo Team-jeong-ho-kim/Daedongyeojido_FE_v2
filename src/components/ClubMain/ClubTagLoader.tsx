@@ -25,7 +25,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   const handleWriteTag1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
-    if (inputValue.length <= 10) {
+    if (inputValue.length <= 11) {
       setTagz([inputValue, tagz[1], tagz[2], tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
@@ -34,7 +34,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   const handleWriteTag2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
-    if (inputValue.length <= 10) {
+    if (inputValue.length <= 11) {
       setTagz([tagz[0], inputValue, tagz[2], tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
@@ -43,7 +43,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   const handleWriteTag3 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
-    if (inputValue.length <= 10) {
+    if (inputValue.length <= 11) {
       setTagz([tagz[0], tagz[1], inputValue, tagz[3], tagz[4]]);
       tagLoad(tagz);
     }
@@ -52,7 +52,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   const handleWriteTag4 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
-    if (inputValue.length <= 10) {
+    if (inputValue.length <= 11) {
       setTagz([tagz[0], tagz[1], tagz[2], inputValue, tagz[4]]);
       tagLoad(tagz);
     }
@@ -61,7 +61,7 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
   const handleWriteTag5 = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     inputValue = inputValue.replace(/[?@$&*!:;(){}\[\]\-`~=+<>/.,'"\s]/g, "");
-    if (inputValue.length <= 10) {
+    if (inputValue.length <= 11) {
       setTagz([tagz[0], tagz[1], tagz[2], tagz[3], inputValue]);
       tagLoad(tagz);
     }
@@ -246,11 +246,14 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
               <Tager
                 type="text"
                 value={tagz[0]}
-                maxLength={10}
+                maxLength={11}
                 onChange={handleWriteTag1}
                 onFocus={handleFocusTag1}
                 onBlur={handleBlurTag1}
                 placeholder="#태그1 입력"
+                style={{
+                  width: `${tagz[0].length > 0 ? tagz[0].length * 23 : 170}px`,
+                }}
               />
               {deleteMod && <DeleteTag src={DelTag} onClick={handleDelete1} />}
             </TagWrap>
@@ -260,11 +263,16 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
               <Tager
                 type="text"
                 value={tagz[1]}
-                maxLength={10}
+                maxLength={11}
                 onChange={handleWriteTag2}
                 onFocus={handleFocusTag2}
                 onBlur={handleBlurTag2}
                 placeholder="#태그2 입력"
+                style={{
+                  width: `${
+                    tagz[1] && tagz[1].length > 0 ? tagz[1].length * 23 : 170
+                  }px`,
+                }}
               />
               {deleteMod && <DeleteTag src={DelTag} onClick={handleDelete2} />}
             </TagWrap>
@@ -274,11 +282,16 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
               <Tager
                 type="text"
                 value={tagz[2]}
-                maxLength={10}
+                maxLength={11}
                 onChange={handleWriteTag3}
                 onFocus={handleFocusTag3}
                 onBlur={handleBlurTag3}
                 placeholder="#태그3 입력"
+                style={{
+                  width: `${
+                    tagz[2] && tagz[2].length > 0 ? tagz[2].length * 23 : 170
+                  }px`,
+                }}
               />
               {deleteMod && <DeleteTag src={DelTag} onClick={handleDelete3} />}
             </TagWrap>
@@ -288,11 +301,16 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
               <Tager
                 type="text"
                 value={tagz[3]}
-                maxLength={10}
+                maxLength={11}
                 onChange={handleWriteTag4}
                 onFocus={handleFocusTag4}
                 onBlur={handleBlurTag4}
                 placeholder="#태그4 입력"
+                style={{
+                  width: `${
+                    tagz[3] && tagz[3].length > 0 ? tagz[3].length * 23 : 170
+                  }px`,
+                }}
               />
               {deleteMod && <DeleteTag src={DelTag} onClick={handleDelete4} />}
             </TagWrap>
@@ -302,11 +320,16 @@ const ClubTagLoader: React.FC<Update> = ({ club, tagLoad }) => {
               <Tager
                 type="text"
                 value={tagz[4]}
-                maxLength={10}
+                maxLength={11}
                 onChange={handleWriteTag5}
                 onFocus={handleFocusTag5}
                 onBlur={handleBlurTag5}
                 placeholder="#태그5 입력"
+                style={{
+                  width: `${
+                    tagz[4] && tagz[4].length > 0 ? tagz[4].length * 23 : 170
+                  }px`,
+                }}
               />
               {deleteMod && (
                 <DeleteTag src={DelTag} onClick={handleDeleteTag} />
@@ -412,6 +435,7 @@ const TagWrapper = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 1350px;
+  flex-wrap: wrap;
 `;
 
 const TagCenter = styled.div`
@@ -432,7 +456,7 @@ const IsTag = styled.p`
 
 const Tager = styled.input`
   padding: 16px 22px 12px;
-  width: 100%;
+  min-width: 170px;
   color: #000;
   font-family: "Spoqa Han Sans Neo";
   font-size: 20px;

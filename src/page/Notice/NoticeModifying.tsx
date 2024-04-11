@@ -307,6 +307,7 @@ const NoticeModifying: React.FC = () => {
               value={data.clubExplain}
               onChange={handleClubExplainChange}
               placeholder="동아리 소개"
+              cols={100}
               spellCheck={false}
               style={{
                 height: `${
