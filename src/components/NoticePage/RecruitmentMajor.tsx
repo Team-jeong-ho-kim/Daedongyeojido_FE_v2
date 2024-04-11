@@ -11,7 +11,7 @@ const RecruitmentMajor: React.FC<Notices> = ({ major, todo }) => {
     switch (major) {
       case "AI":
         return "AI";
-      case "AND":
+      case "AOS":
         return "안드로이드";
       case "BACK":
         return "백엔드";

@@ -124,7 +124,7 @@ const MyPage = () => {
     switch (major) {
       case "AI":
         return "AI";
-      case "AND":
+      case "AOS":
         return "Android";
       case "BACK":
         return "BackEnd";
@@ -233,7 +233,7 @@ const MyPage = () => {
         case "IOS":
           setMyMajor(`IOS 개발자 ${data.name}입니다.`);
           break;
-        case "AND":
+        case "AOS":
           setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
           break;
         case "FLUTTER":

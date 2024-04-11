@@ -74,7 +74,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
     switch (major) {
       case "AI":
         return "AI";
-      case "AND":
+      case "AOS":
         return "Android";
       case "BACK":
         return "BackEnd";

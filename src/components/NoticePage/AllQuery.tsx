@@ -43,7 +43,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
       case "IOS":
         return "IOS";
       case "AND":
-        return "AND";
+        return "AOS";
       case "FLUTTER":
         return "FLUTTER";
       case "EMBEDDED":
