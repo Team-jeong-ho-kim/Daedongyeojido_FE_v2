@@ -343,15 +343,7 @@ const InterviewMod = () => {
         interviewEndTime: `${sDate}T${end}:00`,
       },
     ];
-    let m = 0;
-    data.map((time) => {
-      if (time.interviewStartTime.split("T")[0] == sDate) m++;
-    });
     console.log(newPatch);
-    if (m >= 6) {
-      alert("날짜별로 면접 시간은 최대 6개만 추가할 수 있습니다.");
-      return;
-    }
     if (clubName) {
       await patchITVmodify(clubName, newPatch);
       fetchData();
@@ -767,9 +759,19 @@ const Plus = styled.button<{
 const Times = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  height: auto;
-  gap: 12px;
+  align-content: flex-start;
+  overflow-y: auto;
+  width: 343px;
+  height: 155px;
+  row-gap: 8px;
+  column-gap: 12px;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #888;
+  }
 `;
 
 const Time = styled.div`
@@ -777,7 +779,6 @@ const Time = styled.div`
   display: flex;
   width: 159.5px;
   height: 32px;
-  margin-bottom: -4px;
   font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
   font-weight: 500;

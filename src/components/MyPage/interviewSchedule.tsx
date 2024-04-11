@@ -241,9 +241,14 @@ const interviewSchedule: React.FC<Props> = ({
           const ISTTime = new Date(IST).getTime();
           const IETTime = new Date(IET).getTime();
           console.log(ISTmTime, IETmTime, ISTTime, IETTime);
+          console.log(data.interviewStartTime, data.interviewEndTime, IST, IET);
           if (
-            (ISTTime > ISTmTime && ISTTime < IETTime) ||
-            (IETTime > ISTmTime && IETTime < IETTime)
+            (ISTTime > ISTmTime && ISTTime < IETmTime) ||
+            (IETTime > ISTmTime && IETTime < IETmTime) ||
+            (ISTmTime == ISTTime && IETTime == IETTime) ||
+            (ISTmTime == ISTTime &&
+              (IETTime < IETmTime || IETTime > IETmTime)) ||
+            ((ISTmTime > ISTTime || ISTmTime < ISTTime) && IETTime == IETmTime)
           ) {
             found = false;
             return false;
@@ -589,9 +594,18 @@ const Submit = styled.button`
 const Times = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  height: auto;
+  align-content: flex-start;
+  width: 343px;
+  overflow-y: auto;
+  height: 268px;
   gap: 12px;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #888;
+  }
 `;
 
 const Time = styled.div<{
