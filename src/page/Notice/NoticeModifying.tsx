@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
 import IVProcess from "../../assets/img/PNG/IVProcess.png";
+import IVProcess2 from "../../assets/img/PNG/IVProcess2.png";
 import RecruitmentDate from "../../components/NoticePage/RecruitmentDate";
 import InterviewDate from "../../components/NoticePage/InterviewDate";
 import { useNavigate, useParams } from "react-router-dom";
@@ -298,7 +299,8 @@ const NoticeModifying: React.FC = () => {
               }
               onClick={() => {
                 onSubmit();
-              }}>
+              }}
+            >
               저장하기
             </SaveButton>
           </NoticeTitleBox>
@@ -367,7 +369,8 @@ const NoticeModifying: React.FC = () => {
                   <div key={index}>
                     <Select
                       value={fields[index].major}
-                      onChange={(e) => onChangeField(e, index, "major")}>
+                      onChange={(e) => onChangeField(e, index, "major")}
+                    >
                       <option value="" disabled selected>
                         모집 전공
                       </option>
@@ -393,7 +396,8 @@ const NoticeModifying: React.FC = () => {
                     <Delete
                       onClick={() => {
                         onDeleteField(index);
-                      }}>
+                      }}
+                    >
                       삭제
                     </Delete>
                   </div>
@@ -401,7 +405,8 @@ const NoticeModifying: React.FC = () => {
             </Recruits>
             <span
               style={{ cursor: "pointer", color: "gray" }}
-              onClick={onPlusField}>
+              onClick={onPlusField}
+            >
               {" "}
               추가
             </span>
@@ -409,7 +414,7 @@ const NoticeModifying: React.FC = () => {
           <InterviewProcess>
             <Alltitle>면접 절차</Alltitle>
             <IVPBox>
-              <IVPImg src={IVProcess} />
+              <IVPImg src={clubName == "DMS" ? IVProcess2 : IVProcess} />
             </IVPBox>
           </InterviewProcess>
           <ApplyManual>

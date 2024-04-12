@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/MainPage/Footer";
 import Check from "../../assets/img/SVG/Check.svg";
 import IVProcess from "../../assets/img/PNG/IVProcess.png";
+import IVProcess2 from "../../assets/img/PNG/IVProcess2.png";
 import Recruitments from "../../components/NoticePage/Recruitments";
 import ScrollUpper from "../../components/MainPage/ScrollUpper";
 import { useNavigate, useParams } from "react-router-dom";
@@ -248,7 +249,11 @@ const NoticeDetails = () => {
               <InterviewProcess>
                 <Alltitle>면접 절차</Alltitle>
                 <IVPBox>
-                  <IVPImg src={IVProcess} />
+                  <IVPImg
+                    src={
+                      data && data.clubName == "DMS" ? IVProcess2 : IVProcess
+                    }
+                  />
                 </IVPBox>
               </InterviewProcess>
               <ApplyManual>
