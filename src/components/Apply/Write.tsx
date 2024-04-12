@@ -49,6 +49,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
       major: selectedMajor,
       reportQuests: reportQuests,
     }).then(() => {
+      alert("성공적으로 제출되었습니다");
       link(`/NoticeDetails/${id}`);
     });
   };
