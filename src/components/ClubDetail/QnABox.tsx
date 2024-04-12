@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DownArrow from "../../assets/img/PNG/DownArrow.png";
 import { styled, keyframes } from "styled-components";
+import DDD from "../../assets/img/SVG/QnADelete.svg";
+import { useParams } from "react-router-dom";
+import { getMyInfo } from "../../apis/user";
+import { MyInfoType } from "../../types/type";
 
-type PropType = {
+interface Returns {
   quest: string;
   answer: string;
-};
+  id: number;
+  deletePop: (id: number) => void;
+}
 
 const Replacing = (str: string) => {
   const returnStr = str.split("\n").map((line, index) => (
@@ -18,14 +24,39 @@ const Replacing = (str: string) => {
   return returnStr;
 };
 
-export const QnABox = ({ quest, answer }: PropType) => {
+export const QnABox: React.FC<Returns> = ({ quest, answer, id, deletePop }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [user, setUser] = useState<MyInfoType>();
+  const { clubName } = useParams();
+
+  useEffect(() => {
+    getMyInfo().then((res) => {
+      setUser(res.data);
+    });
+  }, []);
+
+  const eligible = () => {
+    if (user) {
+      if (
+        (user.myClub === clubName && user.part === "CLUB_LEADER") ||
+        user.part === "ADMIN"
+      ) {
+        return true;
+      } else return false;
+    }
+    return false;
+  };
 
   return (
     <QnAWrapper opened={true}>
       <QnATop>
         <Title>
           <EQE>Q.</EQE> <QnASol>{Replacing(quest)}</QnASol>
+          {eligible() && (
+            <QnADelete onClick={() => deletePop(id)}>
+              <QnADel src={DDD} onClick={() => deletePop(id)} />
+            </QnADelete>
+          )}
         </Title>
         <ArrowImg
           src={DownArrow}
@@ -47,7 +78,7 @@ const spin = keyframes`
 	transform: rotate(0deg);
   }
   100% {
-	transform: rotate(-360deg);
+	transform: rotate(-180deg);
   }
 `;
 
@@ -80,6 +111,19 @@ const QnASol = styled.div`
   gap: 1px;
 `;
 
+const QnADelete = styled.div`
+  cursor: pointer;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+`;
+
+const QnADel = styled.img`
+  cursor: pointer;
+  width: 3px;
+  height: 18px;
+`;
+
 const ArrowImg = styled.img<{
   opened?: boolean;
 }>`
@@ -87,8 +131,8 @@ const ArrowImg = styled.img<{
   height: 23px;
   cursor: pointer;
   rotate: ${({ opened }) => (opened ? "180deg" : "0deg")};
-  &:hover {
-    animation: ${spin} 0.5s;
+  &:active {
+    animation: ${spin} 0.1s;
   }
 `;
 
@@ -106,6 +150,7 @@ const Title = styled.p`
   gap: 6px;
   font-size: 20px;
   font-weight: 700;
+  align-items: center;
 `;
 
 const EOE = styled.p`

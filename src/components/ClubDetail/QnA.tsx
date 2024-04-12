@@ -4,14 +4,16 @@ import { QnABox } from "./QnABox";
 import QnAPlus from "../../assets/img/PNG/QnAPlus.png";
 import { ClubDetailType } from "../../types/type";
 import { useParams } from "react-router-dom";
-import { postQuest } from "../../apis/question";
+import { postQuest, deleteQuestion } from "../../apis/question";
 
 type PropType = Pick<ClubDetailType, "questResponses">;
 
 export const QnA = ({ questResponses }: PropType) => {
   const [isOpen, setIsOpen] = useState<boolean>();
+  const [isClose, setIsClose] = useState<boolean>(false);
   const [isIn, setIsIn] = useState<boolean>(false);
   const [data, setData] = useState<string>("");
+  const [delected, setDelected] = useState<number>(0);
   const { clubName } = useParams();
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -41,12 +43,23 @@ export const QnA = ({ questResponses }: PropType) => {
 
   const questionsWithAnswers = questResponses.filter((quest) => quest.answer);
 
+  const deleteChange = (id: number) => {
+    setDelected(id);
+    setIsClose(true);
+  };
+
   return (
     <Container>
       {questionsWithAnswers.length > 0 ? (
         questionsWithAnswers.map((quest, index) => {
           return (
-            <QnABox key={index} quest={quest.question} answer={quest.answer} />
+            <QnABox
+              key={index}
+              quest={quest.question}
+              answer={quest.answer}
+              id={quest.questionId}
+              deletePop={deleteChange}
+            />
           );
         })
       ) : (
@@ -88,6 +101,24 @@ export const QnA = ({ questResponses }: PropType) => {
           setIsOpen(true);
         }}
       />
+      {isClose && (
+        <>
+          <All onClick={() => setIsClose(false)}></All>
+          <Diver>
+            <TopDelete
+              onClick={async () => {
+                if (confirm("정말 해당 질문을 삭제하시겠습니까?")) {
+                  await deleteQuestion(delected);
+                  window.location.reload();
+                }
+              }}
+            >
+              삭제하기
+            </TopDelete>
+            <BotCancel onClick={() => setIsClose(false)}>취소하기</BotCancel>
+          </Diver>
+        </>
+      )}
     </Container>
   );
 };
@@ -207,4 +238,57 @@ const Hyeok = styled.div`
   justify-content: center;
   padding: 50px;
   align-items: center;
+`;
+
+const All = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  z-index: 1100;
+`;
+
+const Diver = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: fixed;
+  top: 43vh;
+  left: 43vw;
+  z-index: 1111;
+  animation: ${fadeIn} 0.35s;
+`;
+
+const TopDelete = styled.button`
+  width: 268px;
+  height: 60px;
+  color: #4a4a4a;
+  font-size: 25px;
+  font-weight: 400;
+  border-radius: 5px 5px 0 0;
+  border: 0.5px solid #9d9d9d;
+  cursor: pointer;
+  transition: filter 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
+`;
+
+const BotCancel = styled.button`
+  width: 268px;
+  height: 60px;
+  color: #4a4a4a;
+  font-size: 25px;
+  font-weight: 400;
+  border-radius: 0 0 5px 5px;
+  border: 0.5px solid #9d9d9d;
+  cursor: pointer;
+  transition: filter 0.2s;
+  &:hover {
+    filter: brightness(70%);
+  }
 `;

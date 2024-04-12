@@ -17,3 +17,7 @@ export const answerQuest = async (data: {
 }) => {
   return await instance.post("question/answer", data);
 };
+
+export const deleteQuestion = async (clubQuestId: number) => {
+  return await instance.delete(`/question/delete/${clubQuestId}`);
+};

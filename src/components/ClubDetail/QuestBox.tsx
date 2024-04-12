@@ -73,7 +73,7 @@ const QuestionBox = styled.div<{ isOpen: boolean }>`
   width: 600px;
   padding-left: 15px;
   padding-top: 8px;
-  height: ${({ isOpen }) => (isOpen ? "160px" : "40px")};
+  height: ${({ isOpen }) => (isOpen ? "auto" : "40px")};
   display: flex;
   flex-direction: column;
   font-size: 16px;
@@ -81,7 +81,6 @@ const QuestionBox = styled.div<{ isOpen: boolean }>`
   cursor: pointer;
   overflow: hidden;
   user-select: none;
-  flex: none;
 `;
 
 const Div = styled.div`
