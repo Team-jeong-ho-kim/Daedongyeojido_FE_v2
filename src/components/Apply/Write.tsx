@@ -75,11 +75,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
       case "AI":
         return "AI";
       case "AND":
-<<<<<<< Updated upstream
-        return "AOS";
-=======
+        return "AND";
         return "Android";
->>>>>>> Stashed changes
       case "BACK":
         return "BackEnd";
       case "DESIGN":
