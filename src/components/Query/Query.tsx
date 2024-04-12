@@ -50,16 +50,20 @@ export const Query = ({ querys }: QueryProps) => {
               <Number>{query.classNumber}</Number>
               <Name>{query.name}</Name>
               <Major>{query.hopeMajor}</Major>
-              <Date>
-                면접 일시 :{" "}
-                {query.interviewStartTime.split("T")[0].split("-")[0]}년{" "}
-                {query.interviewStartTime.split("T")[0].split("-")[1]}월{" "}
-                {query.interviewStartTime.split("T")[0].split("-")[2]}일{" "}
-                {query.interviewStartTime.split("T")[1].split(":")[0]}:
-                {query.interviewStartTime.split("T")[1].split(":")[1]} ~{" "}
-                {query.interviewEndTime.split("T")[1].split(":")[0]}:
-                {query.interviewEndTime.split("T")[1].split(":")[1]}
-              </Date>
+              {query.interviewStartTime ? (
+                <Date>
+                  면접 일시 :{" "}
+                  {query.interviewStartTime.split("T")[0].split("-")[0]}년{" "}
+                  {query.interviewStartTime.split("T")[0].split("-")[1]}월{" "}
+                  {query.interviewStartTime.split("T")[0].split("-")[2]}일{" "}
+                  {query.interviewStartTime.split("T")[1].split(":")[0]}:
+                  {query.interviewStartTime.split("T")[1].split(":")[1]} ~{" "}
+                  {query.interviewEndTime.split("T")[1].split(":")[0]}:
+                  {query.interviewEndTime.split("T")[1].split(":")[1]}
+                </Date>
+              ) : (
+                <Date>면접 일시 : ----년 --월 --일 --:-- ~ --:--</Date>
+              )}
             </Text>
             <ResultWrapper>
               <Result>
