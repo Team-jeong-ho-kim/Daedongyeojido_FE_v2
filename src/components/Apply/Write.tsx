@@ -75,7 +75,11 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
       case "AI":
         return "AI";
       case "AND":
+<<<<<<< Updated upstream
         return "AOS";
+=======
+        return "Android";
+>>>>>>> Stashed changes
       case "BACK":
         return "BackEnd";
       case "DESIGN":
@@ -137,8 +141,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
                     return (
                       <Major
                         onClick={() => handleMajorClick(major.major)}
-                        selected={selectedMajor === major.major}
-                      >
+                        selected={selectedMajor === major.major}>
                         {majorType(major.major)}
                       </Major>
                     );
@@ -151,8 +154,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
             value={introduceText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setIntroduceText(e.target.value)
-            }
-          ></Introduce>
+            }></Introduce>
         </IntroduceWrapper>
         <QuestionWrapper>
           <Title>질문</Title>

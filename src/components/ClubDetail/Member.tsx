@@ -26,7 +26,7 @@ export const Member = ({
       />
       <TextWrapper>
         <Name>{name}</Name>
-        <Major>{major}</Major>
+        <Major>{major === "AND" ? "AOS" : major}</Major>
         <OneLine>{oneLiner}</OneLine>
       </TextWrapper>
     </Container>

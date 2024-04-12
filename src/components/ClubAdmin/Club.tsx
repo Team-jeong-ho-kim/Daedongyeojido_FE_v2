@@ -34,7 +34,11 @@ export const Club = ({ clubs }: memberProps) => {
       case "AI":
         return "AI";
       case "AND":
+<<<<<<< Updated upstream
         return "AOS";
+=======
+        return "Android";
+>>>>>>> Stashed changes
       case "BACK":
         return "BackEnd";
       case "DESIGN":

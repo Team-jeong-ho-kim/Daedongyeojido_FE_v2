@@ -125,7 +125,11 @@ const MyPage = () => {
       case "AI":
         return "AI";
       case "AND":
+<<<<<<< Updated upstream
         return "AOS";
+=======
+        return "Android";
+>>>>>>> Stashed changes
       case "BACK":
         return "BackEnd";
       case "DESIGN":
@@ -234,7 +238,11 @@ const MyPage = () => {
           setMyMajor(`IOS 개발자 ${data.name}입니다.`);
           break;
         case "AND":
+<<<<<<< Updated upstream
           setMyMajor(`AOS 개발자 ${data.name}입니다.`);
+=======
+          setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
+>>>>>>> Stashed changes
           break;
         case "FLUTTER":
           setMyMajor(`플러터 개발자 ${data.name}입니다.`);
@@ -327,13 +335,11 @@ const MyPage = () => {
                 <MyInfo_Menu>
                   <Announce>
                     <Ball3
-                      isAnnounce={page == "Announce" ? true : false}
-                    ></Ball3>
+                      isAnnounce={page == "Announce" ? true : false}></Ball3>
                     <Text3
                       isAnnounce={page == "Announce" ? true : false}
                       id="Announce"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       공지사항
                     </Text3>
                   </Announce>
@@ -342,20 +348,19 @@ const MyPage = () => {
                     <Text2
                       isAlarm={page == "Alarm" ? true : false}
                       id="Alarm"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       알림
                     </Text2>
                   </Alarm>
                   <ApplyDetail>
                     <Ball1
-                      isApplyDetail={page == "ApplyDetail" ? true : false}
-                    ></Ball1>
+                      isApplyDetail={
+                        page == "ApplyDetail" ? true : false
+                      }></Ball1>
                     <Text1
                       isApplyDetail={page == "ApplyDetail" ? true : false}
                       id="ApplyDetail"
-                      onClick={handlePage}
-                    >
+                      onClick={handlePage}>
                       지원내역
                     </Text1>
                   </ApplyDetail>
@@ -386,8 +391,7 @@ const MyPage = () => {
                             key={report.id}
                             onClick={() =>
                               link(`/ApplicationQuery/${report.id}`)
-                            }
-                          >
+                            }>
                             <ApplyDetails>
                               <ApplyName>{report.clubName}</ApplyName>
                               <ApplyData>
@@ -470,8 +474,7 @@ const MyPage = () => {
                                   <InterviewScheduleSelect
                                     onClick={() =>
                                       handleIvsdSelectToggle(alarm.reportId)
-                                    }
-                                  >
+                                    }>
                                     면접 시간 선택
                                   </InterviewScheduleSelect>
                                 </AlarmName>

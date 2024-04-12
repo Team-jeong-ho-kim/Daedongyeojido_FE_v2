@@ -103,8 +103,7 @@ export const Notice: React.FC<Notices> = ({
                         return;
                       }
                       link(`/NoticeDetails/${notice.id}`);
-                    }}
-                  >
+                    }}>
                     지원하기
                   </Button>
                 ) : (
