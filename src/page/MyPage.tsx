@@ -125,11 +125,8 @@ const MyPage = () => {
       case "AI":
         return "AI";
       case "AND":
-<<<<<<< Updated upstream
-        return "AOS";
-=======
+        return "AND";
         return "Android";
->>>>>>> Stashed changes
       case "BACK":
         return "BackEnd";
       case "DESIGN":
@@ -238,11 +235,8 @@ const MyPage = () => {
           setMyMajor(`IOS 개발자 ${data.name}입니다.`);
           break;
         case "AND":
-<<<<<<< Updated upstream
           setMyMajor(`AOS 개발자 ${data.name}입니다.`);
-=======
           setMyMajor(`안드로이드 개발자 ${data.name}입니다.`);
->>>>>>> Stashed changes
           break;
         case "FLUTTER":
           setMyMajor(`플러터 개발자 ${data.name}입니다.`);

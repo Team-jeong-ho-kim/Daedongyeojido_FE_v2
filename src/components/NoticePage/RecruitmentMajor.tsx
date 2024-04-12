@@ -12,11 +12,8 @@ const RecruitmentMajor: React.FC<Notices> = ({ major, todo }) => {
       case "AI":
         return "AI";
       case "AND":
-<<<<<<< Updated upstream
-        return "AOS";
-=======
+        return "AND";
         return "안드로이드";
->>>>>>> Stashed changes
       case "BACK":
         return "백엔드";
       case "DESIGN":
