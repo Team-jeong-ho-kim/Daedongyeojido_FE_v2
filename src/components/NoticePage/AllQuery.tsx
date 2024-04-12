@@ -43,7 +43,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
       case "IOS":
         return "IOS";
       case "AND":
-        return "AOS";
+        return "AND";
       case "FLUTTER":
         return "FLUTTER";
       case "EMBEDDED":
@@ -72,7 +72,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
       case "IOS":
         return "IOS";
       case "AND":
-        return "안드로이드";
+        return "AOS";
       case "FLUTTER":
         return "플러터";
       case "EMBEDDED":
@@ -162,7 +162,7 @@ export const AllQuery: React.FC<Notices> = ({ notices }) => {
             <Opt value="FRONT">프론트엔드</Opt>
             <Opt value="BACK">백엔드</Opt>
             <Opt value="IOS">IOS</Opt>
-            <Opt value="AND">안드로이드</Opt>
+            <Opt value="AND">AOS</Opt>
             <Opt value="FLUTTER">플러터</Opt>
             <Opt value="EMBEDDED">임베디드</Opt>
             <Opt value="AI">AI</Opt>

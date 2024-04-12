@@ -6,7 +6,7 @@ export type MajorType =
   | "FRONT"
   | "BACK"
   | "IOS"
-  | "AOS"
+  | "AND"
   | "FLUTTER"
   | "EMBEDDED"
   | "AI"

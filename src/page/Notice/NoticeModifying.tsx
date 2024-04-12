@@ -250,6 +250,7 @@ const NoticeModifying: React.FC = () => {
           endDay: data.interviewDay.endDay + "T10:00:00",
         },
       };
+      console.log(postData);
       modifyNotice(postData)
         .then((res) => {
           alert("성공적으로 수정되었습니다");
@@ -374,17 +375,17 @@ const NoticeModifying: React.FC = () => {
                       <option value="" disabled selected>
                         모집 전공
                       </option>
-                      <option value="FRONT">frontend</option>
-                      <option value="BACK">backend</option>
-                      <option value="IOS">ios</option>
-                      <option value="AND">android</option>
-                      <option value="FLUTTER">flutter</option>
-                      <option value="EMBEDDED">embedded</option>
-                      <option value="AI">ai</option>
-                      <option value="SECURITY">security</option>
-                      <option value="DEVOPS">devops</option>
-                      <option value="DESIGN">design</option>
-                      <option value="GAME">game</option>
+                      <option value="FRONT">FrontEnd</option>
+                      <option value="BACK">BackEnd</option>
+                      <option value="IOS">IOS</option>
+                      <option value="AND">AOS</option>
+                      <option value="FLUTTER">Flutter</option>
+                      <option value="EMBEDDED">Embedded</option>
+                      <option value="AI">AI</option>
+                      <option value="SECURITY">Security</option>
+                      <option value="DEVOPS">DevOps</option>
+                      <option value="DESIGN">Design</option>
+                      <option value="GAME">Game</option>
                     </Select>
                     <RightInput
                       type="text"

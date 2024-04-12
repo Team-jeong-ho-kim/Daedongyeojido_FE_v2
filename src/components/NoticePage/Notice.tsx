@@ -27,7 +27,7 @@ export const Notice: React.FC<Notices> = ({
       case "IOS":
         return "IOS";
       case "AND":
-        return "안드로이드";
+        return "AOS";
       case "FLUTTER":
         return "플러터";
       case "EMBEDDED":
@@ -56,7 +56,7 @@ export const Notice: React.FC<Notices> = ({
       case "IOS":
         return "IOS";
       case "AND":
-        return "AOS";
+        return "AND";
       case "FLUTTER":
         return "FLUTTER";
       case "EMBEDDED":

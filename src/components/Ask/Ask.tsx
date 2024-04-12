@@ -95,7 +95,12 @@ export const Ask = () => {
       data.inquiryType &&
       data.inquiryContent
     ) {
-      createInquiry(data)
+      createInquiry({
+        name: data.name,
+        phoneNumber: data.phoneNumber.replace(/-/g, ""),
+        inquiryType: data.inquiryType,
+        inquiryContent: data.inquiryContent,
+      })
         .then(() => {
           alert("성공적으로 문의 되었습니다");
           window.location.replace("/");

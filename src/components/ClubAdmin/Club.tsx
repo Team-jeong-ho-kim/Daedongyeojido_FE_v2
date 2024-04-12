@@ -33,8 +33,8 @@ export const Club = ({ clubs }: memberProps) => {
     switch (major) {
       case "AI":
         return "AI";
-      case "AOS":
-        return "Android";
+      case "AND":
+        return "AOS";
       case "BACK":
         return "BackEnd";
       case "DESIGN":

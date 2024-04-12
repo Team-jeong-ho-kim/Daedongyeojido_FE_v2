@@ -74,8 +74,8 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
     switch (major) {
       case "AI":
         return "AI";
-      case "AOS":
-        return "Android";
+      case "AND":
+        return "AOS";
       case "BACK":
         return "BackEnd";
       case "DESIGN":
@@ -93,7 +93,7 @@ export const Write: React.FC<Writer> = ({ write, id }) => {
       case "IOS":
         return "IOS";
       case "SECURITY":
-        return "InfoSec";
+        return "Security";
       case "UNDEFINED":
         return "Undefined";
       case "":
