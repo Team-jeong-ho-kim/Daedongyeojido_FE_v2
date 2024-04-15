@@ -125,8 +125,7 @@ const interviewSchedule: React.FC<Props> = ({
                   1,
                 true
               )
-            }
-          >
+            }>
             {daysInMonth(
               currentMonth === 0 ? 11 : currentMonth - 1,
               currentMonth === 0 ? currentYear - 1 : currentYear
@@ -150,8 +149,7 @@ const interviewSchedule: React.FC<Props> = ({
           isSunday={isSunday}
           isSaturday={isSaturday}
           isSelected={isSelected}
-          onClick={() => handleDateClick(i)}
-        >
+          onClick={() => handleDateClick(i)}>
           {i}
         </Day>
       );
@@ -167,8 +165,7 @@ const interviewSchedule: React.FC<Props> = ({
             isSaturday={false}
             isSelected={false}
             isNextMonth
-            onClick={() => handleDateClick(i, false, true)}
-          >
+            onClick={() => handleDateClick(i, false, true)}>
             {i}
           </Day>
         );
@@ -235,13 +232,13 @@ const interviewSchedule: React.FC<Props> = ({
     if (user) {
       let found: boolean = true;
       user.myReport.forEach((data) => {
+        if (!data.interviewStartTime || !IST) return;
+
         if (data.interviewStartTime.split("T")[0] === IST.split("T")[0]) {
           const ISTmTime = new Date(data.interviewStartTime).getTime();
           const IETmTime = new Date(data.interviewEndTime).getTime();
           const ISTTime = new Date(IST).getTime();
           const IETTime = new Date(IET).getTime();
-          console.log(ISTmTime, IETmTime, ISTTime, IETTime);
-          console.log(data.interviewStartTime, data.interviewEndTime, IST, IET);
           if (
             (ISTTime > ISTmTime && ISTTime < IETmTime) ||
             (IETTime > ISTmTime && IETTime < IETmTime) ||
@@ -333,8 +330,7 @@ const interviewSchedule: React.FC<Props> = ({
                                     .split(":")[1]
                                 }`
                               );
-                            }}
-                          >
+                            }}>
                             {
                               time.interviewStartTime
                                 .split("T")[1]
