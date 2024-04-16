@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MemoGetType } from "../../types/type";
+import { MemoGetType, MajorType } from "../../types/type";
 import { getMemoData, patchModifyMemo } from "../../apis/report";
 import { cancelAlarm, postITVresult } from "../../apis/alarm";
 
@@ -113,6 +113,37 @@ export const Memo = ({ reportId }: { reportId: number }) => {
     }
   };
 
+  const majorType = (major: MajorType) => {
+    switch (major) {
+      case "AI":
+        return "AI";
+      case "AND":
+        return "안드로이드";
+      case "BACK":
+        return "백엔드";
+      case "DESIGN":
+        return "디자인";
+      case "DEVOPS":
+        return "DevOps";
+      case "EMBEDDED":
+        return "임베디드";
+      case "FLUTTER":
+        return "플러터";
+      case "FRONT":
+        return "프론트엔드";
+      case "GAME":
+        return "게임";
+      case "IOS":
+        return "IOS";
+      case "SECURITY":
+        return "보안";
+      case "UNDEFINED":
+        return "미정";
+      default:
+        return "없음";
+    }
+  };
+
   useEffect(() => {
     if (reportId) {
       getMemoData(reportId).then((res) => {
@@ -125,7 +156,7 @@ export const Memo = ({ reportId }: { reportId: number }) => {
     <Container>
       <TopWrapper>
         <Title>
-          {memo.classNumber} {memo.name} {memo.major} 면접 기록
+          {memo.classNumber} {memo.name} {majorType(memo.major)} 면접 기록
         </Title>
         <BtnWrapper>
           <ButtonPass
