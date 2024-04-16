@@ -118,7 +118,7 @@ export const Memo = ({ reportId }: { reportId: number }) => {
       case "AI":
         return "AI";
       case "AND":
-        return "안드로이드";
+        return "AOS";
       case "BACK":
         return "백엔드";
       case "DESIGN":
