@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { InfoProps } from "../../types/type";
 
+const Replacing = (str: string) => {
+  const returnStr = str.split("\n").map((line, index) => (
+    <div key={index}>
+      {line}
+      <br />
+    </div>
+  ));
+
+  return returnStr;
+};
+
 export const Query = ({ info }: InfoProps) => {
   return (
     <Container>
@@ -13,7 +24,7 @@ export const Query = ({ info }: InfoProps) => {
             </InfoWrapper>
             <Introduce>
               <IntroduceLine></IntroduceLine>
-              <IntroduceText>{info.introduce}</IntroduceText>
+              <IntroduceText>{Replacing(info.introduce)}</IntroduceText>
             </Introduce>
           </IntroduceWrapper>
           <QuestionWrapper>
@@ -26,7 +37,7 @@ export const Query = ({ info }: InfoProps) => {
                     <O></O>
                     <Question>{qa.question}</Question>
                   </Text>
-                  <Input>{qa.answer}</Input>
+                  <Input>{Replacing(qa.answer)}</Input>
                 </Q_A>
               );
             })}
@@ -85,7 +96,7 @@ const Introduce = styled.div`
 
 const IntroduceLine = styled.div`
   width: 5px;
-  height: 280px;
+  height: auto;
   background: #626c7b;
 `;
 

@@ -34,7 +34,6 @@ export const Club = ({ clubs }: memberProps) => {
       case "AI":
         return "AI";
       case "AND":
-        return "AND";
         return "Android";
       case "BACK":
         return "BackEnd";

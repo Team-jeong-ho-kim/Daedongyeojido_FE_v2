@@ -82,7 +82,7 @@ const Box = styled.div`
   flex-wrap: wrap;
   gap: 53px;
   width: 100%;
-  max-width: 1462px;
+  max-width: 1470px;
   border-radius: 10px;
   border: 3px solid #eaecef;
   padding: 50px 75px;
